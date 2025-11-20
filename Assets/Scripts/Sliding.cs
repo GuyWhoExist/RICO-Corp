@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//NOT USED, as far as I know
+//NOT USED, as far as I know - Nova
 
 public class Sliding : MonoBehaviour
 {

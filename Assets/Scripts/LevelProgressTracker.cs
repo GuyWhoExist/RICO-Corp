@@ -16,7 +16,7 @@ public class LevelProgressTracker : MonoBehaviour
         public float milestone1 { get; } //time milestones. hitting m1 would be the minimum. - Nova
         public float milestone2 { get; }
         public float milestone3 { get; }
-        public int levelIndex { get; } //stores the level number - Nova
+        public int levelIndex { get; } //stores the level number, kinda redundant - Nova
 
         public float? bestTime; //the "?" after float allows "bestTime" to store a null value - Nova
 
@@ -53,7 +53,7 @@ public class LevelProgressTracker : MonoBehaviour
         new (25f, 20f, 15f, 7 ),
     };
 
-    public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted
+    public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted - Nova
 
     public int GetArrayIndex( int levelIndex ) //i realized this was redundant a few hours after i coded this. so yeah... - Nova
     {

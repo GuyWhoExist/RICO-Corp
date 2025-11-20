@@ -179,11 +179,11 @@ public class Shooting : MonoBehaviour
                         //im just gonna explain how the reflect code works here and point out any changes in other blocks - Nova
                         lineRenderer.positionCount++; //we increase the number of nodes in the line renderer - Nova
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point); //we give the node a position, being where we hit - Nova
-                        shotOrigin = hit.point + shotDirection * 0.01f; //change the origin to where we hit + a tiny but out to prevent to origin from being in a wall. - Nova
+                        shotOrigin = hit.point + shotDirection * 0.01f; //change the origin to where we hit + a tiny bit out to prevent the origin from being in a wall. - Nova
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal); //and change its direction based on the angle of the surface - Nova
                         Debug.Log("Armored Glass Hit"); //the only reflectable and shootable thing is armored glass - Nova
                         shoot.OnGettingShot(); //then we run the shootable target's OnGettingShot function - Nova
-                        total--; //then decrease the total # of bounces - Nova
+                        total--; //then decrease the total # of bounces left - Nova
                     }
                     else //if the surface is only reflectable... - Nova
                     {
@@ -192,7 +192,7 @@ public class Shooting : MonoBehaviour
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal);
                         total--;
-                        //we simply reflect the shot and add to the line renderer - Nova
+                        //we simply reflect the shot, add to the line renderer and decrease total - Nova
                     }
                     if (total == 0) //if we hit a reflectable surface but are out of bounces... - Nova
                     {
@@ -210,6 +210,7 @@ public class Shooting : MonoBehaviour
                         Debug.Log("Glass Hit");
                         shootable.OnGettingShot();
                         //we add a node to the line renderer, but we DONT decrease the total, as this isnt a bounce - Nova
+                        //we also dont reflect the shot and keep the direction the same - Nova
                     }
                     else //enemies ONLY have shootable - Nova
                     {
@@ -223,8 +224,8 @@ public class Shooting : MonoBehaviour
                         Debug.Log($"{boostCoolDownStored}");
                         killStreak = killStreak + 1;
                         shootable.OnGettingShot();
-                        enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-                        Destroy(shootable.GetGameObject()); // this kills the enemy? ig?
+                        enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //reduces the enemy count - Nova
+                        Destroy(shootable.GetGameObject()); // this kills the enemy? ig? - Sawyer
                     }
                 }
 
@@ -238,7 +239,7 @@ public class Shooting : MonoBehaviour
                 }
                 StartCoroutine(ResetShot());
             }
-            else //if you dont hit shit - Nova
+            else //if you dont hit anything - Nova
             {
                 Debug.Log("Miss");
                 //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);

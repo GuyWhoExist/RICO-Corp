@@ -14,7 +14,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     [Header("Jumping")]
     public float jumpForce;
-    public float jumpCooldown; // Gee I wonder what these do :thinking:
+    public float jumpCooldown; // Gee I wonder what these do :thinking: - Sawyer
     public float airMultiplier; //the modifier for when the player is in the air. (ex. 2 would double the players speed in the air. should be <= 1) - Nova
     bool readyToJump;
     [SerializeField] private float gravityMultiplier;
