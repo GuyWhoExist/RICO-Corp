@@ -303,7 +303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelProgressTracker: {fileID: 1130390186}
   levelIndex: 1
   unlocked: 0
 --- !u!1 &164132204
@@ -452,7 +451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelProgressTracker: {fileID: 1130390186}
   levelIndex: 2
   unlocked: 0
 --- !u!1 &190700323
@@ -1148,7 +1146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelProgressTracker: {fileID: 1130390186}
   levelIndex: 5
   unlocked: 0
 --- !u!1 &386269010
@@ -1997,7 +1994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelProgressTracker: {fileID: 1130390186}
   levelIndex: 6
   unlocked: 0
 --- !u!1 &1298706509
@@ -2241,7 +2237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.5206604, y: 22.9}
+  m_AnchoredPosition: {x: 0.52061, y: 22.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1373799048
@@ -2990,7 +2986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.5206604, y: 66.6}
+  m_AnchoredPosition: {x: 0.52061, y: 66.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1686343307
@@ -3260,6 +3256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e543a998b2179d4d9ec1840ca1bb6e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  used: 0
 --- !u!4 &1772233618
 Transform:
   m_ObjectHideFlags: 0
@@ -3733,7 +3730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelProgressTracker: {fileID: 1130390186}
   levelIndex: 4
   unlocked: 0
 --- !u!1 &1964904910
@@ -3882,7 +3878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelProgressTracker: {fileID: 1130390186}
   levelIndex: 3
   unlocked: 0
 --- !u!1 &1971514254
