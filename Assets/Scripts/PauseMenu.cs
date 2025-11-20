@@ -9,6 +9,8 @@ public class PauseMenu : MonoBehaviour
     public bool paused;
     [SerializeField] GameObject pauseHud;
     [SerializeField] GameObject gameHud;
+    public bool buttonPress;
+    //allows to unpause via other means
  
 
     private void Awake()
@@ -31,22 +33,29 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause_Performed(InputAction.CallbackContext context)
     {
-        if (paused == false)
+        buttonPress = true;
+    }
+
+    private void Update()
+    {
+        if (buttonPress == true)
         {
-            Time.timeScale = 0;
-            paused = true;
-            gameHud.SetActive(false);
-            pauseHud.SetActive(true);
-            
-            
-        }
-        else if (paused == true)
-        {
-            Time.timeScale = 1;
-            paused = false;
-            pauseHud.SetActive(false);
-            gameHud.SetActive(true);
-       
+            if (paused == false)
+            {
+                Time.timeScale = 0;
+                paused = true;
+                gameHud.SetActive(false);
+                pauseHud.SetActive(true);
+                buttonPress = false;
+            }
+            else if (paused == true)
+            {
+                Time.timeScale = 1;
+                paused = false;
+                pauseHud.SetActive(false);
+                gameHud.SetActive(true);
+                buttonPress = false;
+            }
         }
     }
 }
