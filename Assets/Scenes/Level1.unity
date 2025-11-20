@@ -397,6 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 447550999}
   - component: {fileID: 447550998}
+  - component: {fileID: 447551000}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -484,6 +485,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &447551000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447550997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &491546807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -495,14 +519,6 @@ PrefabInstance:
     - target: {fileID: 842001185175704432, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_Name
       value: Level Preset
-      objectReference: {fileID: 0}
-    - target: {fileID: 3928407846925679066, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
-      propertyPath: moveSpeed
-      value: 9.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 3928407846925679066, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
-      propertyPath: coyoteTime
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4336453348402989139, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -648,11 +664,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6031748147105094302, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.53
+      value: -19.55
       objectReference: {fileID: 0}
     - target: {fileID: 6031748147105094302, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.497261
+      value: 6.04
       objectReference: {fileID: 0}
     - target: {fileID: 6031748147105094302, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
       propertyPath: m_LocalPosition.z
