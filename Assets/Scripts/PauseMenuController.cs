@@ -4,19 +4,19 @@ using UnityEngine.UI;
 
 public class PauseMenuController : MonoBehaviour
 {
-    [SerializeField] private PauseMenu pauseMenu;
+    public PauseMenu pauseMenu;// so many public classes
     [SerializeField] GameObject pauseHUD;
-    [SerializeField] GameObject settings_Audio;
-    [SerializeField] GameObject settings_Video;
-    [SerializeField] GameObject settings_Gameplay;
-    [SerializeField] GameObject pauseUI;
+    public GameObject settings_Audio;
+    public GameObject settings_Video;
+    public GameObject settings_Gameplay;
+    public GameObject pauseUI;
     private void Start()
     {
         settings_Audio.SetActive(false);
         settings_Gameplay.SetActive(false);
         settings_Video.SetActive(false);
     }
-    public void OnPauseQuit()
+    public void OnPauseQuit() 
     {
         Debug.Log("You pressed it");
         SceneManager.LoadScene(0);
@@ -32,6 +32,7 @@ public class PauseMenuController : MonoBehaviour
     public void OnTheQuintessentialResumeButtonTrigger()
     {
         pauseMenu.buttonPress = true;
+
     }
     public void OnAudioPress()
     {
@@ -53,11 +54,6 @@ public class PauseMenuController : MonoBehaviour
     }
     public void Update()
     {
-        if (pauseMenu.buttonPress == true)
-        {
-            settings_Audio.SetActive(false);
-            settings_Video.SetActive(false);
-            settings_Gameplay.SetActive(false);
-        }
+        
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -8,11 +9,15 @@ public class TimerController : MonoBehaviour
 {
     //controls UI, time, and changing levels for some reason idk - Nova
 
-    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI enemyCountText;
+    [SerializeField] GameObject next;
+    [SerializeField] GameObject endGUI;
+    [SerializeField] GameObject gameHUD;
     private LevelProgressTracker levelProgressTracker;
-    private float curTime;
+    public float curTime;
     public bool timeTicking;
+    public bool end;
 
     private void Awake()
     {
@@ -26,6 +31,8 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("Things have gone HORRIBLY wrong in the time controller");
         }
+
+        end = false;
     }
     void Update()
     {
@@ -114,33 +121,25 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("No Audio Source Found!");
         }
-
-        if (lE.GetNextIndex() == 0)
-        {
-            if (curTime <= levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone1)
-            {
-                Debug.Log("Milestone 1 hit");
-                SceneManager.LoadScene(lE.GetNextIndex());
-            }
-            else
-            {
-                Debug.Log("Git gud");
-                SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
-            }
-        }
-        else
-        {
+        
             if (curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 2].milestone1)
             {
-                Debug.Log("Milestone 1 hit");
-                SceneManager.LoadScene(lE.GetNextIndex());
+
+              next.SetActive(true);
+              endGUI.SetActive(true);
+              Time.timeScale = 0;
+              gameHUD.SetActive(false);
+              end = true;
             }
             else
             {
-                Debug.Log("Git gud");
-                SceneManager.LoadScene(lE.GetNextIndex() - 1);
+              next.SetActive(false);
+              endGUI.SetActive(true);
+              Time.timeScale = 0;
+              gameHUD.SetActive(false);
+              end = true;
             }
-        }
+        
 
         levelProgressTracker.used = true;
 

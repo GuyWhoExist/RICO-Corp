@@ -1,4 +1,5 @@
 using System;
+using Palmmedia.ReportGenerator.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Android;
@@ -7,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     private Controls controls;
     public bool paused;
+    [SerializeField] PauseMenuController pauseController;
     [SerializeField] GameObject pauseHud;
     [SerializeField] GameObject gameHud;
     public bool buttonPress;
@@ -34,6 +36,19 @@ public class PauseMenu : MonoBehaviour
     private void Pause_Performed(InputAction.CallbackContext context)
     {
         buttonPress = true;
+
+        if (paused == true)
+        {
+            pauseController.pauseUI.SetActive(true);
+            if (pauseController.pauseUI == enabled)
+            {
+                pauseController.settings_Audio.SetActive(false);
+                pauseController.settings_Video.SetActive(false);
+                pauseController.settings_Gameplay.SetActive(false);
+
+
+            }
+        }
     }
 
     private void Update()
@@ -55,6 +70,7 @@ public class PauseMenu : MonoBehaviour
                 pauseHud.SetActive(false);
                 gameHud.SetActive(true);
                 buttonPress = false;
+
             }
         }
     }

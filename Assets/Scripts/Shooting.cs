@@ -55,7 +55,7 @@ public class Shooting : MonoBehaviour
 
     private void Update() //everything in this is used for the PREDICTION LASER. - Nova
     {
-        // allows to kill shoot
+        // allows to disable shoot
         if (pauseMenu.paused == true)
         {
             controls.Guns.Shoot.Disable();
