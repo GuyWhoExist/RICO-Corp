@@ -18,7 +18,7 @@ public class LevelProgressTracker : MonoBehaviour
         public float milestone3 { get; }
         public int levelIndex { get; } //stores the level number, kinda redundant - Nova
 
-        public float? bestTime; //the "?" after float allows "bestTime" to store a null value - Nova
+        public float bestTime; //the "?" after float allows "bestTime" to store a null value - Nova
 
     }
 
@@ -45,7 +45,7 @@ public class LevelProgressTracker : MonoBehaviour
     }
 
     public LevelInfo[] levels = new LevelInfo[6] { //the array of levels. - Nova
-        new (25f, 20f, 15f, 1 ),
+        new (25f, 20f, 15f, 2 ),
         new (25f, 20f, 15f, 3 ),
         new (25f, 20f, 15f, 4 ),
         new (25f, 20f, 15f, 5 ),

@@ -117,12 +117,12 @@ public class TimerController : MonoBehaviour
 
         if (lE.GetNextIndex() == 0)
         {
-            if (curTime <= levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone1)
+            if (curTime <= levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone1) //if the player beat milestone 1 we load next level - Nova
             {
                 Debug.Log("Milestone 1 hit");
                 SceneManager.LoadScene(lE.GetNextIndex());
             }
-            else
+            else //otherwise, load the scene again
             {
                 Debug.Log("Git gud");
                 SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
