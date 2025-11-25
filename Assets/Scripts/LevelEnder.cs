@@ -5,7 +5,7 @@ public class LevelEnder : MonoBehaviour
     //this object ends the level (duh) - Nova
 
     [SerializeField] float bonus;
-    [SerializeField] int nextLevelIndex;
+    [SerializeField] public int nextLevelIndex;
     
     public float GetBonus()
     {

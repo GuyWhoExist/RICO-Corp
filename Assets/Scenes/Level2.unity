@@ -660,6 +660,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &697430533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2748715816714961869, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+  m_PrefabInstance: {fileID: 1357349311}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &758712668
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +846,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7692671321899801519, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
   m_PrefabInstance: {fileID: 1357349311}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1163035640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5862547367364542119, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
+  m_PrefabInstance: {fileID: 1793045028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53972128775ca7b45a2f66b47761394e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1271758768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1058,10 +1074,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5787239055856472128, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1163035640}
     - target: {fileID: 6976884104883577321, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: shot
       value: 
       objectReference: {fileID: 8300000, guid: 755965786b322884e959ffea771eb63c, type: 3}
+    - target: {fileID: 7741808929884212910, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: levelEnder
+      value: 
+      objectReference: {fileID: 1163035640}
+    - target: {fileID: 8084345435329298987, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1163035640}
+    - target: {fileID: 8344857651682086310, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: endGUi
+      value: 
+      objectReference: {fileID: 697430533}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1368,7 +1400,7 @@ AudioSource:
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 755965786b322884e959ffea771eb63c, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 755965786b322884e959ffea771eb63c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1

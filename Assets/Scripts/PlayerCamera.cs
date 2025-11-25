@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
@@ -9,7 +10,8 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform playerBody;
     [SerializeField] private PauseMenu pauseMenu;
-    private bool overflowBlock;
+    [SerializeField] private TimerController endTracker;
+    private bool overflowBlock; //- allows to prevent the game enabling camera every single frame
     private Rigidbody rb;
 
     private float xRotation = 0f;
@@ -20,6 +22,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
+        overflowBlock = false;
         inputActions = new Controls();
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponentInParent<Rigidbody>();
@@ -49,14 +52,14 @@ public class PlayerCamera : MonoBehaviour
     {
         Look(lookInput);
 
-        // code to allow pause killing cam movement
-        if (pauseMenu.paused == true)
+        // code to allow pause/levelend disabling cam movement
+        if (pauseMenu.paused == true || endTracker.end == true)
         {
             inputActions.Camera.Disable();
             overflowBlock = false;
             Cursor.lockState = CursorLockMode.None;
         }
-        else if (pauseMenu.paused == false && overflowBlock == false)
+        else if (pauseMenu.paused == false && overflowBlock == false || endTracker.end == false && overflowBlock == false)
         {
             inputActions.Camera.Enable();
             overflowBlock = true;

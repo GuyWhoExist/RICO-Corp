@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class Shooting : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private PlayerMovementTutorial playerMovementTutorial;
     public float boostCoolDownStored;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private TimerController timerController;
     private bool overflowBlock;
 
     private void Awake()
@@ -55,13 +57,13 @@ public class Shooting : MonoBehaviour
 
     private void Update() //everything in this is used for the PREDICTION LASER. - Nova
     {
-        // allows to kill shoot
-        if (pauseMenu.paused == true)
+        // allows to disable shoot
+        if (pauseMenu.paused == true || timerController.end == true)
         {
             controls.Guns.Shoot.Disable();
             overflowBlock = false;
         }
-        else if (pauseMenu.paused == false && overflowBlock == false)
+        else if (pauseMenu.paused == false && overflowBlock == false || timerController.end && overflowBlock == false)
         {
             controls.Guns.Shoot.Enable();
             overflowBlock = true;

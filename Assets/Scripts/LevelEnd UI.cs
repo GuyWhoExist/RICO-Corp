@@ -1,0 +1,67 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class LevelEndUI : MonoBehaviour
+{
+    private LevelProgressTracker levelProgressTracker;
+    private TimerController timerController;
+    [SerializeField] LevelEnder levelEnder;
+    [SerializeField] TextMeshProUGUI resultsDisplay;
+    [SerializeField] GameObject endGUI;
+
+    private void Awake()
+    {
+        //timerController = GetComponent<TimerController>();
+        timerController = FindAnyObjectByType<TimerController>();
+    }
+    private void OnEnable()
+    {
+        levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        
+        endGUI.SetActive(false);
+
+     
+    }
+    public void OnNextPress(LevelEnder lE) // player presses next after successfully completing level -sawyer
+    {
+        timerController.end = false;
+        Time.timeScale = 1;
+        if (timerController.end == false)
+        {
+            SceneManager.LoadScene(lE.GetNextIndex());
+        }
+        
+    }
+    public void OnRestartPress(LevelEnder lE) // player restarts -sawyer
+    {
+        Time.timeScale = 1;
+        if (levelEnder.nextLevelIndex == 0)
+        {
+            Debug.Log("Git gud");
+            timerController.end = false;
+            if (timerController.end == false)
+            {
+                SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
+            }
+          
+        }
+        else
+        {
+            Debug.Log("Git gud");
+            timerController.end = false;
+            if (timerController.end == false)
+            {
+                SceneManager.LoadScene(lE.GetNextIndex() - 1);
+            }
+            
+        }
+
+    }
+    public void OnQuitPress() // player likely ragequit, shame on them -sawyer
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+
+    }
+}
