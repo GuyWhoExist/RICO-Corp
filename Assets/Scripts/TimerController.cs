@@ -121,28 +121,47 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("No Audio Source Found!");
         }
-        
+
+
+
+
+        if (lE.GetNextIndex() == 0)
+        {
+            if (curTime <= levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone1) //if the player beat milestone 1 we load next level - Nova
+            {
+                Debug.Log("Milestone 1 hit");
+                SceneManager.LoadScene(lE.GetNextIndex());
+            }
+            else //otherwise, load the scene again
+            {
+                Debug.Log("Git gud");
+                SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
+            }
+        }
+        else
+        {
+
             if (curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 2].milestone1)
             {
 
-              next.SetActive(true);
-              endGUI.SetActive(true);
-              Time.timeScale = 0;
-              gameHUD.SetActive(false);
-              end = true;
+                next.SetActive(true);
+                endGUI.SetActive(true);
+                Time.timeScale = 0;
+                gameHUD.SetActive(false);
+                end = true;
             }
             else
             {
-              next.SetActive(false);
-              endGUI.SetActive(true);
-              Time.timeScale = 0;
-              gameHUD.SetActive(false);
-              end = true;
+                next.SetActive(false);
+                endGUI.SetActive(true);
+                Time.timeScale = 0;
+                gameHUD.SetActive(false);
+                end = true;
             }
-        
-
-        levelProgressTracker.used = true;
 
 
+            levelProgressTracker.used = true;
+
+        }
     }
 }
