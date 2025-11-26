@@ -589,10 +589,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Preset
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 4048945849078948412, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+=======
+    - target: {fileID: 1596551726070964173, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: levelEnder
+      value: 
+      objectReference: {fileID: 854493444}
+>>>>>>> b71022d9a1c72b0331adb0e8ea1e0515fcc479a2
     - target: {fileID: 4336453348402989139, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

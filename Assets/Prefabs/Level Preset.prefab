@@ -2358,6 +2358,7 @@ MonoBehaviour:
   settings_Video: {fileID: 5975207574629774837}
   settings_Gameplay: {fileID: 7560025477368984451}
   pauseUI: {fileID: 8357225168660746573}
+  quit: 0
 --- !u!1 &4842486049927780051
 GameObject:
   m_ObjectHideFlags: 0
@@ -6481,6 +6482,10 @@ PrefabInstance:
       propertyPath: endTracker
       value: 
       objectReference: {fileID: 8344857651682086310}
+    - target: {fileID: 575393813364354144, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: pauseMenuController
+      value: 
+      objectReference: {fileID: 5098571564573209126}
     - target: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6640,6 +6645,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9007248680181287068}
+    - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1596551726070964173}
     - targetCorrespondingSourceObject: {fileID: 2322980758753661442, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 502222255156275424}
@@ -6733,6 +6741,20 @@ MonoBehaviour:
   pauseHud: {fileID: 9094756203844871988}
   gameHud: {fileID: 3965869180893148803}
   buttonPress: 0
+--- !u!114 &1596551726070964173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780116629374330792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74e74dfe815ce14ba48c5a1d52b964b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelEnder: {fileID: 0}
+  timerController: {fileID: 8344857651682086310}
 --- !u!114 &3928407846925679066 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
