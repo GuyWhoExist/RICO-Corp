@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class LevelEndUI : MonoBehaviour
@@ -18,10 +19,24 @@ public class LevelEndUI : MonoBehaviour
     private void OnEnable()
     {
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
-        
+        for (int i = 0; i < endGUI.transform.childCount; i++)
+        {
+            if (endGUI.transform.GetChild(i).gameObject.name == "Gold Time Text")
+            {
+                Debug.Log($"Gold: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone3.ToString("0:00.00")}");
+                endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelEnder.nextLevelIndex-3].milestone3.ToString("0:00.00")}";
+            }
+            else if (endGUI.transform.GetChild(i).gameObject.name == "Silver Time Text")
+            {
+                endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone2.ToString("0:00.00")}";
+            }
+            else if (endGUI.transform.GetChild(i).gameObject.name == "Bronze Time Text")
+            {
+                endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone1.ToString("0:00.00")}";
+            }
+        }
         endGUI.SetActive(false);
 
-     
     }
     public void OnNextPress(LevelEnder lE) // player presses next after successfully completing level -sawyer
     {

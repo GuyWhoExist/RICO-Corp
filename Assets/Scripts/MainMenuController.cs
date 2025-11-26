@@ -162,9 +162,15 @@ public class MainMenuController : MonoBehaviour
             }
         }
         GameObject levels = GameObject.Find("Levels");
-        levels.SetActive(false);
+        if (levels != null)
+        {
+            levels.SetActive(false);
+        }
         GameObject times = GameObject.Find("Level Times");
-        times.SetActive(false);
+        if (times != null)
+        {
+            times.SetActive(false);
+        }
     }
 
 }

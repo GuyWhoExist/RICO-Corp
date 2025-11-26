@@ -31,7 +31,13 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("Things have gone HORRIBLY wrong in the time controller");
         }
-
+        for (int i = 0; i < gameHUD.transform.childCount; i++) //Enables everything in gameHUD except the timer when the level starts - Nova
+        {
+            if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")
+            {
+                gameHUD.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
         end = false;
     }
     void Update()
@@ -61,6 +67,7 @@ public class TimerController : MonoBehaviour
     {
         if (collision.transform.GetComponent<LevelEnder>() != null)
         {
+            levelProgressTracker.used = true;
             LevelEnder lE = collision.transform.GetComponent<LevelEnder>();
             if (timeTicking)
             {
@@ -91,7 +98,6 @@ public class TimerController : MonoBehaviour
                         levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime = curTime;
                     }
                 }
-                levelProgressTracker.used = true;
                 Debug.Log("best time updated (hopefully)");
                 StartCoroutine(WaitABit(lE));
             }
@@ -124,7 +130,6 @@ public class TimerController : MonoBehaviour
 
 
 
-
         if (lE.GetNextIndex() == 0)
         {
             if (curTime <= levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone1) //if the player beat milestone 1 we load next level - Nova
@@ -140,27 +145,24 @@ public class TimerController : MonoBehaviour
         }
         else
         {
-
+            endGUI.SetActive(true);
+            Time.timeScale = 0;
+            for (int i = 0; i < gameHUD.transform.childCount; i++) //disables everything in gameHUD except the timer when the level ends - Nova
+            {
+                if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")
+                {
+                    gameHUD.transform.GetChild(i).gameObject.SetActive(false);
+                }
+            }
+            end = true;
             if (curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 2].milestone1)
             {
-
                 next.SetActive(true);
-                endGUI.SetActive(true);
-                Time.timeScale = 0;
-                gameHUD.SetActive(false);
-                end = true;
             }
             else
             {
                 next.SetActive(false);
-                endGUI.SetActive(true);
-                Time.timeScale = 0;
-                gameHUD.SetActive(false);
-                end = true;
             }
-
-
-            levelProgressTracker.used = true;
 
         }
     }
