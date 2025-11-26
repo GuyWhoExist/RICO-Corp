@@ -31,6 +31,7 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("Things have gone HORRIBLY wrong in the time controller");
         }
+        levelProgressTracker.used = true;
         for (int i = 0; i < gameHUD.transform.childCount; i++) //Enables everything in gameHUD except the timer when the level starts - Nova
         {
             if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")

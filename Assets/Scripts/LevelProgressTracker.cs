@@ -22,26 +22,28 @@ public class LevelProgressTracker : MonoBehaviour
 
     }
 
-
-    private void Awake() //prevents duplicate LevelProgressTrackers (hopefully) - Nova
+    private void Update()
     {
-        used = false;
+        testingTime = levels[0].bestTime;
         LevelProgressTracker[] duplicates = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
-        if (duplicates.Length > 1)
+        if (duplicates.Length > 1 && used != false) //checks for duplicates and destroys them. - Nova
         {
             foreach (LevelProgressTracker l in duplicates)
             {
-                if (l.used == false)
+                if (l.used == false && duplicates.Length - 1 != 0)
                 {
                     Debug.Log("More than 1 tracker found, killing the unused ones");
+                    Debug.Log(l.levels[0].bestTime);
                     Destroy(l.gameObject);
                 }
             }
         }
-        else
-        {
-            DontDestroyOnLoad(transform.gameObject);
-        }
+    }
+
+    private void Awake() 
+    {
+        used = false;
+        DontDestroyOnLoad(transform.gameObject); //allows this object to stay between levels - Nova
     }
 
     public LevelInfo[] levels = new LevelInfo[6] { //the array of levels. - Nova
@@ -54,6 +56,7 @@ public class LevelProgressTracker : MonoBehaviour
     };
 
     public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted - Nova
+    public float testingTime;
 
     public int GetArrayIndex( int levelIndex ) //i realized this was redundant a few hours after i coded this. so yeah... - Nova
     {
