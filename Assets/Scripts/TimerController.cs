@@ -145,7 +145,7 @@ public class TimerController : MonoBehaviour
         }
         else
         {
-<<<<<<< HEAD
+
             endGUI.SetActive(true);
             Time.timeScale = 0;
             for (int i = 0; i < gameHUD.transform.childCount; i++) //disables everything in gameHUD except the timer when the level ends - Nova
@@ -156,8 +156,7 @@ public class TimerController : MonoBehaviour
                 }
             }
             end = true;
-=======
->>>>>>> b71022d9a1c72b0331adb0e8ea1e0515fcc479a2
+
             if (curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 2].milestone1)
             {
                 next.SetActive(true);
@@ -167,11 +166,9 @@ public class TimerController : MonoBehaviour
                 next.SetActive(false);
             }
 
-<<<<<<< HEAD
-=======
 
             levelProgressTracker.used = true;
->>>>>>> b71022d9a1c72b0331adb0e8ea1e0515fcc479a2
+
         }
     }
 }
