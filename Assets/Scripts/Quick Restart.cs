@@ -39,7 +39,7 @@ public class QuickRestart : MonoBehaviour
              {
                  Debug.Log("Git gud");
                  timerController.end = false;
-                 SceneManager.LoadScene(levelProgressTracker.levels.Length - 1);
+                 SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
                  
              }
              else
