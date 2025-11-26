@@ -9,10 +9,27 @@ public class MainMenuController : MonoBehaviour
 
     private LevelProgressTracker levelProgressTracker;
     private int selectedLevelIndex;
+    private Cheats cheat;
 
     private void Awake()
     {
-        levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        cheat = FindAnyObjectByType<Cheats>();
+        LevelProgressTracker[] trackers = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
+        if (trackers.Length != 1 )
+        {
+            foreach (LevelProgressTracker tracker in trackers)
+            {
+                if (tracker.used == true)
+                {
+                    levelProgressTracker = tracker;
+                }
+            }
+        }
+        else
+        {
+            levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        }
+        
         if (levelProgressTracker != null)
         {
             Debug.Log("We good in Main Menu Controller");
@@ -26,11 +43,29 @@ public class MainMenuController : MonoBehaviour
 
     public void OnStartButtonClicked()
     {
+        bool continued = false;
         Debug.Log("It worked ^q^");
         Debug.Log("Music should be playing (start button)");
         GameObject musicPlayer = GameObject.Find("Music Player");
         musicPlayer.GetComponent<MusicClass>().PlayMusic();
-        SceneManager.LoadScene(2);
+        for (int i = levelProgressTracker.levels.Length - 1; i > 0; i--)
+        {
+            if (levelProgressTracker.levels[i-1].bestTime != -1f && levelProgressTracker.levels[i-1].bestTime <= levelProgressTracker.levels[i-1].milestone1 && !continued)
+            {
+                Debug.Log($"Valid Level Found At {i+1}");
+                continued = true;
+                SceneManager.LoadScene(i+2);
+            }
+            else
+            {
+                Debug.Log($"{i} Not Valid");
+            }
+        }
+        if (!continued)
+        {
+            Debug.Log("No Valid Levels Found. Going To Level 1");
+            SceneManager.LoadScene(2);
+        }
     }
 
     public void OnQuitButtonClicked()
@@ -40,7 +75,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnLevelButtonClicked(LevelStatus levelStatus) //loads times associated with a level - Nova
     {
-        if (levelStatus.unlocked)
+        if (levelStatus.unlocked || cheat.unlockAll)
         {
             selectedLevelIndex = levelStatus.GetLevelIndex();
             GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
@@ -54,11 +89,12 @@ public class MainMenuController : MonoBehaviour
             Debug.Log($"Checking Value: {levelStatus.GetLevelIndex() - 2}");
             foreach (LevelProgressTracker.LevelInfo l in levelProgressTracker.levels)
             {
-                Debug.Log(l.levelIndex);
-                Debug.Log(l.bestTime);
+                Debug.Log($"Index {l.levelIndex}");
+                Debug.Log($"Best Time {l.bestTime}");
             }
+            Debug.Log($"Testing Time {levelProgressTracker.testingTime}");
             Debug.Log(levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].bestTime);
-            if (levelProgressTracker.levels[levelStatus.GetLevelIndex()-2].bestTime == -1f)
+            if (levelProgressTracker.levels[levelStatus.GetLevelIndex()-2].bestTime == -1f )
             {
                 foreach (GameObject obj in allObjects)
                 {
@@ -76,6 +112,35 @@ public class MainMenuController : MonoBehaviour
                 }
             }
             else
+            {
+                foreach (GameObject obj in allObjects)
+                {
+                    if (obj.hideFlags == HideFlags.None)
+                    {
+                        if (obj.name == "Gold Time Text")
+                        {
+                            obj.SetActive(true);
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone3.ToString("0:00.00")}";
+                        }
+                        else if (obj.name == "Silver Time Text")
+                        {
+                            obj.SetActive(true);
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone2.ToString("0:00.00")}";
+                        }
+                        else if (obj.name == "Bronze Time Text")
+                        {
+                            obj.SetActive(true);
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone1.ToString("0:00.00")}";
+                        }
+                        else if (obj.name == "Best Time Text")
+                        {
+                            obj.SetActive(true);
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Best Time: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].bestTime.ToString("0:00.00")}";
+                        }
+                    }
+                }
+            }
+            if (cheat.unlockAll)
             {
                 foreach (GameObject obj in allObjects)
                 {

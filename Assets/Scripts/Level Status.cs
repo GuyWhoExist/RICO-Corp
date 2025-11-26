@@ -6,6 +6,7 @@ public class LevelStatus : MonoBehaviour
     private LevelProgressTracker levelProgressTracker;
     [SerializeField] private int levelIndex;
     public bool unlocked;
+    private Cheats cheat;
 
     //i swear this script only works half the time - Nova
 
@@ -13,6 +14,7 @@ public class LevelStatus : MonoBehaviour
     {
         unlocked = false;
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        cheat = FindAnyObjectByType<Cheats>();
         if (levelProgressTracker != null)
         {
             Debug.Log("HEY, WE CAN TRACK LEVEL PROGRESS");
@@ -53,7 +55,7 @@ public class LevelStatus : MonoBehaviour
                 Debug.Log("Level " + levelIndex + " M1");
                 gameObject.GetComponent<Image>().color = Color.red;
             }
-            else if (unlocked) //unlocked but havent played or beaten the level - Nova
+            else if (unlocked || cheat.unlockAll) //unlocked but havent played or beaten the level - Nova
             {
                 Debug.Log("Level "+levelIndex+" Unlocked");
                 gameObject.GetComponent<Image>().color = Color.white;
