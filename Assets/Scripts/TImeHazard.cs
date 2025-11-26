@@ -4,15 +4,16 @@ public class TImeHazard : MonoBehaviour
 {
     [SerializeField] QuickRestart quickRestart;
     private float timeDeath;
+    private float avoidTimeStored;
     private bool contact;
     [SerializeField] float timeDeathTime;
+    [SerializeField] float avoidTime;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.GetComponent<PlayerMovementTutorial>() != null)
         {
             contact = true;
-            timeDeath = timeDeathTime;
         }
     }
 
@@ -21,6 +22,7 @@ public class TImeHazard : MonoBehaviour
         if (collision.transform.GetComponent <PlayerMovementTutorial>() != null)
         {
             contact = false;
+            avoidTimeStored = avoidTime;
         }
     }
     private void Update()
@@ -29,11 +31,17 @@ public class TImeHazard : MonoBehaviour
         {
             timeDeath = timeDeath - Time.deltaTime;
         }
-
+        if (contact == false)
+        {
+            avoidTimeStored = avoidTimeStored - Time.deltaTime;
+        }
+        if (avoidTimeStored < 0)
+        {
+            timeDeath = timeDeathTime;
+        }
         if (timeDeath < 0)
         {
             quickRestart.playerDie = true;
         }
     }
-
 }
