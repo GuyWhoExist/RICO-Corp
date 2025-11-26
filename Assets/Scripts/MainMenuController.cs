@@ -21,6 +21,7 @@ public class MainMenuController : MonoBehaviour
         {
             Debug.Log("Main Menu Controller can't find a Level Progress Tracker. womp womp");
         }
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void OnStartButtonClicked()

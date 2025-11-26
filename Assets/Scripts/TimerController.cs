@@ -140,10 +140,8 @@ public class TimerController : MonoBehaviour
         }
         else
         {
-
             if (curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 2].milestone1)
             {
-
                 next.SetActive(true);
                 endGUI.SetActive(true);
                 Time.timeScale = 0;
@@ -161,7 +159,6 @@ public class TimerController : MonoBehaviour
 
 
             levelProgressTracker.used = true;
-
         }
     }
 }
