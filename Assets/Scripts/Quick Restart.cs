@@ -9,10 +9,12 @@ public class QuickRestart : MonoBehaviour
     [SerializeField] private LevelEnder levelEnder;
     [SerializeField] private TimerController timerController;
     private LevelProgressTracker levelProgressTracker;
+    public bool playerDie;
     private void Awake()
     {
         controls = new Controls();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        playerDie = false;
     }
     private void OnEnable()
     {
@@ -25,19 +27,31 @@ public class QuickRestart : MonoBehaviour
     }
     private void Restart_Performed(InputAction.CallbackContext context)
     {
-        if (levelEnder.nextLevelIndex == 0)
-        {
-            Debug.Log("Git gud");
-            timerController.end = false;
-            SceneManager.LoadScene(levelProgressTracker.levels.Length - 1);
-        }
-        else
-        {
-            Debug.Log("Git gud");
-            timerController.end = false;
-            SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
-            Debug.Log("this is fine actually");
-            
-        }
+       playerDie = true;
+    }
+
+    private void Update()
+    {
+        
+         if (playerDie == true)
+         {
+             if (levelEnder.nextLevelIndex == 0)
+             {
+                 Debug.Log("Git gud");
+                 timerController.end = false;
+                 SceneManager.LoadScene(levelProgressTracker.levels.Length - 1);
+                 
+             }
+             else
+             {
+                 Debug.Log("Git gud");
+                 timerController.end = false;
+                 SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
+                 Debug.Log("this is fine actually");
+                 
+            }
+
+         playerDie = false;
+         }
     }
 }
