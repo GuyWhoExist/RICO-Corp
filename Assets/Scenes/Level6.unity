@@ -2709,6 +2709,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b195355296651dd48a95fbcc6cc0b703, type: 3}
+--- !u!114 &1138784713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5862547367364542119, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
+  m_PrefabInstance: {fileID: 227121632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53972128775ca7b45a2f66b47761394e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1138991863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4816,7 +4827,7 @@ PrefabInstance:
     - target: {fileID: 1596551726070964173, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: levelEnder
       value: 
-      objectReference: {fileID: 222779807}
+      objectReference: {fileID: 1138784713}
     - target: {fileID: 4336453348402989139, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4864,7 +4875,7 @@ PrefabInstance:
     - target: {fileID: 7741808929884212910, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: levelEnder
       value: 
-      objectReference: {fileID: 222779807}
+      objectReference: {fileID: 1138784713}
     - target: {fileID: 8084345435329298987, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
