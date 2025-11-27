@@ -253,6 +253,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ending
       objectReference: {fileID: 0}
+    - target: {fileID: 5862547367364542119, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
+      propertyPath: nextLevelIndex
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5992360362413920721, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
