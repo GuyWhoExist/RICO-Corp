@@ -14,6 +14,7 @@ public class TimerController : MonoBehaviour
     [SerializeField] GameObject next;
     [SerializeField] GameObject endGUI;
     [SerializeField] GameObject gameHUD;
+    [SerializeField] PauseMenu pauseMenu;
     private LevelProgressTracker levelProgressTracker;
     public float curTime;
     public bool timeTicking;
@@ -154,6 +155,8 @@ public class TimerController : MonoBehaviour
                 if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")
                 {
                     gameHUD.transform.GetChild(i).gameObject.SetActive(false);
+
+                    pauseMenu.controls.Pause.Pause.Disable();
                 }
             }
             end = true;

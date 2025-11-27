@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Android;
 
 public class PauseMenu : MonoBehaviour
 {
-    private Controls controls;
+    public Controls controls;
     public bool paused;
     [SerializeField] PauseMenuController pauseController;
     [SerializeField] GameObject pauseHud;
