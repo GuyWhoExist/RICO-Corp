@@ -6627,6 +6627,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3965869180893148803}
     - target: {fileID: 8523289442659343576, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 9007248680181287068}
+    - target: {fileID: 8523289442659343576, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: timerText
       value: 
       objectReference: {fileID: 4665632452385802413}
