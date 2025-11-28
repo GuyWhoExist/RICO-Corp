@@ -14,6 +14,7 @@ public class RifleEnemy : MonoBehaviour
     private Vector3 directionToPlayer;
     private float windupTimer;
     private EnemyState state;
+    [SerializeField] SightTracker sightTracker;
 
     private void Update()
     {
@@ -35,6 +36,7 @@ public class RifleEnemy : MonoBehaviour
                 if (windupTimer < windupTime)
                 {
                     state = EnemyState.WIND_UP;
+                    sightTracker.kill = true;
                 }
                 else
                 {
@@ -48,6 +50,8 @@ public class RifleEnemy : MonoBehaviour
             hit.transform == player)
             {
                 state = EnemyState.FOLLOW;
+                sightTracker.kill = false;
+                sightTracker.tracker.transform.LookAt(transform.position);
             }
         }
     }
