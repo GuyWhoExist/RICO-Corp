@@ -19,23 +19,7 @@ public class SightTracker : MonoBehaviour
         if (ui == true)
         { 
         display.transform.rotation = tracker.transform.rotation;
-            if (kill == true)
-            {
-                GetComponent<MeshRenderer>().material.color = new Color(255, 0, 0);
-            }
-            else
-            {
-                GetComponent<MeshRenderer>().material.color = new Color(255, 255, 255);
-            }
 
-            if (seen == true)
-            {
-                display.SetActive(true);
-            }
-            else
-            {
-               display.SetActive(true);
-            }
         }
 
         if (ui == false)
