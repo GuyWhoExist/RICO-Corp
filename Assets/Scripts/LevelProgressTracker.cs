@@ -14,6 +14,9 @@ public class LevelProgressTracker : MonoBehaviour
         }
 
         public float milestone1 { get; } //time milestones. hitting m1 would be the minimum. - Nova
+
+        //milestones and time as a whole for curTime and other things are stored in 0:00.00 format, EVEN IN THE CODE. (Ex. If Milestone 3 was 125f, that would be 1:25.00)
+
         public float milestone2 { get; }
         public float milestone3 { get; }
         public int levelIndex { get; } //stores the level number, kinda redundant - Nova
