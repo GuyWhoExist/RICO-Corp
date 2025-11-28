@@ -14,12 +14,16 @@ public class RifleEnemy : MonoBehaviour
     private Vector3 directionToPlayer;
     private float windupTimer;
     private EnemyState state;
+<<<<<<< HEAD
     private LineRenderer lR;
 
     private void Awake()
     {
         lR = GetComponent<LineRenderer>();
     }
+=======
+    [SerializeField] SightTracker sightTracker;
+>>>>>>> 6626898f7f1c4cd29e79c01e55ad2e481e15d3e4
 
     private void Update()
     {
@@ -41,6 +45,7 @@ public class RifleEnemy : MonoBehaviour
                 if (windupTimer < windupTime) //checks if the wind up for the attack is over or not - Nova
                 {
                     state = EnemyState.WIND_UP;
+                    sightTracker.kill = true;
                 }
                 else //if its over, we atac = Nova
                 {
@@ -54,6 +59,8 @@ public class RifleEnemy : MonoBehaviour
             hit.transform == player)
             {
                 state = EnemyState.FOLLOW;
+                sightTracker.kill = false;
+                sightTracker.tracker.transform.LookAt(transform.position);
             }
         }
     }
