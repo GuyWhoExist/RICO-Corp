@@ -80,7 +80,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.4f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -151,7 +151,7 @@ public class PlayerMovementTutorial : MonoBehaviour
             sliding = true;
             //moveDirection = gameObject.transform.forward * verticalInput + gameObject.transform.right * horizontalInput;
         }
-        else if (grounded && !Input.GetKey(slideKey) || OnSlope())
+        else if (grounded && !Input.GetKey(slideKey)) //|| OnSlope())
         {
             state = MovementState.walking;
         }
@@ -169,6 +169,7 @@ public class PlayerMovementTutorial : MonoBehaviour
             moveDirection = gameObject.transform.forward * verticalInput + gameObject.transform.right * horizontalInput;
 
             // on slope
+            /*
             if (OnSlope() && !exitingSlope)
             {
                 rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
@@ -177,6 +178,7 @@ public class PlayerMovementTutorial : MonoBehaviour
                     rb.AddForce(Vector3.down * 100f, ForceMode.Force);
                 }
             }
+            */
 
             // on ground
             if (grounded)
@@ -190,6 +192,7 @@ public class PlayerMovementTutorial : MonoBehaviour
                 rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             }
 
+            /*
             if (!OnSlope())
             {
                 rb.useGravity = true;
@@ -200,6 +203,7 @@ public class PlayerMovementTutorial : MonoBehaviour
                 rb.useGravity = false;
                 //Debug.Log("Gravity Disabled");
             }
+            */
         }
 
     }
@@ -207,6 +211,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void SpeedControl()
     {
 
+        /*
         if (OnSlope())
         {
             if (rb.linearVelocity.magnitude > moveSpeed)
@@ -214,8 +219,10 @@ public class PlayerMovementTutorial : MonoBehaviour
                 rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
             }
         }
+        
         else
-        {
+        */
+        //{
             Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
             // limit velocity if needed
@@ -224,7 +231,7 @@ public class PlayerMovementTutorial : MonoBehaviour
                 Vector3 limitedVel = flatVel.normalized * moveSpeed;
                 rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
             }
-        }
+        //}
 
     }
 
@@ -243,7 +250,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         exitingSlope = false;
     }
 
-    public bool OnSlope() //this shit took too long to implement and it STILL doesn't work fully - Nova
+    /*public bool OnSlope() //this shit took too long to implement and it STILL doesn't work fully - Nova
     {
 
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.6f))
@@ -263,6 +270,6 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
-
+    */
    
 }
