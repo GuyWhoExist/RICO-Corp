@@ -14,6 +14,7 @@ public class TimerController : MonoBehaviour
     [SerializeField] GameObject next;
     [SerializeField] GameObject endGUI;
     [SerializeField] GameObject gameHUD;
+    [SerializeField] PauseMenu pauseMenu;
     private LevelProgressTracker levelProgressTracker;
     public float curTime;
     public bool timeTicking;
@@ -31,6 +32,7 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("Things have gone HORRIBLY wrong in the time controller");
         }
+        levelProgressTracker.used = true;
         for (int i = 0; i < gameHUD.transform.childCount; i++) //Enables everything in gameHUD except the timer when the level starts - Nova
         {
             if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")
@@ -153,6 +155,8 @@ public class TimerController : MonoBehaviour
                 if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")
                 {
                     gameHUD.transform.GetChild(i).gameObject.SetActive(false);
+
+                    pauseMenu.controls.Pause.Pause.Disable();
                 }
             }
             end = true;
@@ -166,6 +170,10 @@ public class TimerController : MonoBehaviour
                 next.SetActive(false);
             }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5d67dc1ed509f5ba183c334b76a77843e2645fb3
 
             levelProgressTracker.used = true;
 
