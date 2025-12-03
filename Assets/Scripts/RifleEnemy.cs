@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+//I know this is called RIFLE Enemy, but this can be used for any of the enemies. - Nova
+
 public class RifleEnemy : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed;
