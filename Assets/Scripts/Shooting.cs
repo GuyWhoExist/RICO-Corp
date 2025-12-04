@@ -14,7 +14,7 @@ public class Shooting : MonoBehaviour
     private Vector3 shotOrigin;
     private Vector3 shotDirection;
     private Controls controls;
-    [SerializeField] private int hits;
+    [SerializeField] private int hits; //total number of bounces on the gun - Nova
     private Color[] colors = new Color[6];
     [SerializeField] private Camera cam;
     [HideInInspector] public Enemy[] enemyNumber; //the total number of enemies
@@ -220,11 +220,14 @@ public class Shooting : MonoBehaviour
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         Debug.Log("Enemy Hit");
-                        Debug.Log(killStreak);
-                        playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + 1f;
-                        boostCoolDownStored = playerMovementTutorial.boostCoolDown;
-                        Debug.Log($"{boostCoolDownStored}");
-                        killStreak = killStreak + 1;
+                        if (total < hits)
+                        {
+                            Debug.Log(killStreak);
+                            playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + 1f;
+                            boostCoolDownStored = playerMovementTutorial.boostCoolDown;
+                            Debug.Log($"{boostCoolDownStored}");
+                            killStreak = killStreak + 1;
+                        }
                         shootable.OnGettingShot();
                         enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //reduces the enemy count - Nova
                         Destroy(shootable.GetGameObject()); // this kills the enemy? ig? - Sawyer
