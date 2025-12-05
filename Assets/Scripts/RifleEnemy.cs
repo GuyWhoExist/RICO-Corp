@@ -17,10 +17,16 @@ public class RifleEnemy : MonoBehaviour
     private float windupTimer;
     private EnemyState state;
     private LineRenderer lR;
+    private Vector3 localHit;
 
     private void Awake()
     {
+        Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance);
+        localHit = transform.InverseTransformPoint(sightHit.point);
         lR = GetComponent<LineRenderer>();
+        lR.SetPosition(0, new Vector3(0,0,0));
+        lR.SetPosition(1, localHit);
+        lR.startColor = lR.materials[0].color;
     }
 
     [SerializeField] SightTracker sightTracker;
@@ -81,6 +87,7 @@ public class RifleEnemy : MonoBehaviour
                 windupTimer += Time.deltaTime;
                 break;
             case EnemyState.ATTACK:
+                lR.useWorldSpace = true;
                 lR.SetPosition(0, transform.position);
                 lR.SetPosition(1, player.position);
                 player.GetComponent<QuickRestart>().playerDie = true;
