@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class QuickRestart : MonoBehaviour
 {
     private Controls controls;
-    [SerializeField] private LevelEnder levelEnder;
+    private LevelEnder levelEnder;
     [SerializeField] private TimerController timerController;
     private LevelProgressTracker levelProgressTracker;
     public bool playerDie;
@@ -14,10 +14,12 @@ public class QuickRestart : MonoBehaviour
     {
         controls = new Controls();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        levelEnder = FindAnyObjectByType<LevelEnder>();
         playerDie = false;
     }
     private void OnEnable()
     {
+        Debug.Log("kill exists");
         controls.QuickRestart.Restart.Enable();
         controls.QuickRestart.Restart.performed += Restart_Performed;
     }

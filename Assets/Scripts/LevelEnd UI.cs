@@ -8,12 +8,18 @@ public class LevelEndUI : MonoBehaviour
 {
     private LevelProgressTracker levelProgressTracker;
     private TimerController timerController;
-    [SerializeField] LevelEnder levelEnder;
+    private LevelEnder levelEnder;
     [SerializeField] TextMeshProUGUI resultsDisplay;
     [SerializeField] GameObject endGUI;
 
     private void Awake()
     {
+        levelEnder = FindAnyObjectByType<LevelEnder>();
+        if (levelEnder == null)
+            Debug.Log("hey, end the level");
+        else
+            Debug.Log("level is endeable");
+
         endGUI.SetActive(false);
         //timerController = GetComponent<TimerController>();
         timerController = FindAnyObjectByType<TimerController>();

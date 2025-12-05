@@ -921,6 +921,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 79451103}
+    - target: {fileID: 7305466670060433628, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7741808929884212910, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: levelEnder
       value: 
@@ -929,6 +933,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 79451103}
+    - target: {fileID: 8357225168660746573, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
