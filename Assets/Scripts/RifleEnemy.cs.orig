@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+//I know this is called RIFLE Enemy, but this can be used for any of the enemies. - Nova
+
 public class RifleEnemy : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed;
@@ -16,22 +18,25 @@ public class RifleEnemy : MonoBehaviour
     private EnemyState state;
 <<<<<<< HEAD
 
+
+
 =======
->>>>>>> 16084b4cdec951cda20252cd0127b3f8ac0d26c7
+>>>>>>> 02ba8c6ae68ee6fac36c8024ded6f70dbe23fa6c
     private LineRenderer lR;
 
     private void Awake()
     {
         lR = GetComponent<LineRenderer>();
     }
+
+
+    [SerializeField] SightTracker sightTracker;
+
 <<<<<<< HEAD
 
-    [SerializeField] SightTracker sightTracker;
 
 =======
-    [SerializeField] SightTracker sightTracker;
->>>>>>> 16084b4cdec951cda20252cd0127b3f8ac0d26c7
-
+>>>>>>> 02ba8c6ae68ee6fac36c8024ded6f70dbe23fa6c
     private void Update()
     {
         UpdateState();
