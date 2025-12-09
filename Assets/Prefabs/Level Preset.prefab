@@ -5671,7 +5671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6914860139819229814
 Transform:
   m_ObjectHideFlags: 0
@@ -6793,7 +6793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ecbda107f08b742a2c5a4d899e7009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelEnder: {fileID: 0}
   resultsDisplay: {fileID: 2646059065464673430}
   endGUI: {fileID: 2748715816714961869}
 --- !u!1001 &398055390475587966
@@ -7094,7 +7093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74e74dfe815ce14ba48c5a1d52b964b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelEnder: {fileID: 0}
   timerController: {fileID: 8344857651682086310}
   playerDie: 0
 --- !u!114 &3928407846925679066 stripped

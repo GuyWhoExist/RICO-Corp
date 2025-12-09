@@ -38,6 +38,7 @@ public class LevelEndUI : MonoBehaviour
                 else
                 {
                     endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone3.ToString("0:00.00")}";
+                    Debug.Log($"Index issue testing: {levelEnder.nextLevelIndex - 3}");
                 }
             }
             else if (endGUI.transform.GetChild(i).gameObject.name == "Silver Time Text")
