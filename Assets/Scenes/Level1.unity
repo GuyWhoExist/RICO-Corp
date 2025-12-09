@@ -527,14 +527,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Preset
       objectReference: {fileID: 0}
-    - target: {fileID: 4048945849078948412, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1596551726070964173, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: levelEnder
       value: 
       objectReference: {fileID: 854493444}
+    - target: {fileID: 4048945849078948412, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4336453348402989139, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -866,7 +866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6592505ffcf26c429cacc72ce72ab41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickRestart: {fileID: 1895304755}
 --- !u!1001 &1506510181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1441,7 +1440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63b168d8e88aca4582db43cc5b3beea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickRestart: {fileID: 1895304755}
   timeDeathTime: 3
   avoidTime: 3
 --- !u!1001 &1835639803
@@ -1509,17 +1507,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953dc16d09dd66147a8d58472ddbf530, type: 3}
---- !u!114 &1895304755 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1596551726070964173, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
-  m_PrefabInstance: {fileID: 491546807}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74e74dfe815ce14ba48c5a1d52b964b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1895304760 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3928407846925679066, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
