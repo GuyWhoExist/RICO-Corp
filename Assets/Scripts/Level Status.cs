@@ -23,6 +23,7 @@ public class LevelStatus : MonoBehaviour
         {
             Debug.Log("Shit");
         }
+        Debug.Log(levelNumber - 2);
 
         if (levelNumber == 1) //unlocks levels
         {
