@@ -12,6 +12,7 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject playerPosition;
     private bool placeMode;
     private int markerSelect;
+    private RaycastHit hit;
     private void Awake()
     {
         
@@ -44,28 +45,34 @@ public class SprayPlacerHudController : MonoBehaviour
 
       if (placeMode == true)
         {
-            if (markerSelect == 1)
+
+           if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
             {
-                Instantiate(shootMarker).transform.localPosition = playerPosition.transform.position + playerPosition.transform.forward;
-                placeMode = false;
-                markerSelect = 0;
+                if (markerSelect == 1 && hit.transform.GetComponent<Enemy>() == null ) 
+                {
+                    //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                    Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                    placeMode = false;
+                    markerSelect = 0;
+                }
+                else if (markerSelect == 2)
+                {
+                    Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                    placeMode = false;
+                    markerSelect = 0;
+                }
+                else if (markerSelect == 3)
+                {
+                    Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                    placeMode = false;
+                    markerSelect = 0;
+                }
+                else
+                {
+                    Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
+                }
             }
-            else if (markerSelect == 2)
-            {
-                Instantiate(stopMarker).transform.localPosition = playerPosition.transform.position + playerPosition.transform.forward;
-                placeMode = false;
-                markerSelect = 0;
-            }
-            else if (markerSelect == 3)
-            {
-                Instantiate(goMarker).transform.localPosition = playerPosition.transform.position + playerPosition.transform.forward;
-                placeMode = false;
-                markerSelect = 0;
-            }
-            else
-            {
-                Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
-            }
+        
         }
 
     }
