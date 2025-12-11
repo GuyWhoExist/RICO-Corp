@@ -80,12 +80,6 @@ public class TimerController : MonoBehaviour
                     timeTicking = false;
                     timerText.text = curTime.ToString("0:00.00");
                 }
-                else
-                {
-                    curTime += 2.5f * enemyNumber.Length;
-                    timeTicking = false;
-                    timerText.text = curTime.ToString("0:00.00");
-                }
                 if (lE.GetNextIndex() == 0)
                 {
                     if (curTime < levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime || levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime == -1f)
