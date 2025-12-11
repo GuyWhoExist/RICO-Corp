@@ -8069,6 +8069,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1596551726070964173}
+    - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5528822507589404991}
     - targetCorrespondingSourceObject: {fileID: 2322980758753661442, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 502222255156275424}
@@ -8176,6 +8179,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerController: {fileID: 8344857651682086310}
   playerDie: 0
+--- !u!114 &5528822507589404991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780116629374330792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3333b9735b37d7049966d27afaeb84df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosition: {fileID: 2718713978521797500}
+  meleeRange: 5
+  shooting: {fileID: 6976884104883577321}
+  swingCoolDown: 2
+  playerMovementTutorial: {fileID: 3928407846925679066}
 --- !u!114 &3928407846925679066 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
@@ -8185,6 +8205,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e5c0518b8a40914bae8f95bc956045c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6976884104883577321 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+  m_PrefabInstance: {fileID: 398055390475587966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780116629374330792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84a71b24583f3246b7fda35faf743f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &7692671321899801519 stripped

@@ -42,7 +42,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     [Header("Boost Config")]
     public float boostCoolDown;
-    [SerializeField] private float killBoost;
+    [SerializeField] public float killBoost;
 
 
     public Transform orientation;
@@ -54,7 +54,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     Rigidbody rb;
 
-    private float storedSpeed;
+    [HideInInspector] public float storedSpeed;
 
     [HideInInspector] public bool sliding;
 

@@ -19,7 +19,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private Camera cam;
     [HideInInspector] public Enemy[] enemyNumber; //the total number of enemies
     [SerializeField] private bool prediction;
-    private int killStreak;
+    public int killStreak;
     [SerializeField] private PlayerMovementTutorial playerMovementTutorial;
     public float boostCoolDownStored;
     [SerializeField] private PauseMenu pauseMenu;
@@ -141,13 +141,13 @@ public class Shooting : MonoBehaviour
             Debug.Log(lineRenderer2.material.ToString());
         }
 
-        boostCoolDownStored -= Time.deltaTime;
+        boostCoolDownStored = boostCoolDownStored - Time.deltaTime;
 
         if (boostCoolDownStored <= 0)
         {
             if (killStreak > 0)
             {
-                playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - 1;
+                playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - 1f;
                 killStreak = killStreak - 1;
                 Debug.Log(killStreak);
             }
@@ -223,7 +223,7 @@ public class Shooting : MonoBehaviour
                         if (total < hits)
                         {
                             Debug.Log(killStreak);
-                            playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + 1f;
+                            playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
                             boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                             Debug.Log($"{boostCoolDownStored}");
                             killStreak = killStreak + 1;

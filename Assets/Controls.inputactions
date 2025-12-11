@@ -268,6 +268,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Melee",
+            "id": "904b10b4-e79c-4599-8031-ed0fc8cb5b2b",
+            "actions": [
+                {
+                    "name": "Swing",
+                    "type": "Button",
+                    "id": "9b69d996-e53f-4c89-924a-8d02784f1e0f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "54f90473-b5e5-4f9d-a04f-0b09ec708435",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
