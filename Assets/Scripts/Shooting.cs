@@ -147,7 +147,7 @@ public class Shooting : MonoBehaviour
         {
             if (killStreak > 0)
             {
-                playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - 1f;
+                playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - playerMovementTutorial.killBoost;
                 killStreak = killStreak - 1;
                 Debug.Log(killStreak);
             }
