@@ -352,6 +352,7 @@ MonoBehaviour:
   cam: {fileID: 3280870652669640073}
   enemyNumber: []
   prediction: 0
+  killStreak: 0
   playerMovementTutorial: {fileID: 0}
   boostCoolDownStored: 0
   pauseMenu: {fileID: 0}
@@ -389,8 +390,9 @@ MonoBehaviour:
   grounded: 0
   maxSlopeAngle: 0
   boostCoolDown: 0
-  killBoost: 0
+  killBoost: 3
   orientation: {fileID: 8185319642670670063}
+  storedSpeed: 0
   sliding: 0
   state: 0
 --- !u!120 &5263830152627946770
@@ -543,6 +545,7 @@ MonoBehaviour:
   next: {fileID: 0}
   endGUI: {fileID: 0}
   gameHUD: {fileID: 0}
+  pauseMenu: {fileID: 0}
   curTime: 0
   timeTicking: 0
   end: 0

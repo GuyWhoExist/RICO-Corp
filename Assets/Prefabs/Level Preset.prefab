@@ -7925,10 +7925,6 @@ PrefabInstance:
       value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
-      propertyPath: killBoost
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: moveSpeed
       value: 8
       objectReference: {fileID: 0}
