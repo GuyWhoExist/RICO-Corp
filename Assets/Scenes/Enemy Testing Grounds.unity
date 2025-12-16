@@ -1436,11 +1436,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2857873857461350484, guid: 45ac5478defa19943aa348de74eae34d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.73
-      value: -37.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 2857873857461350484, guid: 45ac5478defa19943aa348de74eae34d, type: 3}
-      propertyPath: m_LocalPosition.y
       value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 2857873857461350484, guid: 45ac5478defa19943aa348de74eae34d, type: 3}
@@ -1623,6 +1618,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Preset
       objectReference: {fileID: 0}
+    - target: {fileID: 2581266324979057814, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1627421802}
+    - target: {fileID: 2581266324979057814, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: meleeRange
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4336453348402989139, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: m_LocalPosition.x
       value: -167
@@ -1680,6 +1683,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+--- !u!54 &1627421802 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 2754294042033202359, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+  m_PrefabInstance: {fileID: 1521697410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1676371798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3849959726996523104, guid: 45ac5478defa19943aa348de74eae34d, type: 3}
