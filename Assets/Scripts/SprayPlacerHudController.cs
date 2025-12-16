@@ -10,12 +10,12 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject goMarker;
     [SerializeField] GameObject stopMarker;
     [SerializeField] GameObject playerPosition;
-    private bool placeMode;
+    [HideInInspector] public bool selector;
     private int markerSelect;
     private RaycastHit hit;
     private void Awake()
     {
-        
+
         controls = new Controls();
     }
     public void OnEnable()
@@ -24,7 +24,6 @@ public class SprayPlacerHudController : MonoBehaviour
         controls.Planning.MarkerUI.Enable();
         controls.Planning.MarkerUI.performed += Planner_Opened;
         controls.Planning.MarkerUI.canceled += Planner_Closed;
-        placeMode = false;
         markerSelect = 0;
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
     }
@@ -33,47 +32,14 @@ public class SprayPlacerHudController : MonoBehaviour
     {
         plannerUI.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        selector = false;
     }
 
     private void Planner_Opened(InputAction.CallbackContext context)
     {
-      if (placeMode == false)
-        {
-            plannerUI.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-        }
-
-      if (placeMode == true)
-        {
-
-           if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
-            {
-                if (markerSelect == 1 && hit.transform.GetComponent<Enemy>() == null ) 
-                {
-                    //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
-                    Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                    placeMode = false;
-                    markerSelect = 0;
-                }
-                else if (markerSelect == 2)
-                {
-                    Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                    placeMode = false;
-                    markerSelect = 0;
-                }
-                else if (markerSelect == 3)
-                {
-                    Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                    placeMode = false;
-                    markerSelect = 0;
-                }
-                else
-                {
-                    Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
-                }
-            }
-        
-        }
+        plannerUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        selector = true;
 
     }
 
@@ -84,33 +50,72 @@ public class SprayPlacerHudController : MonoBehaviour
 
     public void OnShootPress()
     {
-       
-        placeMode = true;
         markerSelect = 1;
         plannerUI.SetActive(false);
-    }
 
+        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+        {
+            if (hit.transform.GetComponent<Enemy>() == null && hit.transform.GetComponent<Spray>() == null)
+            {
+                //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                selector = false;
+                markerSelect = 0;
+            }
+            else
+            {
+                Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
+            }
+        }
+    }
     public void OnStopPress()
     {
-        
-        placeMode = true;
         markerSelect = 2;
         plannerUI.SetActive(false);
-    }
 
+        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+        {
+            if (hit.transform.GetComponent<Enemy>() == null && hit.transform.GetComponent<Spray>() == null)
+            {
+                //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                selector = false;
+                markerSelect = 0;
+            }
+            else
+            {
+                Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
+            }
+        }
+    }
     public void OnFollowPress()
     {
-       
-        placeMode = true;
         markerSelect = 3;
         plannerUI.SetActive(false);
-    }
 
-    private void Update()
-    {
-        if (placeMode == true)
+        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
         {
-            
+            if (hit.transform.GetComponent<Enemy>() == null && hit.transform.GetComponent<Spray>() == null)
+            {
+                //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                selector = false;
+                markerSelect = 0;
+            }
+            else
+            {
+                Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
+            }
+        }
+    }
+    public void OnDeletePress()
+    {
+        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+        {
+            if (hit.transform.TryGetComponent(out ICleanable Spray))
+            {
+                Destroy(Spray.GetGameObject());
+            }
         }
     }
 }
