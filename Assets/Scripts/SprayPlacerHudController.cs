@@ -6,9 +6,20 @@ public class SprayPlacerHudController : MonoBehaviour
 {
     private Controls controls;
     [SerializeField] GameObject plannerUI;
+
+    [Header("Shoot Marker")]
+    [SerializeField] GameObject shootMarkerReflect;
     [SerializeField] GameObject shootMarker;
+    [SerializeField] GameObject shootMarkerDestroy;
+    [Header("Go Marker")]
+    [SerializeField] GameObject goMarkerReflect;
     [SerializeField] GameObject goMarker;
+    [SerializeField] GameObject goMarkerDestroy;
+    [Header("Stop Marker")]
+    [SerializeField] GameObject stopMarkerReflect;
     [SerializeField] GameObject stopMarker;
+    [SerializeField] GameObject stopMarkerDestroy;
+
     [SerializeField] GameObject playerPosition;
     [HideInInspector] public bool selector;
     private int markerSelect;
@@ -55,12 +66,32 @@ public class SprayPlacerHudController : MonoBehaviour
 
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
         {
-            if (hit.transform.GetComponent<Enemy>() == null && hit.transform.GetComponent<Spray>() == null)
+            if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<TImeHazard>() == null && hit.transform.GetComponent<Sludge>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
-                //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
-                Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                selector = false;
-                markerSelect = 0;
+
+                
+                    if (hit.transform.GetComponent<Reflect>() == true)
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(shootMarkerReflect, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                    else if (hit.transform.GetComponent<Destroyable>() == true)
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(shootMarkerDestroy, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                    else
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                
             }
             else
             {
@@ -75,17 +106,38 @@ public class SprayPlacerHudController : MonoBehaviour
 
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
         {
-            if (hit.transform.GetComponent<Enemy>() == null && hit.transform.GetComponent<Spray>() == null)
+            if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<TImeHazard>() == null && hit.transform.GetComponent<Sludge>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
-                //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
-                Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                selector = false;
-                markerSelect = 0;
-            }
+              
+                    if (hit.transform.GetComponent<Reflect>() == true)
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(stopMarkerReflect, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                    else if (hit.transform.GetComponent<Destroyable>() == true)
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(stopMarkerDestroy, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                    else 
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                
+           
+                }
             else
             {
                 Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
             }
+
         }
     }
     public void OnFollowPress()
@@ -95,17 +147,36 @@ public class SprayPlacerHudController : MonoBehaviour
 
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
         {
-            if (hit.transform.GetComponent<Enemy>() == null && hit.transform.GetComponent<Spray>() == null)
+           if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<TImeHazard>() == null && hit.transform.GetComponent<Sludge>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
-                //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
-                Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                selector = false;
-                markerSelect = 0;
-            }
-            else
-            {
+                
+                
+                    if (hit.transform.GetComponent<Reflect>() == true)
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(goMarkerReflect, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                    else if (hit.transform.GetComponent<Destroyable>() == true)
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(goMarkerDestroy, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+                    else 
+                    {
+                        //GameObject createdShootMarker = Instantiate(shootMarker, hit.point, Quaternion.identity);
+                        Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        selector = false;
+                        markerSelect = 0;
+                    }
+           }
+           else
+           {
                 Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
-            }
+           }
         }
     }
     public void OnDeletePress()
@@ -118,4 +189,5 @@ public class SprayPlacerHudController : MonoBehaviour
             }
         }
     }
+
 }
