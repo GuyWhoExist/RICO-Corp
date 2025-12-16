@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class LevelStatus : MonoBehaviour
 {
     private LevelProgressTracker levelProgressTracker;
-    [SerializeField] private int levelIndex;
+    [SerializeField] private int levelNumber;
     public bool unlocked;
     private Cheats cheat;
 
@@ -23,46 +23,47 @@ public class LevelStatus : MonoBehaviour
         {
             Debug.Log("Shit");
         }
+        Debug.Log(levelNumber - 2);
 
-        if (levelIndex == 1) //unlocks levels
+        if (levelNumber == 1) //unlocks levels
         {
             unlocked = true;
         }
-        else if (levelProgressTracker.levels[levelIndex - 2].bestTime <= levelProgressTracker.levels[levelIndex - 2].milestone1 && levelProgressTracker.levels[levelIndex - 2].bestTime != -1f)
+        else if (levelProgressTracker.levels[levelNumber - 2].bestTime <= levelProgressTracker.levels[levelNumber - 2].milestone1 && levelProgressTracker.levels[levelNumber - 2].bestTime != -1f)
         {
             unlocked = true;
         }
 
 
-        Debug.Log(levelIndex);
-        Debug.Log(levelProgressTracker.levels[levelIndex - 1].bestTime);
-        Debug.Log(levelProgressTracker.levels[levelIndex - 1].milestone1);
+        Debug.Log(levelNumber);
+        Debug.Log(levelProgressTracker.levels[levelNumber - 1].bestTime);
+        Debug.Log(levelProgressTracker.levels[levelNumber - 1].milestone1);
 
         if (gameObject.GetComponent<Image>() != null)
         {
-            if (levelProgressTracker.levels[levelIndex - 1].bestTime <= levelProgressTracker.levels[levelIndex - 1].milestone3 && levelProgressTracker.levels[levelIndex - 1].bestTime != -1f) //all goals done - Nova
+            if (levelProgressTracker.levels[levelNumber - 1].bestTime <= levelProgressTracker.levels[levelNumber - 1].milestone3 && levelProgressTracker.levels[levelNumber - 1].bestTime != -1f) //all goals done - Nova
             {
-                Debug.Log("Level " + levelIndex + " M3");
+                Debug.Log("Level " + levelNumber + " M3");
                 gameObject.GetComponent<Image>().color = Color.yellow;
             }
-            else if (levelProgressTracker.levels[levelIndex - 1].bestTime <= levelProgressTracker.levels[levelIndex - 1].milestone2 && levelProgressTracker.levels[levelIndex - 1].bestTime != -1f) //2 goals done - Nova
+            else if (levelProgressTracker.levels[levelNumber - 1].bestTime <= levelProgressTracker.levels[levelNumber - 1].milestone2 && levelProgressTracker.levels[levelNumber - 1].bestTime != -1f) //2 goals done - Nova
             {
-                Debug.Log("Level " + levelIndex + " M2");
+                Debug.Log("Level " + levelNumber + " M2");
                 gameObject.GetComponent<Image>().color = Color.green;
             }
-            else if (levelProgressTracker.levels[levelIndex - 1].bestTime <= levelProgressTracker.levels[levelIndex - 1].milestone1 && levelProgressTracker.levels[levelIndex - 1].bestTime != -1f) //minimum done - Nova
+            else if (levelProgressTracker.levels[levelNumber - 1].bestTime <= levelProgressTracker.levels[levelNumber - 1].milestone1 && levelProgressTracker.levels[levelNumber - 1].bestTime != -1f) //minimum done - Nova
             {
-                Debug.Log("Level " + levelIndex + " M1");
+                Debug.Log("Level " + levelNumber + " M1");
                 gameObject.GetComponent<Image>().color = Color.red;
             }
             else if (unlocked || cheat.unlockAll) //unlocked but havent played or beaten the level - Nova
             {
-                Debug.Log("Level "+levelIndex+" Unlocked");
+                Debug.Log("Level "+levelNumber+" Unlocked");
                 gameObject.GetComponent<Image>().color = Color.white;
             }
             else //not unlocked - Nova
             {
-                Debug.Log("Level " + levelIndex + " Locked");
+                Debug.Log("Level " + levelNumber + " Locked");
                 gameObject.GetComponent<Image>().color = Color.grey;
             }
         }
@@ -70,7 +71,7 @@ public class LevelStatus : MonoBehaviour
 
     public int GetLevelIndex()
     {
-        return levelIndex+1;
+        return levelNumber+1;
     }
 
     /*public void UpdateStatus()

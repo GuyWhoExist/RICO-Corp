@@ -63,7 +63,8 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         walking,
         sliding,
-        air
+        air,
+        diving
     }
 
     private void Start()
@@ -147,6 +148,14 @@ public class PlayerMovementTutorial : MonoBehaviour
         
         if (Input.GetKey(slideKey))
         {
+            if (Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround))
+            {
+                state = MovementState.sliding;
+            }
+            else
+            {
+                state = MovementState.diving;
+            }
             state = MovementState.sliding;
             sliding = true;
             //moveDirection = gameObject.transform.forward * verticalInput + gameObject.transform.right * horizontalInput;
@@ -239,7 +248,6 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         exitingSlope = true;
         // reset y velocity
-        Debug.Log("Jumped");
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 7
+  levelNumber: 7
   unlocked: 0
 --- !u!114 &7938700
 MonoBehaviour:
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 1
+  levelNumber: 1
   unlocked: 0
 --- !u!1 &164132204
 GameObject:
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 2
+  levelNumber: 2
   unlocked: 0
 --- !u!1 &190700323
 GameObject:
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 5
+  levelNumber: 5
   unlocked: 0
 --- !u!1 &386269010
 GameObject:
@@ -2607,7 +2607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 6
+  levelNumber: 6
   unlocked: 0
 --- !u!1 &1298706509
 GameObject:
@@ -5312,7 +5312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 4
+  levelNumber: 4
   unlocked: 0
 --- !u!1 &1928560922
 GameObject:
@@ -5596,7 +5596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 3
+  levelNumber: 3
   unlocked: 0
 --- !u!1 &1971514254
 GameObject:
@@ -5624,7 +5624,7 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971514254}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
