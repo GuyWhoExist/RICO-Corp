@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class Melee : MonoBehaviour
 {
     private Controls controls;
+    [SerializeField] Rigidbody rb;
     [SerializeField] GameObject playerPosition;
     RaycastHit hit;
     [SerializeField] float meleeRange;
@@ -39,6 +40,7 @@ public class Melee : MonoBehaviour
                 {
                     Destroy(shootable.GetGameObject());
                     Debug.Log("enemy SHOULD be bludgoned to death");
+                    rb.AddForce((hit.point - playerPosition.transform.position).normalized * playerMovementTutorial.moveSpeed * 5f, ForceMode.VelocityChange);
                     shooting.killStreak = shooting.killStreak + 1;
                     playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
                     shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
