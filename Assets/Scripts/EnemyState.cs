@@ -6,5 +6,6 @@ public enum EnemyState
     IDLE,
     FOLLOW,
     WIND_UP,
-    ATTACK
+    ATTACK,
+    SEARCHING
 }

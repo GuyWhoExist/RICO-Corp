@@ -13,19 +13,23 @@ public class RifleEnemy : MonoBehaviour
     [SerializeField] private float attackAngle;
     [SerializeField] private float windupTime;
     [SerializeField] Transform player;
+    [SerializeField] private float proximityDetection;
+    [SerializeField] private float memoryLength;
+    private float remembering;
     private Vector3 directionToPlayer;
     private float windupTimer;
-    private EnemyState state;
+    private EnemyState state = EnemyState.IDLE;
     private LineRenderer lR;
     private Vector3 localHit;
+    private bool searching;
 
     private void Awake()
     {
         Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance);
-        localHit = transform.InverseTransformPoint(sightHit.point);
+        
         lR = GetComponent<LineRenderer>();
-        lR.SetPosition(0, new Vector3(0,0,0));
-        lR.SetPosition(1, localHit);
+        lR.SetPosition(0, Vector3.zero);
+        lR.SetPosition(1, new Vector3(0,0,maxSightDistance));
         lR.startColor = lR.materials[0].color;
     }
 
@@ -37,36 +41,53 @@ public class RifleEnemy : MonoBehaviour
         RespondToState(state);
     }
 
-
     private void UpdateState() //changes the state of the enemy based on the players position - Nova
     {
-        state = EnemyState.IDLE; // default state is IDLE, but other conditions below may override this.
+        // default state is IDLE, but other conditions below may override this.
+        Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, maxSightDistance);
         directionToPlayer = (player.position - transform.position).normalized;
         float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
-        if (angleToPlayer < attackAngle)
+        if (angleToPlayer < attackAngle && hit.transform == player)
         {
-            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, maxSightDistance) &&
-            hit.transform == player) // detects if the player is in sight and right in front of the enemy - Nova
+            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit3, maxSightDistance) &&
+            hit3.transform == player) // detects if the player is in sight and right in front of the enemy - Nova
             {
                 if (windupTimer < windupTime) //checks if the wind up for the attack is over or not - Nova
                 {
+                    Debug.Log("Winding Up");
                     state = EnemyState.WIND_UP;
                     sightTracker.kill = true;
                 }
-                else //if its over, we atac = Nova
+                else //if its over, we atac - Nova
                 {
                     state = EnemyState.ATTACK;
                 }
             }
         }
-        else if (angleToPlayer < sightAngle) //If player is in sight but not directly in front of the enemy - Nova
+        else if (hit.transform == player && angleToPlayer < sightAngle || Vector3.Distance(player.position, transform.position) <= proximityDetection) //If player is in sight but not directly in front of the enemy - Nova
         {
-            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, maxSightDistance) &&
-            hit.transform == player)
+            state = EnemyState.FOLLOW;
+            //these modify the tracking cube on the UI - Nova
+            sightTracker.kill = false;
+            sightTracker.tracker.transform.LookAt(transform.position);
+            //
+        }
+        else if (state == EnemyState.FOLLOW || searching == true)
+        {
+            if (!searching)
             {
-                state = EnemyState.FOLLOW;
-                sightTracker.kill = false;
-                sightTracker.tracker.transform.LookAt(transform.position);
+                remembering = 0f;
+                searching = true;
+            }
+            Debug.Log("I saw him! where did he go?");
+            if (remembering >= memoryLength)
+            {
+                Debug.Log("I cant rember");
+                state = EnemyState.IDLE;
+            }
+            else
+            {
+                state = EnemyState.SEARCHING;
             }
         }
     }
@@ -75,15 +96,20 @@ public class RifleEnemy : MonoBehaviour
         switch (state)
         {
             case EnemyState.IDLE:
+                Debug.Log("whistling");
+                searching = false;
                 windupTimer = 0;
                 break;
             case EnemyState.FOLLOW:
+                Debug.Log("Found em!");
+                searching = false;
                 // rotate toward player
                 windupTimer = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 break;
             case EnemyState.WIND_UP:
+                searching = false;
                 windupTimer += Time.deltaTime;
                 break;
             case EnemyState.ATTACK:
@@ -94,6 +120,12 @@ public class RifleEnemy : MonoBehaviour
                 Debug.Log("Bang bang bang, pull my devil trigger");
                 windupTimer = 0;
                 state = EnemyState.WIND_UP;
+                break;
+            case EnemyState.SEARCHING:
+                Debug.Log(remembering);
+                remembering += Time.deltaTime;
+                targetRotation = Quaternion.LookRotation(directionToPlayer);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed/5 * Time.deltaTime);
                 break;
         }
     }

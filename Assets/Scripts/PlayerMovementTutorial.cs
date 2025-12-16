@@ -248,7 +248,6 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         exitingSlope = true;
         // reset y velocity
-        Debug.Log("Jumped");
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
