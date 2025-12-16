@@ -10,6 +10,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform playerBody;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private SprayPlacerHudController sprayPlacerHudController;
     [SerializeField] private TimerController endTracker;
     private bool overflowBlock; //- allows to prevent the game enabling camera every single frame
     private Rigidbody rb;
@@ -52,14 +53,14 @@ public class PlayerCamera : MonoBehaviour
     {
         Look(lookInput);
 
-        // code to allow pause/levelend disabling cam movement
-        if (pauseMenu.paused == true || endTracker.end == true)
+        // code to allow pause/levelend/spraymenu disabling cam movement
+        if (pauseMenu.paused == true || endTracker.end == true ||  sprayPlacerHudController.selector == true)
         {
             inputActions.Camera.Disable();
             overflowBlock = false;
             Cursor.lockState = CursorLockMode.None;
         }
-        else if (pauseMenu.paused == false && overflowBlock == false || endTracker.end == false && overflowBlock == false)
+        else if (pauseMenu.paused == false && overflowBlock == false || endTracker.end == false && overflowBlock == false || sprayPlacerHudController == false && overflowBlock == false)
         {
             inputActions.Camera.Enable();
             overflowBlock = true;
