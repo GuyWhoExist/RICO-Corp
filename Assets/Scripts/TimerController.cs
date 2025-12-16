@@ -163,11 +163,6 @@ public class TimerController : MonoBehaviour
             {
                 next.SetActive(false);
             }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 3193a5716f8f7a04cb84caafb843101c73d50748
             levelProgressTracker.used = true;
 
         }

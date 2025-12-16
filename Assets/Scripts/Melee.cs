@@ -1,18 +1,12 @@
-<<<<<<< HEAD
-using UnityEngine;
-=======
+
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
->>>>>>> 3193a5716f8f7a04cb84caafb843101c73d50748
 
 public class Melee : MonoBehaviour
 {
     private Controls controls;
-<<<<<<< HEAD
-
-=======
     [SerializeField] GameObject playerPosition;
     RaycastHit hit;
     [SerializeField] float meleeRange;
@@ -65,5 +59,4 @@ public class Melee : MonoBehaviour
     {
         swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
     }
->>>>>>> 3193a5716f8f7a04cb84caafb843101c73d50748
 }
