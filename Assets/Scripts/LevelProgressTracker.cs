@@ -49,14 +49,22 @@ public class LevelProgressTracker : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject); //allows this object to stay between levels - Nova
     }
 
+<<<<<<< HEAD
     public LevelInfo[] levels = new LevelInfo[7] { //the array of levels. - Nova
         new (25f, 20f, 15f, 2 ), //info for level 1 - Nova
         new (25f, 20f, 15f, 3 ),
         new (25f, 20f, 15f, 4 ),
+=======
+    public LevelInfo[] levels = new LevelInfo[8] { //the array of levels. - Nova
+        new (20f, 15f, 10f, 2 ),
+        new (8f, 4f, 2f, 3 ),
+        new (15f, 10f, 5f, 4 ),
+>>>>>>> 3193a5716f8f7a04cb84caafb843101c73d50748
         new (25f, 20f, 15f, 5 ),
-        new (25f, 20f, 15f, 6 ),
+        new (30f, 20f, 15f, 6 ),
         new (25f, 20f, 15f, 7 ),
-        new (25f, 20f, 15f, 8 ),
+        new (21f, 14f, 7f, 8 ),
+        new (120f, 75f, 45f, 9)
 
     };
 

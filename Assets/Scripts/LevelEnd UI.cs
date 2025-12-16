@@ -8,12 +8,18 @@ public class LevelEndUI : MonoBehaviour
 {
     private LevelProgressTracker levelProgressTracker;
     private TimerController timerController;
-    [SerializeField] LevelEnder levelEnder;
+    private LevelEnder levelEnder;
     [SerializeField] TextMeshProUGUI resultsDisplay;
     [SerializeField] GameObject endGUI;
 
     private void Awake()
     {
+        levelEnder = FindAnyObjectByType<LevelEnder>();
+        if (levelEnder == null)
+            Debug.Log("hey, end the level");
+        else
+            Debug.Log("level is endeable");
+
         endGUI.SetActive(false);
         //timerController = GetComponent<TimerController>();
         timerController = FindAnyObjectByType<TimerController>();
@@ -32,6 +38,7 @@ public class LevelEndUI : MonoBehaviour
                 else
                 {
                     endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone3.ToString("0:00.00")}";
+                    Debug.Log($"Index issue testing: {levelEnder.nextLevelIndex - 3}");
                 }
             }
             else if (endGUI.transform.GetChild(i).gameObject.name == "Silver Time Text")
