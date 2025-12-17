@@ -7985,6 +7985,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3280870652669640073, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280870652669640073, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396026005721194738, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 261865115522c054483dfdfc3d09b6be, type: 2}
     - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: spawn
       value: 
