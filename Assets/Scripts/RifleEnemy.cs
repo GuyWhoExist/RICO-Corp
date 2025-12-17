@@ -70,7 +70,7 @@ public class RifleEnemy : MonoBehaviour
             sightTracker.tracker.transform.LookAt(transform.position);
             //
         }
-        else if (state == EnemyState.FOLLOW || searching == true)
+        else if (state == EnemyState.FOLLOW || searching == true) //if we are in the following state, but the conditions to enter follow arent true OR we are already in the searching state - Nova
         {
             if (!searching)
             {
@@ -78,7 +78,7 @@ public class RifleEnemy : MonoBehaviour
                 searching = true;
             }
             Debug.Log("I saw him! where did he go?");
-            if (remembering >= memoryLength)
+            if (remembering >= memoryLength) //puts state back to idle if the timer ends - Nova
             {
                 Debug.Log("I cant rember");
                 state = EnemyState.IDLE;
@@ -93,12 +93,12 @@ public class RifleEnemy : MonoBehaviour
     {
         switch (state)
         {
-            case EnemyState.IDLE:
+            case EnemyState.IDLE: //default state - Nova
                 Debug.Log("whistling");
                 searching = false;
                 windupTimer = 0;
                 break;
-            case EnemyState.FOLLOW:
+            case EnemyState.FOLLOW: //track the player - Nova
                 Debug.Log("Found em!");
                 searching = false;
                 // rotate toward player
@@ -106,11 +106,11 @@ public class RifleEnemy : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 break;
-            case EnemyState.WIND_UP:
+            case EnemyState.WIND_UP: //The player is in attack range, being winding up to kill - Nova
                 searching = false;
                 windupTimer += Time.deltaTime;
                 break;
-            case EnemyState.ATTACK:
+            case EnemyState.ATTACK: //KILL - Nova
                 lR.useWorldSpace = true;
                 lR.SetPosition(0, transform.position);
                 lR.SetPosition(1, player.position);
@@ -119,7 +119,7 @@ public class RifleEnemy : MonoBehaviour
                 windupTimer = 0;
                 state = EnemyState.WIND_UP;
                 break;
-            case EnemyState.SEARCHING:
+            case EnemyState.SEARCHING: //The enemy saw the player but they have left their sight. Keeps tracking the player but slower and for a limited time - Nova
                 Debug.Log(remembering);
                 remembering += Time.deltaTime;
                 targetRotation = Quaternion.LookRotation(directionToPlayer);

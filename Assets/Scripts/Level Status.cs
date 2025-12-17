@@ -17,11 +17,11 @@ public class LevelStatus : MonoBehaviour
         cheat = FindAnyObjectByType<Cheats>();
         if (levelProgressTracker != null)
         {
-            Debug.Log("HEY, WE CAN TRACK LEVEL PROGRESS");
+            Debug.Log("Level progress tracker found");
         }
         else
         {
-            Debug.Log("Shit");
+            Debug.Log("Level progress tracker missing");
         }
         Debug.Log(levelNumber - 2);
 
@@ -56,7 +56,7 @@ public class LevelStatus : MonoBehaviour
                 Debug.Log("Level " + levelNumber + " M1");
                 gameObject.GetComponent<Image>().color = Color.red;
             }
-            else if (unlocked || cheat.unlockAll) //unlocked but havent played or beaten the level - Nova
+            else if (unlocked || cheat.unlockAll) //unlocked but havent played/beaten the level or cheats are enabled - Nova
             {
                 Debug.Log("Level "+levelNumber+" Unlocked");
                 gameObject.GetComponent<Image>().color = Color.white;
