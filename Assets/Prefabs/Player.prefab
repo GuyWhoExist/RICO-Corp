@@ -216,6 +216,7 @@ MonoBehaviour:
   playerCamera: {fileID: 3280870652669640073}
   playerBody: {fileID: 8018648740792765137}
   pauseMenu: {fileID: 0}
+  sprayPlacerHudController: {fileID: 0}
   endTracker: {fileID: 0}
 --- !u!1 &2527319957930866390
 GameObject:
@@ -231,9 +232,11 @@ GameObject:
   - component: {fileID: 3396026005721194738}
   - component: {fileID: 7301727407463837847}
   - component: {fileID: 3675693052588370084}
+  - component: {fileID: 384045620701325308}
   - component: {fileID: 5263830152627946770}
   - component: {fileID: 2575806727729919433}
   - component: {fileID: 8523289442659343576}
+  - component: {fileID: 1106544071619831820}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -353,10 +356,10 @@ MonoBehaviour:
   enemyNumber: []
   prediction: 0
   killStreak: 0
-  playerMovementTutorial: {fileID: 0}
+  playerMovementTutorial: {fileID: 3675693052588370084}
   boostCoolDownStored: 0
   pauseMenu: {fileID: 0}
-  timerController: {fileID: 0}
+  timerController: {fileID: 8523289442659343576}
 --- !u!114 &3675693052588370084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +398,24 @@ MonoBehaviour:
   storedSpeed: 0
   sliding: 0
   state: 0
+--- !u!114 &384045620701325308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527319957930866390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e28880e39c1664bbf2ea7b5af3f7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 8185319642670670063}
+  playerObj: {fileID: 8018648740792765137}
+  maxSlideTime: 0
+  slideForce: 0
+  slideYScale: 0
+  slideKey: 306
 --- !u!120 &5263830152627946770
 LineRenderer:
   serializedVersion: 2
@@ -549,3 +570,22 @@ MonoBehaviour:
   curTime: 0
   timeTicking: 0
   end: 0
+--- !u!114 &1106544071619831820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527319957930866390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7501db49585bbdf4b8463353c6488923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  pauseHUD: {fileID: 0}
+  settings_Audio: {fileID: 0}
+  settings_Video: {fileID: 0}
+  settings_Gameplay: {fileID: 0}
+  pauseUI: {fileID: 0}
+  quit: 0
