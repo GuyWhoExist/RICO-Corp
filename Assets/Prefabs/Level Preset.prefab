@@ -7957,6 +7957,30 @@ PrefabInstance:
       propertyPath: sprayPlacerHudController
       value: 
       objectReference: {fileID: 4619868416193182393}
+    - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: pauseUI
+      value: 
+      objectReference: {fileID: 8357225168660746573}
+    - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: pauseHUD
+      value: 
+      objectReference: {fileID: 9094756203844871988}
+    - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 4133675217727616041}
+    - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: settings_Audio
+      value: 
+      objectReference: {fileID: 8411769181695369402}
+    - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: settings_Video
+      value: 
+      objectReference: {fileID: 5975207574629774837}
+    - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: settings_Gameplay
+      value: 
+      objectReference: {fileID: 7560025477368984451}
     - target: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -8005,6 +8029,10 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 4133675217727616041}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: prediction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: lineRenderer2
       value: 

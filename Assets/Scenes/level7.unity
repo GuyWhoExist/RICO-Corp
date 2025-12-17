@@ -1080,6 +1080,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 686085303}
+    - target: {fileID: 6533581300506218983, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533581300506218983, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1100006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533581300506218983, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.07
+      objectReference: {fileID: 0}
     - target: {fileID: 6976884104883577321, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: prediction
       value: 0
@@ -1793,7 +1805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491633b60eafb074388cb3188d9f531b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1565048868}
+  playerMovement: {fileID: 0}
 --- !u!1001 &1384974238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2046,17 +2058,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b195355296651dd48a95fbcc6cc0b703, type: 3}
---- !u!114 &1565048868 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3928407846925679066, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
-  m_PrefabInstance: {fileID: 545357250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5c0518b8a40914bae8f95bc956045c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1571417112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2208,7 +2209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491633b60eafb074388cb3188d9f531b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1565048868}
+  playerMovement: {fileID: 0}
 --- !u!1001 &1792277283
 PrefabInstance:
   m_ObjectHideFlags: 0
