@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class SprayPlacerHudController : MonoBehaviour
 {
@@ -10,8 +11,9 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject playerPosition;
     [HideInInspector] public bool selector;
     [SerializeField] TextMeshProUGUI rotationCounter;
+    [SerializeField] private GameObject rotationDisplay;
     private Quaternion rotationForm;
-    private int rotationValue;
+    private float rotationValue;
 
     [Header("Markers")]
     [SerializeField] GameObject shootMarker;
@@ -50,30 +52,33 @@ public class SprayPlacerHudController : MonoBehaviour
         {
             rotationValue += 15;
             if (rotationValue > 360)
-                rotationValue = -360;
+                rotationValue = -359;
             rotationCounter.text = rotationValue.ToString();
+            rotationDisplay.transform.rotation = new Quaternion(rotationDisplay.transform.rotation.x, rotationDisplay.transform.rotation.y, rotationDisplay.transform.rotation.z + 15, rotationDisplay.transform.rotation.w);
         }
         else
         {
             rotationValue -= 15;
             if (rotationValue < -360)
-                rotationValue = 360;
+                rotationValue = 359;
             rotationCounter.text = rotationValue.ToString();
+            rotationDisplay.transform.rotation = new Quaternion(rotationDisplay.transform.rotation.x, rotationDisplay.transform.rotation.y, rotationDisplay.transform.rotation.z - 15, rotationDisplay.transform.rotation.w);
         }
     }
 
     private void Planner_Closed(InputAction.CallbackContext context)
     {
         plannerUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         selector = false;
         controls.Planning.Rotate.Disable();
+        rotationValue = 0;  
     }
 
     private void Planner_Opened(InputAction.CallbackContext context)
     {
         plannerUI.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
         selector = true;
         controls.Planning.Rotate.Enable();
 
@@ -95,8 +100,8 @@ public class SprayPlacerHudController : MonoBehaviour
             {
 
                 rotationForm = (Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                Instantiate(shootMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
-                selector = false;
+                //Instantiate(shootMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
+                Instantiate(shootMarker, hit.point, rotationForm);
                 markerSelect = 0;
                 rotationValue = 0;
 
@@ -119,7 +124,8 @@ public class SprayPlacerHudController : MonoBehaviour
             {
 
                 rotationForm = (Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                Instantiate(stopMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
+                //Instantiate(stopMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
+                Instantiate(stopMarker, hit.point, rotationForm);
                 selector = false;
                 markerSelect = 0;
                 rotationValue = 0;
@@ -143,9 +149,10 @@ public class SprayPlacerHudController : MonoBehaviour
             {
                 
                 rotationForm = Quaternion.FromToRotation(Vector3.forward, hit.normal);
-                
-                Instantiate(goMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
-                        selector = false;
+
+                //Instantiate(goMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
+                Instantiate(goMarker, hit.point, rotationForm);
+                selector = false;
                         markerSelect = 0;
                 rotationValue = 0;
             }
