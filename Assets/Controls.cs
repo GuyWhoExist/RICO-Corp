@@ -339,6 +339,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""22ec4828-a331-4854-ba49-c5f96ce89531"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -350,6 +359,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Marker UI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9990390-539d-4988-9c0e-a206c1d4ecc3"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -404,6 +424,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Planning
         m_Planning = asset.FindActionMap("Planning", throwIfNotFound: true);
         m_Planning_MarkerUI = m_Planning.FindAction("Marker UI", throwIfNotFound: true);
+        m_Planning_Rotate = m_Planning.FindAction("Rotate", throwIfNotFound: true);
         // Melee
         m_Melee = asset.FindActionMap("Melee", throwIfNotFound: true);
         m_Melee_Swing = m_Melee.FindAction("Swing", throwIfNotFound: true);
@@ -974,6 +995,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Planning;
     private List<IPlanningActions> m_PlanningActionsCallbackInterfaces = new List<IPlanningActions>();
     private readonly InputAction m_Planning_MarkerUI;
+    private readonly InputAction m_Planning_Rotate;
     /// <summary>
     /// Provides access to input actions defined in input action map "Planning".
     /// </summary>
@@ -989,6 +1011,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Planning/MarkerUI".
         /// </summary>
         public InputAction @MarkerUI => m_Wrapper.m_Planning_MarkerUI;
+        /// <summary>
+        /// Provides access to the underlying input action "Planning/Rotate".
+        /// </summary>
+        public InputAction @Rotate => m_Wrapper.m_Planning_Rotate;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1018,6 +1044,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MarkerUI.started += instance.OnMarkerUI;
             @MarkerUI.performed += instance.OnMarkerUI;
             @MarkerUI.canceled += instance.OnMarkerUI;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
         }
 
         /// <summary>
@@ -1032,6 +1061,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MarkerUI.started -= instance.OnMarkerUI;
             @MarkerUI.performed -= instance.OnMarkerUI;
             @MarkerUI.canceled -= instance.OnMarkerUI;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
         }
 
         /// <summary>
@@ -1250,6 +1282,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMarkerUI(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotate(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Melee" which allows adding and removing callbacks.

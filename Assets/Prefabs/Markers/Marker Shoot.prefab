@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8750874594706548902}
   - component: {fileID: 142933405944500632}
   - component: {fileID: 1443850688765747442}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f5eaa1c09ab04847820c607c3135d8a, type: 2}
+  - {fileID: 2100000, guid: 0b693766db152154fbfb6cbd5f66db49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4537062649351416335}
   - component: {fileID: 2182090817522234037}
   - component: {fileID: 567845418085301831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f5eaa1c09ab04847820c607c3135d8a, type: 2}
+  - {fileID: 2100000, guid: 0b693766db152154fbfb6cbd5f66db49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 2910009870984964764}
   - component: {fileID: 289869540740538941}
   - component: {fileID: 106608588580405266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Marker Shoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
