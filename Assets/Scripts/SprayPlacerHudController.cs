@@ -19,6 +19,7 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject shootMarker;
     [SerializeField] GameObject goMarker;
     [SerializeField] GameObject stopMarker;
+    private GameObject placedMarker;
 
 
 
@@ -26,7 +27,6 @@ public class SprayPlacerHudController : MonoBehaviour
     private RaycastHit hit;
     private void Awake()
     {
-
         controls = new Controls();
     }
     public void OnEnable()
@@ -52,7 +52,7 @@ public class SprayPlacerHudController : MonoBehaviour
         {
             rotationValue += 15;
             if (rotationValue > 360)
-                rotationValue = -359;
+                rotationValue = -345;
             rotationCounter.text = rotationValue.ToString();
             rotationDisplay.transform.rotation = new Quaternion(rotationDisplay.transform.rotation.x, rotationDisplay.transform.rotation.y, rotationDisplay.transform.rotation.z + 15, rotationDisplay.transform.rotation.w);
         }
@@ -60,7 +60,7 @@ public class SprayPlacerHudController : MonoBehaviour
         {
             rotationValue -= 15;
             if (rotationValue < -360)
-                rotationValue = 359;
+                rotationValue = 345;
             rotationCounter.text = rotationValue.ToString();
             rotationDisplay.transform.rotation = new Quaternion(rotationDisplay.transform.rotation.x, rotationDisplay.transform.rotation.y, rotationDisplay.transform.rotation.z - 15, rotationDisplay.transform.rotation.w);
         }
@@ -68,6 +68,7 @@ public class SprayPlacerHudController : MonoBehaviour
 
     private void Planner_Closed(InputAction.CallbackContext context)
     {
+        rotationCounter.text = " ";
         plannerUI.SetActive(false);
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         selector = false;
@@ -92,11 +93,13 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnShootPress()
     {
         markerSelect = 1;
+        rotationCounter.text = " ";
         plannerUI.SetActive(false);
+
 
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
         {
-            if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<TImeHazard>() == null && hit.transform.GetComponent<Sludge>() == null && hit.transform.GetComponent<Enemy>() == null)
+            if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
 
                 rotationForm = (Quaternion.FromToRotation(Vector3.forward, hit.normal));
@@ -104,7 +107,7 @@ public class SprayPlacerHudController : MonoBehaviour
                 Instantiate(shootMarker, hit.point, rotationForm);
                 markerSelect = 0;
                 rotationValue = 0;
-
+                
 
             }
             else
@@ -116,11 +119,12 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnStopPress()
     {
         markerSelect = 2;
+        rotationCounter.text = " ";
         plannerUI.SetActive(false);
 
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
         {
-            if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<TImeHazard>() == null && hit.transform.GetComponent<Sludge>() == null && hit.transform.GetComponent<Enemy>() == null)
+            if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
 
                 rotationForm = (Quaternion.FromToRotation(Vector3.forward, hit.normal));
@@ -141,26 +145,28 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnFollowPress()
     {
         markerSelect = 3;
+        rotationCounter.text = " ";
         plannerUI.SetActive(false);
 
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
         {
-           if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<TImeHazard>() == null && hit.transform.GetComponent<Sludge>() == null && hit.transform.GetComponent<Enemy>() == null)
+            if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
-                
-                rotationForm = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                placedMarker = Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                if (rotationValue != 0)
+                {
 
-                //Instantiate(goMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
-                Instantiate(goMarker, hit.point, rotationForm);
-                selector = false;
-                        markerSelect = 0;
-                rotationValue = 0;
+                    placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                }
+                    selector = false;
+             markerSelect = 0;
+             
             }
-           else
-           {
+            else
+            {
                 Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
-           }
-        }
+            }
+        }   
     }
     public void OnDeletePress()
     {
@@ -172,5 +178,4 @@ public class SprayPlacerHudController : MonoBehaviour
             }
         }
     }
-
 }

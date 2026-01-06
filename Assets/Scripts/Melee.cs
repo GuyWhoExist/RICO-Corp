@@ -68,6 +68,7 @@ public class Melee : MonoBehaviour
                     else
                     {
                         playerPosition.transform.position = shootable.GetGameObject().transform.position;
+                        swingCoolDownStored = swingCoolDown;
                     }
                         Destroy(shootable.GetGameObject());
                    
@@ -83,7 +84,7 @@ public class Melee : MonoBehaviour
             }
             
             Debug.Log("melee is swung");
-            swingCoolDownStored = swingCoolDown;
+            
         }
     }
 
