@@ -218,6 +218,8 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   sprayPlacerHudController: {fileID: 0}
   endTracker: {fileID: 0}
+  FOV: 90
+  storedFOV: 0
 --- !u!1 &2527319957930866390
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +239,7 @@ GameObject:
   - component: {fileID: 2575806727729919433}
   - component: {fileID: 8523289442659343576}
   - component: {fileID: 1106544071619831820}
+  - component: {fileID: 3096779666775988733}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -351,7 +354,7 @@ MonoBehaviour:
   maxDistance: 500
   lineRenderer: {fileID: 5263830152627946770}
   lineRenderer2: {fileID: 0}
-  hits: 4
+  hits: 5
   cam: {fileID: 3280870652669640073}
   enemyNumber: []
   prediction: 0
@@ -589,3 +592,23 @@ MonoBehaviour:
   settings_Gameplay: {fileID: 0}
   pauseUI: {fileID: 0}
   quit: 0
+--- !u!114 &3096779666775988733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527319957930866390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5082fbf12632df244bac73f6d1582349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 2575806727729919433}
+  playerPosition: {fileID: 2527319957930866390}
+  meleeRange: 5
+  shooting: {fileID: 7301727407463837847}
+  swingCoolDown: 2
+  playerMovementTutorial: {fileID: 3675693052588370084}
+  playerCamera: {fileID: 2322980758753661442}
+  FOVShift: 25
