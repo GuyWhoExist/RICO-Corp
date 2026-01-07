@@ -101,14 +101,15 @@ public class SprayPlacerHudController : MonoBehaviour
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
+                placedMarker = Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                if (rotationValue != 0)
+                {
 
-                rotationForm = (Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                //Instantiate(shootMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
-                Instantiate(shootMarker, hit.point, rotationForm);
-                markerSelect = 0;
-                rotationValue = 0;
-                
-
+                    placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                }
+                    selector = false;
+             markerSelect = 0;
+             
             }
             else
             {
@@ -126,13 +127,14 @@ public class SprayPlacerHudController : MonoBehaviour
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
+                placedMarker = Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                if (rotationValue != 0)
+                {
 
-                rotationForm = (Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                //Instantiate(stopMarker, hit.point, new Quaternion(rotationValue, rotationForm.y, rotationForm.z, rotationForm.w));
-                Instantiate(stopMarker, hit.point, rotationForm);
+                    placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                }
                 selector = false;
                 markerSelect = 0;
-                rotationValue = 0;
 
             }
             else
