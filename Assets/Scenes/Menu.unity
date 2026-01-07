@@ -3240,7 +3240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2892b0c5ab24ef47a805c67c70bbc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 8
+  levelNumber: 8
   unlocked: 0
 --- !u!114 &1532328559
 MonoBehaviour:
