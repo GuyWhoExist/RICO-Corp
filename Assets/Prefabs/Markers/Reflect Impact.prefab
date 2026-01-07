@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8750874594706548902}
   - component: {fileID: 142933405944500632}
   - component: {fileID: 1443850688765747442}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4537062649351416335}
   - component: {fileID: 2182090817522234037}
   - component: {fileID: 567845418085301831}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 6420657680861018566}
   - component: {fileID: 7486671332845797574}
   - component: {fileID: 2910009870984964764}
-  m_Layer: 6
+  m_Layer: 2
   m_Name: Reflect Impact
   m_TagString: Untagged
   m_Icon: {fileID: 0}

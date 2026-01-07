@@ -11,6 +11,7 @@ public class Shooting : MonoBehaviour
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
+    private LayerMask Collideable;
     private Vector3 shotOrigin;
     private Vector3 shotDirection;
     private Controls controls;
@@ -27,6 +28,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private TimerController timerController;
     private bool overflowBlock;
     
+    
 
     [Header("Impact Decal Config")]
     [SerializeField] private bool impactDecals;
@@ -35,7 +37,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private GameObject reflectDecal;
     private void Awake()
     {
-
+        Collideable = LayerMask.GetMask("Default", "whatIsGround", "Ending");
         controls = new Controls();
         lineRenderer = GetComponent<LineRenderer>();
         //effectPlayer = GetComponent<AudioSource>();
@@ -175,11 +177,13 @@ public class Shooting : MonoBehaviour
         //effectPlayer.PlayOneShot(shot);
         while (hitting && total != 0)
         {
+
+         
             #region test :D
             //this is a region, use this
             #endregion
             //lineRenderer.alignment = LineAlignment.TransformZ;
-            if (Physics.Raycast(shotOrigin, shotDirection, out hit, maxDistance)) //initial raycast check - Nova
+            if (Physics.Raycast(shotOrigin, shotDirection, out hit, maxDistance, Collideable)) //initial raycast check - Nova
             {
                 if (hit.transform.GetComponent<Reflect>() != null) //if we hit a reflective surface... (these are the only outcomes that decrease the remaining number of bounces)- Nova
                 {

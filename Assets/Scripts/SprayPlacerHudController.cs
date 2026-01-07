@@ -15,6 +15,7 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] private GameObject rotationDisplay;
     private Quaternion rotationForm;
     private float rotationValue;
+    LayerMask sprayDetection;
 
     [Header("Markers")]
     [SerializeField] GameObject shootMarker;
@@ -29,6 +30,7 @@ public class SprayPlacerHudController : MonoBehaviour
     private void Awake()
     {
         controls = new Controls();
+        sprayDetection = LayerMask.GetMask("spray");
     }
     public void OnEnable()
     {
