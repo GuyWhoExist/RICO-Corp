@@ -21,6 +21,7 @@ public class Melee : MonoBehaviour
     private PlayerMovementTutorial jumpHelper;
     private bool FOVIncrement;
     [SerializeField] float FOVShift;
+    public bool meleeJump;
     //(allows access to jumpforce
 
 
@@ -64,6 +65,7 @@ public class Melee : MonoBehaviour
                     {
                         playerPosition.transform.position = positionDetection.gameObject.transform.position;
                         rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
+                        meleeJump = true;
                     }
                     else
                     {
