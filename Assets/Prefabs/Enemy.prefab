@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1304176834564653176}
   - component: {fileID: 4103977420486860246}
   - component: {fileID: 4039753623508688772}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: jumpmelee detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}

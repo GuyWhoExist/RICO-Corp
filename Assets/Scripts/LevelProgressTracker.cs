@@ -57,7 +57,7 @@ public class LevelProgressTracker : MonoBehaviour
         new (30f, 20f, 15f, 6 ),
         new (25f, 20f, 15f, 7 ),
         new (21f, 14f, 7f, 8 ),
-        new (120f, 75f, 45f, 9)
+        new (200f, 115f, 45f, 9)
 
     };
 
