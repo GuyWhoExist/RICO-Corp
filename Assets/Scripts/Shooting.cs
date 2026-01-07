@@ -11,12 +11,9 @@ public class Shooting : MonoBehaviour
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
-<<<<<<< HEAD
-    private Vector3 shotOrigin; 
-=======
+
     private LayerMask Collideable;
     private Vector3 shotOrigin;
->>>>>>> c2c46b94c977a853a2eeb9091f64e9a1cf0ed011
     private Vector3 shotDirection;
     private Controls controls;
     [SerializeField] private int hits; //total number of bounces on the gun - Nova
