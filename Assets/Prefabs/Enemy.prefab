@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8539882794458856773}
   - component: {fileID: 1304176834564653176}
   - component: {fileID: 4103977420486860246}
+  - component: {fileID: 4039753623508688772}
   m_Layer: 0
   m_Name: jumpmelee detection
   m_TagString: Untagged
@@ -73,6 +74,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bcafee0afa8fcb47948e7a3e2a4e2f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4039753623508688772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748241914099687365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad9eb7675e22de49916e4bdf804159b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3849959726996523104

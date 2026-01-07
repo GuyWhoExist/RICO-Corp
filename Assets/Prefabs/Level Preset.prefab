@@ -4299,6 +4299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plannerUI: {fileID: 6265335621318459218}
   playerPosition: {fileID: 1572008785102014772}
+  shootingDisabler: {fileID: 5816668831988673441}
   selector: 0
   rotationCounter: {fileID: 1112254339931333781}
   rotationDisplay: {fileID: 3235345075916412248}
@@ -8079,6 +8080,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4860211049158636183}
     m_Modifications:
+    - target: {fileID: 377725090330424688, guid: 3bba094239fc0a34aa05a9aaf37fb390, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1760135108255169005, guid: 3bba094239fc0a34aa05a9aaf37fb390, type: 3}
       propertyPath: m_Name
       value: Marker Go
@@ -8247,9 +8252,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4133675217727616041}
     - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: impactDecal
+      value: 
+      objectReference: {fileID: 5357528134599919699, guid: 79ecb2f0885221847abe74792cae2300, type: 3}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: impactDecals
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: reflectDecal
+      value: 
+      objectReference: {fileID: 5357528134599919699, guid: ec0c7d21605274846a3b3219eb2561d6, type: 3}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: lineRenderer2
       value: 
       objectReference: {fileID: 4963469796833339336}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: reflectDecals
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8018648740792765137, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8443,6 +8464,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38bd8b0dcb04b0f45be75a2acf3d8dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5816668831988673441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+  m_PrefabInstance: {fileID: 3885488378213882678}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657006923412778464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84a71b24583f3246b7fda35faf743f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &6533581300506218983 stripped
