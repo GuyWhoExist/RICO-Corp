@@ -18,6 +18,7 @@ public class RifleEnemy : MonoBehaviour
     private float remembering;
     private Vector3 directionToPlayer;
     private float windupTimer;
+
     private EnemyState state = EnemyState.IDLE;
     private LineRenderer lR;
     private Vector3 localHit;
@@ -33,6 +34,7 @@ public class RifleEnemy : MonoBehaviour
         lR.startColor = lR.materials[0].color;
     }
     [SerializeField] SightTracker sightTracker;
+
     private void Update()
     {
         UpdateState();

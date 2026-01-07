@@ -11,6 +11,7 @@ public class Shooting : MonoBehaviour
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
+
     private LayerMask Collideable;
     private Vector3 shotOrigin;
     private Vector3 shotDirection;
