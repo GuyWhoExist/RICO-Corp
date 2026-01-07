@@ -202,8 +202,8 @@ public class Shooting : MonoBehaviour
                     {
                         lineRenderer.positionCount++;
                         if (reflectDecals) // allows toggling reflect toggling
-                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null ) // verifies hit object is not player or rigidbody to avoid floating bulletholes
-                                Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole
+                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null ) // verifies hit object is not player or rigidbody to avoid floating bulletholes - Sawyer
+                                Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole - Sawyer
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal);
