@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,10 +8,13 @@ public class PlayerCamera : MonoBehaviour
     //the camera script we wrote together but modified for first person - Nova
 
     [SerializeField] private float sensitivity = 100f;
-    [SerializeField] private Camera playerCamera;
+    [SerializeField] public Camera playerCamera;
     [SerializeField] private Transform playerBody;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private SprayPlacerHudController sprayPlacerHudController;
     [SerializeField] private TimerController endTracker;
+    [SerializeField] public float FOV;
+    public float storedFOV;
     private bool overflowBlock; //- allows to prevent the game enabling camera every single frame
     private Rigidbody rb;
 
@@ -26,6 +30,7 @@ public class PlayerCamera : MonoBehaviour
         inputActions = new Controls();
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponentInParent<Rigidbody>();
+        storedFOV = FOV;
     }
 
     //ctx => lookInput = Vector2.zero;
@@ -52,18 +57,23 @@ public class PlayerCamera : MonoBehaviour
     {
         Look(lookInput);
 
-        // code to allow pause/levelend disabling cam movement
-        if (pauseMenu.paused == true || endTracker.end == true)
+        // code to allow pause/levelend/spraymenu disabling cam movement
+        if (pauseMenu.paused == true || endTracker.end == true ||  sprayPlacerHudController.selector == true)
         {
             inputActions.Camera.Disable();
             overflowBlock = false;
             Cursor.lockState = CursorLockMode.None;
         }
-        else if (pauseMenu.paused == false && overflowBlock == false || endTracker.end == false && overflowBlock == false)
+        else if (pauseMenu.paused == false && overflowBlock == false || endTracker.end == false && overflowBlock == false || sprayPlacerHudController == false && overflowBlock == false)
         {
             inputActions.Camera.Enable();
             overflowBlock = true;
             Cursor.lockState = CursorLockMode.Locked;
+
+            if (FOV != playerCamera.fieldOfView)
+            {
+                playerCamera.fieldOfView = FOV;
+            }
         }
         //end
     }

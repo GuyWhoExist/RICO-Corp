@@ -49,7 +49,7 @@ public class TimerController : MonoBehaviour
             curTime += Time.deltaTime;
             timerText.text = curTime.ToString("0:00.00");
         }
-        if (curTime >= 60f)
+        if (curTime >= 60f) //this changes the value of curTime to follow the 0:00.0 format - Nova
         {
             float tempTime = curTime;
             while (tempTime - 100f > 0)
@@ -62,7 +62,7 @@ public class TimerController : MonoBehaviour
             }
         }
         Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-        enemyCountText.text = ($"Enemies Left: {enemyNumber.Length}");
+        enemyCountText.text = $"Enemies Left: {enemyNumber.Length}";
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -77,12 +77,6 @@ public class TimerController : MonoBehaviour
                 if (enemyNumber.Length == 0)
                 {
                     curTime -= lE.GetBonus();
-                    timeTicking = false;
-                    timerText.text = curTime.ToString("0:00.00");
-                }
-                else
-                {
-                    curTime += 2.5f * enemyNumber.Length;
                     timeTicking = false;
                     timerText.text = curTime.ToString("0:00.00");
                 }
@@ -169,7 +163,6 @@ public class TimerController : MonoBehaviour
             {
                 next.SetActive(false);
             }
-
             levelProgressTracker.used = true;
 
         }

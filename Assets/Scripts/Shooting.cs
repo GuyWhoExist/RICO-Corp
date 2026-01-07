@@ -11,7 +11,12 @@ public class Shooting : MonoBehaviour
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
+<<<<<<< HEAD
     private Vector3 shotOrigin; 
+=======
+    private LayerMask Collideable;
+    private Vector3 shotOrigin;
+>>>>>>> c2c46b94c977a853a2eeb9091f64e9a1cf0ed011
     private Vector3 shotDirection;
     private Controls controls;
     [SerializeField] private int hits; //total number of bounces on the gun - Nova
@@ -19,16 +24,24 @@ public class Shooting : MonoBehaviour
     [SerializeField] private Camera cam;
     [HideInInspector] public Enemy[] enemyNumber; //the total number of enemies
     [SerializeField] private bool prediction;
-    private int killStreak;
+    public int killStreak;
     [SerializeField] private PlayerMovementTutorial playerMovementTutorial;
     public float boostCoolDownStored;
     [SerializeField] private PauseMenu pauseMenu;
+    public bool spraying;
     [SerializeField] private TimerController timerController;
     private bool overflowBlock;
+    
+    
 
+    [Header("Impact Decal Config")]
+    [SerializeField] private bool impactDecals;
+    [SerializeField] private bool reflectDecals;
+    [SerializeField] private GameObject impactDecal;
+    [SerializeField] private GameObject reflectDecal;
     private void Awake()
     {
-
+        Collideable = LayerMask.GetMask("Default", "whatIsGround", "Ending");
         controls = new Controls();
         lineRenderer = GetComponent<LineRenderer>();
         //effectPlayer = GetComponent<AudioSource>();
@@ -57,13 +70,13 @@ public class Shooting : MonoBehaviour
 
     private void Update() //everything in this is used for the PREDICTION LASER. - Nova
     {
-        // allows to disable shoot
-        if (pauseMenu.paused == true || timerController.end == true)
+        // allows to disable shooting when using any user interface, uis must be manually added
+        if (pauseMenu.paused == true || timerController.end == true || spraying == true)
         {
             controls.Guns.Shoot.Disable();
             overflowBlock = false;
         }
-        else if (pauseMenu.paused == false && overflowBlock == false || timerController.end && overflowBlock == false)
+        else if (pauseMenu.paused == false && overflowBlock == false || timerController.end && overflowBlock == false || spraying == false && overflowBlock == false)
         {
             controls.Guns.Shoot.Enable();
             overflowBlock = true;
@@ -141,13 +154,13 @@ public class Shooting : MonoBehaviour
             Debug.Log(lineRenderer2.material.ToString());
         }
 
-        boostCoolDownStored -= Time.deltaTime;
+        boostCoolDownStored = boostCoolDownStored - Time.deltaTime;
 
         if (boostCoolDownStored <= 0)
         {
             if (killStreak > 0)
             {
-                playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - 1;
+                playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - playerMovementTutorial.killBoost;
                 killStreak = killStreak - 1;
                 Debug.Log(killStreak);
             }
@@ -168,11 +181,13 @@ public class Shooting : MonoBehaviour
         //effectPlayer.PlayOneShot(shot);
         while (hitting && total != 0)
         {
+
+         
             #region test :D
             //this is a region, use this
             #endregion
             //lineRenderer.alignment = LineAlignment.TransformZ;
-            if (Physics.Raycast(shotOrigin, shotDirection, out hit, maxDistance)) //initial raycast check - Nova
+            if (Physics.Raycast(shotOrigin, shotDirection, out hit, maxDistance, Collideable)) //initial raycast check - Nova
             {
                 if (hit.transform.GetComponent<Reflect>() != null) //if we hit a reflective surface... (these are the only outcomes that decrease the remaining number of bounces)- Nova
                 {
@@ -190,6 +205,9 @@ public class Shooting : MonoBehaviour
                     else //if the surface is only reflectable... - Nova
                     {
                         lineRenderer.positionCount++;
+                        if (reflectDecals) // allows toggling reflect toggling
+                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null ) // verifies hit object is not player or rigidbody to avoid floating bulletholes
+                                Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal);
@@ -199,6 +217,9 @@ public class Shooting : MonoBehaviour
                     if (total == 0) //if we hit a reflectable surface but are out of bounces... - Nova
                     {
                         Debug.Log("Hit bouce max");
+                        if (impactDecal)
+                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null)
+                                Instantiate(impactDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                         //we simply end it. - Nova
                     }
                 }
@@ -223,7 +244,7 @@ public class Shooting : MonoBehaviour
                         if (total < hits)
                         {
                             Debug.Log(killStreak);
-                            playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + 1f;
+                            playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
                             boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                             Debug.Log($"{boostCoolDownStored}");
                             killStreak = killStreak + 1;
@@ -240,6 +261,9 @@ public class Shooting : MonoBehaviour
                     //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);
                     hitting = false;
                     lineRenderer.positionCount++;
+                    if (impactDecal)
+                        if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null)
+                            Instantiate(impactDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                 }
                 StartCoroutine(ResetShot());

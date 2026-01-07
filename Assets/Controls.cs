@@ -326,6 +326,82 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Planning"",
+            ""id"": ""0ecbc986-8362-4eb8-a5f0-c3f69d73136d"",
+            ""actions"": [
+                {
+                    ""name"": ""Marker UI"",
+                    ""type"": ""Button"",
+                    ""id"": ""a978e3ff-7025-443d-9a6b-2fc97d620861"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""22ec4828-a331-4854-ba49-c5f96ce89531"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e9bc2f8c-df41-43d2-8a2e-a863f22abd9b"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Marker UI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9990390-539d-4988-9c0e-a206c1d4ecc3"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Melee"",
+            ""id"": ""904b10b4-e79c-4599-8031-ed0fc8cb5b2b"",
+            ""actions"": [
+                {
+                    ""name"": ""Swing"",
+                    ""type"": ""Button"",
+                    ""id"": ""9b69d996-e53f-4c89-924a-8d02784f1e0f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""54f90473-b5e5-4f9d-a04f-0b09ec708435"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -345,6 +421,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // QuickRestart
         m_QuickRestart = asset.FindActionMap("QuickRestart", throwIfNotFound: true);
         m_QuickRestart_Restart = m_QuickRestart.FindAction("Restart", throwIfNotFound: true);
+        // Planning
+        m_Planning = asset.FindActionMap("Planning", throwIfNotFound: true);
+        m_Planning_MarkerUI = m_Planning.FindAction("Marker UI", throwIfNotFound: true);
+        m_Planning_Rotate = m_Planning.FindAction("Rotate", throwIfNotFound: true);
+        // Melee
+        m_Melee = asset.FindActionMap("Melee", throwIfNotFound: true);
+        m_Melee_Swing = m_Melee.FindAction("Swing", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -354,6 +437,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Movement.enabled, "This will cause a leak and performance issues, Controls.Movement.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Pause.enabled, "This will cause a leak and performance issues, Controls.Pause.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_QuickRestart.enabled, "This will cause a leak and performance issues, Controls.QuickRestart.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Planning.enabled, "This will cause a leak and performance issues, Controls.Planning.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Melee.enabled, "This will cause a leak and performance issues, Controls.Melee.Disable() has not been called.");
     }
 
     /// <summary>
@@ -905,6 +990,209 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="QuickRestartActions" /> instance referencing this action map.
     /// </summary>
     public QuickRestartActions @QuickRestart => new QuickRestartActions(this);
+
+    // Planning
+    private readonly InputActionMap m_Planning;
+    private List<IPlanningActions> m_PlanningActionsCallbackInterfaces = new List<IPlanningActions>();
+    private readonly InputAction m_Planning_MarkerUI;
+    private readonly InputAction m_Planning_Rotate;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Planning".
+    /// </summary>
+    public struct PlanningActions
+    {
+        private @Controls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public PlanningActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Planning/MarkerUI".
+        /// </summary>
+        public InputAction @MarkerUI => m_Wrapper.m_Planning_MarkerUI;
+        /// <summary>
+        /// Provides access to the underlying input action "Planning/Rotate".
+        /// </summary>
+        public InputAction @Rotate => m_Wrapper.m_Planning_Rotate;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Planning; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="PlanningActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(PlanningActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="PlanningActions" />
+        public void AddCallbacks(IPlanningActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlanningActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlanningActionsCallbackInterfaces.Add(instance);
+            @MarkerUI.started += instance.OnMarkerUI;
+            @MarkerUI.performed += instance.OnMarkerUI;
+            @MarkerUI.canceled += instance.OnMarkerUI;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="PlanningActions" />
+        private void UnregisterCallbacks(IPlanningActions instance)
+        {
+            @MarkerUI.started -= instance.OnMarkerUI;
+            @MarkerUI.performed -= instance.OnMarkerUI;
+            @MarkerUI.canceled -= instance.OnMarkerUI;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlanningActions.UnregisterCallbacks(IPlanningActions)" />.
+        /// </summary>
+        /// <seealso cref="PlanningActions.UnregisterCallbacks(IPlanningActions)" />
+        public void RemoveCallbacks(IPlanningActions instance)
+        {
+            if (m_Wrapper.m_PlanningActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="PlanningActions.AddCallbacks(IPlanningActions)" />
+        /// <seealso cref="PlanningActions.RemoveCallbacks(IPlanningActions)" />
+        /// <seealso cref="PlanningActions.UnregisterCallbacks(IPlanningActions)" />
+        public void SetCallbacks(IPlanningActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlanningActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlanningActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="PlanningActions" /> instance referencing this action map.
+    /// </summary>
+    public PlanningActions @Planning => new PlanningActions(this);
+
+    // Melee
+    private readonly InputActionMap m_Melee;
+    private List<IMeleeActions> m_MeleeActionsCallbackInterfaces = new List<IMeleeActions>();
+    private readonly InputAction m_Melee_Swing;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Melee".
+    /// </summary>
+    public struct MeleeActions
+    {
+        private @Controls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public MeleeActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Melee/Swing".
+        /// </summary>
+        public InputAction @Swing => m_Wrapper.m_Melee_Swing;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Melee; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="MeleeActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(MeleeActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="MeleeActions" />
+        public void AddCallbacks(IMeleeActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MeleeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MeleeActionsCallbackInterfaces.Add(instance);
+            @Swing.started += instance.OnSwing;
+            @Swing.performed += instance.OnSwing;
+            @Swing.canceled += instance.OnSwing;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="MeleeActions" />
+        private void UnregisterCallbacks(IMeleeActions instance)
+        {
+            @Swing.started -= instance.OnSwing;
+            @Swing.performed -= instance.OnSwing;
+            @Swing.canceled -= instance.OnSwing;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="MeleeActions.UnregisterCallbacks(IMeleeActions)" />.
+        /// </summary>
+        /// <seealso cref="MeleeActions.UnregisterCallbacks(IMeleeActions)" />
+        public void RemoveCallbacks(IMeleeActions instance)
+        {
+            if (m_Wrapper.m_MeleeActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="MeleeActions.AddCallbacks(IMeleeActions)" />
+        /// <seealso cref="MeleeActions.RemoveCallbacks(IMeleeActions)" />
+        /// <seealso cref="MeleeActions.UnregisterCallbacks(IMeleeActions)" />
+        public void SetCallbacks(IMeleeActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MeleeActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MeleeActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="MeleeActions" /> instance referencing this action map.
+    /// </summary>
+    public MeleeActions @Melee => new MeleeActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Guns" which allows adding and removing callbacks.
     /// </summary>
@@ -979,5 +1267,42 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRestart(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Planning" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="PlanningActions.AddCallbacks(IPlanningActions)" />
+    /// <seealso cref="PlanningActions.RemoveCallbacks(IPlanningActions)" />
+    public interface IPlanningActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Marker UI" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMarkerUI(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotate(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Melee" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="MeleeActions.AddCallbacks(IMeleeActions)" />
+    /// <seealso cref="MeleeActions.RemoveCallbacks(IMeleeActions)" />
+    public interface IMeleeActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Swing" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSwing(InputAction.CallbackContext context);
     }
 }

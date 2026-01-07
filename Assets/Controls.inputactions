@@ -240,6 +240,82 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Planning",
+            "id": "0ecbc986-8362-4eb8-a5f0-c3f69d73136d",
+            "actions": [
+                {
+                    "name": "Marker UI",
+                    "type": "Button",
+                    "id": "a978e3ff-7025-443d-9a6b-2fc97d620861",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Value",
+                    "id": "22ec4828-a331-4854-ba49-c5f96ce89531",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e9bc2f8c-df41-43d2-8a2e-a863f22abd9b",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Marker UI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9990390-539d-4988-9c0e-a206c1d4ecc3",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Melee",
+            "id": "904b10b4-e79c-4599-8031-ed0fc8cb5b2b",
+            "actions": [
+                {
+                    "name": "Swing",
+                    "type": "Button",
+                    "id": "9b69d996-e53f-4c89-924a-8d02784f1e0f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "54f90473-b5e5-4f9d-a04f-0b09ec708435",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
