@@ -11,7 +11,7 @@ public class Shooting : MonoBehaviour
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
-    private Vector3 shotOrigin;
+    private Vector3 shotOrigin; 
     private Vector3 shotDirection;
     private Controls controls;
     [SerializeField] private int hits; //total number of bounces on the gun - Nova

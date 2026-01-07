@@ -16,12 +16,7 @@ public class RifleEnemy : MonoBehaviour
     private Vector3 directionToPlayer;
     private float windupTimer;
     private EnemyState state;
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> 02ba8c6ae68ee6fac36c8024ded6f70dbe23fa6c
     private LineRenderer lR;
 
     private void Awake()
@@ -32,11 +27,7 @@ public class RifleEnemy : MonoBehaviour
 
     [SerializeField] SightTracker sightTracker;
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 02ba8c6ae68ee6fac36c8024ded6f70dbe23fa6c
     private void Update()
     {
         UpdateState();
