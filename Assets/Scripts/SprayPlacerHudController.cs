@@ -2,19 +2,22 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class SprayPlacerHudController : MonoBehaviour
 {
     private Controls controls;
     [SerializeField] GameObject plannerUI;
-    [SerializeField] GameObject playerPosition;
+    [SerializeField] GameObject CameraPosition;
     [SerializeField] Shooting shootingDisabler;
     [HideInInspector] public bool selector;
     [SerializeField] TextMeshProUGUI rotationCounter;
-    [SerializeField] private GameObject rotationDisplay;
+    [SerializeField] private UnityEngine.UI.RawImage rotationDisplay;
     private Quaternion rotationForm;
     private float rotationValue;
+    private float invertedRotationValue;
+    private float cameraAngle;
     LayerMask sprayDetection;
 
     [Header("Markers")]
@@ -57,33 +60,43 @@ public class SprayPlacerHudController : MonoBehaviour
         if (controls.Planning.Rotate.ReadValue<Vector2>().y > 0)
         {
             rotationValue += 15;
+            invertedRotationValue -= 15;
             if (rotationValue > 360)
                 rotationValue = -345;
             rotationCounter.text = rotationValue.ToString();
-            rotationDisplay.transform.rotation = new Quaternion(rotationDisplay.transform.rotation.x, rotationDisplay.transform.rotation.y, rotationDisplay.transform.rotation.z + 15, rotationDisplay.transform.rotation.w);
+            rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, invertedRotationValue);
         }
         else
         {
             rotationValue -= 15;
+            invertedRotationValue += 15;
             if (rotationValue < -360)
                 rotationValue = 345;
             rotationCounter.text = rotationValue.ToString();
-            rotationDisplay.transform.rotation = new Quaternion(rotationDisplay.transform.rotation.x, rotationDisplay.transform.rotation.y, rotationDisplay.transform.rotation.z - 15, rotationDisplay.transform.rotation.w);
+            rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, invertedRotationValue);
         }
     }
     private void Planner_Closed(InputAction.CallbackContext context)
     {
         rotationCounter.text = " ";
+        invertedRotationValue = 0;
+        rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, 0);
         plannerUI.SetActive(false);
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         selector = false;
         controls.Planning.Rotate.Disable();
         rotationValue = 0;
         shootingDisabler.spraying = false;
+        
     }
     private void Planner_Opened(InputAction.CallbackContext context)
     {
-        plannerUI.SetActive(true);
+        cameraAngle = CameraPosition.transform.rotation.eulerAngles.y;
+        if (cameraAngle > 0)
+        {
+            cameraAngle *= -1;
+        }
+            plannerUI.SetActive(true);
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         selector = true;
         controls.Planning.Rotate.Enable();
@@ -97,7 +110,7 @@ public class SprayPlacerHudController : MonoBehaviour
     {
         markerSelect = 1;
         rotationCounter.text = " ";
-        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+        if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
             collectedHit = hit.transform.gameObject;
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
@@ -105,8 +118,14 @@ public class SprayPlacerHudController : MonoBehaviour
                 placedMarker = Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                 if (rotationValue != 0)
                 {
-                    placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
-                    placedMarker.transform.position += new Vector3(0f, 0f, 0.1f);
+                    if (placedMarker.transform.rotation.eulerAngles.x != 0)
+                    {
+                        placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue + cameraAngle);
+                    }
+                    else
+                    {
+                        placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                    }
                 }
                     selector = false;
              markerSelect = 0;
@@ -124,15 +143,21 @@ public class SprayPlacerHudController : MonoBehaviour
         markerSelect = 2;
         rotationCounter.text = " ";
 
-        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+        if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
             collectedHit = hit.transform.gameObject;
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                 {
-                    placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
-                    placedMarker.transform.position += new Vector3(0f, 0f, 0.1f);
+                    if (placedMarker.transform.rotation.eulerAngles.x != 0)
+                    {
+                        placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue + cameraAngle);
+                    }
+                    else
+                    {
+                        placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                    }
                 }
                 selector = false;
                 markerSelect = 0;
@@ -149,15 +174,21 @@ public class SprayPlacerHudController : MonoBehaviour
         markerSelect = 3;
         rotationCounter.text = " ";
        
-        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+        if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
             collectedHit = hit.transform.gameObject;
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                 {
-                    placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
-                    placedMarker.transform.position += new Vector3(0f, 0f, 0.1f);
+                    if (placedMarker.transform.rotation.eulerAngles.x != 0)
+                    {
+                        placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue + cameraAngle);
+                    }
+                    else
+                    {
+                        placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                    }
                 }
                 selector = false;
                 markerSelect = 0;
@@ -171,7 +202,7 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     public void OnDeletePress()
     {
-        if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+        if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
         {
             if (hit.transform.TryGetComponent(out ICleanable Spray))
                 Destroy(Spray.GetGameObject());

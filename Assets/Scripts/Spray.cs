@@ -7,9 +7,6 @@ public class Spray : MonoBehaviour, ICleanable
     private RaycastHit hit;
     private Destroyable destroyableObject;
     private Absorb armouredGlass;
-
-
-    LayerMask sprayage;
     private void OnEnable()
     {
         if (FindFirstObjectByType<SprayPlacerHudController>())
@@ -32,7 +29,6 @@ public class Spray : MonoBehaviour, ICleanable
         }
         else
             Debug.Log("ok, don't destroy this");
- 
     }
     public GameObject GetGameObject()
     {
