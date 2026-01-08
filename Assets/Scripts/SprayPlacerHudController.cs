@@ -22,15 +22,17 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject goMarker;
     [SerializeField] GameObject stopMarker;
     private GameObject placedMarker;
+    [HideInInspector] public GameObject collectedHit;
 
 
 
     private int markerSelect;
-    private RaycastHit hit;
+    [HideInInspector]public RaycastHit hit;
     private void Awake()
     {
         controls = new Controls();
         sprayDetection = LayerMask.GetMask("spray");
+        collectedHit = gameObject;
     }
     public void OnEnable()
     {
@@ -41,6 +43,7 @@ public class SprayPlacerHudController : MonoBehaviour
         controls.Planning.Rotate.performed += Rotation_Performed;
         controls.Planning.Rotate.canceled += Rotation_Ceased;
         markerSelect = 0;
+        
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
     }
 
@@ -95,12 +98,16 @@ public class SprayPlacerHudController : MonoBehaviour
         markerSelect = 1;
         rotationCounter.text = " ";
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+            collectedHit = hit.transform.gameObject;
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                 if (rotationValue != 0)
+                {
                     placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                    placedMarker.transform.position += new Vector3(0f, 0f, 0.1f);
+                }
                     selector = false;
              markerSelect = 0;
              
@@ -118,12 +125,15 @@ public class SprayPlacerHudController : MonoBehaviour
         rotationCounter.text = " ";
 
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+            collectedHit = hit.transform.gameObject;
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                if (rotationValue != 0)
+                {
                     placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
+                    placedMarker.transform.position += new Vector3(0f, 0f, 0.1f);
+                }
                 selector = false;
                 markerSelect = 0;
             }
@@ -140,15 +150,17 @@ public class SprayPlacerHudController : MonoBehaviour
         rotationCounter.text = " ";
        
         if (Physics.Raycast(playerPosition.transform.position, playerPosition.transform.forward, out hit, 10f))
+            collectedHit = hit.transform.gameObject;
         {
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                if (rotationValue != 0)
+                {
                     placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
-                    selector = false;
-             markerSelect = 0;
-             
+                    placedMarker.transform.position += new Vector3(0f, 0f, 0.1f);
+                }
+                selector = false;
+                markerSelect = 0;
             }
             else
             {
