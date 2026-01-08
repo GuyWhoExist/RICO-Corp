@@ -36,7 +36,7 @@ public class LevelProgressTracker : MonoBehaviour
                 if (l.used == false && duplicates.Length - 1 != 0)
                 {
                     Debug.Log("More than 1 tracker found, killing the unused ones");
-                    Debug.Log(l.levels[0].bestTime);
+                    Debug.Log(l.levels[0].bestTime); //data wasnt being loaded. checking if we are deleting 
                     Destroy(l.gameObject);
                 }
             }
@@ -57,7 +57,7 @@ public class LevelProgressTracker : MonoBehaviour
         new (30f, 20f, 15f, 6 ),
         new (25f, 20f, 15f, 7 ),
         new (21f, 14f, 7f, 8 ),
-        new (120f, 75f, 45f, 9)
+        new (120f, 75f, 45f, 9) //who set this? 75 is not a valid time lol. 75 would be 0:75.00, which is not possible. - Nova
 
     };
 

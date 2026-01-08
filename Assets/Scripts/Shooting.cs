@@ -158,10 +158,12 @@ public class Shooting : MonoBehaviour
     {
         StopAllCoroutines(); 
         shotOrigin = cam.transform.position;
-        shotOrigin.y -= 0.5f;
+        //shotOrigin.y -= 0.5f;
+        Vector3 temp3 = shotOrigin;
+        temp3.y -= 0.5f;
         shotDirection = cam.transform.forward;
         lineRenderer.positionCount = 1; //establishes the number of nodes of the line Renderer. - Nova
-        lineRenderer.SetPosition(0, shotOrigin);
+        lineRenderer.SetPosition(0, temp3);
         hitting = true;
         int total = hits; //total is the number we actually modify when counting bounces
         //int color = 0;

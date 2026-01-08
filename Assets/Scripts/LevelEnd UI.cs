@@ -18,9 +18,9 @@ public class LevelEndUI : MonoBehaviour
     {
         levelEnder = FindAnyObjectByType<LevelEnder>();
         if (levelEnder == null)
-            Debug.Log("hey, end the level");
+            Debug.Log("Level End is missing");
         else
-            Debug.Log("level is endeable");
+            Debug.Log("Level End found");
 
         endGUI.SetActive(false);
         //timerController = GetComponent<TimerController>();

@@ -74,10 +74,10 @@ public class TimerController : MonoBehaviour
             if (timeTicking)
             {
                 Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+                timeTicking = false;
                 if (enemyNumber.Length == 0)
                 {
                     curTime -= lE.GetBonus();
-                    timeTicking = false;
                     timerText.text = curTime.ToString("0:00.00");
                 }
                 if (lE.GetNextIndex() == 0)
