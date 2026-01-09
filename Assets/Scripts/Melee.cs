@@ -21,6 +21,7 @@ public class Melee : MonoBehaviour
     private PlayerMovementTutorial jumpHelper;
     private bool FOVIncrement;
     [SerializeField] float FOVShift;
+    public bool meleeJump;
     //(allows access to jumpforce
 
 
@@ -59,23 +60,31 @@ public class Melee : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent(out IShootable shootable))
                 {
-                    playerCamera.GetComponent<PlayerCamera>().FOV += FOVShift;
-                    if (positionDetection != null)
-                    {
-                        playerPosition.transform.position = positionDetection.gameObject.transform.position;
-                        rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
-                    }
-                    else
-                    {
-                        playerPosition.transform.position = shootable.GetGameObject().transform.position;
-                    }
-                        Destroy(shootable.GetGameObject());
-                   
-                    Debug.Log("enemy SHOULD be bludgoned to death");
                     
-                    shooting.killStreak = shooting.killStreak + 1;
-                    playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
-                    shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
+                     if (hit.transform.GetComponent<Enemy>() != null)
+                      {
+                        playerCamera.GetComponent<PlayerCamera>().FOV += FOVShift;
+                        if (positionDetection != null)
+                            {
+                             playerPosition.transform.position = positionDetection.gameObject.transform.position;
+                             rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
+                             meleeJump = true;
+                            }
+                        else
+                            {
+                             playerPosition.transform.position = shootable.GetGameObject().transform.position;
+                             swingCoolDownStored = swingCoolDown;
+                            }
+                      }
+                        
+                  Destroy(shootable.GetGameObject());
+
+                  Debug.Log("enemy SHOULD be bludgoned to death");
+
+                  shooting.killStreak = shooting.killStreak + 1;
+                  playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
+                  shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
+              
                 }
                 Debug.Log("swing raycast is fired");
                 FOVIncrement = true;
@@ -83,7 +92,7 @@ public class Melee : MonoBehaviour
             }
             
             Debug.Log("melee is swung");
-            swingCoolDownStored = swingCoolDown;
+            
         }
     }
 

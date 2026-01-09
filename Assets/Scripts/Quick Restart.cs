@@ -7,9 +7,11 @@ public class QuickRestart : MonoBehaviour
 {
     private Controls controls;
     private LevelEnder levelEnder;
-    [SerializeField] private TimerController timerController;
+    [SerializeField] PlayerCamera killCancel;
+    [SerializeField] TimerController timerController;
     private LevelProgressTracker levelProgressTracker;
-    public bool playerDie;
+    [HideInInspector] public bool playerDie;
+    private bool anotherOverflowBlock; // stops the kill input from being generated every frame
     private void Awake()
     {
         controls = new Controls();
@@ -22,6 +24,7 @@ public class QuickRestart : MonoBehaviour
         Debug.Log("kill exists");
         controls.QuickRestart.Restart.Enable();
         controls.QuickRestart.Restart.performed += Restart_Performed;
+        anotherOverflowBlock = true;
     }
     private void OnDisable()
     {
@@ -63,5 +66,19 @@ public class QuickRestart : MonoBehaviour
 
          playerDie = false;
          }
+
+        if (killCancel.overflowBlock == false)
+        {
+            controls.QuickRestart.Restart.Disable();
+            anotherOverflowBlock = false;
+        }
+        else if (killCancel.overflowBlock && anotherOverflowBlock == false)
+        {
+            controls.QuickRestart.Restart.Enable();
+            anotherOverflowBlock = true;
+        }
+
     }
+    
+
 }

@@ -49,9 +49,7 @@ public class LevelProgressTracker : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject); //allows this object to stay between levels - Nova
     }
 
-   
-
-    public LevelInfo[] levels = new LevelInfo[8] { //the array of levels. - Nova
+    public LevelInfo[] levels = new LevelInfo[10] { //the array of levels. - Nova
         new (20f, 15f, 10f, 2 ),
         new (8f, 4f, 2f, 3 ),
         new (15f, 10f, 5f, 4 ),
@@ -59,8 +57,9 @@ public class LevelProgressTracker : MonoBehaviour
         new (30f, 20f, 15f, 6 ),
         new (25f, 20f, 15f, 7 ),
         new (21f, 14f, 7f, 8 ),
-        new (120f, 75f, 45f, 9) //who set this? 75 is not a valid time lol. 75 would be 0:75.00, which is not possible. - Nova
-
+        new (120f, 75f, 45f, 9), //who set this? 75 is not a valid time lol. 75 would be 0:75.00, which is not possible. - Nova
+        new (120f, 75f, 45f, 12), //Level 1 v2 - Blockout Colby, Archetect tbd
+        new (200f, 115f, 45f, 9),
     };
 
     

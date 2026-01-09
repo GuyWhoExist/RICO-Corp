@@ -15,13 +15,12 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private TimerController endTracker;
     [SerializeField] public float FOV;
     public float storedFOV;
-    private bool overflowBlock; //- allows to prevent the game enabling camera every single frame
+    public bool overflowBlock; //- allows to prevent the game enabling camera every single frame, alongside routing gamestops outside the script to stop related issues
     private Rigidbody rb;
 
     private float xRotation = 0f;
     private float yRotation = 0f;
     private Vector2 lookInput;
-
     private Controls inputActions;
 
     private void Awake()

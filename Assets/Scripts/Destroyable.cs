@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Destroyable : MonoBehaviour, IShootable
 {
-
+    public bool shot;
     //this is destroyed on getting shot - Nova
     GameObject IShootable.GetGameObject()
     {
@@ -11,6 +11,7 @@ public class Destroyable : MonoBehaviour, IShootable
 
     void IShootable.OnGettingShot()
     {
+        shot = true;
         Destroy(gameObject);
     }
 }

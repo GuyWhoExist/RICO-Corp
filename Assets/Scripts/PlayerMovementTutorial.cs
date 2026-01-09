@@ -17,9 +17,14 @@ public class PlayerMovementTutorial : MonoBehaviour
     public float jumpCooldown; // Gee I wonder what these do :thinking: - Sawyer
     public float airMultiplier; //the modifier for when the player is in the air. (ex. 2 would double the players speed in the air. should be <= 1) - Nova
     bool readyToJump;
+    private bool jumpeable;
+    private bool coyoteTrigger;
+    [SerializeField] float coyoteTime;
+    private float coyoteTimeInternal;
     [SerializeField] private float gravityMultiplier;
     [HideInInspector] public float walkSpeed; //this is effectively max speed. refer to this when needed - Nova
     [HideInInspector] public float sprintSpeed; //unused - Nova
+    [SerializeField] Melee hitLaunch;
 
     [Header("Sliding")]
     public float slideSpeed;
@@ -38,7 +43,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
-    private bool exitingSlope;
+    //private bool exitingSlope;
 
     [Header("Boost Config")]
     public float boostCoolDown;
@@ -70,7 +75,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        exitingSlope = false;
+        //exitingSlope = false;
 
         readyToJump = true;
         startYScale = transform.localScale.y;
@@ -92,12 +97,16 @@ public class PlayerMovementTutorial : MonoBehaviour
         {
             rb.linearDamping = groundDrag;
             //Debug.Log("Grounded");
+            jumpeable = true;
+            coyoteTimeInternal = coyoteTime;
+            hitLaunch.meleeJump = false;
         }
 
         else
         {
             rb.linearDamping = 0;
             //Debug.Log("Air");
+            coyoteTrigger = true;
         }
 
         if (transform.position.y < -20f)
@@ -105,6 +114,12 @@ public class PlayerMovementTutorial : MonoBehaviour
             transform.position = spawn.transform.position;
             rb.angularVelocity = new Vector3(0f, 0f, 0f);
         }
+
+        if (coyoteTrigger)
+            coyoteTimeInternal -= Time.deltaTime;
+
+        if (coyoteTimeInternal  < 0f || Input.GetKey(jumpKey) || hitLaunch.meleeJump == true )
+            jumpeable = false;
     }
 
     private void FixedUpdate()
@@ -119,7 +134,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && jumpeable)
         {
             readyToJump = false;
 
@@ -246,7 +261,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Jump()
     {
-        exitingSlope = true;
+        //exitingSlope = true;
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
@@ -255,7 +270,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-        exitingSlope = false;
+        //exitingSlope = false;
     }
 
     /*public bool OnSlope() //this shit took too long to implement and it STILL doesn't work fully - Nova
