@@ -91,11 +91,7 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     private void Planner_Opened(InputAction.CallbackContext context)
     {
-        cameraAngle = CameraPosition.transform.rotation.eulerAngles.y;
-        if (cameraAngle > 0)
-        {
-            cameraAngle *= -1;
-        }
+        cameraAngle = CameraPosition.transform.rotation.eulerAngles.y + 180;
             plannerUI.SetActive(true);
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         selector = true;
@@ -116,7 +112,6 @@ public class SprayPlacerHudController : MonoBehaviour
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                if (rotationValue != 0)
                 {
                     if (placedMarker.transform.rotation.eulerAngles.x != 0)
                     {
@@ -127,9 +122,8 @@ public class SprayPlacerHudController : MonoBehaviour
                         placedMarker.transform.localRotation = Quaternion.Euler(placedMarker.transform.rotation.eulerAngles.x, placedMarker.transform.rotation.eulerAngles.y, rotationValue);
                     }
                 }
-                    selector = false;
-             markerSelect = 0;
-             
+                selector = false;
+                markerSelect = 0;
             }
             else
             {
