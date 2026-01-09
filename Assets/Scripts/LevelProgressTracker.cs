@@ -65,9 +65,9 @@ public class LevelProgressTracker : MonoBehaviour
     
 
     public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted - Nova
-    public float testingTime;
+    public float testingTime; //debugging field. used to check if this LPT has valid data - Nova
 
-    public int GetArrayIndex( int levelIndex ) //i realized this was redundant a few hours after i coded this. so yeah... - Nova
+    public int GetArrayIndex( int levelIndex ) //i realized this was redundant a few hours after i coded this. This doesn't get used anywhere, but leave it. - Nova
     {
         int arrayIndex = 0;
         foreach ( LevelInfo level in levels )

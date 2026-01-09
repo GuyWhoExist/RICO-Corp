@@ -3,6 +3,7 @@ using UnityEngine;
 public class SFXManager : MonoBehaviour
 {
     //doesnt work :shrug: - Nova
+    //There was probably more in here before, but I guess i deleted out of frustration - Nova
 
     private Controls controls;
 
