@@ -49,6 +49,8 @@ public class LevelProgressTracker : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject); //allows this object to stay between levels - Nova
     }
 
+   
+
     public LevelInfo[] levels = new LevelInfo[8] { //the array of levels. - Nova
         new (20f, 15f, 10f, 2 ),
         new (8f, 4f, 2f, 3 ),
@@ -60,6 +62,8 @@ public class LevelProgressTracker : MonoBehaviour
         new (120f, 75f, 45f, 9) //who set this? 75 is not a valid time lol. 75 would be 0:75.00, which is not possible. - Nova
 
     };
+
+    
 
     public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted - Nova
     public float testingTime;

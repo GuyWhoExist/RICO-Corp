@@ -262,3 +262,4 @@ public class Shooting : MonoBehaviour
         lineRenderer.SetPosition(0, shotOrigin);
     }
 }
+

@@ -84,7 +84,6 @@ public class LevelEndUI : MonoBehaviour
         Time.timeScale = 1;
         if (levelEnder.nextLevelIndex == 0)
         {
-            Debug.Log("Git gud");
             timerController.end = false;
             if (timerController.end == false)
             {
@@ -94,7 +93,6 @@ public class LevelEndUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Git gud");
             timerController.end = false;
             if (timerController.end == false)
             {

@@ -42,6 +42,8 @@ public class TimerController : MonoBehaviour
         }
         end = false;
     }
+
+
     void Update()
     {
         if (timeTicking)
@@ -63,6 +65,13 @@ public class TimerController : MonoBehaviour
         }
         Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         enemyCountText.text = $"Enemies Left: {enemyNumber.Length}";
+
+
+        //for (int i = 0; i < levelProgressTracker.levels.Length; i++)
+        //{
+        //    testArray[i] = levelProgressTracker.levels[i].bestTime;
+        //}
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -154,8 +163,8 @@ public class TimerController : MonoBehaviour
                 }
             }
             end = true;
-
-            if (curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 2].milestone1)
+            
+            if (curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 3].milestone1)
             {
                 next.SetActive(true);
             }
