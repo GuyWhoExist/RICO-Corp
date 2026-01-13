@@ -37,7 +37,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void OnPlanningEnable()
     {
-      if (FindAnyObjectByType <PlanningModeController>())
+      if (FindAnyObjectByType <PlanningModeController>() != null)
         {
             Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
             restartController = FindFirstObjectByType<QuickRestart>();
