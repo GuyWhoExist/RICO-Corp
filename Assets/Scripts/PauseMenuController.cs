@@ -29,7 +29,8 @@ public class PauseMenuController : MonoBehaviour
         Debug.Log("You pressed it");
         pauseMenu.buttonPress = true;
         quit = true;
-        Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
+        if (FindAnyObjectByType<PlanningModeController>())
+            Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
         SceneManager.LoadScene(0);
         
     }
