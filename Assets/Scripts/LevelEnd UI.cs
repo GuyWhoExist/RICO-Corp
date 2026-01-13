@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 //Used to manipulate and edit the text on the level ending UI - Nova
-
+// joint effort -sawyer
 public class LevelEndUI : MonoBehaviour
 {
     private LevelProgressTracker levelProgressTracker;

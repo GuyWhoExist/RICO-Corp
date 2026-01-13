@@ -22,7 +22,8 @@ public class Melee : MonoBehaviour
     private bool FOVIncrement;
     [SerializeField] float FOVShift;
     public bool meleeJump;
-    //(allows access to jumpforce
+    //allows access to jumpforce
+    //coded by sawyer
 
 
     private void Awake()

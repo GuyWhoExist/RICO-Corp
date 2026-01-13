@@ -7,6 +7,7 @@ public class Spray : MonoBehaviour, ICleanable
     private RaycastHit hit;
     private Destroyable destroyableObject;
     private Absorb armouredGlass;
+    //coded by sawyer
     private void OnEnable()
     {
         if (FindFirstObjectByType<SprayPlacerHudController>())

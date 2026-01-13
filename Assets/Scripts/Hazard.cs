@@ -4,6 +4,7 @@ using UnityEngine;
 public class Hazard : MonoBehaviour
 {
     private QuickRestart quickRestart;
+    // coded by sawyer
     private void Awake()
     {
         quickRestart = FindAnyObjectByType<QuickRestart>();

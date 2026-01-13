@@ -8,7 +8,7 @@ public class TImeHazard : MonoBehaviour
     private bool contact;
     [SerializeField] float timeDeathTime;
     [SerializeField] float avoidTime;
-
+    //coded by sawyer
     private void Awake()
     {
         quickRestart = FindAnyObjectByType<QuickRestart>();

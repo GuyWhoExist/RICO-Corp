@@ -12,6 +12,7 @@ public class QuickRestart : MonoBehaviour
     private LevelProgressTracker levelProgressTracker;
     [HideInInspector] public bool playerDie;
     private bool anotherOverflowBlock; // stops the kill input from being generated every frame
+    //coded by sawyer
     private void Awake()
     {
         controls = new Controls();

@@ -11,6 +11,7 @@ public class PauseMenuController : MonoBehaviour
     public GameObject settings_Gameplay;
     public GameObject pauseUI;
     public bool quit;
+    //coded by sawyer
     private void Start()
     {
         settings_Audio.SetActive(false);
