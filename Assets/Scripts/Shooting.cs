@@ -56,8 +56,11 @@ public class Shooting : MonoBehaviour
 
     private void OnEnable()
     {
-        controls.Guns.Shoot.Enable();
-        controls.Guns.Shoot.performed += Shoot_performed;
+        if (FindAnyObjectByType<PlanningModeController>() == false)
+        {
+            controls.Guns.Shoot.Enable();
+            controls.Guns.Shoot.performed += Shoot_performed;
+        }
     }
     private void OnDisable()
     {

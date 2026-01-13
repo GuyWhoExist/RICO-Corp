@@ -19,6 +19,7 @@ public class SprayPlacerHudController : MonoBehaviour
     private float rotationValue;
     private float invertedRotationValue;
     private float cameraAngle;
+    [HideInInspector] public bool planningModeToggle;
     LayerMask sprayDetection;
 
     [Header("Markers")]
@@ -41,12 +42,15 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnEnable()
     {
         plannerUI.SetActive(false);
-        controls.Planning.MarkerUI.Enable();
-        controls.Planning.MarkerUI.performed += Planner_Opened;
-        controls.Planning.MarkerUI.canceled += Planner_Closed;
-        controls.Planning.Rotate.performed += Rotation_Performed;
-        controls.Planning.Rotate.canceled += Rotation_Ceased;
-        markerSelect = 0;
+        if (FindAnyObjectByType <PlanningModeController>())
+        {
+            controls.Planning.MarkerUI.Enable();
+            controls.Planning.MarkerUI.performed += Planner_Opened;
+            controls.Planning.MarkerUI.canceled += Planner_Closed;
+            controls.Planning.Rotate.performed += Rotation_Performed;
+            controls.Planning.Rotate.canceled += Rotation_Ceased;
+            markerSelect = 0;
+        }
         
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
     }
