@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] PauseMenuController pauseController;
     [SerializeField] GameObject pauseHud;
     [SerializeField] GameObject gameHud;
+    [SerializeField] GameObject planningGUI;
     public bool buttonPress;
     //allows to unpause via other means
  //coded by sawyer
@@ -19,6 +20,9 @@ public class PauseMenu : MonoBehaviour
     {
         controls = new Controls();
         Time.timeScale = 1;
+        if(FindAnyObjectByType<PlanningModeController>() == false)
+            planningGUI.SetActive(false);
+
     }
 
     private void OnEnable()
@@ -29,7 +33,11 @@ public class PauseMenu : MonoBehaviour
         controls.Pause.Pause.performed += Pause_Performed;
         controls.Pause.Pause.performed += (ctx) => Debug.Log("man");
         if (FindAnyObjectByType<PlanningModeController>())
+        {
             gameHud.SetActive(false);
+            planningGUI.SetActive(true);
+        }
+            
 
     }
     private void OnDisable()
@@ -62,6 +70,8 @@ public class PauseMenu : MonoBehaviour
                 paused = true;
                 gameHud.SetActive(false);
                 pauseHud.SetActive(true);
+                if (FindAnyObjectByType<PlanningModeController>())
+                    planningGUI.SetActive(false);
                 buttonPress = false;
             }
             else if (paused == true)
@@ -71,7 +81,10 @@ public class PauseMenu : MonoBehaviour
                 pauseHud.SetActive(false);
                 if (FindAnyObjectByType<PlanningModeController>() == false)
                     gameHud.SetActive(true);
-                buttonPress = false;
+                else
+                    planningGUI.SetActive(true);
+
+               buttonPress = false;
 
             }
         }
