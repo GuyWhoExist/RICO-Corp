@@ -11,6 +11,7 @@ public class TimerController : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI enemyCountText;
+    [SerializeField] private TextMeshProUGUI enemyCountText2;
     [SerializeField] GameObject next;
     [SerializeField] GameObject endGUI;
     [SerializeField] GameObject gameHUD;
@@ -72,6 +73,7 @@ public class TimerController : MonoBehaviour
         }
         Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         enemyCountText.text = $"Enemies Left: {enemyNumber.Length}";
+        enemyCountText2.text = $"Enemies Left: {enemyNumber.Length}";
 
 
         //for (int i = 0; i < levelProgressTracker.levels.Length; i++)
