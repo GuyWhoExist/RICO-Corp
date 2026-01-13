@@ -12,13 +12,16 @@ public class PauseMenuController : MonoBehaviour
     public GameObject settings_Video;
     public GameObject settings_Gameplay;
     public GameObject pauseUI;
+    public GameObject planningController;
     public bool quit;
+    private QuickRestart restartController;
     //coded by sawyer
     private void Start()
     {
         settings_Audio.SetActive(false);
         settings_Gameplay.SetActive(false);
         settings_Video.SetActive(false);
+
         quit = false;
     }
     public void OnPauseQuit() 
@@ -26,8 +29,26 @@ public class PauseMenuController : MonoBehaviour
         Debug.Log("You pressed it");
         pauseMenu.buttonPress = true;
         quit = true;
+        Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
         SceneManager.LoadScene(0);
         
+    }
+
+    public void OnPlanningEnable()
+    {
+      if (FindAnyObjectByType <PlanningModeController>())
+        {
+            Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
+            restartController = FindFirstObjectByType<QuickRestart>();
+            restartController.playerDie = true;
+        }
+        else
+        {
+            Instantiate(planningController);
+            restartController = FindFirstObjectByType<QuickRestart>();
+            restartController.playerDie = true;
+        }
+
     }
 
     public void OnSettingsOpen()

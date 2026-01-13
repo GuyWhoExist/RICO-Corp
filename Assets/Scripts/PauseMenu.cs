@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         controls = new Controls();
+        Time.timeScale = 1;
     }
 
     private void OnEnable()
