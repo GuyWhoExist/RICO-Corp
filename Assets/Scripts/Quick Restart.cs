@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+//functionality for the quick restart. (Key that lets the player instantly restart without needing to open the pause menu) - Nova
+//Sawyer made this one.
+
 public class QuickRestart : MonoBehaviour
 {
     private Controls controls;
@@ -11,8 +14,9 @@ public class QuickRestart : MonoBehaviour
     [SerializeField] TimerController timerController;
     private LevelProgressTracker levelProgressTracker;
     [HideInInspector] public bool playerDie;
-    private bool anotherOverflowBlock; // stops the kill input from being generated every frame
-    //coded by sawyer
+
+    private bool anotherOverflowBlock; // stops the kill input from being generated every frame - Sawyer
+
     private void Awake()
     {
         controls = new Controls();

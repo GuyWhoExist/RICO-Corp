@@ -15,7 +15,7 @@ public class MainMenuController : MonoBehaviour
     {
         cheat = FindAnyObjectByType<Cheats>();
         LevelProgressTracker[] trackers = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
-        if (trackers.Length != 1 )
+        if (trackers.Length != 1 ) //extra failsafe just incase we encounter multiple trackers - Nova
         {
             foreach (LevelProgressTracker tracker in trackers)
             {
