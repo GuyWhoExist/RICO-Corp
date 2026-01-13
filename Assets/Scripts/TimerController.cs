@@ -23,7 +23,7 @@ public class TimerController : MonoBehaviour
 
     private void Awake()
     {
-        if (FindAnyObjectByType<PlanningModeController>() != null)
+        if (FindAnyObjectByType<PlanningModeController>() == null)
         {
             timeTicking = true;
         }
