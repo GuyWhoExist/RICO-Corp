@@ -18,4 +18,9 @@ public class LevelEnder : MonoBehaviour
         return nextLevelIndex;
     }
 
+    private void OnEnable()
+    {
+        if (FindAnyObjectByType<PlanningModeController>())
+            this.gameObject.GetComponent<Collider>().enabled = false;
+    }
 }

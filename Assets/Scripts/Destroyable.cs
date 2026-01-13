@@ -14,4 +14,9 @@ public class Destroyable : MonoBehaviour, IShootable
         shot = true;
         Destroy(gameObject);
     }
+    private void OnEnable()
+    {
+        if (FindAnyObjectByType<PlanningModeController>())
+            this.gameObject.GetComponent<Collider>().isTrigger = true;
+    }
 }

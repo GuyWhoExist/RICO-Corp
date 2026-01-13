@@ -22,7 +22,7 @@ public class TimerController : MonoBehaviour
 
     private void Awake()
     {
-        if (FindAnyObjectByType<PlanningModeController>())
+        if (FindAnyObjectByType<PlanningModeController>() != null)
         {
             timeTicking = true;
         }
@@ -83,7 +83,7 @@ public class TimerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() != null)
+        if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() == null)
         {
             levelProgressTracker.used = true;
             LevelEnder lE = collision.transform.GetComponent<LevelEnder>();

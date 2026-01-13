@@ -81,8 +81,4 @@ public class PauseMenuController : MonoBehaviour
         settings_Video.SetActive(false) ;
         settings_Gameplay.SetActive(true);
     }
-    public void Update()
-    {
-        
-    }
 }

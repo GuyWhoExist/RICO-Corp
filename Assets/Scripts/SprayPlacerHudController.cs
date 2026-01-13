@@ -19,6 +19,7 @@ public class SprayPlacerHudController : MonoBehaviour
     private float rotationValue;
     private float invertedRotationValue;
     private float cameraAngle;
+    [HideInInspector] public bool planningModeToggle;
     LayerMask sprayDetection;
 
     [Header("Markers")]

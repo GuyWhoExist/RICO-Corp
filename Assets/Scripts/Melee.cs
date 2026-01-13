@@ -35,8 +35,11 @@ public class Melee : MonoBehaviour
     }
     private void OnEnable()
     {
-       controls.Melee.Swing .Enable();
-        controls.Melee.Swing.performed += Swing_performed;
+     if (FindAnyObjectByType<PlanningModeController>() == false)
+        {
+            controls.Melee.Swing.Enable();
+            controls.Melee.Swing.performed += Swing_performed;
+        }
     }
 
 
