@@ -42,7 +42,7 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnEnable()
     {
         plannerUI.SetActive(false);
-        if (FindAnyObjectByType <PlanningModeController>())
+        if (FindAnyObjectByType<PlanningModeController>())
         {
             controls.Planning.MarkerUI.Enable();
             controls.Planning.MarkerUI.performed += Planner_Opened;
@@ -51,7 +51,6 @@ public class SprayPlacerHudController : MonoBehaviour
             controls.Planning.Rotate.canceled += Rotation_Ceased;
             markerSelect = 0;
         }
-        
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
     }
 
