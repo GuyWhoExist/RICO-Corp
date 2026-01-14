@@ -73,6 +73,8 @@ public class MainMenuController : MonoBehaviour
         Application.Quit();
     }
 
+    
+
     public void OnLevelButtonClicked(LevelStatus levelStatus) //loads times associated with a level - Nova
     {
         if (levelStatus.unlocked || cheat.unlockAll)
@@ -182,7 +184,6 @@ public class MainMenuController : MonoBehaviour
     {
         SceneManager.LoadScene(selectedLevelIndex);
     }
-
 
     public void OnLevelMenuButtonClicked() //the level select menu button, if it wasnt clear - Nova
     {

@@ -8635,6 +8635,18 @@ PrefabInstance:
       propertyPath: gravityMultiplier
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5263830152627946770, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0.2486451
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263830152627946770, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.22807622
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: hits
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: pauseMenu
       value: 

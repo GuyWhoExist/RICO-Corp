@@ -56,11 +56,8 @@ public class Shooting : MonoBehaviour
 
     private void OnEnable()
     {
-        if (FindAnyObjectByType<PlanningModeController>() == false)
-        {
-            controls.Guns.Shoot.Enable();
-            controls.Guns.Shoot.performed += Shoot_performed;
-        }
+        controls.Guns.Shoot.Enable();
+        controls.Guns.Shoot.performed += Shoot_performed;
     }
     private void OnDisable()
     {
@@ -201,7 +198,10 @@ public class Shooting : MonoBehaviour
                         shotOrigin = hit.point + shotDirection * 0.01f; //change the origin to where we hit + a tiny bit out to prevent the origin from being in a wall. - Nova
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal); //and change its direction based on the angle of the surface - Nova
                         Debug.Log("Armored Glass Hit"); //the only reflectable and shootable thing is armored glass - Nova
-                        shoot.OnGettingShot(); //then we run the shootable target's OnGettingShot function - Nova
+                        if (FindAnyObjectByType<PlanningModeController>() == null)
+                        {
+                            shoot.OnGettingShot(); //then we run the shootable target's OnGettingShot function - Nova
+                        }
                         total--; //then decrease the total # of bounces left - Nova
                     }
                     else //if the surface is only reflectable... - Nova
@@ -233,9 +233,12 @@ public class Shooting : MonoBehaviour
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         Debug.Log("Glass Hit");
-                        shootable.OnGettingShot();
+                        if (FindAnyObjectByType<PlanningModeController>() == null)
+                        {
+                            shootable.OnGettingShot();
+                        }
                         //we add a node to the line renderer, but we DONT decrease the total, as this isnt a bounce - Nova
-                        //we also dont reflect the shot and keep the direction the same - Nova
+                        //we also dont reflect the shot and keep the direction the same to give the effect of piercing - Nova
                     }
                     else //enemies ONLY have shootable - Nova
                     {
@@ -251,9 +254,12 @@ public class Shooting : MonoBehaviour
                             Debug.Log($"{boostCoolDownStored}");
                             killStreak = killStreak + 1;
                         }
-                        shootable.OnGettingShot();
+                        if (FindAnyObjectByType<PlanningModeController>() == null)
+                        {
+                            shootable.OnGettingShot();
+                            Destroy(shootable.GetGameObject()); // this kills the enemy? ig? - Sawyer
+                        }
                         enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //reduces the enemy count - Nova
-                        Destroy(shootable.GetGameObject()); // this kills the enemy? ig? - Sawyer
                     }
                 }
 
@@ -268,7 +274,10 @@ public class Shooting : MonoBehaviour
                             Instantiate(impactDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                 }
-                StartCoroutine(ResetShot());
+                if (FindAnyObjectByType<PlanningModeController>() == null)
+                {
+                    StartCoroutine(ResetShot());
+                }   
             }
             else //if you dont hit anything - Nova
             {
