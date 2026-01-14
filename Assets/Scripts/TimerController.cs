@@ -26,7 +26,7 @@ public class TimerController : MonoBehaviour
 
     private void Awake()
     {
-<<<<<<< HEAD
+
         saveSystem = FindAnyObjectByType<SaveSystem>();
         if (saveSystem != null)
         {
@@ -39,7 +39,7 @@ public class TimerController : MonoBehaviour
        // besttimeconversion();
 
         timeTicking = true;
-=======
+
         if (FindAnyObjectByType<PlanningModeController>() == null)
         {
             timeTicking = true;
@@ -48,7 +48,7 @@ public class TimerController : MonoBehaviour
         {
             timeTicking = false;
         }
->>>>>>> 970e87fff3c34dfab5029be1d64d27751c255eb0
+
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         if (levelProgressTracker != null )
         {
