@@ -3,7 +3,7 @@ using UnityEngine;
 public class MenuLightMovement : MonoBehaviour
 {
 
-    //this litteraly JUST moves the lights in the main menu. thats it. dont touch this. it doesnt do anything important. - Nova
+    //this literaly JUST moves the lights in the main menu. thats it. dont touch this. it doesnt do anything important. - Nova
     private void Update()
     {
         transform.Translate(transform.right*2f*Time.deltaTime);

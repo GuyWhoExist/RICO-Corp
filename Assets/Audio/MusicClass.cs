@@ -15,7 +15,7 @@ public class MusicClass : MonoBehaviour
             {
                 if (l.used == false)
                 {
-                    Debug.Log("More than 1 MusicClass found, killing the unused ones");
+                    Debug.Log("More than 1 MusicClass found, killing the unused ones"); //same process we use for the tracker we use for the music class - Nova
                     Destroy(l.gameObject);
                 }
             }

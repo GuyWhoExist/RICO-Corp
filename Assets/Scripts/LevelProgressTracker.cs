@@ -40,7 +40,7 @@ public class LevelProgressTracker : MonoBehaviour
                 if (l.used == false && duplicates.Length - 1 != 0)
                 {
                     Debug.Log("More than 1 tracker found, killing the unused ones");
-                    Debug.Log(l.levels[0].bestTime);
+                    Debug.Log(l.levels[0].bestTime); //data wasnt being loaded. checking if we are deleting 
                     Destroy(l.gameObject);
                 }
             }
@@ -62,20 +62,17 @@ public class LevelProgressTracker : MonoBehaviour
         new (30f, 20f, 15f, 6 ),
         new (25f, 20f, 15f, 7 ),
         new (21f, 14f, 7f, 8 ),
-        new (120f, 75f, 45f, 9),
+        new (120f, 75f, 45f, 9), //who set this? 75 is not a valid time lol. 75 would be 0:75.00, which is not possible. - Nova
         new (120f, 75f, 45f, 12), //Level 1 v2 - Blockout Colby, Archetect tbd
         new (200f, 115f, 45f, 9),
-
-       
-
-
-
     };
 
-    public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted - Nova
-    public float testingTime;
+    
 
-    public int GetArrayIndex( int levelIndex ) //i realized this was redundant a few hours after i coded this. so yeah... - Nova
+    public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted - Nova
+    public float testingTime; //debugging field. used to check if this LPT has valid data - Nova
+
+    public int GetArrayIndex( int levelIndex ) //i realized this was redundant a few hours after i coded this. This doesn't get used anywhere, but leave it. - Nova
     {
         int arrayIndex = 0;
         foreach ( LevelInfo level in levels )

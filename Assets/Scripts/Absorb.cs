@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Absorb : MonoBehaviour, IShootable
 {
+    public bool blasted;
     //i GENUINELY cant remember what this does, but i think its needed? Probably not. - Nova
 
     GameObject IShootable.GetGameObject()
@@ -11,6 +12,13 @@ public class Absorb : MonoBehaviour, IShootable
 
     void IShootable.OnGettingShot()
     {
+        blasted = true;
         Destroy(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        if (FindAnyObjectByType<PlanningModeController>())
+            this.gameObject.GetComponent<Collider>().isTrigger = true;
     }
 }

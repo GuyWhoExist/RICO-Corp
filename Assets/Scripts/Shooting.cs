@@ -56,8 +56,11 @@ public class Shooting : MonoBehaviour
 
     private void OnEnable()
     {
-        controls.Guns.Shoot.Enable();
-        controls.Guns.Shoot.performed += Shoot_performed;
+        if (FindAnyObjectByType<PlanningModeController>() == false)
+        {
+            controls.Guns.Shoot.Enable();
+            controls.Guns.Shoot.performed += Shoot_performed;
+        }
     }
     private void OnDisable()
     {
@@ -168,10 +171,12 @@ public class Shooting : MonoBehaviour
     {
         StopAllCoroutines(); 
         shotOrigin = cam.transform.position;
-        shotOrigin.y -= 0.5f;
+        //shotOrigin.y -= 0.5f;
+        Vector3 temp3 = shotOrigin;
+        temp3.y -= 0.5f;
         shotDirection = cam.transform.forward;
         lineRenderer.positionCount = 1; //establishes the number of nodes of the line Renderer. - Nova
-        lineRenderer.SetPosition(0, shotOrigin);
+        lineRenderer.SetPosition(0, temp3);
         hitting = true;
         int total = hits; //total is the number we actually modify when counting bounces
         //int color = 0;
@@ -203,8 +208,8 @@ public class Shooting : MonoBehaviour
                     {
                         lineRenderer.positionCount++;
                         if (reflectDecals) // allows toggling reflect toggling
-                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null ) // verifies hit object is not player or rigidbody to avoid floating bulletholes
-                                Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole
+                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null ) // verifies hit object is not player or rigidbody to avoid floating bulletholes - Sawyer
+                                Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole - Sawyer
                         lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal);
@@ -281,3 +286,4 @@ public class Shooting : MonoBehaviour
         lineRenderer.SetPosition(0, shotOrigin);
     }
 }
+

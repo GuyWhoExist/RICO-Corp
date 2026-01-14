@@ -8,7 +8,7 @@ public class TImeHazard : MonoBehaviour
     private bool contact;
     [SerializeField] float timeDeathTime;
     [SerializeField] float avoidTime;
-
+    //coded by sawyer
     private void Awake()
     {
         quickRestart = FindAnyObjectByType<QuickRestart>();
@@ -36,21 +36,24 @@ public class TImeHazard : MonoBehaviour
     }
     private void Update()
     {
-        if (contact == true)
+        if (FindAnyObjectByType<PlanningModeController>() == false)
         {
-            timeDeath = timeDeath - Time.deltaTime;
-        }
-        if (contact == false)
-        {
-            avoidTimeStored = avoidTimeStored - Time.deltaTime;
-        }
-        if (avoidTimeStored < 0)
-        {
-            timeDeath = timeDeathTime;
-        }
-        if (timeDeath < 0)
-        {
-            quickRestart.playerDie = true;
+            if (contact == true)
+            {
+                timeDeath = timeDeath - Time.deltaTime;
+            }
+            if (contact == false)
+            {
+                avoidTimeStored = avoidTimeStored - Time.deltaTime;
+            }
+            if (avoidTimeStored < 0)
+            {
+                timeDeath = timeDeathTime;
+            }
+            if (timeDeath < 0)
+            {
+                quickRestart.playerDie = true;
+            }
         }
     }
 }

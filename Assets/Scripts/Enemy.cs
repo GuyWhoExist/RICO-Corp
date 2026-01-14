@@ -11,4 +11,9 @@ public class Enemy : MonoBehaviour, IShootable
     {
         //not needed, i guess? - Nova
     }
+    private void OnEnable()
+    {
+        if (FindAnyObjectByType<PlanningModeController>())
+            this.gameObject.GetComponent<Collider>().enabled = false;
+    }
 }

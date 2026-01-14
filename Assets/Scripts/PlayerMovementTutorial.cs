@@ -43,7 +43,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
-    private bool exitingSlope;
+    //private bool exitingSlope;
 
     [Header("Boost Config")]
     public float boostCoolDown;
@@ -75,7 +75,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        exitingSlope = false;
+        //exitingSlope = false;
 
         readyToJump = true;
         startYScale = transform.localScale.y;
@@ -261,7 +261,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Jump()
     {
-        exitingSlope = true;
+        //exitingSlope = true;
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
@@ -270,7 +270,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-        exitingSlope = false;
+        //exitingSlope = false;
     }
 
     /*public bool OnSlope() //this shit took too long to implement and it STILL doesn't work fully - Nova

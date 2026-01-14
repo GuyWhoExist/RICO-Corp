@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 //Used to manipulate and edit the text on the level ending UI - Nova
-
+// joint effort -sawyer
 public class LevelEndUI : MonoBehaviour
 {
     private LevelProgressTracker levelProgressTracker;
@@ -18,9 +18,9 @@ public class LevelEndUI : MonoBehaviour
     {
         levelEnder = FindAnyObjectByType<LevelEnder>();
         if (levelEnder == null)
-            Debug.Log("hey, end the level");
+            Debug.Log("Level End is missing");
         else
-            Debug.Log("level is endeable");
+            Debug.Log("Level End found");
 
         endGUI.SetActive(false);
         //timerController = GetComponent<TimerController>();
@@ -84,7 +84,6 @@ public class LevelEndUI : MonoBehaviour
         Time.timeScale = 1;
         if (levelEnder.nextLevelIndex == 0)
         {
-            Debug.Log("Git gud");
             timerController.end = false;
             if (timerController.end == false)
             {
@@ -94,7 +93,6 @@ public class LevelEndUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Git gud");
             timerController.end = false;
             if (timerController.end == false)
             {
