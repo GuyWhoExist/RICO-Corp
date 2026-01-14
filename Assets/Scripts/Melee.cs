@@ -80,15 +80,17 @@ public class Melee : MonoBehaviour
                              swingCoolDownStored = swingCoolDown;
                             }
                       }
-                        
-                  Destroy(shootable.GetGameObject());
 
+
+                    if (hit.transform.GetComponent<Enemy>() != null)
+                    {
+                        shooting.killStreak = shooting.killStreak + 1;
+                        playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
+                        shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
+                    }
+                    Destroy(shootable.GetGameObject());
                   Debug.Log("enemy SHOULD be bludgoned to death");
-
-                  shooting.killStreak = shooting.killStreak + 1;
-                  playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
-                  shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
-              
+         
                 }
                 Debug.Log("swing raycast is fired");
                 FOVIncrement = true;

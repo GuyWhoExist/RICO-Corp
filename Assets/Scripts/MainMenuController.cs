@@ -44,10 +44,10 @@ public class MainMenuController : MonoBehaviour
     public void OnStartButtonClicked()
     {
         bool continued = false;
-        Debug.Log("It worked ^q^");
-        Debug.Log("Music should be playing (start button)");
-        GameObject musicPlayer = GameObject.Find("Music Player");
-        musicPlayer.GetComponent<MusicClass>().PlayMusic();
+        //Debug.Log("It worked ^q^");
+        //Debug.Log("Music should be playing (start button)");
+        //GameObject musicPlayer = GameObject.Find("Music Player");
+        //musicPlayer.GetComponent<MusicClass>().PlayMusic();
         for (int i = levelProgressTracker.levels.Length - 1; i > 0; i--)
         {
             if (levelProgressTracker.levels[i-1].bestTime != -1f && levelProgressTracker.levels[i-1].bestTime <= levelProgressTracker.levels[i-1].milestone1 && !continued)
