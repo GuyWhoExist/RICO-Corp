@@ -26,7 +26,6 @@ public class TimerController : MonoBehaviour
 
     private void Awake()
     {
-
         saveSystem = FindAnyObjectByType<SaveSystem>();
         if (saveSystem != null)
         {
@@ -39,7 +38,6 @@ public class TimerController : MonoBehaviour
        // besttimeconversion();
 
         timeTicking = true;
-
         if (FindAnyObjectByType<PlanningModeController>() == null)
         {
             timeTicking = true;
@@ -48,7 +46,6 @@ public class TimerController : MonoBehaviour
         {
             timeTicking = false;
         }
-
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         if (levelProgressTracker != null )
         {
@@ -89,20 +86,20 @@ public class TimerController : MonoBehaviour
             curTime += Time.deltaTime;
             timerText.text = curTime.ToString("0:00.00");
         }
-        if (curTime >= 60f) //this changes the value of curTime to follow the 0:00.0 format - Nova
+        if (curTime >= 60f) //this changes the value of curTime to follow the 0:00.00 format - Nova
         {
             float tempTime = curTime;
-            while (tempTime - 100f > 0)
+            while (tempTime - 100f > 0) //eliminate the minutes part of the time to check seconds - Nova
             {
                 tempTime -= 100f;
             }
-            if (tempTime >= 60)
+            if (tempTime >= 60) //if the seconds part hits 60, increase the minutes and reset the seconds - Nova
             {
                 curTime = 100f + (curTime - 60);
             }
         }
-        Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-        enemyCountText.text = $"Enemies Left: {enemyNumber.Length}";
+        Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //we always check the amount of enemies in the scene - Nova
+        enemyCountText.text = $"Enemies Left: {enemyNumber.Length}"; //updates the enemy count for both the game UI and planning UI - Nova
         enemyCountText2.text = $"Enemies Left: {enemyNumber.Length}";
 
 

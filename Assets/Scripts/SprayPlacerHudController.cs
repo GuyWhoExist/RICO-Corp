@@ -96,7 +96,7 @@ public class SprayPlacerHudController : MonoBehaviour
     private void Planner_Opened(InputAction.CallbackContext context)
     {
         cameraAngle = CameraPosition.transform.rotation.eulerAngles.y + 180;
-            plannerUI.SetActive(true);
+        plannerUI.SetActive(true);
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         selector = true;
         controls.Planning.Rotate.Enable();
@@ -111,8 +111,8 @@ public class SprayPlacerHudController : MonoBehaviour
         markerSelect = 1;
         rotationCounter.text = " ";
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
-            collectedHit = hit.transform.gameObject;
         {
+            collectedHit = hit.transform.gameObject;
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
@@ -142,8 +142,8 @@ public class SprayPlacerHudController : MonoBehaviour
         rotationCounter.text = " ";
 
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
-            collectedHit = hit.transform.gameObject;
         {
+            collectedHit = hit.transform.gameObject;
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(stopMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
@@ -173,8 +173,8 @@ public class SprayPlacerHudController : MonoBehaviour
         rotationCounter.text = " ";
        
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
-            collectedHit = hit.transform.gameObject;
         {
+            collectedHit = hit.transform.gameObject;
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)
             {
                 placedMarker = Instantiate(goMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
