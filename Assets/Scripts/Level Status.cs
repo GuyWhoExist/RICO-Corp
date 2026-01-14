@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class LevelStatus : MonoBehaviour
 {
+    //I'm expecting to see a booleon that says if a level is completed. if it is then it will unlock the next level
+    //if it's locked then it will stop looping through all of the levels
     private LevelProgressTracker levelProgressTracker;
     [SerializeField] private int levelNumber;
     public bool unlocked;

@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelProgressTracker : MonoBehaviour
 {
+
+    //Contains all level data
+    //
     public struct LevelInfo
     {
         public LevelInfo(float m1, float m2, float m3, int index)
@@ -50,6 +54,7 @@ public class LevelProgressTracker : MonoBehaviour
     }
 
     public LevelInfo[] levels = new LevelInfo[10] { //the array of levels. - Nova
+        //star 1, star 2, star 3, scene index
         new (20f, 15f, 10f, 2 ),
         new (8f, 4f, 2f, 3 ),
         new (15f, 10f, 5f, 4 ),
@@ -87,5 +92,40 @@ public class LevelProgressTracker : MonoBehaviour
         return -1;
     }
 
+
+    public LevelProgressTrackerDTO GetDTO()
+   
+        //public void bestTimeConversion()
+    {
+        float[] testArray = new float[20];
+
+        //Debug.Log(levelProgressTracker);
+        //Debug.Log(levelProgressTracker.levels);
+        for (int i = 0; i < levels.Length; i++)
+        {
+            testArray[i] = levels[i].bestTime;
+            Debug.Log($"Trackers Time: {levels[i].bestTime}");
+            Debug.Log($"Saved Time: {testArray[i]}");
+        }
+        LevelProgressTrackerDTO newlevelProgTrockDTO = new LevelProgressTrackerDTO();
+        newlevelProgTrockDTO.testArray = testArray;
+
+        return newlevelProgTrockDTO;
+    }
+
+    public void LoadMethod(float[] revertArray)
+    {
+        for (int i = 0; i < levels.Length; i++)
+        {
+            levels[i].bestTime = revertArray[i];
+            //Debug.Log($"Trackers Time: {levelProgressTracker.levels[i].bestTime}");
+            //Debug.Log($"Saved Time: {testArray[i]}");
+        }
+        Debug.Log("Save Sucessfully Loaded");
+        used = true;
+        SceneManager.LoadScene(0);
+
+
+    }
 
 }

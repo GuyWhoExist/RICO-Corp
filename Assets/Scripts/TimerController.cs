@@ -16,12 +16,26 @@ public class TimerController : MonoBehaviour
     [SerializeField] GameObject gameHUD;
     [SerializeField] PauseMenu pauseMenu;
     private LevelProgressTracker levelProgressTracker;
+    private LevelProgressTrackerDTO levelProgressTrackerDTO;
+
     public float curTime;
     public bool timeTicking;
     public bool end;
+    private SaveSystem saveSystem;
 
     private void Awake()
     {
+        saveSystem = FindAnyObjectByType<SaveSystem>();
+        if (saveSystem != null)
+        {
+            Debug.Log("we good in the time controller");
+        }
+        else
+        {
+            Debug.Log("things have gone horribly wrong in the time controller");
+        }
+       // besttimeconversion();
+
         timeTicking = true;
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         if (levelProgressTracker != null )
@@ -32,6 +46,18 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("Things have gone HORRIBLY wrong in the time controller");
         }
+
+       //levelProgressTrackerDTO = FindAnyObjectByType<LevelProgressTrackerDTO>();
+       // if (levelProgressTrackerDTO != null)
+       // {
+       //     Debug.Log("We good in the time controller");
+       // }
+       // else
+       // {
+       //     Debug.Log("Things have gone HORRIBLY wrong in the time controller");
+       // }
+
+
         levelProgressTracker.used = true;
         for (int i = 0; i < gameHUD.transform.childCount; i++) //Enables everything in gameHUD except the timer when the level starts - Nova
         {
@@ -94,8 +120,12 @@ public class TimerController : MonoBehaviour
                         levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime = curTime;
                     }
                 }
+                //level ends, save best times
                 Debug.Log("best time updated (hopefully)");
                 StartCoroutine(WaitABit(lE));
+                //run the bestTimeDTO
+                //saveSystem.bestTimeConversion();
+                saveSystem.DTOsave();
             }
         }
     }
@@ -104,7 +134,7 @@ public class TimerController : MonoBehaviour
     private IEnumerator WaitABit(LevelEnder lE)
     {
         yield return new WaitForSeconds(1f);
-        MusicClass test = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>();
+        /*MusicClass test = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>();
         if (test != null)
         {
             if (lE.GetNextIndex() == 0)
@@ -123,7 +153,7 @@ public class TimerController : MonoBehaviour
         {
             Debug.Log("No Audio Source Found!");
         }
-
+        */
 
 
         if (lE.GetNextIndex() == 0)
