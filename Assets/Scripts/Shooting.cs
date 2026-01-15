@@ -64,13 +64,17 @@ public class Shooting : MonoBehaviour
     {
         controls.Guns.Shoot.Enable();
         controls.Guns.Shoot.performed += Shoot_performed;
+        if(FindAnyObjectByType<PlanningModeController>())
+        {
+            impactDecals = false;
+            reflectDecals = false;
+        }
     }
     private void OnDisable()
     {
         controls.Guns.Shoot.Disable();
         controls.Guns.Shoot.performed -= Shoot_performed;
     }
-
     private void Update() //everything in this is used for the PREDICTION LASER. - Nova
     {
         // allows to disable shooting when using any user interface, uis must be manually added
@@ -225,7 +229,7 @@ public class Shooting : MonoBehaviour
                     if (total == 0) //if we hit a reflectable surface but are out of bounces... - Nova
                     {
                         Debug.Log("Hit bouce max");
-                        if (impactDecal)
+                        if (impactDecals)
                             if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null)
                                 Instantiate(impactDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                         //we simply end it. - Nova
@@ -275,7 +279,7 @@ public class Shooting : MonoBehaviour
                     //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);
                     hitting = false;
                     lineRenderer.positionCount++;
-                    if (impactDecal)
+                    if (impactDecals)
                         if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null)
                             Instantiate(impactDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
