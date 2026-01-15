@@ -8,6 +8,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private float maxDistance;
     [SerializeField] private LineRenderer lineRenderer; //displays the shot of the player - Nova
     [SerializeField] private LineRenderer lineRenderer2; //The same, but for the prediction instead - Nova
+    [SerializeField] private Material planningMaterial;
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
@@ -52,6 +53,11 @@ public class Shooting : MonoBehaviour
         colors[4] = Color.blue;
         colors[5] = Color.magenta;
         enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+        if (FindAnyObjectByType<PlanningModeController>() != null)
+        {
+            lineRenderer.material = planningMaterial;
+            lineRenderer.material.renderQueue = 4000;
+        }
     }
 
     private void OnEnable()
