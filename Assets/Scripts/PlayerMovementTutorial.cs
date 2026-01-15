@@ -98,7 +98,6 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void Update()
     {
         averageLinearSpeed = rb.linearVelocity.magnitude;
-        Debug.Log(averageLinearSpeed);
         //angularSpeed = rb.angularVelocity;
         //averageRotationalSpeed = 
         FOVValue = averageLinearSpeed / 2;
