@@ -10277,7 +10277,7 @@ PrefabInstance:
     - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: planningMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 9f594bae2dc573747aadb321f579c8c9, type: 2}
+      objectReference: {fileID: 2100000, guid: 0092f939358474847b2fa84052034f79, type: 2}
     - target: {fileID: 8018648740792765137, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
