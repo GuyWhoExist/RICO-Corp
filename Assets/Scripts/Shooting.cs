@@ -57,6 +57,9 @@ public class Shooting : MonoBehaviour
         {
             lineRenderer.material = planningMaterial;
             lineRenderer.material.renderQueue = 4000;
+            lineRenderer.gameObject.layer = LayerMask.NameToLayer("ending");
+            impactDecals = false;
+            reflectDecals = false;
         }
     }
 
@@ -64,11 +67,6 @@ public class Shooting : MonoBehaviour
     {
         controls.Guns.Shoot.Enable();
         controls.Guns.Shoot.performed += Shoot_performed;
-        if(FindAnyObjectByType<PlanningModeController>())
-        {
-            impactDecals = false;
-            reflectDecals = false;
-        }
     }
     private void OnDisable()
     {
