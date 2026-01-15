@@ -27,13 +27,14 @@ public class RifleEnemy : MonoBehaviour
     private void Awake()
     {
         Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance);
-        
+        player = FindAnyObjectByType<PlayerMovementTutorial>().transform;
+        //sightTracker = player.GetComponent<SightTracker>();
         lR = GetComponent<LineRenderer>();
         lR.SetPosition(0, Vector3.zero);
         lR.SetPosition(1, new Vector3(0,0,maxSightDistance));
         lR.startColor = lR.materials[0].color;
     }
-    [SerializeField] SightTracker sightTracker;
+    //[SerializeField] SightTracker sightTracker;
 
     private void Update()
     {
@@ -56,7 +57,7 @@ public class RifleEnemy : MonoBehaviour
                 {
                     Debug.Log("Winding Up");
                     state = EnemyState.WIND_UP;
-                    sightTracker.kill = true;
+                    //sightTracker.kill = true;
                 }
                 else //if its over, we atac - Nova
                 {
@@ -68,8 +69,8 @@ public class RifleEnemy : MonoBehaviour
         {
             state = EnemyState.FOLLOW;
             //these modify the tracking cube on the UI - Nova
-            sightTracker.kill = false;
-            sightTracker.tracker.transform.LookAt(transform.position);
+            //sightTracker.kill = false;
+            //sightTracker.tracker.transform.LookAt(transform.position);
             //
         }
         else if (state == EnemyState.FOLLOW || searching == true) //if we are in the following state, but the conditions to enter follow arent true OR we are already in the searching state - Nova
