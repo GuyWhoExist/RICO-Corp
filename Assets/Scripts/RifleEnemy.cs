@@ -15,6 +15,7 @@ public class RifleEnemy : MonoBehaviour
     [SerializeField] Transform player;
     [SerializeField] private float proximityDetection;
     [SerializeField] private float memoryLength;
+    [SerializeField] private GameObject wahooTrigger;
     private float remembering;
     private Vector3 directionToPlayer;
     private float windupTimer;
@@ -40,6 +41,7 @@ public class RifleEnemy : MonoBehaviour
     {
         UpdateState();
         RespondToState(state);
+        wahooTrigger.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x * -1, 0f, gameObject.transform.rotation.z * -1f);
     }
 
     private void UpdateState() //changes the state of the enemy based on the players position - Nova
