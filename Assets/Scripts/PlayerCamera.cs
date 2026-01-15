@@ -71,7 +71,7 @@ public class PlayerCamera : MonoBehaviour
 
             if (FOV != playerCamera.fieldOfView)
             {
-                playerCamera.fieldOfView = FOV;
+                FOV = playerCamera.fieldOfView;
             }
         }
         //end
