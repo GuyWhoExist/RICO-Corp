@@ -57,7 +57,6 @@ public class Shooting : MonoBehaviour
         {
             lineRenderer.material = planningMaterial;
             lineRenderer.material.renderQueue = 4000;
-            lineRenderer.gameObject.layer = LayerMask.NameToLayer("ending");
             impactDecals = false;
             reflectDecals = false;
         }

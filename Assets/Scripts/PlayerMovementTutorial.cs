@@ -64,6 +64,15 @@ public class PlayerMovementTutorial : MonoBehaviour
     [HideInInspector] public bool sliding;
 
     [HideInInspector] public MovementState state;
+    private Melee FOVReference;
+    private float FOVDecay;
+    private float FOVValue;
+    private PlayerCamera storedPlayerCamera;
+    private float previousFOVValue;
+    [SerializeField] private float FOVTolerance;
+    private float averageLinearSpeed;
+    private Vector3 angularSpeed;
+    private float averageRotationalSpeed;
     public enum MovementState
     {
         walking,
@@ -74,17 +83,47 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = this.transform.GetComponent<Rigidbody>();
         //exitingSlope = false;
 
         readyToJump = true;
         startYScale = transform.localScale.y;
         storedSpeed = moveSpeed;
-
+        FOVReference = FindFirstObjectByType<Melee>();
+        //storedPlayerCamera = FindAnyObjectByType<PlayerCamera>();
+        storedPlayerCamera = Camera.main.GetComponent<PlayerCamera>();
     }
+
 
     private void Update()
     {
+        averageLinearSpeed = rb.linearVelocity.magnitude;
+        Debug.Log(averageLinearSpeed);
+        //angularSpeed = rb.angularVelocity;
+        //averageRotationalSpeed = 
+        FOVValue = averageLinearSpeed / 2;
+        if (FOVReference.teleportIncrement != true)
+        {
+            Camera.main.fieldOfView = storedPlayerCamera.storedFOV + FOVValue;
+            if (Camera.main.fieldOfView < (storedPlayerCamera.storedFOV))
+            {
+                Camera.main.fieldOfView = storedPlayerCamera.storedFOV;
+                Debug.Log("FOV is somehow lower then it is supposed to be, fixing...");
+            }
+        }
+        /*if (Camera.main.fieldOfView > (storedPlayerCamera.storedFOV + FOVReference.maxModifiedFOV) && Camera.main.fieldOfView < (storedPlayerCamera.storedFOV + FOVReference.maxModifiedFOV + FOVTolerance))
+        {
+            Camera.main.fieldOfView = storedPlayerCamera.storedFOV + FOVReference.maxModifiedFOV;
+            Debug.Log("soft capping FOV");
+        }
+        
+      
+
+        if (Mathf.Approximately(Camera.main.fieldOfView, storedPlayerCamera.storedFOV))
+        {
+            Camera.main.fieldOfView = storedPlayerCamera.storedFOV;
+            Debug.Log("full slowdown, resetting FOV");
+        }*/
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
@@ -120,6 +159,8 @@ public class PlayerMovementTutorial : MonoBehaviour
 
         if (coyoteTimeInternal  < 0f || Input.GetKey(jumpKey) || hitLaunch.meleeJump == true )
             jumpeable = false;
+
+        
     }
 
     private void FixedUpdate()

@@ -19,9 +19,12 @@ public class Melee : MonoBehaviour
     private AboveEnemy positionDetection;
     [SerializeField] private GameObject playerCamera;
     private PlayerMovementTutorial jumpHelper;
-    private bool FOVIncrement;
+    [HideInInspector] public bool teleportIncrement;
     [SerializeField] float FOVShift;
-    public bool meleeJump;
+    [HideInInspector]public bool meleeJump;
+    private float quickFallOff;
+    [SerializeField] float quickFallOffStored;
+    public float maxModifiedFOV;
     //allows access to jumpforce
     //coded by sawyer
 
@@ -32,6 +35,7 @@ public class Melee : MonoBehaviour
         swingDirection = playerPosition.transform.forward;
         swingCoolDownStored = 0;
         jumpHelper = playerPosition.transform.GetComponent<PlayerMovementTutorial>();
+        quickFallOff = quickFallOffStored;
     }
     private void OnEnable()
     {
@@ -67,18 +71,19 @@ public class Melee : MonoBehaviour
                     
                      if (hit.transform.GetComponent<Enemy>() != null)
                       {
-                        playerCamera.GetComponent<PlayerCamera>().FOV += FOVShift;
                         if (positionDetection != null)
                             {
                              playerPosition.transform.position = positionDetection.gameObject.transform.position;
-                             rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
+                            rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
                              meleeJump = true;
                             }
                         else
                             {
                              playerPosition.transform.position = shootable.GetGameObject().transform.position;
                              swingCoolDownStored = swingCoolDown;
-                            }
+                            Camera.main.fieldOfView += FOVShift * 2;
+                            teleportIncrement = true;
+                        }
                       }
 
 
@@ -93,7 +98,7 @@ public class Melee : MonoBehaviour
          
                 }
                 Debug.Log("swing raycast is fired");
-                FOVIncrement = true;
+                
                
             }
             
@@ -110,16 +115,21 @@ public class Melee : MonoBehaviour
     private void Update()
     {
         swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
-        if (FOVIncrement == true)
-        {
-            playerCamera.GetComponent<PlayerCamera>().FOV = playerCamera.GetComponent<PlayerCamera>().FOV - Time.deltaTime;
-            if (playerCamera.GetComponent<PlayerCamera>().FOV <= playerCamera.GetComponent<PlayerCamera>().storedFOV)
-            {
-                playerCamera.GetComponent<PlayerCamera>().FOV = playerCamera.GetComponent<PlayerCamera>().storedFOV;
-                FOVIncrement = false;
-            }
-        }
-
     }
-    
+    private void LateUpdate()
+    {
+        if (teleportIncrement)
+        {
+            quickFallOff -= Time.deltaTime;
+            if (quickFallOff < 0)
+            {
+                Camera.main.fieldOfView -= FOVShift / 4;
+                quickFallOff = quickFallOffStored;
+                if (Camera.main.fieldOfView < playerCamera.GetComponent<PlayerCamera>().storedFOV + maxModifiedFOV)
+                    teleportIncrement = false;
+            }
+                
+        }
+            
+    }
 }
