@@ -148,6 +148,7 @@ MonoBehaviour:
   player: {fileID: 0}
   proximityDetection: 2
   memoryLength: 3
+  wahooTrigger: {fileID: 1073725283210634750}
 --- !u!120 &3742541761018155347
 LineRenderer:
   serializedVersion: 2

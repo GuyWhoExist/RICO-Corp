@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using TMPro;
 
 public class Shooting : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class Shooting : MonoBehaviour
     public bool spraying;
     [SerializeField] private TimerController timerController;
     private bool overflowBlock;
+    [SerializeField] private TextMeshProUGUI killstreakCounter;
+    private Vector3 trackerPositionOrig;
+    private float shakeInputRandom;
     
     
 
@@ -66,6 +70,7 @@ public class Shooting : MonoBehaviour
     {
         controls.Guns.Shoot.Enable();
         controls.Guns.Shoot.performed += Shoot_performed;
+        trackerPositionOrig = killstreakCounter.transform.position;
     }
     private void OnDisable()
     {
@@ -87,8 +92,20 @@ public class Shooting : MonoBehaviour
         }
         //end
 
+        shakeInputRandom = Random.Range(0.1f * -killStreak, 0.1f * killStreak);
+        
+        if (killStreak == 0)
+        {
+            killstreakCounter.text = "       ";
+            killstreakCounter.transform.position = trackerPositionOrig;
+        }
+        else
+        {
+            killstreakCounter.text = $"{killStreak}x";
+            killstreakCounter.transform.position = new Vector3 (killstreakCounter.transform.position.x + shakeInputRandom, killstreakCounter.transform.position.y + shakeInputRandom, killstreakCounter.transform.position.z);
+        }
 
-        shotOrigin = cam.transform.position;
+            shotOrigin = cam.transform.position;
         shotOrigin.y -= 0.5f;
         shotDirection = cam.transform.forward;
         lineRenderer2.positionCount = 1;
@@ -167,6 +184,7 @@ public class Shooting : MonoBehaviour
                 playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - playerMovementTutorial.killBoost;
                 killStreak = killStreak - 1;
                 Debug.Log(killStreak);
+                boostCoolDownStored = 1;
             }
         }
     }
@@ -260,6 +278,7 @@ public class Shooting : MonoBehaviour
                             boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                             Debug.Log($"{boostCoolDownStored}");
                             killStreak = killStreak + 1;
+
                         }
                         if (FindAnyObjectByType<PlanningModeController>() == null)
                         {
