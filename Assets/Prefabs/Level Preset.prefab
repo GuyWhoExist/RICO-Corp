@@ -10191,6 +10191,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: swingCoolDown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: quickFallOffStored
       value: 0.03
       objectReference: {fileID: 0}
