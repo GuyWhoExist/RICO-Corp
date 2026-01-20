@@ -353,17 +353,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""e9bc2f8c-df41-43d2-8a2e-a863f22abd9b"",
-                    ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Marker UI"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e9990390-539d-4988-9c0e-a206c1d4ecc3"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",

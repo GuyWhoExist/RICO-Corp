@@ -1,5 +1,6 @@
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -45,8 +46,6 @@ public class Melee : MonoBehaviour
             controls.Melee.Swing.performed += Swing_performed;
         }
     }
-
-
     private void OnTriggerEnter(Collider above)
     {
         if (above.GetComponent<AboveEnemy>() != null) 
@@ -110,6 +109,7 @@ public class Melee : MonoBehaviour
     private void OnDisable()
     {
         controls.Melee.Swing.Disable();
+        controls.Melee.Swing.performed -= Swing_performed;
     }
 
     private void Update()

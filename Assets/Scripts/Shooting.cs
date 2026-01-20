@@ -33,6 +33,8 @@ public class Shooting : MonoBehaviour
     [SerializeField] private TextMeshProUGUI killstreakCounter;
     private Vector3 trackerPositionOrig;
     private float shakeInputRandom;
+    private int CoinFlip;
+    private bool killStreakPositionLocker;
     
     
 
@@ -92,7 +94,8 @@ public class Shooting : MonoBehaviour
         }
         //end
 
-        shakeInputRandom = Random.Range(0.1f * -killStreak, 0.1f * killStreak);
+        shakeInputRandom = Random.Range((0.2f * killStreak) * -1, 0.2f * killStreak);
+        CoinFlip = Random.Range(0, 2);
         
         if (killStreak == 0)
         {
@@ -102,7 +105,16 @@ public class Shooting : MonoBehaviour
         else
         {
             killstreakCounter.text = $"{killStreak}x";
-            killstreakCounter.transform.position = new Vector3 (killstreakCounter.transform.position.x + shakeInputRandom, killstreakCounter.transform.position.y + shakeInputRandom, killstreakCounter.transform.position.z);
+            if (CoinFlip == 0)
+            {
+                killstreakCounter.transform.position = new Vector3(trackerPositionOrig.x + shakeInputRandom, trackerPositionOrig.y, trackerPositionOrig.z);
+                //killStreakPositionLocker = true;
+            }
+            else if (CoinFlip == 1)
+            {
+                killstreakCounter.transform.position = new Vector3(trackerPositionOrig.x, trackerPositionOrig.y + shakeInputRandom, trackerPositionOrig.z);
+            }
+          
         }
 
             shotOrigin = cam.transform.position;
