@@ -44,9 +44,9 @@ public class SprayPlacerHudController : MonoBehaviour
         plannerUI.SetActive(false);
         if (FindAnyObjectByType<PlanningModeController>())
         {
-            controls.Planning.MarkerUI.Enable();
-            controls.Planning.MarkerUI.performed += Planner_Opened;
-            controls.Planning.MarkerUI.canceled += Planner_Closed;
+            controls.Melee.Swing.Enable();
+            controls.Melee.Swing.performed += Planner_Opened;
+            controls.Melee.Swing.canceled += Planner_Closed;
             controls.Planning.Rotate.performed += Rotation_Performed;
             controls.Planning.Rotate.canceled += Rotation_Ceased;
             markerSelect = 0;
@@ -104,7 +104,11 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     private void OnDisable()
     {
-        controls.Planning.MarkerUI.Disable();
+        controls.Melee.Swing.Disable();
+        controls.Melee.Swing.performed += Planner_Opened;
+        controls.Melee.Swing.canceled += Planner_Closed;
+        controls.Planning.Rotate.performed += Rotation_Performed;
+        controls.Planning.Rotate.canceled += Rotation_Ceased;
     }
     public void OnShootPress()
     {
