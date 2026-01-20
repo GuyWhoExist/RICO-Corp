@@ -39,8 +39,11 @@ public class RifleEnemy : MonoBehaviour
 
     private void Update()
     {
-        UpdateState();
-        RespondToState(state);
+        if (FindAnyObjectByType<PlanningModeController>() == null)
+        {
+            UpdateState();
+            RespondToState(state);
+        }
         wahooTrigger.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x * -1, 0f, gameObject.transform.rotation.z * -1f);
     }
 
@@ -96,6 +99,7 @@ public class RifleEnemy : MonoBehaviour
     }
     private void RespondToState(EnemyState state)
     {
+
         switch (state)
         {
             case EnemyState.IDLE: //default state - Nova
