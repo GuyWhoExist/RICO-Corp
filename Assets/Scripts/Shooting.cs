@@ -34,7 +34,6 @@ public class Shooting : MonoBehaviour
     private Vector3 trackerPositionOrig;
     private float shakeInputRandom;
     private int CoinFlip;
-    private bool killStreakPositionLocker;
     
     
 
