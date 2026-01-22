@@ -65,14 +65,10 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     [HideInInspector] public MovementState state;
     private Melee FOVReference;
-    private float FOVDecay;
     private float FOVValue;
     private PlayerCamera storedPlayerCamera;
-    private float previousFOVValue;
     [SerializeField] private float FOVTolerance;
     private float averageLinearSpeed;
-    private Vector3 angularSpeed;
-    private float averageRotationalSpeed;
     public enum MovementState
     {
         walking,

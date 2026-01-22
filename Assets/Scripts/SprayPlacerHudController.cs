@@ -13,15 +13,12 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject CameraPosition;
     [SerializeField] Shooting shootingDisabler;
     [HideInInspector] public bool selector;
-    [SerializeField] TextMeshProUGUI rotationCounter;
     [SerializeField] private UnityEngine.UI.RawImage rotationDisplay;
-    private Quaternion rotationForm;
     private float rotationValue;
     private float invertedRotationValue;
     private float cameraAngle;
     [HideInInspector] public bool planningModeToggle;
     LayerMask sprayDetection;
-
     [Header("Markers")]
     [SerializeField] GameObject shootMarker;
     [SerializeField] GameObject goMarker;
@@ -67,7 +64,6 @@ public class SprayPlacerHudController : MonoBehaviour
             invertedRotationValue -= 15;
             if (rotationValue > 360)
                 rotationValue = -345;
-            rotationCounter.text = rotationValue.ToString();
             rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, invertedRotationValue);
         }
         else
@@ -76,13 +72,11 @@ public class SprayPlacerHudController : MonoBehaviour
             invertedRotationValue += 15;
             if (rotationValue < -360)
                 rotationValue = 345;
-            rotationCounter.text = rotationValue.ToString();
             rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, invertedRotationValue);
         }
     }
     private void Planner_Closed(InputAction.CallbackContext context)
     {
-        rotationCounter.text = " ";
         invertedRotationValue = 0;
         rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, 0);
         plannerUI.SetActive(false);
@@ -91,7 +85,6 @@ public class SprayPlacerHudController : MonoBehaviour
         controls.Planning.Rotate.Disable();
         rotationValue = 0;
         shootingDisabler.spraying = false;
-        
     }
     private void Planner_Opened(InputAction.CallbackContext context)
     {
@@ -113,7 +106,6 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnShootPress()
     {
         markerSelect = 1;
-        rotationCounter.text = " ";
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
         {
             collectedHit = hit.transform.gameObject;
@@ -143,7 +135,6 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnStopPress()
     {
         markerSelect = 2;
-        rotationCounter.text = " ";
 
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
         {
@@ -174,7 +165,6 @@ public class SprayPlacerHudController : MonoBehaviour
     public void OnFollowPress()
     {
         markerSelect = 3;
-        rotationCounter.text = " ";
        
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))
         {

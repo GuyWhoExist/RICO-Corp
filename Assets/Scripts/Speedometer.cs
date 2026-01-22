@@ -14,11 +14,6 @@ public class Speedometer : MonoBehaviour
     private float averageSpeed;
     private Color orange = new Color(1.0f, 0.64f, 0.0f);
     private Color Purple = new Color32(115, 15, 240, 255);
-
-    private void Awake()
-    {
-        
-    }
     private void Update()
     {
         //speed = playerRigidBody.linearVelocity;
@@ -33,7 +28,13 @@ public class Speedometer : MonoBehaviour
         {
             averageSpeed *= -1;
         }
+        if (averageSpeed * -1 > 170)
+        {
+            averageSpeed = -170;
+        }
         this.transform.rotation = Quaternion.Euler(this.transform.rotation.x, this.transform.rotation.y, averageSpeed);
+
+           
         if (averageSpeed * -1 > 30)
         {
             speedometerBacker.color = Color.yellow;
@@ -44,8 +45,9 @@ public class Speedometer : MonoBehaviour
                 {
                     speedometerBacker.color = Color.red;
                     if (averageSpeed * -1 > 120)
+                    {
                         speedometerBacker.color = Purple;
-
+                    }
                 }
             }
         }

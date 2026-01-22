@@ -8,6 +8,7 @@ public class TImeHazard : MonoBehaviour
     private bool contact;
     [SerializeField] float timeDeathTime;
     [SerializeField] float avoidTime;
+    private bool planningMode;
     //coded by sawyer
     private void Awake()
     {
@@ -16,6 +17,18 @@ public class TImeHazard : MonoBehaviour
             Debug.Log("WHAT ARE YOU DOING!? WHY IS THERE HAZARDS WITHOUT THE ACTUAL LEVEL!?");
         else
             Debug.Log("kill should function.");
+        
+        if (FindAnyObjectByType<PlanningModeController>() == true)
+        {
+            planningMode = true;
+        }
+        else
+        {
+            planningMode = false;
+        }
+            
+
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -36,7 +49,7 @@ public class TImeHazard : MonoBehaviour
     }
     private void Update()
     {
-        if (FindAnyObjectByType<PlanningModeController>() == false)
+        if (planningMode == false)
         {
             if (contact == true)
             {
@@ -55,5 +68,6 @@ public class TImeHazard : MonoBehaviour
                 quickRestart.playerDie = true;
             }
         }
+
     }
 }
