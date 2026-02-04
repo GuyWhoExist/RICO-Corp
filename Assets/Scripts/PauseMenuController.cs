@@ -14,7 +14,7 @@ public class PauseMenuController : MonoBehaviour
     public GameObject pauseUI;
     public GameObject planningController;
     public bool quit;
-    private QuickRestart restartController;
+    [SerializeField] private QuickRestart restartController;
     //coded by sawyer
     private void Start()
     {
@@ -23,6 +23,16 @@ public class PauseMenuController : MonoBehaviour
         settings_Video.SetActive(false);
 
         quit = false;
+    }
+    public void OnRestartPress()
+    {
+        pauseMenu.buttonPress = true;
+        restartController.playerDie = true;
+    }
+    public void OnFullQuit()
+    {
+        Application.Quit();
+        Debug.Log("You closed it");
     }
     public void OnPauseQuit() 
     {
@@ -61,7 +71,6 @@ public class PauseMenuController : MonoBehaviour
     public void OnTheQuintessentialResumeButtonTrigger()
     {
         pauseMenu.buttonPress = true;
-
     }
     public void OnAudioPress()
     {
