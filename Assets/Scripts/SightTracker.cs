@@ -6,26 +6,25 @@ public class SightTracker : MonoBehaviour
     public GameObject tracker;
     [SerializeField] GameObject display;
     [SerializeField] GameObject player;
+    [SerializeField] Camera playerCam;
+    [HideInInspector] public Vector3 currentThreat;
     public bool seen;
     public bool kill;
 
-    private void Awake()
-    {
-      
-    }
-
     private void Update()
     {
-        if (ui == true)
-        { 
-        display.transform.rotation = tracker.transform.rotation;
 
-        }
-
-        if (ui == false)
+        this.transform.position = player.transform.position;
+        if (seen)
         {
-            tracker.transform.position = player.transform.position;
-
+            tracker.transform.LookAt(currentThreat);
+            display.transform.rotation = tracker.transform.rotation;
         }
+        else
+        {
+            this.transform.rotation = playerCam.transform.rotation;
+            display.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
     }
 }

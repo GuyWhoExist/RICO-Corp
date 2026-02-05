@@ -26,6 +26,7 @@ public class Melee : MonoBehaviour
     private float quickFallOff;
     [SerializeField] float quickFallOffStored;
     public float maxModifiedFOV;
+    private SightTracker trackerOfSight;
     //allows access to jumpforce
     //coded by sawyer
 
@@ -37,6 +38,7 @@ public class Melee : MonoBehaviour
         swingCoolDownStored = 0;
         jumpHelper = playerPosition.transform.GetComponent<PlayerMovementTutorial>();
         quickFallOff = quickFallOffStored;
+        trackerOfSight = FindAnyObjectByType<SightTracker>();
     }
     private void OnEnable()
     {
@@ -89,6 +91,10 @@ public class Melee : MonoBehaviour
                     if (hit.transform.GetComponent<Enemy>() != null)
                     {
                         shooting.killStreak = shooting.killStreak + 1;
+                        if (trackerOfSight.seen == true)
+                        {
+                            trackerOfSight.seen = false;
+                        }
                         playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
                         shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                     }
