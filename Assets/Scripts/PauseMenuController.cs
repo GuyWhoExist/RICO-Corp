@@ -80,14 +80,22 @@ public class PauseMenuController : MonoBehaviour
     }
     public void OnVideoPress()
     {
+        settings_Audio.SetActive(false);
         settings_Video.SetActive(true);
         settings_Gameplay.SetActive(false);
-        settings_Audio.SetActive(false);
     }
     public void OnGameplayPress()
     {
         settings_Audio.SetActive(false) ;
         settings_Video.SetActive(false) ;
         settings_Gameplay.SetActive(true);
+    }
+
+    public void OnBackPress()
+    {
+        settings_Audio.SetActive(false);
+        settings_Video.SetActive(false);
+        settings_Gameplay.SetActive(false);
+        pauseUI.SetActive(true);
     }
 }

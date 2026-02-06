@@ -95,7 +95,7 @@ public class Melee : MonoBehaviour
                         {
                             trackerOfSight.seen = false;
                         }
-                        playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
+                        playerMovementTutorial.moveSpeed += playerMovementTutorial.killBoost;
                         shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                     }
                     Destroy(shootable.GetGameObject());

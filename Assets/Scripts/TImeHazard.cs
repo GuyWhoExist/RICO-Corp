@@ -53,11 +53,11 @@ public class TImeHazard : MonoBehaviour
         {
             if (contact == true)
             {
-                timeDeath = timeDeath - Time.deltaTime;
+                timeDeath -= Time.deltaTime;
             }
             if (contact == false)
             {
-                avoidTimeStored = avoidTimeStored - Time.deltaTime;
+                avoidTimeStored -= Time.deltaTime;
             }
             if (avoidTimeStored < 0)
             {
