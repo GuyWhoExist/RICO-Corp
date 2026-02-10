@@ -17,11 +17,12 @@ public class SightTracker : MonoBehaviour
     public bool danger;
     private Color Purple = new Color32(115, 15, 240, 255);
 
-    private void Awake()
+    private void Start()
     {
         display.SetActive(false);
         UIVisible = false;
     }
+
     private void Update()
     {
 
