@@ -37,6 +37,7 @@ public class Shooting : MonoBehaviour
     private float shakeInputRandom;
     private int CoinFlip;
     [SerializeField] private SpeedBoost speedBoost;
+    private SightTracker trackerOfSight;
     
     
 
@@ -48,6 +49,7 @@ public class Shooting : MonoBehaviour
     private void Awake()
     {
         Collideable = LayerMask.GetMask("Default", "whatIsGround", "Ending");
+        trackerOfSight = FindAnyObjectByType<SightTracker>();
         controls = new Controls();
         lineRenderer = GetComponent<LineRenderer>();
         //effectPlayer = GetComponent<AudioSource>();
@@ -284,6 +286,10 @@ public class Shooting : MonoBehaviour
                     {
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         Debug.Log("Enemy Hit");
+                        if (trackerOfSight.seen == true)
+                        {
+                            trackerOfSight.seen = false;
+                        }
                         if (total < hits)
                         {
                             Debug.Log(killStreak);

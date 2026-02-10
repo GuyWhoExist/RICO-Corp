@@ -12,14 +12,16 @@ public class RifleEnemy : MonoBehaviour
     [SerializeField] private float sightAngle;
     [SerializeField] private float attackAngle;
     [SerializeField] private float windupTime;
+    [SerializeField] private float windupPrepTime;
     [SerializeField] Transform player;
     [SerializeField] private float proximityDetection;
     [SerializeField] private float memoryLength;
     [SerializeField] private GameObject wahooTrigger;
+    private SightTracker trackerOfSight;
     private float remembering;
     private Vector3 directionToPlayer;
     private float windupTimer;
-
+    private float windupPrepTimer;
     private EnemyState state = EnemyState.IDLE;
     private LineRenderer lR;
     private Vector3 localHit;
@@ -29,6 +31,7 @@ public class RifleEnemy : MonoBehaviour
     {
         Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance);
         player = FindAnyObjectByType<PlayerMovementTutorial>().transform;
+        trackerOfSight = FindAnyObjectByType<SightTracker>();
         //sightTracker = player.GetComponent<SightTracker>();
         lR = GetComponent<LineRenderer>();
         lR.SetPosition(0, Vector3.zero);
@@ -73,6 +76,11 @@ public class RifleEnemy : MonoBehaviour
         else if (hit.transform == player && angleToPlayer < sightAngle || Vector3.Distance(player.position, transform.position) <= proximityDetection) //If player is in sight but not directly in front of the enemy - Nova
         {
             state = EnemyState.FOLLOW;
+             if (trackerOfSight.seen == false)
+            {
+                trackerOfSight.currentThreat = this.transform.position;
+                trackerOfSight.seen = true;
+            }
             //these modify the tracking cube on the UI - Nova
             //sightTracker.kill = false;
             //sightTracker.tracker.transform.LookAt(transform.position);
@@ -105,19 +113,31 @@ public class RifleEnemy : MonoBehaviour
             case EnemyState.IDLE: //default state - Nova
                 //Debug.Log("whistling");
                 searching = false;
-                windupTimer = 0;
+                if (windupTimer != 0)
+                    windupPrepTimer = windupPrepTime;
+                if (windupPrepTimer > 0)
+                    windupPrepTimer -= Time.deltaTime;
+                else
+                    windupTimer = 0;
                 break;
             case EnemyState.FOLLOW: //track the player - Nova
                 //Debug.Log("Found em!");
                 searching = false;
                 // rotate toward player
-                windupTimer = 0;
+                if (windupTimer != 0)
+                    windupPrepTimer = windupPrepTime;
+                if (windupPrepTimer > 0)
+                    windupPrepTimer -= Time.deltaTime;
+                else
+                    windupTimer = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                trackerOfSight.danger = false;
                 break;
             case EnemyState.WIND_UP: //The player is in attack range, being winding up to kill - Nova
                 searching = false;
                 windupTimer += Time.deltaTime;
+                trackerOfSight.danger = true;
                 break;
             case EnemyState.ATTACK: //KILL - Nova
                 lR.useWorldSpace = true;

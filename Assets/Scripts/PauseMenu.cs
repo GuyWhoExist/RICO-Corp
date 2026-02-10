@@ -17,7 +17,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject planningGUI;
     [SerializeField] Slider FOVSlider;
     [SerializeField] TextMeshProUGUI FOVDisplay;
-    private PlayerCamera FOVSetting;
+    [SerializeField] Slider sensitivitySlider;
+    [SerializeField] TextMeshProUGUI sensitivityDisplay;
+    private float sensitivityDisplayValue;
+    private PlayerCamera cameraSetting;
     public bool buttonPress;
     //allows to unpause via other means
  //coded by sawyer
@@ -30,7 +33,7 @@ public class PauseMenu : MonoBehaviour
             planningGUI.SetActive(false);
         if (FindAnyObjectByType<PlayerCamera>())
         {
-            FOVSetting = FindAnyObjectByType<PlayerCamera>();
+            cameraSetting = FindAnyObjectByType<PlayerCamera>();
         }
 
     }
@@ -72,7 +75,9 @@ public class PauseMenu : MonoBehaviour
     }
     private void Update()
     {
+        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value + 0.3f) * 10);
         FOVDisplay.text = $"{FOVSlider.value + 90}";
+        sensitivityDisplay.text = $"{sensitivityDisplayValue}";
 
         if (buttonPress == true)
         {
@@ -92,11 +97,16 @@ public class PauseMenu : MonoBehaviour
                 Time.timeScale = 1;
                 paused = false;
                 pauseHud.SetActive(false);
-                if (FOVSetting.storedFOV != FOVSlider.value + 90)
+                if (cameraSetting.storedFOV != FOVSlider.value + 90)
                 {
-                    FOVSetting.storedFOV = FOVSlider.value + 90;
-                    FOVSetting.FOV = FOVSetting.storedFOV;
+                    cameraSetting.storedFOV = FOVSlider.value + 90f;
+                    cameraSetting.FOV = cameraSetting.storedFOV;
                 }
+                if (cameraSetting.sensitivity != sensitivitySlider.value + 0.3f)
+                {
+                    cameraSetting.sensitivity = sensitivitySlider.value + 0.3f;
+                }
+
                 if (FindAnyObjectByType<PlanningModeController>() == false)
                     gameHud.SetActive(true);
                 else

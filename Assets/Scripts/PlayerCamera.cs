@@ -9,7 +9,7 @@ public class PlayerCamera : MonoBehaviour
 
     //the camera script we wrote together but modified for first person - Nova
 
-    [SerializeField] private float sensitivity = 100f;
+    [SerializeField] public float sensitivity = 100f;
     [SerializeField] public Camera playerCamera;
     [SerializeField] private Transform playerBody;
     [SerializeField] private PauseMenu pauseMenu;
