@@ -145,6 +145,7 @@ MonoBehaviour:
   sightAngle: 35
   attackAngle: 3
   windupTime: 1.5
+  windupPrepTime: 5
   player: {fileID: 0}
   proximityDetection: 2
   memoryLength: 3

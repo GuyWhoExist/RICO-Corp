@@ -12,6 +12,7 @@ public class RifleEnemy : MonoBehaviour
     [SerializeField] private float sightAngle;
     [SerializeField] private float attackAngle;
     [SerializeField] private float windupTime;
+    [SerializeField] private float windupPrepTime;
     [SerializeField] Transform player;
     [SerializeField] private float proximityDetection;
     [SerializeField] private float memoryLength;
@@ -20,7 +21,7 @@ public class RifleEnemy : MonoBehaviour
     private float remembering;
     private Vector3 directionToPlayer;
     private float windupTimer;
-
+    private float windupPrepTimer;
     private EnemyState state = EnemyState.IDLE;
     private LineRenderer lR;
     private Vector3 localHit;
@@ -112,14 +113,23 @@ public class RifleEnemy : MonoBehaviour
             case EnemyState.IDLE: //default state - Nova
                 Debug.Log("whistling");
                 searching = false;
-                windupTimer = 0;
+                if (windupTimer != 0)
+                    windupPrepTimer = windupPrepTime;
+                if (windupPrepTimer > 0)
+                    windupPrepTimer -= Time.deltaTime;
+                else
+                    windupTimer = 0;
                 break;
             case EnemyState.FOLLOW: //track the player - Nova
                 Debug.Log("Found em!");
                 searching = false;
-               
                 // rotate toward player
-                windupTimer = 0;
+                if (windupTimer != 0)
+                    windupPrepTimer = windupPrepTime;
+                if (windupPrepTimer > 0)
+                    windupPrepTimer -= Time.deltaTime;
+                else
+                    windupTimer = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 trackerOfSight.danger = false;
@@ -130,7 +140,6 @@ public class RifleEnemy : MonoBehaviour
                 trackerOfSight.danger = true;
                 break;
             case EnemyState.ATTACK: //KILL - Nova
-                if (trackerOfSight.seen == false)
                 lR.useWorldSpace = true;
                 lR.SetPosition(0, transform.position);
                 lR.SetPosition(1, player.position);
@@ -141,7 +150,6 @@ public class RifleEnemy : MonoBehaviour
                 break;
             case EnemyState.SEARCHING: //The enemy saw the player but they have left their sight. Keeps tracking the player but slower and for a limited time - Nova
                 Debug.Log(remembering);
-                if (trackerOfSight.seen == false)
                 remembering += Time.deltaTime;
                 targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed/5 * Time.deltaTime);
