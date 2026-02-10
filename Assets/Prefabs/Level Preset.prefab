@@ -11652,6 +11652,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: speedBoost
+      value: 
+      objectReference: {fileID: 6892572421836150683}
+    - target: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: swingCoolDown
       value: 0.5
       objectReference: {fileID: 0}
@@ -11735,6 +11739,14 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 4133675217727616041}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: speedBoost
+      value: 
+      objectReference: {fileID: 6892572421836150683}
+    - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: travelTime
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: impactDecal
       value: 
@@ -11845,10 +11857,24 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: 12
       addedObject: {fileID: 5915057069774204654}
+    - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6892572421836150683}
     - targetCorrespondingSourceObject: {fileID: 2322980758753661442, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6918954245071585072}
   m_SourcePrefab: {fileID: 100100000, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+--- !u!114 &499521615688528786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+  m_PrefabInstance: {fileID: 3885488378213882678}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657006923412778464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5c0518b8a40914bae8f95bc956045c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1572008785102014772 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2322980758753661442, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
@@ -11961,6 +11987,24 @@ MonoBehaviour:
   killCancel: {fileID: 3607438860848658262}
   timerController: {fileID: 4874242312635729902}
   playerDie: 0
+--- !u!114 &6892572421836150683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657006923412778464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad97c9d522f7b07448135f08db26ae3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuel: 0
+  fuelLimit: 3
+  boost: 3
+  boostDuration: 2.5
+  playerMovement: {fileID: 499521615688528786}
+  shooting: {fileID: 5816668831988673441}
 --- !u!114 &2239977499919188683 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}

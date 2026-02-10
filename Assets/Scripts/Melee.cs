@@ -16,6 +16,7 @@ public class Melee : MonoBehaviour
     private Vector3 swingDirection;
     [SerializeField] private float swingCoolDown;
     [SerializeField] private PlayerMovementTutorial playerMovementTutorial;
+    [SerializeField] private SpeedBoost speedBoost;
     private float swingCoolDownStored;
     private AboveEnemy positionDetection;
     [SerializeField] private GameObject playerCamera;
@@ -69,7 +70,7 @@ public class Melee : MonoBehaviour
                 {
                     
                      if (hit.transform.GetComponent<Enemy>() != null)
-                      {
+                     {
                         if (positionDetection != null)
                             {
                              playerPosition.transform.position = positionDetection.gameObject.transform.position;
@@ -83,15 +84,15 @@ public class Melee : MonoBehaviour
                             Camera.main.fieldOfView += FOVShift * 2;
                             teleportIncrement = true;
                         }
-                      }
+                     }
 
 
                     if (hit.transform.GetComponent<Enemy>() != null)
                     {
-                        shooting.killStreak = shooting.killStreak + 1;
-                        playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
-                        shooting.boostCoolDownStored = playerMovementTutorial.boostCoolDown;
+                        speedBoost.fuel += 0.5f;
+                        Debug.Log($"Fuel is at: {speedBoost.fuel}");
                     }
+
                     Destroy(shootable.GetGameObject());
                   Debug.Log("enemy SHOULD be bludgoned to death");
          

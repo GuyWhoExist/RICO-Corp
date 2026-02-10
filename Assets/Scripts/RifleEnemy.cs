@@ -60,7 +60,7 @@ public class RifleEnemy : MonoBehaviour
             {
                 if (windupTimer < windupTime) //checks if the wind up for the attack is over or not - Nova
                 {
-                    Debug.Log("Winding Up");
+                    //Debug.Log("Winding Up");
                     state = EnemyState.WIND_UP;
                     //sightTracker.kill = true;
                 }
@@ -85,10 +85,10 @@ public class RifleEnemy : MonoBehaviour
                 remembering = 0f;
                 searching = true;
             }
-            Debug.Log("I saw him! where did he go?");
+            //Debug.Log("I saw him! where did he go?");
             if (remembering >= memoryLength) //puts state back to idle if the timer ends - Nova
             {
-                Debug.Log("I cant rember");
+                //Debug.Log("I cant rember");
                 state = EnemyState.IDLE;
             }
             else
@@ -103,12 +103,12 @@ public class RifleEnemy : MonoBehaviour
         switch (state)
         {
             case EnemyState.IDLE: //default state - Nova
-                Debug.Log("whistling");
+                //Debug.Log("whistling");
                 searching = false;
                 windupTimer = 0;
                 break;
             case EnemyState.FOLLOW: //track the player - Nova
-                Debug.Log("Found em!");
+                //Debug.Log("Found em!");
                 searching = false;
                 // rotate toward player
                 windupTimer = 0;
@@ -124,7 +124,7 @@ public class RifleEnemy : MonoBehaviour
                 lR.SetPosition(0, transform.position);
                 lR.SetPosition(1, player.position);
                 player.GetComponent<QuickRestart>().playerDie = true;
-                Debug.Log("Bang bang bang, pull my devil trigger");
+                //Debug.Log("Bang bang bang, pull my devil trigger");
                 windupTimer = 0;
                 state = EnemyState.WIND_UP;
                 break;

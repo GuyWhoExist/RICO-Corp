@@ -23,7 +23,7 @@ public class LevelProgressTracker : MonoBehaviour
 
         public float milestone2 { get; }
         public float milestone3 { get; }
-        public int levelIndex { get; } //stores the level number, kinda redundant - Nova
+        public int levelIndex { get; } //stores the level number, kinda redundant, but dont remove. - Nova
 
         public float bestTime; //the "?" after float allows "bestTime" to store a null value - Nova
 

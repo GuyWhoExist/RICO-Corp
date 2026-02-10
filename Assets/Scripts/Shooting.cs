@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
 using TMPro;
+using System.Collections.Generic;
 
 public class Shooting : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Shooting : MonoBehaviour
     private Vector3 shotDirection;
     private Controls controls;
     [SerializeField] private int hits; //total number of bounces on the gun - Nova
+    [SerializeField] private float travelTime; //time between rendering shots - Nova
     private Color[] colors = new Color[6];
     [SerializeField] private Camera cam;
     [HideInInspector] public Enemy[] enemyNumber; //the total number of enemies
@@ -34,6 +36,7 @@ public class Shooting : MonoBehaviour
     private Vector3 trackerPositionOrig;
     private float shakeInputRandom;
     private int CoinFlip;
+    [SerializeField] private SpeedBoost speedBoost;
     
     
 
@@ -188,36 +191,37 @@ public class Shooting : MonoBehaviour
 
         boostCoolDownStored = boostCoolDownStored - Time.deltaTime;
 
-        if (boostCoolDownStored <= 0)
-        {
-            if (killStreak > 0)
-            {
-                playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - playerMovementTutorial.killBoost;
-                killStreak = killStreak - 1;
-                Debug.Log(killStreak);
-                boostCoolDownStored = 1;
-            }
-        }
+        //if (boostCoolDownStored <= 0)
+        //{
+        //    if (killStreak > 0)
+        //    {
+        //        playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed - playerMovementTutorial.killBoost;
+        //        killStreak = killStreak - 1;
+        //        Debug.Log(killStreak);
+        //        boostCoolDownStored = 1;
+        //    }
+        //}
     }
 
     private void Shoot_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) //the ACTUAL SHOT - Nova
     {
-        StopAllCoroutines(); 
+        StopAllCoroutines();
+        Vector3 trueOrigin = cam.transform.position;
+        trueOrigin.y -= 0.5f;
         shotOrigin = cam.transform.position;
         //shotOrigin.y -= 0.5f;
         Vector3 temp3 = shotOrigin;
+        List<Vector3> points = new List<Vector3>(); //stores all the impact points of the shot - Nova
         temp3.y -= 0.5f;
         shotDirection = cam.transform.forward;
         lineRenderer.positionCount = 1; //establishes the number of nodes of the line Renderer. - Nova
-        lineRenderer.SetPosition(0, temp3);
         hitting = true;
         int total = hits; //total is the number we actually modify when counting bounces
         //int color = 0;
         //effectPlayer.PlayOneShot(shot);
         while (hitting && total != 0)
         {
-
-         
+            Debug.Log("Started Timer");
             #region test :D
             //this is a region, use this
             #endregion
@@ -230,8 +234,8 @@ public class Shooting : MonoBehaviour
                     {
                         //im just gonna explain how the reflect code works here and point out any changes in other blocks - Nova
                         lineRenderer.positionCount++; //we increase the number of nodes in the line renderer - Nova
-                        lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point); //we give the node a position, being where we hit - Nova
-                        shotOrigin = hit.point + shotDirection * 0.01f; //change the origin to where we hit + a tiny bit out to prevent the origin from being in a wall. - Nova
+                        points.Add(hit.point); //we give point we hit to a list we use later - Nova                     
+                        shotOrigin = hit.point + shotDirection * 0.01f;//change the origin to where we hit + a tiny bit out to prevent the origin from being in a wall. - Nova
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal); //and change its direction based on the angle of the surface - Nova
                         Debug.Log("Armored Glass Hit"); //the only reflectable and shootable thing is armored glass - Nova
                         if (FindAnyObjectByType<PlanningModeController>() == null)
@@ -246,7 +250,7 @@ public class Shooting : MonoBehaviour
                         if (reflectDecals) // allows toggling reflect toggling
                             if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null ) // verifies hit object is not player or rigidbody to avoid floating bulletholes - Sawyer
                                 Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole - Sawyer
-                        lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
+                        points.Add(hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal);
                         total--;
@@ -266,7 +270,7 @@ public class Shooting : MonoBehaviour
                     if (hit.transform.GetComponent<Destroyable>() != null) //glass has the destroyable component - Nova
                     {
                         lineRenderer.positionCount++;
-                        lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
+                        points.Add(hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         Debug.Log("Glass Hit");
                         if (FindAnyObjectByType<PlanningModeController>() == null)
@@ -278,17 +282,17 @@ public class Shooting : MonoBehaviour
                     }
                     else //enemies ONLY have shootable - Nova
                     {
-                        lineRenderer.positionCount++;
-                        lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         Debug.Log("Enemy Hit");
                         if (total < hits)
                         {
                             Debug.Log(killStreak);
-                            playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
-                            boostCoolDownStored = playerMovementTutorial.boostCoolDown;
+                            //playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
+                            speedBoost.fuel += 1f;
+                            Debug.Log($"Fuel is at: {speedBoost.fuel}");
+                            /*boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                             Debug.Log($"{boostCoolDownStored}");
-                            killStreak = killStreak + 1;
+                            killStreak = killStreak + 1; */
 
                         }
                         if (FindAnyObjectByType<PlanningModeController>() == null)
@@ -309,18 +313,48 @@ public class Shooting : MonoBehaviour
                     if (impactDecals)
                         if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null)
                             Instantiate(impactDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
-                    lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
+                    points.Add(hit.point);
                 }
-                if (FindAnyObjectByType<PlanningModeController>() == null)
-                {
-                    StartCoroutine(ResetShot());
-                }   
+                   
             }
             else //if you dont hit anything - Nova
             {
                 Debug.Log("Miss");
                 //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);
                 hitting = false;
+            }
+        }
+        Debug.Log("Finished Shooting");
+        Debug.Log($"LR Positions: {lineRenderer.positionCount}");
+        Debug.Log($"List Positions: {points.Count}");
+        StartCoroutine(PlacePoints(points, 2, trueOrigin, true, lineRenderer.positionCount));
+    }
+
+    IEnumerator PlacePoints(List<Vector3> points, int times, Vector3 origin, bool first, int mos) //Animates the shot/places each ricochet individually after a dealy. - Nova
+    {
+        if (first) //sets the initial shot instantly - Nova
+        {
+            Debug.Log("First Shot Set");
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, origin);
+            lineRenderer.SetPosition(1, points[0]);
+        }
+        yield return new WaitForSeconds(travelTime);
+        if (times <= points.Count) //checks if we have gone through the entire list of impact points
+        {
+            Debug.Log("Change Position Count");
+            lineRenderer.positionCount++; //we manually increase this to prevent the line renderer from drawing a line to (0,0,0) - Nova
+            Debug.Log($"Using {times}");
+            lineRenderer.SetPosition(times, points[times - 1]); //Sets the position of the latest point in the linder renderer - Nova
+            times++; //used to track how many points we have used - Nova
+            StartCoroutine(PlacePoints(points, times, origin, false, mos)); //We call PlacePoints again. This repeats until we use up all the points. - Nova
+        }
+        else //Begins the reset timer once we have used up all the points - Nova
+        {
+            if (FindAnyObjectByType<PlanningModeController>() == null)
+            {
+                Debug.Log("Begin Reset Timer");
+                StartCoroutine(ResetShot());
             }
         }
     }
