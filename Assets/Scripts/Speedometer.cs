@@ -7,6 +7,13 @@ public class Speedometer : MonoBehaviour
 {
     [SerializeField] Rigidbody playerRigidBody;
     [SerializeField] RawImage speedometerBacker;
+    [SerializeField] Image speedBoostTracker1;
+    [SerializeField] Image speedBoostTracker2;
+    [SerializeField] Image speedBoostTracker3;
+    [SerializeField] Image speedBoostTracker4;
+    [SerializeField] Image speedBoostTracker5;
+    [SerializeField] Image speedBoostTracker6;
+    private SpeedBoost speedBoostValue;
     private Vector3 speed;
     private float averageLinearSpeed;
     private Vector3 rotationalSpeed;
@@ -14,6 +21,55 @@ public class Speedometer : MonoBehaviour
     private float averageSpeed;
     private Color orange = new Color(1.0f, 0.64f, 0.0f);
     private Color Purple = new Color32(115, 15, 240, 255);
+
+    private void Awake()
+    {
+
+        if (FindFirstObjectByType<SpeedBoost>())
+        {
+            speedBoostValue = FindFirstObjectByType<SpeedBoost>();
+        }
+        else
+        {
+            Debug.Log("oh no.");
+        }
+            
+    }
+
+    private void UpdateSpeedometer(Image segment, int index, float comparison) //Initial call will be (speedBoostTracker1, 1, 0.4f)
+    {
+        if (speedBoostValue.fuel > comparison)
+        {
+            segment.color = Purple;
+        }
+        else
+        {
+            segment.color = Color.white;
+        }
+
+        if (index != 6)
+        {
+            switch (index)
+            {
+                case 1:
+                    UpdateSpeedometer(speedBoostTracker2, 2, 0.9f);
+                    break;
+                case 2:
+                    UpdateSpeedometer(speedBoostTracker3, 3, 1.4f);
+                    break;
+                case 3:
+                    UpdateSpeedometer(speedBoostTracker4, 4, 1.9f);
+                    break;
+                case 4:
+                    UpdateSpeedometer(speedBoostTracker5, 5, 2.4f);
+                    break;
+                case 5:
+                    UpdateSpeedometer(speedBoostTracker6, 6, 2.9f);
+                    break;
+            }
+        }
+    }
+
     private void Update()
     {
         //speed = playerRigidBody.linearVelocity;
@@ -53,5 +109,37 @@ public class Speedometer : MonoBehaviour
         }
         else
             speedometerBacker.color = Color.white;
+
+
+        /*if (speedBoostValue.fuel > 0.4)
+        {
+            speedBoostTracker1.color = Purple;
+            if(speedBoostValue.fuel > 0.9)
+            {
+                speedBoostTracker2.color = Purple;
+                if(speedBoostValue.fuel > 1.4)
+                {
+                    speedBoostTracker3.color = Purple;
+                    if (speedBoostValue.fuel > 1.9)
+                    {
+                        speedBoostTracker4.color = Purple;
+                        if (speedBoostValue.fuel > 2.4)
+                        {
+                            speedBoostTracker5.color = Purple;
+                            if (speedBoostValue.fuel > 2.9)
+                            {
+                                speedBoostTracker6.color = Purple;
+                            }
+                            else 
+                            {
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }*/
+        UpdateSpeedometer(speedBoostTracker1, 1, 0.4f);
     }
+    
 }

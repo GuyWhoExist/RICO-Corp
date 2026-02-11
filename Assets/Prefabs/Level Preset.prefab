@@ -369,7 +369,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Silver: 0:15.00'
+  m_text: 'Silver: 0:04.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3198,7 +3198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bronze: 0:20.00'
+  m_text: 'Bronze: 0:08.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3489,7 +3489,7 @@ GameObject:
   - component: {fileID: 9114485390907624808}
   - component: {fileID: 1410646554930502809}
   m_Layer: 5
-  m_Name: BoostTrackerBar3
+  m_Name: BoostTrackerBar4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3702,7 +3702,7 @@ GameObject:
   - component: {fileID: 797153038990671811}
   - component: {fileID: 1207758079597025885}
   m_Layer: 5
-  m_Name: BoostTrackerBar2
+  m_Name: BoostTrackerBar3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8202,7 +8202,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8328,7 +8328,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gold: 0:10.00'
+  m_text: 'Gold: 0:02.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8895,7 +8895,7 @@ GameObject:
   - component: {fileID: 4319138020930782861}
   - component: {fileID: 837747576025804365}
   m_Layer: 5
-  m_Name: BoostTrackerBar1 (1)
+  m_Name: BoostTrackerBar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11949,7 +11949,7 @@ GameObject:
   - component: {fileID: 761817653364925252}
   - component: {fileID: 5923352010930325787}
   m_Layer: 5
-  m_Name: BoostTrackerBar3 (2)
+  m_Name: BoostTrackerBar5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12235,6 +12235,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigidBody: {fileID: 1608661971958230783}
   speedometerBacker: {fileID: 8282953472268730019}
+  speedBoostTracker1: {fileID: 1410646554930502809}
+  speedBoostTracker2: {fileID: 5923352010930325787}
+  speedBoostTracker3: {fileID: 1991347018423472794}
+  speedBoostTracker4: {fileID: 837747576025804365}
+  speedBoostTracker5: {fileID: 1207758079597025885}
+  speedBoostTracker6: {fileID: 4331341352757996586}
 --- !u!1 &7821066806206906959
 GameObject:
   m_ObjectHideFlags: 0
@@ -13751,7 +13757,7 @@ GameObject:
   - component: {fileID: 8056490090526209079}
   - component: {fileID: 4331341352757996586}
   m_Layer: 5
-  m_Name: BoostTrackerBar3 (1)
+  m_Name: BoostTrackerBar6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
