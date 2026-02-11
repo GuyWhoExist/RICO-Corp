@@ -78,7 +78,7 @@ public class SpeedBoost : MonoBehaviour
 
         if (fuel > fuelLimit) //adds a cap to how many boost we can hold - Nova
         {
-            Debug.Log("Discrading excess fuel");
+            Debug.Log("Discarding excess fuel");
             fuel = fuelLimit;
         }
     }
