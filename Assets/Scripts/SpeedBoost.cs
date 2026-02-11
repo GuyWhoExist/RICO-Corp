@@ -46,19 +46,19 @@ public class SpeedBoost : MonoBehaviour
 
     private void Update()
     {
-        if (boostRemaining > boostDuration*2) //checks for each level of boost, capping out at x3 boost - Nova
+        if (boostRemaining > boostDuration*2 && playerMovement.grounded) //checks for each level of boost, capping out at x3 boost - Nova
         {
             Debug.Log("Boost at x3");
             playerMovement.moveSpeed = startSpeed + (boost * 3);
             shooting.killStreak = 3;
         }
-        else if (boostRemaining > boostDuration)
+        else if (boostRemaining > boostDuration && playerMovement.grounded)
         {
             Debug.Log("Boost at x2");
             playerMovement.moveSpeed = startSpeed + (boost * 2);
             shooting.killStreak = 2;
         }
-        else if (boostRemaining > 0)
+        else if (boostRemaining > 0 && playerMovement.grounded)
         {
             Debug.Log("Boost at x1");
             playerMovement.moveSpeed = startSpeed + boost;

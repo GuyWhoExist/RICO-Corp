@@ -72,7 +72,7 @@ public class Sliding : MonoBehaviour
         // sliding normal
         //if(!pm.OnSlope() || rb.linearVelocity.y > -0.1f)
         //{
-            rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+            //rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
 
             slideTimer -= Time.deltaTime;
         //}
