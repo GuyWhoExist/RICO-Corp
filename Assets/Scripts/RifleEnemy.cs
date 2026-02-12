@@ -119,6 +119,7 @@ public class RifleEnemy : MonoBehaviour
                     windupPrepTimer -= Time.deltaTime;
                 else
                     windupTimer = 0;
+                trackerOfSight.seen = false;
                 break;
             case EnemyState.FOLLOW: //track the player - Nova
                 //Debug.Log("Found em!");
