@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Speedometer : MonoBehaviour
 {
+    //Controls the fuel meter on the speedometer - Nova
+    //Coded by Sawyer
+
     [SerializeField] Rigidbody playerRigidBody;
     [SerializeField] RawImage speedometerBacker;
     [SerializeField] Image speedBoostTracker1;
@@ -36,7 +39,8 @@ public class Speedometer : MonoBehaviour
             
     }
 
-    private void UpdateSpeedometer(Image segment, int index, float comparison) //Initial call will be (speedBoostTracker1, 1, 0.4f)
+    //This method was coded by Nova
+    private void UpdateSpeedometer(Image segment, int index, float comparison) //Initial call will be (speedBoostTracker1, 1, 0.4f) - Nova
     {
         if (speedBoostValue.fuel > comparison)
         {

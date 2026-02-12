@@ -26,7 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -59,6 +59,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Laser_Base:
+        m_Texture: {fileID: 2800000, guid: 4048bb247cb30ea4ea4c09829633c9ef, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Laster_Texture:
+        m_Texture: {fileID: 2800000, guid: 4048bb247cb30ea4ea4c09829633c9ef, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -125,6 +133,9 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Laser_Texture_Power: 2
+    - _Laser_Texture_Scale: 2.25
+    - _Laser_Texture_Speed: 3.5
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -143,6 +154,9 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Laser_Base_Color: {r: 2.3849049, g: 0.103495605, b: 1.0634695, a: 0}
+    - _Laser_Texture_Scale: {r: 4, g: 0, b: 0, a: 0}
+    - _Lasert_Texture_Color: {r: 3.065971, g: 0.39535192, b: 3.1274111, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

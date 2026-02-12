@@ -1079,7 +1079,7 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284896834}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1094,7 +1094,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5b4f9fd17e5349a419f9a52768bd8a73, type: 2}
+  - {fileID: 2100000, guid: 05e527c272e063c40a7f991502e1fc00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1128,8 +1128,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.020923615
-        value: 0.23508453
+        time: 0.038059235
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -6015,7 +6015,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5b4f9fd17e5349a419f9a52768bd8a73, type: 2}
+  - {fileID: 2100000, guid: 05e527c272e063c40a7f991502e1fc00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6049,8 +6049,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.020923615
-        value: 0.23508453
+        time: 0
+        value: 0.9608391
         inSlope: 0
         outSlope: 0
         tangentMode: 0

@@ -218,6 +218,7 @@ public class Shooting : MonoBehaviour
         shotDirection = cam.transform.forward;
         lineRenderer.positionCount = 1; //establishes the number of nodes of the line Renderer. - Nova
         hitting = true;
+        bool dontDraw = false;
         int total = hits; //total is the number we actually modify when counting bounces
         //int color = 0;
         //effectPlayer.PlayOneShot(shot);
@@ -328,12 +329,17 @@ public class Shooting : MonoBehaviour
                 Debug.Log("Miss");
                 //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);
                 hitting = false;
+                dontDraw = true;
             }
         }
         Debug.Log("Finished Shooting");
         Debug.Log($"LR Positions: {lineRenderer.positionCount}");
         Debug.Log($"List Positions: {points.Count}");
-        StartCoroutine(PlacePoints(points, 2, trueOrigin, true, lineRenderer.positionCount));
+        if (!dontDraw)
+        {
+            StartCoroutine(PlacePoints(points, 2, trueOrigin, true, lineRenderer.positionCount));
+        }
+        
     }
 
     IEnumerator PlacePoints(List<Vector3> points, int times, Vector3 origin, bool first, int mos) //Animates the shot/places each ricochet individually after a dealy. - Nova
