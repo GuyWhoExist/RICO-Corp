@@ -8,10 +8,6 @@ public class LevelEnder : MonoBehaviour
     [SerializeField] public int nextLevelIndex;
     [SerializeField] public bool secret;
     
-    public float GetBonus()
-    {
-        return bonus;
-    }
 
     public int GetNextIndex()
     {

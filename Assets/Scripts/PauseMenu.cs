@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework.Internal;
 using Palmmedia.ReportGenerator.Core;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Android;
@@ -19,9 +20,11 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI FOVDisplay;
     [SerializeField] Slider sensitivitySlider;
     [SerializeField] TextMeshProUGUI sensitivityDisplay;
+    [SerializeField] GameObject configObject;
     private float sensitivityDisplayValue;
     private PlayerCamera cameraSetting;
     public bool buttonPress;
+    private Config_Internal config;
     //allows to unpause via other means
  //coded by sawyer
 
@@ -37,7 +40,6 @@ public class PauseMenu : MonoBehaviour
         }
 
     }
-
     private void OnEnable()
     {
         pauseHud.SetActive(false);
@@ -45,6 +47,26 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         controls.Pause.Pause.performed += Pause_Performed;
         controls.Pause.Pause.performed += (ctx) => Debug.Log("man");
+        if (FindAnyObjectByType <Config_Internal>() != null) 
+         {
+            Debug.Log("config exists.");
+            config = FindAnyObjectByType<Config_Internal>();
+            if (config.sensitivity != cameraSetting.sensitivity || config.sensitivity < 0.1 || config.sensitivity > 5.3)
+            {
+                cameraSetting.sensitivity = config.sensitivity;
+                sensitivitySlider.value = config.sensitivity;
+            }
+            if (config.fieldOfView != cameraSetting.storedFOV || config.fieldOfView < 1 || config.fieldOfView > 140)
+            {
+                cameraSetting.storedFOV = config.fieldOfView;
+                FOVSlider.value = cameraSetting.storedFOV;
+            }
+         }
+        else
+        {
+            Debug.Log("uh oh.");
+        }
+       
         if (FindAnyObjectByType<PlanningModeController>())
         {
             gameHud.SetActive(false);
@@ -75,6 +97,18 @@ public class PauseMenu : MonoBehaviour
     }
     private void Update()
     {
+        if (cameraSetting.storedFOV != FOVSlider.value + 90)
+        {
+            cameraSetting.storedFOV = FOVSlider.value + 90f;
+            cameraSetting.FOV = cameraSetting.storedFOV;
+            config.fieldOfView = FOVSlider.value;
+        }
+        if (cameraSetting.sensitivity != sensitivitySlider.value + 0.3f)
+        {
+            cameraSetting.sensitivity = sensitivitySlider.value + 0.3f;
+            config.sensitivity = sensitivitySlider.value;
+        }
+
         sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value + 0.3f) * 10);
         FOVDisplay.text = $"{FOVSlider.value + 90}";
         sensitivityDisplay.text = $"{sensitivityDisplayValue}";
@@ -97,16 +131,7 @@ public class PauseMenu : MonoBehaviour
                 Time.timeScale = 1;
                 paused = false;
                 pauseHud.SetActive(false);
-                if (cameraSetting.storedFOV != FOVSlider.value + 90)
-                {
-                    cameraSetting.storedFOV = FOVSlider.value + 90f;
-                    cameraSetting.FOV = cameraSetting.storedFOV;
-                }
-                if (cameraSetting.sensitivity != sensitivitySlider.value + 0.3f)
-                {
-                    cameraSetting.sensitivity = sensitivitySlider.value + 0.3f;
-                }
-
+              
                 if (FindAnyObjectByType<PlanningModeController>() == false)
                     gameHud.SetActive(true);
                 else
