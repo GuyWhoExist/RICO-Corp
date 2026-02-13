@@ -122,7 +122,6 @@ public class TimerController : MonoBehaviour
                 timeTicking = false;
                 if (enemyNumber.Length == 0)
                 {
-                    curTime -= lE.GetBonus();
                     timerText.text = curTime.ToString("0:00.00");
                 }
                 if (lE.GetNextIndex() == 0)

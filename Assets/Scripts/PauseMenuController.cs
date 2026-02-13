@@ -14,20 +14,26 @@ public class PauseMenuController : MonoBehaviour
     public GameObject pauseUI;
     public GameObject planningController;
     public bool quit;
-    [SerializeField] private QuickRestart restartController;
+    private QuickRestart restartController;
     //coded by sawyer
     private void Start()
     {
         settings_Audio.SetActive(false);
         settings_Gameplay.SetActive(false);
         settings_Video.SetActive(false);
-
+        if (FindFirstObjectByType<QuickRestart>() )
+        {
+            restartController = FindFirstObjectByType<QuickRestart>();
+        }
         quit = false;
     }
     public void OnRestartPress()
     {
-        pauseMenu.buttonPress = true;
-        restartController.playerDie = true;
+        if (restartController != null)
+        {
+            pauseMenu.buttonPress = true;
+            restartController.playerDie = true;
+        }
     }
     public void OnFullQuit()
     {

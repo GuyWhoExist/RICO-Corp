@@ -144,7 +144,7 @@ MonoBehaviour:
   maxSightDistance: 30
   sightAngle: 35
   attackAngle: 3
-  windupTime: 1.5
+  windupTime: 1
   windupPrepTime: 5
   player: {fileID: 0}
   proximityDetection: 2
