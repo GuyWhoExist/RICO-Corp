@@ -5,7 +5,7 @@ public class LevelProgressTracker : MonoBehaviour
 {
 
     //Contains all level data
-    //
+    //written by Nova
     public struct LevelInfo
     {
         public LevelInfo(float m1, float m2, float m3, int index)

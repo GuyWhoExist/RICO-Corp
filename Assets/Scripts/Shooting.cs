@@ -329,7 +329,10 @@ public class Shooting : MonoBehaviour
                 Debug.Log("Miss");
                 //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);
                 hitting = false;
-                dontDraw = true;
+                if (total == hits)
+                {
+                    dontDraw = true;
+                }
             }
         }
         Debug.Log("Finished Shooting");

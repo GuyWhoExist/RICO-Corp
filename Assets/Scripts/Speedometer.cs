@@ -51,7 +51,7 @@ public class Speedometer : MonoBehaviour
             segment.color = Color.white;
         }
 
-        if (index != 6)
+        if (index != 6) //we call the method within itself in order to update every speedBoostTracker - Nova
         {
             switch (index)
             {
