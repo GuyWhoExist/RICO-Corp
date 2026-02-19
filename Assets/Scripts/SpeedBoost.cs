@@ -16,12 +16,21 @@ public class SpeedBoost : MonoBehaviour
     [SerializeField] private float boostDuration; //how long the boost lasts - Nova
     [SerializeField] private PlayerMovementTutorial playerMovement;
     [SerializeField] private Shooting shooting;
+    private bool planningMode;
 
 
     private void OnEnable()
     {
         controls.Movement.Boost.Enable();
         controls.Movement.Boost.performed += Boost_performed;
+        if (FindAnyObjectByType<PlanningModeController>())
+        {
+            planningMode = true;
+        }
+        else
+        {
+            planningMode = false;
+        }
     }
     private void OnDisable()
     {
@@ -37,6 +46,10 @@ public class SpeedBoost : MonoBehaviour
             Debug.Log("Boost Succesful");
             boostRemaining += boostDuration;
             fuel--;
+        }
+        else if(planningMode == true)
+        {
+            boostRemaining += boostDuration;
         }
         else
         {
