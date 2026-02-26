@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class Shooting : MonoBehaviour
 {
+    //Controls how the gun fires and ricochets. The selling point.
+    //Coded by Nova
+
     RaycastHit hit;
     [SerializeField] private float maxDistance;
     [SerializeField] private LineRenderer lineRenderer; //displays the shot of the player - Nova
@@ -83,7 +86,7 @@ public class Shooting : MonoBehaviour
         controls.Guns.Shoot.Disable();
         controls.Guns.Shoot.performed -= Shoot_performed;
     }
-    private void Update() //everything in this is used for the PREDICTION LASER. - Nova
+    private void Update() //everything in this is used for the PREDICTION LASER. Will probably go unused. - Nova
     {
         // allows to disable shooting when using any user interface, uis must be manually added
         if (pauseMenu.paused == true || timerController.end == true || spraying == true)

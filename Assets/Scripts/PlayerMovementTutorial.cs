@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 public class PlayerMovementTutorial : MonoBehaviour
 {
+    //a movement tutorial I found online that ended up being final - Nova
+    //coded by Nova with assistance+addition from Sawyer
+
     [SerializeField] private GameObject spawn;
     [Header("Movement")]
     public float moveSpeed;

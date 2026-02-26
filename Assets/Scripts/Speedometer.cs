@@ -115,7 +115,9 @@ public class Speedometer : MonoBehaviour
             speedometerBacker.color = Color.white;
 
 
-        /*if (speedBoostValue.fuel > 0.4)
+        /*
+         This nested if statement was replaced by the method bellow it. - Nova
+         if (speedBoostValue.fuel > 0.4)
         {
             speedBoostTracker1.color = Purple;
             if(speedBoostValue.fuel > 0.9)

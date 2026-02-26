@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MusicClass : MonoBehaviour
 {
+    //used to start and stop music - Nova
+    //Coded by Nova
+
     private AudioSource _audioSource;
     private void Awake()
     {
