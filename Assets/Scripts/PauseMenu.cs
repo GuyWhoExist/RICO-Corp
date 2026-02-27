@@ -12,6 +12,8 @@ public class PauseMenu : MonoBehaviour
 {
     public Controls controls;
     public bool paused;
+    [HideInInspector] public bool completionCheck;
+    [SerializeField] GameObject PlanningModeToggle;
     [SerializeField] PauseMenuController pauseController;
     [SerializeField] GameObject pauseHud;
     [SerializeField] GameObject gameHud;
@@ -21,6 +23,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] Slider sensitivitySlider;
     [SerializeField] TextMeshProUGUI sensitivityDisplay;
     [SerializeField] GameObject configObject;
+    private LevelProgressTracker levelProgressTracker;
     private float sensitivityDisplayValue;
     private PlayerCamera cameraSetting;
     public bool buttonPress;
@@ -34,10 +37,13 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         if(FindAnyObjectByType<PlanningModeController>() == false)
             planningGUI.SetActive(false);
+
         if (FindAnyObjectByType<PlayerCamera>())
-        {
             cameraSetting = FindAnyObjectByType<PlayerCamera>();
-        }
+
+        if (FindAnyObjectByType<LevelProgressTracker>())
+            levelProgressTracker = FindFirstObjectByType<LevelProgressTracker>();
+
 
     }
     private void OnEnable()
@@ -97,6 +103,21 @@ public class PauseMenu : MonoBehaviour
     }
     private void Update()
     {
+        if (completionCheck == false)
+        {
+            if (levelProgressTracker.levelCompleted == false)
+            {
+                PlanningModeToggle.SetActive(false);
+                completionCheck = true;
+            }
+            else
+            {
+                PlanningModeToggle.SetActive(true);
+                completionCheck = true;
+            }
+            Debug.Log("completionCheck Fired");
+        }
+
         if (cameraSetting.storedFOV != FOVSlider.value + 90)
         {
             cameraSetting.storedFOV = FOVSlider.value + 90f;
@@ -108,7 +129,7 @@ public class PauseMenu : MonoBehaviour
             cameraSetting.sensitivity = sensitivitySlider.value + 0.3f;
             config.sensitivity = sensitivitySlider.value;
         }
-
+      
         sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value + 0.3f) * 10);
         FOVDisplay.text = $"{FOVSlider.value + 90}";
         sensitivityDisplay.text = $"{sensitivityDisplayValue}";

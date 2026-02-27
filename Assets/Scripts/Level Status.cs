@@ -62,6 +62,7 @@ public class LevelStatus : MonoBehaviour
             {
                 Debug.Log("Level "+levelNumber+" Unlocked");
                 gameObject.GetComponent<Image>().color = Color.white;
+
             }
             else //not unlocked - Nova
             {

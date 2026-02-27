@@ -36,8 +36,8 @@ public class TimerController : MonoBehaviour
             Debug.Log("things have gone horribly wrong in the time controller");
         }
        // besttimeconversion();
-
-        timeTicking = true;
+    
+            timeTicking = true;
         if (FindAnyObjectByType<PlanningModeController>() == null)
         {
             timeTicking = true;
@@ -47,6 +47,14 @@ public class TimerController : MonoBehaviour
             timeTicking = false;
         }
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        if (levelProgressTracker.levelCompleted == false)
+        {
+            timerText.enabled = false;
+        }
+        else
+        {
+            timerText.enabled = true;
+        }
         if (levelProgressTracker != null )
         {
             Debug.Log("We good in the time controller");

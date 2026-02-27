@@ -1,11 +1,24 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class LevelProgressTracker : MonoBehaviour
 {
+    [HideInInspector] public bool levelCompleted;
+    [HideInInspector] public bool levelLoaded;
+    private bool checkComplete;
+    private float valueCheckDelay;
+    private LevelEnder levelEnder;
+    private PauseMenu pauseMenu;
 
     //Contains all level data
     //
+
+    private void OnEnable()
+    {
+        checkComplete = true;
+
+    }
     public struct LevelInfo
     {
         public LevelInfo(float m1, float m2, float m3, int index)
@@ -26,11 +39,65 @@ public class LevelProgressTracker : MonoBehaviour
         public int levelIndex { get; } //stores the level number, kinda redundant, but dont remove. - Nova
 
         public float bestTime; //the "?" after float allows "bestTime" to store a null value - Nova
-
+        
     }
+    public void LevelStatusCheck()
+    {
+            valueCheckDelay += Time.deltaTime;
+            if (valueCheckDelay > 0.5)
+            {
+                if (levels[levelEnder.nextLevelIndex - 3].bestTime == -1f)
+                {
+                    levelCompleted = false;
+                    Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
+                    valueCheckDelay = 0f;
+                    checkComplete = true;
+                }
+                else
+                {
+                    levelCompleted = true;
+                    Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
+                    valueCheckDelay = 0f;
+                    checkComplete = true;
 
+                    pauseMenu.completionCheck = false;
+                }
+            }
+            Debug.Log(levelCompleted);
+    }
     private void Update()
     {
+        //checks for loading of new level and prevents it from checking more then once per level - sawyer
+        if (levelLoaded == true)
+        {
+            levelEnder = null;
+            Debug.Log("firing check");
+            if (FindFirstObjectByType(typeof(LevelEnder)) != null)
+            {
+                if (FindAnyObjectByType<PauseMenu>())
+                {
+                    pauseMenu = FindAnyObjectByType<PauseMenu>();
+                }
+                levelEnder = FindFirstObjectByType<LevelEnder>();
+                levelLoaded = false;
+                checkComplete = false;
+                Debug.Log("LevelEnder found");
+            }
+            else
+            {
+                if (FindAnyObjectByType<PauseMenu>())
+                {
+                    pauseMenu = FindAnyObjectByType<PauseMenu>();
+                }
+                Debug.Log("LevelEnder not found");
+                levelLoaded = false;
+            }
+        }
+        if (checkComplete == false)
+        {
+            LevelStatusCheck();
+        }
+        // end
         testingTime = levels[0].bestTime;
         LevelProgressTracker[] duplicates = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
         if (duplicates.Length > 1 && used != false) //checks for duplicates and destroys them. - Nova
@@ -47,7 +114,7 @@ public class LevelProgressTracker : MonoBehaviour
         }
     }
 
-    private void Awake() 
+    private void Awake()
     {
         used = false;
         DontDestroyOnLoad(transform.gameObject); //allows this object to stay between levels - Nova
