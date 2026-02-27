@@ -109,11 +109,13 @@ public class PauseMenu : MonoBehaviour
             {
                 PlanningModeToggle.SetActive(false);
                 completionCheck = true;
+                Debug.Log("disabled Plans");
             }
             else
             {
                 PlanningModeToggle.SetActive(true);
                 completionCheck = true;
+                Debug.Log("enabled Plans");
             }
             Debug.Log("completionCheck Fired");
         }

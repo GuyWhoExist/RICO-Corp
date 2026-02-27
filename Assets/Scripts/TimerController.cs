@@ -18,6 +18,7 @@ public class TimerController : MonoBehaviour
     [SerializeField] PauseMenu pauseMenu;
     private LevelProgressTracker levelProgressTracker;
     private LevelProgressTrackerDTO levelProgressTrackerDTO;
+    [HideInInspector] public bool statusCheck;
 
     public float curTime;
     public bool timeTicking;
@@ -47,14 +48,9 @@ public class TimerController : MonoBehaviour
             timeTicking = false;
         }
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
-        if (levelProgressTracker.levelCompleted == false)
-        {
-            timerText.enabled = false;
-        }
-        else
-        {
-            timerText.enabled = true;
-        }
+
+       
+
         if (levelProgressTracker != null )
         {
             Debug.Log("We good in the time controller");
@@ -85,10 +81,23 @@ public class TimerController : MonoBehaviour
         }
         end = false;
     }
-
-
     void Update()
     {
+        if (statusCheck == false)
+        {
+            if (levelProgressTracker.levelCompleted == false)
+            {
+                timerText.enabled = false;
+                Debug.Log("disabled timer");
+                statusCheck = true;
+            }
+            else
+            {
+                timerText.enabled = true;
+                Debug.Log("enabled Timer");
+                statusCheck = true;
+            }
+        }
         if (timeTicking)
         {
             curTime += Time.deltaTime;
@@ -109,6 +118,9 @@ public class TimerController : MonoBehaviour
         Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //we always check the amount of enemies in the scene - Nova
         enemyCountText.text = $"Enemies Left: {enemyNumber.Length}"; //updates the enemy count for both the game UI and planning UI - Nova
         enemyCountText2.text = $"Enemies Left: {enemyNumber.Length}";
+
+     
+       
 
 
         //for (int i = 0; i < levelProgressTracker.levels.Length; i++)

@@ -1,12 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelLoadTracker : MonoBehaviour
 {
     private LevelProgressTracker levelProgressTracker;
-    void OnEnable()
+    void Awake()
     {
         FindAnyObjectByType<LevelProgressTracker>();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        levelProgressTracker.pauseMenu = null;
+        levelProgressTracker.timerController = null;
         levelProgressTracker.levelLoaded = true;
         Debug.Log("level is loaded");
         Destroy(this.gameObject);
