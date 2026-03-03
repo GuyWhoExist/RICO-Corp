@@ -54,7 +54,7 @@ public class Melee : MonoBehaviour
         if (above.GetComponent<AboveEnemy>() != null) 
         {
             positionDetection = above.GetComponent<AboveEnemy>();
-            Debug.Log("I AM ABOVE");
+            //Debug.Log("I AM ABOVE");
         }
 
     }
@@ -92,7 +92,7 @@ public class Melee : MonoBehaviour
                     if (hit.transform.GetComponent<Enemy>() != null)
                     {
                         speedBoost.fuel += 0.5f;
-                        Debug.Log($"Fuel is at: {speedBoost.fuel}");
+                        //Debug.Log($"Fuel is at: {speedBoost.fuel}");
                         shooting.killStreak = shooting.killStreak + 1;
                         if (trackerOfSight.seen == true)
                         {
@@ -101,15 +101,15 @@ public class Melee : MonoBehaviour
                     }
 
                     Destroy(shootable.GetGameObject());
-                  Debug.Log("enemy SHOULD be bludgoned to death");
+                 // Debug.Log("enemy SHOULD be bludgoned to death");
          
                 }
-                Debug.Log("swing raycast is fired");
+                //Debug.Log("swing raycast is fired");
                 
                
             }
             
-            Debug.Log("melee is swung");
+            //Debug.Log("melee is swung");
             
         }
     }

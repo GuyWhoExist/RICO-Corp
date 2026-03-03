@@ -18,7 +18,7 @@ public class MusicClass : MonoBehaviour
             {
                 if (l.used == false)
                 {
-                    Debug.Log("More than 1 MusicClass found, killing the unused ones"); //same process we use for the tracker we use for the music class - Nova
+                    //Debug.Log("More than 1 MusicClass found, killing the unused ones"); //same process we use for the tracker we use for the music class - Nova
                     Destroy(l.gameObject);
                 }
             }
@@ -39,11 +39,11 @@ public class MusicClass : MonoBehaviour
             if (_audioSource.isPlaying)
             {
                 _audioSource.Play();
-                Debug.Log("Music is now playing (music class)");
+                //Debug.Log("Music is now playing (music class)");
             }
             else
             {
-                Debug.Log("Music is already playing (music class)");
+                //Debug.Log("Music is already playing (music class)");
                 return;
             }
         }  
@@ -54,7 +54,7 @@ public class MusicClass : MonoBehaviour
         if (_audioSource != null )
         {
             _audioSource.Stop();
-            Debug.Log("Music is stopped");
+            //Debug.Log("Music is stopped");
         }   
     }
 

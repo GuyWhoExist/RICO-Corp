@@ -34,7 +34,7 @@ public class Speedometer : MonoBehaviour
         }
         else
         {
-            Debug.Log("oh no.");
+            //Debug.Log("oh no.");
         }
             
     }

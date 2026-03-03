@@ -106,7 +106,7 @@ public class PlayerMovementTutorial : MonoBehaviour
             if (Camera.main.fieldOfView < (storedPlayerCamera.storedFOV))
             {
                 Camera.main.fieldOfView = storedPlayerCamera.storedFOV;
-                Debug.Log("FOV is somehow lower then it is supposed to be, fixing...");
+                //Debug.Log("FOV is somehow lower then it is supposed to be, fixing...");
             }
         }
         /*if (Camera.main.fieldOfView > (storedPlayerCamera.storedFOV + FOVReference.maxModifiedFOV) && Camera.main.fieldOfView < (storedPlayerCamera.storedFOV + FOVReference.maxModifiedFOV + FOVTolerance))

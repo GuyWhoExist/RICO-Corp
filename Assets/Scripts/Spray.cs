@@ -16,21 +16,24 @@ public class Spray : MonoBehaviour, ICleanable
             sprayController = FindFirstObjectByType<SprayPlacerHudController>();
         }
        
-        Debug.Log("checking for spraycontroller...");
+        //Debug.Log("checking for spraycontroller...");
         if (sprayController != null)
-            Debug.Log("spraycontroller found!");
+            //Debug.Log("spraycontroller found!");
         if (sprayController.hit.transform.GetComponent<Destroyable>() != null)
         {
             destroyableObject = sprayController.hit.transform.GetComponent<Destroyable>();
-            Debug.Log("ok, destroy this");
+            //Debug.Log("ok, destroy this");
         }
         else if (sprayController.hit.transform.GetComponent<Absorb>() != null) 
         {
             armouredGlass = sprayController.hit.transform.GetComponent<Absorb>();
-            Debug.Log("it is armoured glass, still destroy this");
+            //Debug.Log("it is armoured glass, still destroy this");
         }
         else
-            Debug.Log("ok, don't destroy this");
+        {
+
+        }
+            //Debug.Log("ok, don't destroy this");
     }
     public GameObject GetGameObject()
     {

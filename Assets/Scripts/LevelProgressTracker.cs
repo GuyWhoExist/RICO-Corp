@@ -101,8 +101,8 @@ public class LevelProgressTracker : MonoBehaviour
         for (int i = 0; i < levels.Length; i++)
         {
             testArray[i] = levels[i].bestTime;
-            Debug.Log($"Trackers Time: {levels[i].bestTime}");
-            Debug.Log($"Saved Time: {testArray[i]}");
+            //Debug.Log($"Trackers Time: {levels[i].bestTime}");
+            //Debug.Log($"Saved Time: {testArray[i]}");
         }
         LevelProgressTrackerDTO newlevelProgTrockDTO = new LevelProgressTrackerDTO();
         newlevelProgTrockDTO.testArray = testArray;
