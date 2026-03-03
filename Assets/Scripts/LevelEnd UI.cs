@@ -10,12 +10,19 @@ public class LevelEndUI : MonoBehaviour
 {
     private LevelProgressTracker levelProgressTracker;
     private TimerController timerController;
+    private PauseMenu pauseMenu;
     private LevelEnder levelEnder;
+    private QuickRestart quickRestart;
+
     [SerializeField] TextMeshProUGUI resultsDisplay;
     [SerializeField] GameObject endGUI;
 
     private void Awake()
     {
+        if (quickRestart  == FindAnyObjectByType<QuickRestart>())
+        {
+            quickRestart = FindAnyObjectByType<QuickRestart>();
+        }
         levelEnder = FindAnyObjectByType<LevelEnder>();
         if (levelEnder == null)
             Debug.Log("Level End is missing");
@@ -24,7 +31,14 @@ public class LevelEndUI : MonoBehaviour
 
         endGUI.SetActive(false);
         //timerController = GetComponent<TimerController>();
-        timerController = FindAnyObjectByType<TimerController>();
+        if (FindAnyObjectByType<TimerController>())
+        {
+            timerController = FindAnyObjectByType<TimerController>();
+        }
+        if (FindAnyObjectByType<PauseMenu>())
+        {
+            pauseMenu = FindAnyObjectByType<PauseMenu>();
+        }
     }
     private void OnEnable()
     {
@@ -66,8 +80,6 @@ public class LevelEndUI : MonoBehaviour
                 }
             }
         }
-        
-
     }
     public void OnNextPress(LevelEnder lE) // player presses next after successfully completing level -sawyer
     {
@@ -76,8 +88,8 @@ public class LevelEndUI : MonoBehaviour
         if (timerController.end == false)
         {
             SceneManager.LoadScene(lE.GetNextIndex());
+            levelProgressTracker.levelLoaded = true;
         }
-        
     }
     public void OnRestartPress(LevelEnder lE) // player restarts -sawyer
     {
@@ -89,7 +101,6 @@ public class LevelEndUI : MonoBehaviour
             {
                 SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
             }
-          
         }
         else
         {
@@ -98,14 +109,11 @@ public class LevelEndUI : MonoBehaviour
             {
                 SceneManager.LoadScene(lE.GetNextIndex() - 1);
             }
-            
         }
-
     }
     public void OnQuitPress() // player likely ragequit, shame on them -sawyer
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
-
     }
 }

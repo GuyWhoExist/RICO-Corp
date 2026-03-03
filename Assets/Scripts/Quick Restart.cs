@@ -52,7 +52,6 @@ public class QuickRestart : MonoBehaviour
                     //Debug.Log("Git gud");
                     timerController.end = false;
                     SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
-
                 }
                 else
                 {
@@ -60,7 +59,6 @@ public class QuickRestart : MonoBehaviour
                     timerController.end = false;
                     SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
                     //Debug.Log("this is fine actually");
-
                 }
             }
          else

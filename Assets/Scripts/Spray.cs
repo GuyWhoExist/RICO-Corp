@@ -8,9 +8,14 @@ public class Spray : MonoBehaviour, ICleanable
     private Destroyable destroyableObject;
     private Absorb armouredGlass;
     public float savedSpray;
+    [HideInInspector] public Vector3 Position;
+    [HideInInspector] public Quaternion rotation;
     //coded by sawyer
     private void OnEnable()
     {
+
+        Position = this.transform.position;
+        rotation = this.transform.rotation;
         if (FindFirstObjectByType<SprayPlacerHudController>())
         {
             sprayController = FindFirstObjectByType<SprayPlacerHudController>();

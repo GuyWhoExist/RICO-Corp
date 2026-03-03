@@ -26,6 +26,7 @@ public class PauseMenuController : MonoBehaviour
             restartController = FindFirstObjectByType<QuickRestart>();
         }
         quit = false;
+       
     }
     public void OnRestartPress()
     {
