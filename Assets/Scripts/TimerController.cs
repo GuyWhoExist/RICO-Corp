@@ -19,6 +19,8 @@ public class TimerController : MonoBehaviour
     private LevelProgressTracker levelProgressTracker;
     private LevelProgressTrackerDTO levelProgressTrackerDTO;
     [HideInInspector] public bool statusCheck;
+    [SerializeField] Button planningModeToggle;
+    [SerializeField] TextMeshProUGUI popUp;
 
     public float curTime;
     public bool timeTicking;
@@ -39,6 +41,7 @@ public class TimerController : MonoBehaviour
        // besttimeconversion();
     
             timeTicking = true;
+        popUp.enabled = false;
         if (FindAnyObjectByType<PlanningModeController>() == null)
         {
             timeTicking = true;
@@ -211,6 +214,10 @@ public class TimerController : MonoBehaviour
         {
 
             endGUI.SetActive(true);
+            if (levelProgressTracker.initialComplete == true)
+            {
+                popUp.enabled = true;
+            }
             Time.timeScale = 0;
             for (int i = 0; i < gameHUD.transform.childCount; i++) //disables everything in gameHUD except the timer when the level ends - Nova
             {

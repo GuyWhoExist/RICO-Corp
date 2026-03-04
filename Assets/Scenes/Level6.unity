@@ -4876,6 +4876,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.93
       objectReference: {fileID: 0}
+    - target: {fileID: 7491740246016161211, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1138784713}
     - target: {fileID: 7741808929884212910, guid: 5ab989083e3c4e445a684a7c13c513de, type: 3}
       propertyPath: levelEnder
       value: 

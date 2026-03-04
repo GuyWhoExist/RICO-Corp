@@ -11,7 +11,7 @@ public class LevelProgressTracker : MonoBehaviour
     private LevelEnder levelEnder;
     [HideInInspector] public PauseMenu pauseMenu;
     [HideInInspector] public TimerController timerController;
-
+    [HideInInspector] public bool initialComplete;
     //Contains all level data
     //
 
@@ -42,6 +42,7 @@ public class LevelProgressTracker : MonoBehaviour
         public float bestTime; //the "?" after float allows "bestTime" to store a null value - Nova
         
     }
+    //LevelStatusCheck coded by sawyer
     public void LevelStatusCheck()
     {
             valueCheckDelay += Time.deltaTime;
@@ -64,6 +65,7 @@ public class LevelProgressTracker : MonoBehaviour
                     checkComplete = true;
                     pauseMenu.completionCheck = false;
                     timerController.statusCheck = false;
+                    initialComplete = false;
                 }
             }
             Debug.Log(levelCompleted);
@@ -85,6 +87,7 @@ public class LevelProgressTracker : MonoBehaviour
                 levelLoaded = false;
                 checkComplete = false;
                 Debug.Log("LevelEnder found");
+                initialComplete = true;
             }
             else
             {

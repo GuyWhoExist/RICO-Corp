@@ -16,6 +16,7 @@ public class LevelEndUI : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI resultsDisplay;
     [SerializeField] GameObject endGUI;
+    [SerializeField] GameObject planningController;
 
     private void Awake()
     {
@@ -84,6 +85,7 @@ public class LevelEndUI : MonoBehaviour
     public void OnNextPress(LevelEnder lE) // player presses next after successfully completing level -sawyer
     {
         timerController.end = false;
+        lE = levelEnder;
         Time.timeScale = 1;
         if (timerController.end == false)
         {
@@ -94,6 +96,7 @@ public class LevelEndUI : MonoBehaviour
     public void OnRestartPress(LevelEnder lE) // player restarts -sawyer
     {
         Time.timeScale = 1;
+        lE = levelEnder;
         if (levelEnder.nextLevelIndex == 0)
         {
             timerController.end = false;
@@ -107,6 +110,29 @@ public class LevelEndUI : MonoBehaviour
             timerController.end = false;
             if (timerController.end == false)
             {
+                
+                SceneManager.LoadScene(lE.GetNextIndex() - 1);
+            }
+        }
+    }
+    public void OnPlanningPress(LevelEnder lE) // player plans -sawyer
+    {
+        Time.timeScale = 1;
+            Instantiate(planningController);
+        if (levelEnder.nextLevelIndex == 0)
+        {
+            timerController.end = false;
+            if (timerController.end == false)
+            {
+                SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
+            }
+        }
+        else
+        {
+            timerController.end = false;
+            if (timerController.end == false)
+            {
+
                 SceneManager.LoadScene(lE.GetNextIndex() - 1);
             }
         }
