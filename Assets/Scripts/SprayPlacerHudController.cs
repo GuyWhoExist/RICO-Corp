@@ -127,7 +127,7 @@ public class SprayPlacerHudController : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
+                //Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
             }
         }
         plannerUI.SetActive(false);
@@ -157,7 +157,7 @@ public class SprayPlacerHudController : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
+                //Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
             }
         }
         plannerUI.SetActive(false);
@@ -187,7 +187,7 @@ public class SprayPlacerHudController : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
+                //Debug.Log($"Something has gone horrifyingly wrong in the markers, value: {markerSelect} ");
             }
         }
         plannerUI.SetActive(false);

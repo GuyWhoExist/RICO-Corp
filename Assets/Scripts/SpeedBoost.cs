@@ -40,10 +40,10 @@ public class SpeedBoost : MonoBehaviour
 
     private void Boost_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        Debug.Log("We have read the dash input");
+        //Debug.Log("We have read the dash input");
         if (fuel >= 1)
         {
-            Debug.Log("Boost Succesful");
+            //Debug.Log("Boost Succesful");
             boostRemaining += boostDuration;
             fuel--;
         }
@@ -53,7 +53,7 @@ public class SpeedBoost : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not Enough Fuel");
+            //Debug.Log("Not Enough Fuel");
         }
     }
 
@@ -61,19 +61,19 @@ public class SpeedBoost : MonoBehaviour
     {
         if (boostRemaining > boostDuration*2 && playerMovement.grounded) //checks for each level of boost, capping out at x3 boost - Nova
         {
-            Debug.Log("Boost at x3");
+            //Debug.Log("Boost at x3");
             playerMovement.moveSpeed = startSpeed + (boost * 3);
             shooting.killStreak = 3;
         }
         else if (boostRemaining > boostDuration && playerMovement.grounded)
         {
-            Debug.Log("Boost at x2");
+            //Debug.Log("Boost at x2");
             playerMovement.moveSpeed = startSpeed + (boost * 2);
             shooting.killStreak = 2;
         }
         else if (boostRemaining > 0 && playerMovement.grounded)
         {
-            Debug.Log("Boost at x1");
+            //Debug.Log("Boost at x1");
             playerMovement.moveSpeed = startSpeed + boost;
             shooting.killStreak = 1;
         }
@@ -91,7 +91,7 @@ public class SpeedBoost : MonoBehaviour
 
         if (fuel > fuelLimit) //adds a cap to how many boost we can hold - Nova
         {
-            Debug.Log("Discarding excess fuel");
+            //Debug.Log("Discarding excess fuel");
             fuel = fuelLimit;
         }
     }

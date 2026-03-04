@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Speedometer : MonoBehaviour
 {
+    //Controls the fuel meter on the speedometer - Nova
+    //Coded by Sawyer
+
     [SerializeField] Rigidbody playerRigidBody;
     [SerializeField] RawImage speedometerBacker;
     [SerializeField] Image speedBoostTracker1;
@@ -31,12 +34,13 @@ public class Speedometer : MonoBehaviour
         }
         else
         {
-            Debug.Log("oh no.");
+            //Debug.Log("oh no.");
         }
             
     }
 
-    private void UpdateSpeedometer(Image segment, int index, float comparison) //Initial call will be (speedBoostTracker1, 1, 0.4f)
+    //This method was coded by Nova
+    private void UpdateSpeedometer(Image segment, int index, float comparison) //Initial call will be (speedBoostTracker1, 1, 0.4f) - Nova
     {
         if (speedBoostValue.fuel > comparison)
         {
@@ -47,7 +51,7 @@ public class Speedometer : MonoBehaviour
             segment.color = Color.white;
         }
 
-        if (index != 6)
+        if (index != 6) //we call the method within itself in order to update every speedBoostTracker - Nova
         {
             switch (index)
             {
@@ -111,7 +115,9 @@ public class Speedometer : MonoBehaviour
             speedometerBacker.color = Color.white;
 
 
-        /*if (speedBoostValue.fuel > 0.4)
+        /*
+         This nested if statement was replaced by the method bellow it. - Nova
+         if (speedBoostValue.fuel > 0.4)
         {
             speedBoostTracker1.color = Purple;
             if(speedBoostValue.fuel > 0.9)

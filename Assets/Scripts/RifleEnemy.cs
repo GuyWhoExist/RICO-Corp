@@ -150,7 +150,7 @@ public class RifleEnemy : MonoBehaviour
                 state = EnemyState.WIND_UP;
                 break;
             case EnemyState.SEARCHING: //The enemy saw the player but they have left their sight. Keeps tracking the player but slower and for a limited time - Nova
-                Debug.Log(remembering);
+                //Debug.Log(remembering);
                 remembering += Time.deltaTime;
                 targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed/5 * Time.deltaTime);

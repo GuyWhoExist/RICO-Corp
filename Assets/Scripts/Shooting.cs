@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class Shooting : MonoBehaviour
 {
+    //Controls how the gun fires and ricochets. The selling point.
+    //Coded by Nova
+
     RaycastHit hit;
     [SerializeField] private float maxDistance;
     [SerializeField] private LineRenderer lineRenderer; //displays the shot of the player - Nova
@@ -83,7 +86,7 @@ public class Shooting : MonoBehaviour
         controls.Guns.Shoot.Disable();
         controls.Guns.Shoot.performed -= Shoot_performed;
     }
-    private void Update() //everything in this is used for the PREDICTION LASER. - Nova
+    private void Update() //everything in this is used for the PREDICTION LASER. Will probably go unused. - Nova
     {
         // allows to disable shooting when using any user interface, uis must be manually added
         if (pauseMenu.paused == true || timerController.end == true || spraying == true)
@@ -218,6 +221,7 @@ public class Shooting : MonoBehaviour
         shotDirection = cam.transform.forward;
         lineRenderer.positionCount = 1; //establishes the number of nodes of the line Renderer. - Nova
         hitting = true;
+        bool dontDraw = false;
         int total = hits; //total is the number we actually modify when counting bounces
         //int color = 0;
         //effectPlayer.PlayOneShot(shot);
@@ -328,12 +332,20 @@ public class Shooting : MonoBehaviour
                 Debug.Log("Miss");
                 //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);
                 hitting = false;
+                if (total == hits)
+                {
+                    dontDraw = true;
+                }
             }
         }
         Debug.Log("Finished Shooting");
         Debug.Log($"LR Positions: {lineRenderer.positionCount}");
         Debug.Log($"List Positions: {points.Count}");
-        StartCoroutine(PlacePoints(points, 2, trueOrigin, true, lineRenderer.positionCount));
+        if (!dontDraw)
+        {
+            StartCoroutine(PlacePoints(points, 2, trueOrigin, true, lineRenderer.positionCount));
+        }
+        
     }
 
     IEnumerator PlacePoints(List<Vector3> points, int times, Vector3 origin, bool first, int mos) //Animates the shot/places each ricochet individually after a dealy. - Nova

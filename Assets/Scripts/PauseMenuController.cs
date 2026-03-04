@@ -39,12 +39,11 @@ public class PauseMenuController : MonoBehaviour
     public void OnFullQuit()
     {
         Application.Quit();
-        Debug.Log("You closed it");
-        
+        //Debug.Log("You closed it");
     }
     public void OnPauseQuit() 
     {
-        Debug.Log("You pressed it");
+        //Debug.Log("You pressed it");
         pauseMenu.buttonPress = true;
         quit = true;
         if (FindAnyObjectByType<PlanningModeController>())

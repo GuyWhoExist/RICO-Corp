@@ -52,10 +52,10 @@ public class PauseMenu : MonoBehaviour
         controls.Pause.Pause.Enable();
         paused = false;
         controls.Pause.Pause.performed += Pause_Performed;
-        controls.Pause.Pause.performed += (ctx) => Debug.Log("man");
+        //controls.Pause.Pause.performed += (ctx) => Debug.Log("man");
         if (FindAnyObjectByType <Config_Internal>() != null) 
          {
-            Debug.Log("config exists.");
+            //Debug.Log("config exists.");
             config = FindAnyObjectByType<Config_Internal>();
             if (config.sensitivity != cameraSetting.sensitivity || config.sensitivity < 0.1 || config.sensitivity > 5.3)
             {
@@ -70,7 +70,7 @@ public class PauseMenu : MonoBehaviour
          }
         else
         {
-            Debug.Log("uh oh.");
+            //Debug.Log("uh oh.");
         }
        
         if (FindAnyObjectByType<PlanningModeController>())

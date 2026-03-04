@@ -32,11 +32,11 @@ public class MainMenuController : MonoBehaviour
         
         if (levelProgressTracker != null)
         {
-            Debug.Log("We good in Main Menu Controller");
+            //Debug.Log("We good in Main Menu Controller");
         }
         else
         {
-            Debug.Log("Main Menu Controller can't find a Level Progress Tracker. womp womp");
+            //Debug.Log("Main Menu Controller can't find a Level Progress Tracker. womp womp");
         }
         Cursor.lockState = CursorLockMode.None;
     }
@@ -52,18 +52,18 @@ public class MainMenuController : MonoBehaviour
         {
             if (levelProgressTracker.levels[i-1].bestTime != -1f && levelProgressTracker.levels[i-1].bestTime <= levelProgressTracker.levels[i-1].milestone1 && !continued)
             {
-                Debug.Log($"Valid Level Found At {i+1}");
+               // Debug.Log($"Valid Level Found At {i+1}");
                 continued = true;
                 SceneManager.LoadScene(i+2);
             }
             else
             {
-                Debug.Log($"{i} Not Valid");
+                //Debug.Log($"{i} Not Valid");
             }
         }
         if (!continued)
         {
-            Debug.Log("No Valid Levels Found. Going To Level 1");
+           // Debug.Log("No Valid Levels Found. Going To Level 1");
             SceneManager.LoadScene(2);
         }
     }

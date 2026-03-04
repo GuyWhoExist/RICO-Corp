@@ -8,6 +8,6 @@ public class PlanningModeController : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
-        Debug.Log("planning mode enabled");
+        //Debug.Log("planning mode enabled");
     }
 }

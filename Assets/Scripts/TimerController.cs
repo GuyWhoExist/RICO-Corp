@@ -32,11 +32,11 @@ public class TimerController : MonoBehaviour
         saveSystem = FindAnyObjectByType<SaveSystem>();
         if (saveSystem != null)
         {
-            Debug.Log("we good in the time controller");
+            //Debug.Log("we good in the time controller");
         }
         else
         {
-            Debug.Log("things have gone horribly wrong in the time controller");
+            //Debug.Log("things have gone horribly wrong in the time controller");
         }
        // besttimeconversion();
     
@@ -56,11 +56,11 @@ public class TimerController : MonoBehaviour
 
         if (levelProgressTracker != null )
         {
-            Debug.Log("We good in the time controller");
+            //Debug.Log("We good in the time controller");
         }
         else
         {
-            Debug.Log("Things have gone HORRIBLY wrong in the time controller");
+            //Debug.Log("Things have gone HORRIBLY wrong in the time controller");
         }
 
        //levelProgressTrackerDTO = FindAnyObjectByType<LevelProgressTrackerDTO>();
@@ -201,12 +201,12 @@ public class TimerController : MonoBehaviour
         {
             if (curTime <= levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone1) //if the player beat milestone 1 we load next level - Nova
             {
-                Debug.Log("Milestone 1 hit");
+                //Debug.Log("Milestone 1 hit");
                 SceneManager.LoadScene(lE.GetNextIndex());
             }
             else //otherwise, load the scene again
             {
-                Debug.Log("Git gud");
+                //Debug.Log("Git gud");
                 SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
             }
         }

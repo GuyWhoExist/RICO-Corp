@@ -26,7 +26,7 @@ public class QuickRestart : MonoBehaviour
     }
     private void OnEnable()
     {
-        Debug.Log("kill exists");
+        //Debug.Log("kill exists");
         controls.QuickRestart.Restart.Enable();
         controls.QuickRestart.Restart.performed += Restart_Performed;
         anotherOverflowBlock = true;
@@ -49,21 +49,21 @@ public class QuickRestart : MonoBehaviour
             {
                 if (levelEnder.nextLevelIndex == 0)
                 {
-                    Debug.Log("Git gud");
+                    //Debug.Log("Git gud");
                     timerController.end = false;
                     SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
                 }
                 else
                 {
-                    Debug.Log("Git gud");
+                    //Debug.Log("Git gud");
                     timerController.end = false;
                     SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
-                    Debug.Log("this is fine actually");
+                    //Debug.Log("this is fine actually");
                 }
             }
          else
             {
-                Debug.Log("Currently In Invalid Scene. Sending to Menu");
+                //Debug.Log("Currently In Invalid Scene. Sending to Menu");
                 SceneManager.LoadScene(0);
             }
 

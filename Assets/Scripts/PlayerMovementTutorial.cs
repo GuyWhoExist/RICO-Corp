@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 public class PlayerMovementTutorial : MonoBehaviour
 {
+    //a movement tutorial I found online that ended up being final - Nova
+    //coded by Nova with assistance+addition from Sawyer
+
     [SerializeField] private GameObject spawn;
     [Header("Movement")]
     public float moveSpeed;
@@ -103,7 +106,7 @@ public class PlayerMovementTutorial : MonoBehaviour
             if (Camera.main.fieldOfView < (storedPlayerCamera.storedFOV))
             {
                 Camera.main.fieldOfView = storedPlayerCamera.storedFOV;
-                Debug.Log("FOV is somehow lower then it is supposed to be, fixing...");
+                //Debug.Log("FOV is somehow lower then it is supposed to be, fixing...");
             }
         }
         /*if (Camera.main.fieldOfView > (storedPlayerCamera.storedFOV + FOVReference.maxModifiedFOV) && Camera.main.fieldOfView < (storedPlayerCamera.storedFOV + FOVReference.maxModifiedFOV + FOVTolerance))

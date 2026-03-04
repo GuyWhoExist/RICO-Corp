@@ -13,13 +13,14 @@ public class LevelProgressTracker : MonoBehaviour
     [HideInInspector] public TimerController timerController;
     [HideInInspector] public bool initialComplete;
     //Contains all level data
-    //
+    //written by Nova
 
     private void OnEnable()
     {
         checkComplete = true;
 
     }
+
     public struct LevelInfo
     {
         public LevelInfo(float m1, float m2, float m3, int index)
@@ -174,8 +175,8 @@ public class LevelProgressTracker : MonoBehaviour
         for (int i = 0; i < levels.Length; i++)
         {
             testArray[i] = levels[i].bestTime;
-            Debug.Log($"Trackers Time: {levels[i].bestTime}");
-            Debug.Log($"Saved Time: {testArray[i]}");
+            //Debug.Log($"Trackers Time: {levels[i].bestTime}");
+            //Debug.Log($"Saved Time: {testArray[i]}");
         }
         LevelProgressTrackerDTO newlevelProgTrockDTO = new LevelProgressTrackerDTO();
         newlevelProgTrockDTO.testArray = testArray;

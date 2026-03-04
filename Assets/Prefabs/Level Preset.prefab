@@ -6030,14 +6030,14 @@ PrefabInstance:
     - target: {fileID: 5263830152627946770, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 5b4f9fd17e5349a419f9a52768bd8a73, type: 2}
+      objectReference: {fileID: 2100000, guid: 05e527c272e063c40a7f991502e1fc00, type: 2}
     - target: {fileID: 5263830152627946770, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
-      value: 0.2486451
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5263830152627946770, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.22807622
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7301727407463837847, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: hits
