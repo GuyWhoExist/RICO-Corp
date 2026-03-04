@@ -12,6 +12,7 @@ public class LevelProgressTracker : MonoBehaviour
     [HideInInspector] public PauseMenu pauseMenu;
     [HideInInspector] public TimerController timerController;
     [HideInInspector] public bool initialComplete;
+    public float bestTimeStored;
     //Contains all level data
     //written by Nova
 
@@ -57,6 +58,7 @@ public class LevelProgressTracker : MonoBehaviour
                     checkComplete = true;
                     pauseMenu.completionCheck = false;
                     timerController.statusCheck = false;
+                    bestTimeStored = -1;
                 }
                 else
                 {
@@ -67,6 +69,7 @@ public class LevelProgressTracker : MonoBehaviour
                     pauseMenu.completionCheck = false;
                     timerController.statusCheck = false;
                     initialComplete = false;
+                    bestTimeStored = levels[levelEnder.nextLevelIndex - 3].bestTime;
                 }
             }
             Debug.Log(levelCompleted);

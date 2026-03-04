@@ -17,6 +17,10 @@ public class LevelEndUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI resultsDisplay;
     [SerializeField] GameObject endGUI;
     [SerializeField] GameObject planningController;
+    [SerializeField] public TextMeshProUGUI bestTime;
+    [SerializeField] public TextMeshProUGUI bestTimeText;
+    [SerializeField] public TextMeshProUGUI thisTime;
+    [SerializeField] public TextMeshProUGUI thisTimeText;
 
     private void Awake()
     {
@@ -43,7 +47,7 @@ public class LevelEndUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();      
         for (int i = 0; i < endGUI.transform.childCount; i++)
         {
             if (endGUI.transform.GetChild(i).gameObject.name == "Gold Time Text")
@@ -81,6 +85,7 @@ public class LevelEndUI : MonoBehaviour
                 }
             }
         }
+
     }
     public void OnNextPress(LevelEnder lE) // player presses next after successfully completing level -sawyer
     {

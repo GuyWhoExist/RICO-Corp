@@ -26,9 +26,14 @@ public class TimerController : MonoBehaviour
     public bool timeTicking;
     public bool end;
     private SaveSystem saveSystem;
+    private LevelEndUI levelEndUI;  
 
     private void Awake()
     {
+        if (FindAnyObjectByType<LevelEndUI>())
+        {
+            levelEndUI = FindAnyObjectByType<LevelEndUI>();
+        }
         saveSystem = FindAnyObjectByType<SaveSystem>();
         if (saveSystem != null)
         {
@@ -137,6 +142,29 @@ public class TimerController : MonoBehaviour
     {
         if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() == null)
         {
+            if (levelProgressTracker.bestTimeStored > -1)
+            {
+                levelEndUI.bestTime.text = levelProgressTracker.bestTimeStored.ToString("0:00.00");
+                if (levelProgressTracker.bestTimeStored > curTime)
+                {
+                    levelEndUI.bestTimeText.text = ("former best time");
+                    levelEndUI.thisTime.color = Color.green;
+                    levelEndUI.thisTimeText.color = Color.green;
+                }
+                else if (levelProgressTracker.bestTimeStored < curTime)
+                {
+                    levelEndUI.bestTimeText.text = ("current best time");
+                    levelEndUI.thisTime.color = Color.red;
+                    levelEndUI.thisTimeText.color = Color.red;
+                }
+            }
+            else
+            {
+                levelEndUI.bestTime.text = ("0:00.00");
+            }
+
+            levelEndUI.thisTime.text = timerText.text;
+
             levelProgressTracker.used = true;
             LevelEnder lE = collision.transform.GetComponent<LevelEnder>();
             if (timeTicking)
