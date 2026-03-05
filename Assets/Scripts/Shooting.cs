@@ -40,6 +40,7 @@ public class Shooting : MonoBehaviour
     private float shakeInputRandom;
     private int CoinFlip;
     [SerializeField] private SpeedBoost speedBoost;
+    private float shotDelay;
     private SightTracker trackerOfSight;
     
     
@@ -80,14 +81,16 @@ public class Shooting : MonoBehaviour
         controls.Guns.Shoot.Enable();
         controls.Guns.Shoot.performed += Shoot_performed;
         trackerPositionOrig = killstreakCounter.transform.position;
+        shotDelay = -1;
     }
     private void OnDisable()
     {
         controls.Guns.Shoot.Disable();
         controls.Guns.Shoot.performed -= Shoot_performed;
     }
-    private void Update() //everything in this is used for the PREDICTION LASER. Will probably go unused. - Nova
+    private void Update() //everything in this is used for the PREDICTION LASER. Will probably go unused. - Nova         // there is now functions here aside from that - Sawyer
     {
+        shotDelay -= Time.deltaTime;
         // allows to disable shooting when using any user interface, uis must be manually added
         if (pauseMenu.paused == true || timerController.end == true || spraying == true)
         {
@@ -121,7 +124,6 @@ public class Shooting : MonoBehaviour
             {
                 killstreakCounter.transform.position = new Vector3(trackerPositionOrig.x, trackerPositionOrig.y + shakeInputRandom, trackerPositionOrig.z);
             }
-          
         }
 
             shotOrigin = cam.transform.position;
@@ -210,6 +212,11 @@ public class Shooting : MonoBehaviour
 
     private void Shoot_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) //the ACTUAL SHOT - Nova
     {
+        if (shotDelay < 0)
+        {
+
+        
+        Debug.Log("shoot");
         StopAllCoroutines();
         Vector3 trueOrigin = cam.transform.position;
         trueOrigin.y -= 0.5f;
@@ -254,7 +261,7 @@ public class Shooting : MonoBehaviour
                     {
                         lineRenderer.positionCount++;
                         if (reflectDecals) // allows toggling reflect toggling
-                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null ) // verifies hit object is not player or rigidbody to avoid floating bulletholes - Sawyer
+                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null) // verifies hit object is not player or rigidbody to avoid floating bulletholes - Sawyer
                                 Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole - Sawyer
                         points.Add(hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
@@ -325,7 +332,7 @@ public class Shooting : MonoBehaviour
                             Instantiate(impactDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                     points.Add(hit.point);
                 }
-                   
+
             }
             else //if you dont hit anything - Nova
             {
@@ -345,7 +352,8 @@ public class Shooting : MonoBehaviour
         {
             StartCoroutine(PlacePoints(points, 2, trueOrigin, true, lineRenderer.positionCount));
         }
-        
+            shotDelay = 0.7f;
+        }
     }
 
     IEnumerator PlacePoints(List<Vector3> points, int times, Vector3 origin, bool first, int mos) //Animates the shot/places each ricochet individually after a dealy. - Nova

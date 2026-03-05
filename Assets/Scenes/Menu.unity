@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlockAll: 1
+  enemyCounter: 0
 --- !u!4 &76860819
 Transform:
   m_ObjectHideFlags: 0
@@ -3120,6 +3121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ab63e129f34834c848db35b8c98c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelCompleted: 0
+  levelLoaded: 0
+  pauseMenu: {fileID: 0}
+  timerController: {fileID: 0}
+  initialComplete: 0
+  bestTimeStored: 0
+  cheatsStatus: 0
   used: 0
   testingTime: 0
 --- !u!4 &1130390187

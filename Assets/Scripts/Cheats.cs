@@ -6,4 +6,5 @@ public class Cheats : MonoBehaviour
     //Coded by Nova
 
     public bool unlockAll;
+    public bool enemyCounter;
 }

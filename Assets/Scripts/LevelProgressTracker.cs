@@ -13,12 +13,27 @@ public class LevelProgressTracker : MonoBehaviour
     [HideInInspector] public TimerController timerController;
     [HideInInspector] public bool initialComplete;
     public float bestTimeStored;
+    private Cheats cheats;
+    public bool cheatsStatus;
     //Contains all level data
     //written by Nova
 
     private void OnEnable()
     {
         checkComplete = true;
+        if (FindAnyObjectByType<Cheats>())
+        {
+            cheats = FindAnyObjectByType<Cheats>();
+            if (cheats.enemyCounter == true)
+            {
+                cheatsStatus = true;
+                cheats = null;
+            }
+            else
+            {
+                cheats = null;
+            }
+        }    
 
     }
 

@@ -123,13 +123,18 @@ public class TimerController : MonoBehaviour
                 curTime = 100f + (curTime - 60);
             }
         }
-        Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //we always check the amount of enemies in the scene - Nova
-        enemyCountText.text = $"Enemies Left: {enemyNumber.Length}"; //updates the enemy count for both the game UI and planning UI - Nova
-        enemyCountText2.text = $"Enemies Left: {enemyNumber.Length}";
-
-     
-       
-
+        if (levelProgressTracker.cheatsStatus)
+        {
+            Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //we always check the amount of enemies in the scene - Nova
+            enemyCountText.text = $"Enemies Left: {enemyNumber.Length}"; //updates the enemy count for both the game UI and planning UI - Nova
+            enemyCountText2.text = $"Enemies Left: {enemyNumber.Length}"; // the same but for planning mode. these are both enableable via cheats.
+        }
+        else
+        {
+            enemyCountText.enabled = false;
+            enemyCountText2.enabled = false;
+        }
+      
 
         //for (int i = 0; i < levelProgressTracker.levels.Length; i++)
         //{
