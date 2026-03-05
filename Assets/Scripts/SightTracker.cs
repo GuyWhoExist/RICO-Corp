@@ -10,6 +10,7 @@ public class SightTracker : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] Material pointerMat;
     [SerializeField] Camera playerCam;
+    [SerializeField] Melee melee;
     [HideInInspector] public Vector3 currentThreat;
     private bool UIVisible;
     public bool seen;
@@ -21,11 +22,13 @@ public class SightTracker : MonoBehaviour
     {
         display.SetActive(false);
         UIVisible = false;
+        melee = FindFirstObjectByType<Melee>();
+        UIVisible = false;
     }
 
     private void Update()
     {
-
+        
         this.transform.position = player.transform.position;
         if (seen)
         {
@@ -44,6 +47,7 @@ public class SightTracker : MonoBehaviour
             {
                 pointerMat.color = Purple;
             }
+            
         }
         else
         {

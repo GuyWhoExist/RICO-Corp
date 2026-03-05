@@ -1,5 +1,126 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &198442139289283480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8224152547260698387}
+  - component: {fileID: 9112903981111418832}
+  - component: {fileID: 8822361842516073053}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8224152547260698387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198442139289283480}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.1740723, y: 0.5699997, z: 0.8509979}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8018648740792765137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &9112903981111418832
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198442139289283480}
+  m_Enabled: 1
+  serializedVersion: 11
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
+--- !u!114 &8822361842516073053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198442139289283480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &2322980758753661442
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,12 +401,16 @@ GameObject:
   - component: {fileID: 3396026005721194738}
   - component: {fileID: 7301727407463837847}
   - component: {fileID: 3675693052588370084}
+  - component: {fileID: 8209871906734494312}
   - component: {fileID: 384045620701325308}
   - component: {fileID: 5263830152627946770}
   - component: {fileID: 2575806727729919433}
   - component: {fileID: 8523289442659343576}
   - component: {fileID: 1106544071619831820}
+  - component: {fileID: 914728449244245791}
+  - component: {fileID: 7492448302430238168}
   - component: {fileID: 3096779666775988733}
+  - component: {fileID: 7659304657795828909}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -307,6 +432,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7230529083711715856}
+  - {fileID: 8224152547260698387}
   - {fileID: 8185319642670670063}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -403,6 +529,7 @@ MonoBehaviour:
   lineRenderer2: {fileID: 0}
   planningMaterial: {fileID: 0}
   hits: 5
+  travelTime: 0
   cam: {fileID: 3280870652669640073}
   enemyNumber: []
   prediction: 0
@@ -413,6 +540,7 @@ MonoBehaviour:
   spraying: 0
   timerController: {fileID: 8523289442659343576}
   killstreakCounter: {fileID: 0}
+  speedBoost: {fileID: 0}
   impactDecals: 0
   reflectDecals: 0
   impactDecal: {fileID: 0}
@@ -458,6 +586,24 @@ MonoBehaviour:
   sliding: 0
   state: 0
   FOVTolerance: 0
+--- !u!114 &8209871906734494312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527319957930866390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e28880e39c1664bbf2ea7b5af3f7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 8018648740792765137}
+  playerObj: {fileID: 8018648740792765137}
+  maxSlideTime: 20
+  slideForce: 300
+  slideYScale: 0.5
+  slideKey: 306
 --- !u!114 &384045620701325308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,6 +774,8 @@ MonoBehaviour:
   endGUI: {fileID: 0}
   gameHUD: {fileID: 0}
   pauseMenu: {fileID: 0}
+  statusCheck: 0
+  popUp: {fileID: 0}
   curTime: 0
   timeTicking: 0
   end: 0
@@ -651,7 +799,46 @@ MonoBehaviour:
   pauseUI: {fileID: 0}
   planningController: {fileID: 0}
   quit: 0
-  restartController: {fileID: 0}
+--- !u!114 &914728449244245791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527319957930866390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f79d3345f51c8246aef76e86a56ca09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paused: 0
+  completionCheck: 0
+  PlanningModeToggle: {fileID: 0}
+  pauseController: {fileID: 0}
+  pauseHud: {fileID: 0}
+  gameHud: {fileID: 0}
+  planningGUI: {fileID: 0}
+  FOVSlider: {fileID: 0}
+  FOVDisplay: {fileID: 0}
+  sensitivitySlider: {fileID: 0}
+  sensitivityDisplay: {fileID: 0}
+  configObject: {fileID: 1795694791808849849, guid: c6af83ab734a9f0479df47b348165373, type: 3}
+  buttonPress: 0
+--- !u!114 &7492448302430238168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527319957930866390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74e74dfe815ce14ba48c5a1d52b964b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killCancel: {fileID: 575393813364354144}
+  timerController: {fileID: 8523289442659343576}
+  playerDie: 0
 --- !u!114 &3096779666775988733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,12 +857,32 @@ MonoBehaviour:
   shooting: {fileID: 7301727407463837847}
   swingCoolDown: 2
   playerMovementTutorial: {fileID: 3675693052588370084}
+  speedBoost: {fileID: 0}
   playerCamera: {fileID: 2322980758753661442}
   teleportIncrement: 0
   FOVShift: 25
   meleeJump: 0
   quickFallOffStored: 0
   maxModifiedFOV: 0
+  hitStopDurationStored: 0
+--- !u!114 &7659304657795828909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527319957930866390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad97c9d522f7b07448135f08db26ae3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuel: 0
+  fuelLimit: 3
+  boost: 3
+  boostDuration: 2.5
+  playerMovement: {fileID: 3675693052588370084}
+  shooting: {fileID: 7301727407463837847}
 --- !u!1 &8250651678292595689
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,6 +21,8 @@ public class LevelEndUI : MonoBehaviour
     [SerializeField] public TextMeshProUGUI bestTimeText;
     [SerializeField] public TextMeshProUGUI thisTime;
     [SerializeField] public TextMeshProUGUI thisTimeText;
+    [SerializeField] public TextMeshProUGUI timeDifference;
+    [SerializeField] public TextMeshProUGUI timeDifferenceText;
 
     private void Awake()
     {

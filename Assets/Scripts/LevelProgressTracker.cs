@@ -14,7 +14,8 @@ public class LevelProgressTracker : MonoBehaviour
     [HideInInspector] public bool initialComplete;
     public float bestTimeStored;
     private Cheats cheats;
-    public bool cheatsStatus;
+    public bool cheatsEnemyCountStatus;
+    public bool cheatsHitStopStatus;
     //Contains all level data
     //written by Nova
 
@@ -26,15 +27,16 @@ public class LevelProgressTracker : MonoBehaviour
             cheats = FindAnyObjectByType<Cheats>();
             if (cheats.enemyCounter == true)
             {
-                cheatsStatus = true;
-                cheats = null;
+                cheatsEnemyCountStatus = true;
+
             }
-            else
+
+            if (cheats.hitStops)
             {
-                cheats = null;
+                cheatsHitStopStatus = true;
             }
         }    
-
+        
     }
 
     public struct LevelInfo
@@ -63,7 +65,36 @@ public class LevelProgressTracker : MonoBehaviour
     public void LevelStatusCheck()
     {
             valueCheckDelay += Time.deltaTime;
-            if (valueCheckDelay > 0.01)
+        if (valueCheckDelay > 0.01)
+        {
+
+            if (levelEnder.nextLevelIndex == 0)
+            {
+                if (levels[levelEnder.nextLevelIndex + 1].bestTime == -1f)
+                {
+                    levelCompleted = false;
+                    Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex + 1} besttime is : {levels[levelEnder.nextLevelIndex + 1].bestTime}");
+                    valueCheckDelay = 0f;
+                    checkComplete = true;
+                    pauseMenu.completionCheck = false;
+                    timerController.statusCheck = false;
+                    bestTimeStored = -1;
+                }
+                else
+                {
+                    levelCompleted = true;
+                    Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex + 1} besttime is : {levels[levelEnder.nextLevelIndex + 1].bestTime}");
+                    valueCheckDelay = 0f;
+                    checkComplete = true;
+                    pauseMenu.completionCheck = false;
+                    timerController.statusCheck = false;
+                    initialComplete = false;
+                    bestTimeStored = levels[levelEnder.nextLevelIndex + 1].bestTime;
+
+
+                }
+            }
+            else
             {
                 if (levels[levelEnder.nextLevelIndex - 3].bestTime == -1f)
                 {
@@ -85,8 +116,11 @@ public class LevelProgressTracker : MonoBehaviour
                     timerController.statusCheck = false;
                     initialComplete = false;
                     bestTimeStored = levels[levelEnder.nextLevelIndex - 3].bestTime;
+
+
                 }
             }
+        }
             Debug.Log(levelCompleted);
     }
     private void Update()

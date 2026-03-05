@@ -123,7 +123,7 @@ public class TimerController : MonoBehaviour
                 curTime = 100f + (curTime - 60);
             }
         }
-        if (levelProgressTracker.cheatsStatus)
+        if (levelProgressTracker.cheatsEnemyCountStatus)
         {
             Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //we always check the amount of enemies in the scene - Nova
             enemyCountText.text = $"Enemies Left: {enemyNumber.Length}"; //updates the enemy count for both the game UI and planning UI - Nova
@@ -147,20 +147,24 @@ public class TimerController : MonoBehaviour
     {
         if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() == null)
         {
+            timerText.enabled = false;
             if (levelProgressTracker.bestTimeStored > -1)
             {
+                
                 levelEndUI.bestTime.text = levelProgressTracker.bestTimeStored.ToString("0:00.00");
                 if (levelProgressTracker.bestTimeStored > curTime)
                 {
                     levelEndUI.bestTimeText.text = ("former best time");
-                    levelEndUI.thisTime.color = Color.green;
-                    levelEndUI.thisTimeText.color = Color.green;
+                    levelEndUI.timeDifference.color = Color.green;
+                    levelEndUI.timeDifferenceText.color = Color.green;
+                    levelEndUI.timeDifference.text = Mathf.Abs(curTime - levelProgressTracker.bestTimeStored).ToString("0:00.00");
                 }
                 else if (levelProgressTracker.bestTimeStored < curTime)
                 {
                     levelEndUI.bestTimeText.text = ("current best time");
-                    levelEndUI.thisTime.color = Color.red;
-                    levelEndUI.thisTimeText.color = Color.red;
+                    levelEndUI.timeDifference.color = Color.red;
+                    levelEndUI.timeDifferenceText.color = Color.red;
+                    levelEndUI.timeDifference.text = Mathf.Abs(levelProgressTracker.bestTimeStored - curTime).ToString("0:00.00");
                 }
             }
             else

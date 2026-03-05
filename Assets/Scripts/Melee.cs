@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,26 +11,33 @@ public class Melee : MonoBehaviour
     private Controls controls;
     [SerializeField] Rigidbody rb;
     [SerializeField] GameObject playerPosition;
-    RaycastHit hit;
     [SerializeField] float meleeRange;
     [SerializeField] Shooting shooting;
-    private Vector3 swingDirection;
     [SerializeField] private float swingCoolDown;
     [SerializeField] private PlayerMovementTutorial playerMovementTutorial;
     [SerializeField] private SpeedBoost speedBoost;
+    [SerializeField] private GameObject playerCamera;
+    [SerializeField] float FOVShift;
+    [SerializeField] float quickFallOffStored;
+    private Vector3 swingDirection;
     private float swingCoolDownStored;
     private AboveEnemy positionDetection;
-    [SerializeField] private GameObject playerCamera;
     private PlayerMovementTutorial jumpHelper;
     [HideInInspector] public bool teleportIncrement;
-    [SerializeField] float FOVShift;
-    [HideInInspector]public bool meleeJump;
+    [HideInInspector] public bool meleeJump;
     private float quickFallOff;
-    [SerializeField] float quickFallOffStored;
     public float maxModifiedFOV;
     private SightTracker trackerOfSight;
-    //allows access to jumpforce
+    private LevelProgressTracker levelProgressTracker;
+    RaycastHit hit;
     //coded by sawyer
+
+    [Header("hitstops")]
+    private bool hitStopFire;
+    private float hitStopDuration;
+    [SerializeField] private float hitStopDurationStored;
+    [SerializeField] GameObject hitStopLight;
+    private GameObject storedEnemyHitStop;
 
 
     private void Awake()
@@ -40,6 +48,8 @@ public class Melee : MonoBehaviour
         jumpHelper = playerPosition.transform.GetComponent<PlayerMovementTutorial>();
         quickFallOff = quickFallOffStored;
         trackerOfSight = FindAnyObjectByType<SightTracker>();
+        levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        hitStopLight.SetActive(false);
     }
     private void OnEnable()
     {
@@ -70,11 +80,16 @@ public class Melee : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent(out IShootable shootable))
                 {
-                    
                      if (hit.transform.GetComponent<Enemy>() != null)
                      {
                         if (positionDetection != null)
                             {
+                               if(levelProgressTracker.cheatsHitStopStatus)
+                                {
+                                    hitStopFire = true;
+                                    hitStopDuration = hitStopDurationStored;
+                                    Debug.Log("hitstop Triggered");
+                                }
                              playerPosition.transform.position = positionDetection.gameObject.transform.position;
                             rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
                              meleeJump = true;
@@ -99,18 +114,21 @@ public class Melee : MonoBehaviour
                             trackerOfSight.seen = false;
                         }
                     }
+                    if (hitStopFire == true)
+                    {
+                        storedEnemyHitStop = shootable.GetGameObject();
+                    }
+                    else
+                    {
+                        Destroy(shootable.GetGameObject());
+                    }
 
-                    Destroy(shootable.GetGameObject());
                  // Debug.Log("enemy SHOULD be bludgoned to death");
          
                 }
                 //Debug.Log("swing raycast is fired");
-                
-               
             }
-            
             //Debug.Log("melee is swung");
-            
         }
     }
 
@@ -123,6 +141,24 @@ public class Melee : MonoBehaviour
     private void Update()
     {
         swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
+
+        if (hitStopFire)
+        {
+            Debug.Log("hitstop");
+
+                hitStopLight.SetActive(true);
+                Time.timeScale = 0;
+                hitStopDuration -= Time.unscaledDeltaTime;
+                if (hitStopDuration < 0)
+                {
+                    hitStopLight.SetActive(false);
+                    Time.timeScale = 1;
+                    hitStopFire = false;
+                    Destroy(storedEnemyHitStop);
+                    storedEnemyHitStop = null;
+                    Debug.Log("hitstop end");
+                }
+        }
     }
     private void LateUpdate()
     {

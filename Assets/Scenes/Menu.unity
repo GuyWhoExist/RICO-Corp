@@ -338,6 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlockAll: 1
   enemyCounter: 0
+  hitStops: 1
 --- !u!4 &76860819
 Transform:
   m_ObjectHideFlags: 0
@@ -3127,7 +3128,8 @@ MonoBehaviour:
   timerController: {fileID: 0}
   initialComplete: 0
   bestTimeStored: 0
-  cheatsStatus: 0
+  cheatsEnemyCountStatus: 0
+  cheatsHitStopStatus: 0
   used: 0
   testingTime: 0
 --- !u!4 &1130390187
