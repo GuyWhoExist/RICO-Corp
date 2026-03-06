@@ -30,6 +30,8 @@ public class Melee : MonoBehaviour
     private SightTracker trackerOfSight;
     private LevelProgressTracker levelProgressTracker;
     RaycastHit hit;
+    private SightTracker sightTracker;
+
     //coded by sawyer
 
     [Header("hitstops")]
@@ -38,6 +40,9 @@ public class Melee : MonoBehaviour
     [SerializeField] private float hitStopDurationStored;
     [SerializeField] GameObject hitStopLight;
     private GameObject storedEnemyHitStop;
+    [SerializeField] AudioSource hitStopSFX;
+    [SerializeField] AudioClip hitStopSFXAudio;
+
 
 
     private void Awake()
@@ -50,6 +55,7 @@ public class Melee : MonoBehaviour
         trackerOfSight = FindAnyObjectByType<SightTracker>();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         hitStopLight.SetActive(false);
+        sightTracker = FindAnyObjectByType<SightTracker>();
     }
     private void OnEnable()
     {
@@ -120,6 +126,7 @@ public class Melee : MonoBehaviour
                     }
                     else
                     {
+                        sightTracker.seen = false;
                         Destroy(shootable.GetGameObject());
                     }
 
@@ -145,18 +152,20 @@ public class Melee : MonoBehaviour
         if (hitStopFire)
         {
             Debug.Log("hitstop");
-
-                hitStopLight.SetActive(true);
+            hitStopLight.SetActive(true);           
                 Time.timeScale = 0;
                 hitStopDuration -= Time.unscaledDeltaTime;
                 if (hitStopDuration < 0)
                 {
+
                     hitStopLight.SetActive(false);
                     Time.timeScale = 1;
-                    hitStopFire = false;
+                hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
+                hitStopFire = false;
+                sightTracker.seen = false;
                     Destroy(storedEnemyHitStop);
                     storedEnemyHitStop = null;
-                    Debug.Log("hitstop end");
+                Debug.Log("hitstop end");
                 }
         }
     }

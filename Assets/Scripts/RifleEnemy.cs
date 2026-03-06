@@ -133,11 +133,13 @@ public class RifleEnemy : MonoBehaviour
                     windupTimer = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                trackerOfSight.seen = true;
                 trackerOfSight.danger = false;
                 break;
             case EnemyState.WIND_UP: //The player is in attack range, being winding up to kill - Nova
                 searching = false;
                 windupTimer += Time.deltaTime;
+                trackerOfSight.seen = true;
                 trackerOfSight.danger = true;
                 break;
             case EnemyState.ATTACK: //KILL - Nova
