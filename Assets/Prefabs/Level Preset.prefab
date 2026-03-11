@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Silver: 1:15.00'
+  m_text: 'Silver: 0:04.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1617,7 +1617,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bronze: 2:00.00'
+  m_text: 'Bronze: 0:08.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4158,7 +4158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gold: 0:45.00'
+  m_text: 'Gold: 0:02.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7175,6 +7175,10 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: coyoteJumpForce
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: gravityMultiplier
       value: 3
       objectReference: {fileID: 0}
@@ -7864,10 +7868,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4630755371720595253, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8327174604594254025}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
 --- !u!114 &222085248535304207 stripped
 MonoBehaviour:
@@ -7959,35 +7960,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4630755371720595253, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
   m_PrefabInstance: {fileID: 4500415360592736257}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8327174604594254025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9094756203844871988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5082fbf12632df244bac73f6d1582349, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  playerPosition: {fileID: 0}
-  meleeRange: 0
-  shooting: {fileID: 0}
-  swingCoolDown: 0
-  playerMovementTutorial: {fileID: 0}
-  speedBoost: {fileID: 0}
-  playerCamera: {fileID: 0}
-  FOVShift: 0
-  quickFallOffStored: 0
-  teleportIncrement: 0
-  meleeJump: 0
-  maxModifiedFOV: 0
-  hitStopDurationStored: 0
-  hitStopLight: {fileID: 0}
-  hitStopSFX: {fileID: 0}
-  hitStopSFXAudio: {fileID: 0}
 --- !u!1001 &8202247812964667320
 PrefabInstance:
   m_ObjectHideFlags: 0

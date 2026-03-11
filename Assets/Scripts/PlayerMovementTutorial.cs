@@ -17,6 +17,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     [Header("Jumping")]
     public float jumpForce;
+    public float coyoteJumpForce;
     public float jumpCooldown; // Gee I wonder what these do :thinking: - Sawyer
     public float airMultiplier; //the modifier for when the player is in the air. (ex. 2 would double the players speed in the air. should be <= 1) - Nova
     bool readyToJump;
@@ -138,7 +139,6 @@ public class PlayerMovementTutorial : MonoBehaviour
             coyoteTimeInternal = coyoteTime;
             hitLaunch.meleeJump = false;
         }
-
         else
         {
             rb.linearDamping = 0;
@@ -303,8 +303,15 @@ public class PlayerMovementTutorial : MonoBehaviour
         //exitingSlope = true;
         // reset y velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        if (grounded)
+        {
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+        else 
+        {
+            rb.AddForce(transform.up * coyoteJumpForce, ForceMode.Impulse);
+        }
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private void ResetJump()
     {

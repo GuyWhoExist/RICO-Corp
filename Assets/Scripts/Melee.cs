@@ -10,7 +10,6 @@ public class Melee : MonoBehaviour
 {
     private Controls controls;
     [SerializeField] Rigidbody rb;
-    [SerializeField] GameObject playerPosition;
     [SerializeField] float meleeRange;
     [SerializeField] Shooting shooting;
     [SerializeField] private float swingCoolDown;
@@ -48,9 +47,9 @@ public class Melee : MonoBehaviour
     private void Awake()
     {
         controls = new Controls();
-        swingDirection = playerPosition.transform.forward;
+        swingDirection = this.transform.forward;
         swingCoolDownStored = 0;
-        jumpHelper = playerPosition.transform.GetComponent<PlayerMovementTutorial>();
+        jumpHelper = this.transform.GetComponent<PlayerMovementTutorial>();
         quickFallOff = quickFallOffStored;
         trackerOfSight = FindAnyObjectByType<SightTracker>();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
@@ -96,13 +95,13 @@ public class Melee : MonoBehaviour
                                     hitStopDuration = hitStopDurationStored;
                                     Debug.Log("hitstop Triggered");
                                 }
-                             playerPosition.transform.position = positionDetection.gameObject.transform.position;
+                             this.transform.position = positionDetection.gameObject.transform.position;
                             rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
                              meleeJump = true;
                             }
                         else
                             {
-                             playerPosition.transform.position = shootable.GetGameObject().transform.position;
+                             this.transform.position = shootable.GetGameObject().transform.position;
                              swingCoolDownStored = swingCoolDown;
                             Camera.main.fieldOfView += FOVShift * 2;
                             teleportIncrement = true;
