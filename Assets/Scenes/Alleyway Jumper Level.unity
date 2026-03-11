@@ -9405,6 +9405,10 @@ PrefabInstance:
       propertyPath: bonus
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5862547367364542119, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
+      propertyPath: nextLevelIndex
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6031748147105094302, guid: b7d66674c8b45cd48a753ab78216d04e, type: 3}
       propertyPath: m_LocalScale.y
       value: 2.1619787
