@@ -32,6 +32,7 @@ public class Melee : MonoBehaviour
     private SightTracker sightTracker;
 
     //coded by sawyer
+    //functions include: the melee, melee bouncing, the melee boost, and hitstops.
 
     [Header("hitstops")]
     private bool hitStopFire;
