@@ -15,7 +15,14 @@ public class PauseMenuController : MonoBehaviour
     public GameObject planningController;
     public bool quit;
     private QuickRestart restartController;
+    private MusicClass musicClass;
+
     //coded by sawyer
+    private void Awake()
+    {
+        musicClass = FindFirstObjectByType<MusicClass>();
+    }
+
     private void Start()
     {
         settings_Audio.SetActive(false);
@@ -46,6 +53,7 @@ public class PauseMenuController : MonoBehaviour
         //Debug.Log("You pressed it");
         pauseMenu.buttonPress = true;
         quit = true;
+        musicClass.StopMusic();
         if (FindAnyObjectByType<PlanningModeController>())
             Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
         SceneManager.LoadScene(0);

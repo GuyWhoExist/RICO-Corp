@@ -42,6 +42,8 @@ public class Shooting : MonoBehaviour
     [SerializeField] private SpeedBoost speedBoost;
     private float shotDelay;
     private SightTracker trackerOfSight;
+    [SerializeField] private AudioSource SFXPlayer;
+    [SerializeField] private AudioClip shotSFX;
     
     
 
@@ -241,6 +243,7 @@ public class Shooting : MonoBehaviour
             //lineRenderer.alignment = LineAlignment.TransformZ;
             if (Physics.Raycast(shotOrigin, shotDirection, out hit, maxDistance, Collideable)) //initial raycast check - Nova
             {
+                    SFXPlayer.PlayOneShot(shotSFX);
                 if (hit.transform.GetComponent<Reflect>() != null) //if we hit a reflective surface... (these are the only outcomes that decrease the remaining number of bounces)- Nova
                 {
                     if (hit.transform.TryGetComponent(out IShootable shoot)) //we check if it is a shootable target - Nova
@@ -390,6 +393,7 @@ public class Shooting : MonoBehaviour
         yield return new WaitForSeconds(2f);
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, shotOrigin);
+        
     }
 }
 
