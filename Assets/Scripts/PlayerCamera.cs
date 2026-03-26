@@ -58,7 +58,7 @@ public class PlayerCamera : MonoBehaviour
     {
         Look(lookInput);
 
-        // code to allow pause/levelend/spraymenu disabling cam movement
+        // code to allow pause/levelend/spraymenu disabling cam movement - sawyer
         if (pauseMenu.paused == true || endTracker.end == true ||  sprayPlacerHudController.selector == true)
         {
             inputActions.Camera.Disable();
