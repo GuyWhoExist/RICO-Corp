@@ -23,6 +23,7 @@ public class LevelEndUI : MonoBehaviour
     [SerializeField] public TextMeshProUGUI thisTimeText;
     [SerializeField] public TextMeshProUGUI timeDifference;
     [SerializeField] public TextMeshProUGUI timeDifferenceText;
+    private MusicClass musicClass; 
 
     private void Awake()
     {
@@ -46,6 +47,7 @@ public class LevelEndUI : MonoBehaviour
         {
             pauseMenu = FindAnyObjectByType<PauseMenu>();
         }
+        musicClass = FindAnyObjectByType<MusicClass>();
     }
     private void OnEnable()
     {
@@ -147,6 +149,7 @@ public class LevelEndUI : MonoBehaviour
     public void OnQuitPress() // player likely ragequit, shame on them -sawyer
     {
         Time.timeScale = 1;
+        musicClass.StopMusic();
         SceneManager.LoadScene(0);
     }
 }

@@ -28,6 +28,7 @@ public class PauseMenu : MonoBehaviour
     private PlayerCamera cameraSetting;
     public bool buttonPress;
     private Config_Internal config;
+    
     //allows to unpause via other means
  //coded by sawyer
 
@@ -43,7 +44,7 @@ public class PauseMenu : MonoBehaviour
 
         if (FindAnyObjectByType<LevelProgressTracker>())
             levelProgressTracker = FindFirstObjectByType<LevelProgressTracker>();
-
+        
 
     }
     private void OnEnable()

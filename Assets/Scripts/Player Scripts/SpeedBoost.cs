@@ -16,6 +16,8 @@ public class SpeedBoost : MonoBehaviour
     [SerializeField] private float boostDuration; //how long the boost lasts - Nova
     [SerializeField] private PlayerMovementTutorial playerMovement;
     [SerializeField] private Shooting shooting;
+    [SerializeField] private AudioSource SFXPlayer;
+    [SerializeField] private AudioClip boostSFX;
     private bool planningMode;
 
 
@@ -44,6 +46,7 @@ public class SpeedBoost : MonoBehaviour
         if (fuel >= 1)
         {
             //Debug.Log("Boost Succesful");
+            SFXPlayer.PlayOneShot(boostSFX);
             boostRemaining += boostDuration;
             fuel--;
         }

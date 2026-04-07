@@ -17,6 +17,7 @@ public class TimerController : MonoBehaviour
     [SerializeField] GameObject gameHUD;
     [SerializeField] PauseMenu pauseMenu;
     private LevelProgressTracker levelProgressTracker;
+    private MusicClass musicClass;
     private LevelProgressTrackerDTO levelProgressTrackerDTO;
     [HideInInspector] public bool statusCheck;
     [SerializeField] Button planningModeToggle;
@@ -56,6 +57,8 @@ public class TimerController : MonoBehaviour
             timeTicking = false;
         }
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        musicClass = FindAnyObjectByType<MusicClass>();
+        musicClass.PlayMusic();
 
        
 
@@ -175,6 +178,7 @@ public class TimerController : MonoBehaviour
             levelEndUI.thisTime.text = timerText.text;
 
             levelProgressTracker.used = true;
+            musicClass.used = true;
             LevelEnder lE = collision.transform.GetComponent<LevelEnder>();
             if (timeTicking)
             {
@@ -190,6 +194,7 @@ public class TimerController : MonoBehaviour
                     {
                         levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime = curTime;
                     }
+                    musicClass.StopMusic();
                 }
                 else
                 {
@@ -276,6 +281,7 @@ public class TimerController : MonoBehaviour
                 next.SetActive(false);
             }
             levelProgressTracker.used = true;
+            musicClass.used = true;
 
         }
     }
