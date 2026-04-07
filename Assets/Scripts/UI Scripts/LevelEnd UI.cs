@@ -14,15 +14,15 @@ public class LevelEndUI : MonoBehaviour
     private LevelEnder levelEnder;
     private QuickRestart quickRestart;
 
-    [SerializeField] TextMeshProUGUI resultsDisplay;
-    [SerializeField] GameObject endGUI;
-    [SerializeField] GameObject planningController;
-    [SerializeField] public TextMeshProUGUI bestTime;
-    [SerializeField] public TextMeshProUGUI bestTimeText;
-    [SerializeField] public TextMeshProUGUI thisTime;
-    [SerializeField] public TextMeshProUGUI thisTimeText;
-    [SerializeField] public TextMeshProUGUI timeDifference;
-    [SerializeField] public TextMeshProUGUI timeDifferenceText;
+    [SerializeField] private TextMeshProUGUI resultsDisplay;
+    [SerializeField] private GameObject endGUI;
+    [SerializeField] private GameObject planningController;
+    public TextMeshProUGUI bestTime;
+    public TextMeshProUGUI bestTimeText;
+    public TextMeshProUGUI thisTime;
+    public TextMeshProUGUI thisTimeText;
+    public TextMeshProUGUI timeDifference;
+    public TextMeshProUGUI timeDifferenceText;
     private MusicClass musicClass; 
 
     private void Awake()
@@ -91,21 +91,19 @@ public class LevelEndUI : MonoBehaviour
         }
 
     }
-    public void OnNextPress(LevelEnder lE) // player presses next after successfully completing level -sawyer
+    public void OnNextPress() // player presses next after successfully completing level -sawyer
     {
         timerController.end = false;
-        lE = levelEnder;
         Time.timeScale = 1;
         if (timerController.end == false)
         {
-            SceneManager.LoadScene(lE.GetNextIndex());
+            SceneManager.LoadScene(levelEnder.GetNextIndex());
             levelProgressTracker.LevelLoaded();
         }
     }
-    public void OnRestartPress(LevelEnder lE) // player restarts -sawyer
+    public void OnRestartPress() // player restarts -sawyer
     {
         Time.timeScale = 1;
-        lE = levelEnder;
         if (levelEnder.nextLevelIndex == 0)
         {
             timerController.end = false;
@@ -120,11 +118,11 @@ public class LevelEndUI : MonoBehaviour
             if (timerController.end == false)
             {
                 
-                SceneManager.LoadScene(lE.GetNextIndex() - 1);
+                SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
             }
         }
     }
-    public void OnPlanningPress(LevelEnder lE) // player plans -sawyer
+    public void OnPlanningPress() // player plans -sawyer
     {
         Time.timeScale = 1;
             Instantiate(planningController);
@@ -142,7 +140,7 @@ public class LevelEndUI : MonoBehaviour
             if (timerController.end == false)
             {
 
-                SceneManager.LoadScene(lE.GetNextIndex() - 1);
+                SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
             }
         }
     }

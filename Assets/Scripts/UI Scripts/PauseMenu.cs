@@ -57,7 +57,7 @@ public class PauseMenu : MonoBehaviour
             }
             if (config.fieldOfView != cameraSetting.storedFOV || config.fieldOfView < 1 || config.fieldOfView > 140)
             {
-                cameraSetting.storedFOV = config.fieldOfView;
+                config.fieldOfView = cameraSetting.storedFOV;
                 FOVSlider.value = cameraSetting.storedFOV;
             }
         
@@ -144,9 +144,9 @@ public class PauseMenu : MonoBehaviour
     }
     private void SettingsCheck()
     {
-        if (cameraSetting.storedFOV != FOVSlider.value + 90)
+        if (cameraSetting.storedFOV != FOVSlider.value)
         {
-            cameraSetting.storedFOV = FOVSlider.value + 90f;
+            cameraSetting.storedFOV = FOVSlider.value;
             cameraSetting.FOV = cameraSetting.storedFOV;
             config.fieldOfView = FOVSlider.value;
         }
