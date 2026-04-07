@@ -1,5 +1,6 @@
 using NUnit.Framework.Internal;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Config_Internal : MonoBehaviour
 {
@@ -11,5 +12,12 @@ public class Config_Internal : MonoBehaviour
     private void OnEnable()
     {
         DontDestroyOnLoad(transform.gameObject);
+
+        Config_Internal[] duplicates = FindObjectsByType<Config_Internal>(FindObjectsSortMode.None);
+        if (duplicates.Length > 1)
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

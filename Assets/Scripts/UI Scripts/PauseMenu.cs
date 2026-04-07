@@ -12,21 +12,22 @@ public class PauseMenu : MonoBehaviour
 {
     public Controls controls;
     public bool paused;
-    [HideInInspector] public bool completionCheck;
     [SerializeField] GameObject PlanningModeToggle;
     [SerializeField] PauseMenuController pauseController;
     [SerializeField] GameObject pauseHud;
     [SerializeField] GameObject gameHud;
     [SerializeField] GameObject planningGUI;
     [SerializeField] Slider FOVSlider;
-    [SerializeField] TextMeshProUGUI FOVDisplay;
+    [SerializeField] TMP_InputField FOVDisplay;
     [SerializeField] Slider sensitivitySlider;
-    [SerializeField] TextMeshProUGUI sensitivityDisplay;
+    [SerializeField] TMP_InputField sensitivityDisplay;
     [SerializeField] GameObject configObject;
+    [SerializeField] float timeToSettingsCheck;
+    private float timeForTimeToSettingsCheck;
     private LevelProgressTracker levelProgressTracker;
     private float sensitivityDisplayValue;
     private PlayerCamera cameraSetting;
-    public bool buttonPress;
+    //public bool buttonPress;
     private Config_Internal config;
     
     //allows to unpause via other means
@@ -35,29 +36,20 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         controls = new Controls();
+        timeForTimeToSettingsCheck = timeToSettingsCheck;
         Time.timeScale = 1;
-        if(FindAnyObjectByType<PlanningModeController>() == false)
+       
             planningGUI.SetActive(false);
 
-        if (FindAnyObjectByType<PlayerCamera>())
+       
             cameraSetting = FindAnyObjectByType<PlayerCamera>();
 
-        if (FindAnyObjectByType<LevelProgressTracker>())
+       
             levelProgressTracker = FindFirstObjectByType<LevelProgressTracker>();
         
+        config = FindFirstObjectByType<Config_Internal>();
+      
 
-    }
-    private void OnEnable()
-    {
-        pauseHud.SetActive(false);
-        controls.Pause.Pause.Enable();
-        paused = false;
-        controls.Pause.Pause.performed += Pause_Performed;
-        //controls.Pause.Pause.performed += (ctx) => Debug.Log("man");
-        if (FindAnyObjectByType <Config_Internal>() != null) 
-         {
-            //Debug.Log("config exists.");
-            config = FindAnyObjectByType<Config_Internal>();
             if (config.sensitivity != cameraSetting.sensitivity || config.sensitivity < 0.1 || config.sensitivity > 5.3)
             {
                 cameraSetting.sensitivity = config.sensitivity;
@@ -68,11 +60,16 @@ public class PauseMenu : MonoBehaviour
                 cameraSetting.storedFOV = config.fieldOfView;
                 FOVSlider.value = cameraSetting.storedFOV;
             }
-         }
-        else
-        {
-            //Debug.Log("uh oh.");
-        }
+        
+    }
+    private void OnEnable()
+    {
+        pauseHud.SetActive(false);
+        controls.Pause.Pause.Enable();
+        paused = false;
+        controls.Pause.Pause.performed += Pause_Performed;
+        //controls.Pause.Pause.performed += (ctx) => Debug.Log("man");
+       
        
         if (FindAnyObjectByType<PlanningModeController>())
         {
@@ -89,7 +86,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause_Performed(InputAction.CallbackContext context)
     {
-        buttonPress = true;
+        ButtonPress();
 
         if (paused == true)
         {
@@ -102,68 +99,108 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-    private void Update()
-    {
-        if (completionCheck == false)
-        {
-            if (levelProgressTracker.levelCompleted == false)
-            {
-                PlanningModeToggle.SetActive(false);
-                completionCheck = true;
-                Debug.Log("disabled Plans");
-            }
-            else
-            {
-                PlanningModeToggle.SetActive(true);
-                completionCheck = true;
-                Debug.Log("enabled Plans");
-            }
-            Debug.Log("completionCheck Fired");
-        }
 
+   
+
+    public void CompletionCheck()
+    {
+        if (levelProgressTracker.levelCompleted == false)
+        {
+            PlanningModeToggle.SetActive(false);
+            Debug.Log("disabled Plans");
+
+        }
+        else
+        {
+            PlanningModeToggle.SetActive(true);
+            Debug.Log("enabled Plans");
+        }
+        Debug.Log("completionCheck Fired");
+    }
+
+
+    public void ButtonPress()
+    {
+        if (paused == false)
+        {
+            Time.timeScale = 0;
+            paused = true;
+            gameHud.SetActive(false);
+            pauseHud.SetActive(true);
+            if (FindAnyObjectByType<PlanningModeController>())
+                planningGUI.SetActive(false);
+        }
+        else if (paused == true)
+        {
+            Time.timeScale = 1;
+            paused = false;
+            pauseHud.SetActive(false);
+
+            if (FindAnyObjectByType<PlanningModeController>() == false)
+                gameHud.SetActive(true);
+            else
+                planningGUI.SetActive(true);
+        }
+    }
+    private void SettingsCheck()
+    {
         if (cameraSetting.storedFOV != FOVSlider.value + 90)
         {
             cameraSetting.storedFOV = FOVSlider.value + 90f;
             cameraSetting.FOV = cameraSetting.storedFOV;
             config.fieldOfView = FOVSlider.value;
         }
+
         if (cameraSetting.sensitivity != sensitivitySlider.value + 0.3f)
         {
             cameraSetting.sensitivity = sensitivitySlider.value + 0.3f;
             config.sensitivity = sensitivitySlider.value;
         }
-      
-        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value + 0.3f) * 10);
-        FOVDisplay.text = $"{FOVSlider.value + 90}";
-        sensitivityDisplay.text = $"{sensitivityDisplayValue}";
 
-        if (buttonPress == true)
+
+        if (float.Parse(FOVDisplay.text) > FOVSlider.maxValue)
         {
-            if (paused == false)
-            {
-                Time.timeScale = 0;
-                paused = true;
-                gameHud.SetActive(false);
-                pauseHud.SetActive(true);
-                if (FindAnyObjectByType<PlanningModeController>())
-                    planningGUI.SetActive(false);
-                buttonPress = false;
+            FOVDisplay.text = FOVSlider.maxValue.ToString();
+        }
 
-            }
-            else if (paused == true)
-            {
-                Time.timeScale = 1;
-                paused = false;
-                pauseHud.SetActive(false);
-              
-                if (FindAnyObjectByType<PlanningModeController>() == false)
-                    gameHud.SetActive(true);
-                else
-                    planningGUI.SetActive(true);
-               buttonPress = false;
+        if (float.Parse(sensitivityDisplay.text) > sensitivitySlider.maxValue)
+        {
+            sensitivityDisplay.text = sensitivitySlider.maxValue.ToString();
+        }
+    }
 
 
-            }
+    public void OnFOVSliderChange()
+    {
+        FOVDisplay.text = FOVSlider.value.ToString();
+    }
+
+    public void OnFOVInputChange()
+    {
+        FOVSlider.value = float.Parse(FOVDisplay.text);
+    }
+
+    public void OnSensSliderChange()
+    {
+        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value + 0.3f) * 10);
+
+
+        sensitivityDisplay.text = $"{sensitivityDisplayValue}";
+    }
+
+    public void OnSensInputChange()
+    {
+        sensitivityDisplayValue = MathF.Round(float.Parse(sensitivityDisplay.text + 0.3f) * 10);
+    }
+
+
+    private void Update()
+    {
+        timeToSettingsCheck -= Time.unscaledDeltaTime;
+        if (timeToSettingsCheck < 0)
+        {
+            SettingsCheck();
+            timeToSettingsCheck = timeForTimeToSettingsCheck;
         }
     }
 }

@@ -1,3 +1,4 @@
+
 using System;
 using TMPro;
 using UnityEngine;
@@ -53,7 +54,7 @@ public class SprayPlacerHudController : MonoBehaviour
 
     private void Rotation_Ceased(InputAction.CallbackContext context)
     {
-      // uhhhhhh
+      // this exists to appease the unity codebase. disregard at is the player not scrolling anymore is irrelevant.
     }
 
     private void Rotation_Performed(InputAction.CallbackContext context)

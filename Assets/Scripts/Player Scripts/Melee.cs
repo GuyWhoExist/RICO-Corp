@@ -59,11 +59,8 @@ public class Melee : MonoBehaviour
     }
     private void OnEnable()
     {
-     if (FindAnyObjectByType<PlanningModeController>() == false)
-        {
-            controls.Melee.Swing.Enable();
-            controls.Melee.Swing.performed += Swing_performed;
-        }
+     controls.Melee.Swing.Enable();
+     controls.Melee.Swing.performed += Swing_performed;
     }
     private void OnTriggerEnter(Collider above)
     {
@@ -97,6 +94,7 @@ public class Melee : MonoBehaviour
                                     Debug.Log("hitstop Triggered");
                                 }
                              this.transform.position = positionDetection.gameObject.transform.position;
+                            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
                             rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
                              meleeJump = true;
                             }

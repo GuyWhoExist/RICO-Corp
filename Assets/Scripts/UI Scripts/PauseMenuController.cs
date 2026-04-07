@@ -39,7 +39,7 @@ public class PauseMenuController : MonoBehaviour
     {
         if (restartController != null)
         {
-            pauseMenu.buttonPress = true;
+            pauseMenu.ButtonPress();
             restartController.playerDie = true;
         }
     }
@@ -51,7 +51,7 @@ public class PauseMenuController : MonoBehaviour
     public void OnPauseQuit() 
     {
         //Debug.Log("You pressed it");
-        pauseMenu.buttonPress = true;
+        pauseMenu.ButtonPress();
         quit = true;
         musicClass.StopMusic();
         if (FindAnyObjectByType<PlanningModeController>())
@@ -85,7 +85,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void OnTheQuintessentialResumeButtonTrigger()
     {
-        pauseMenu.buttonPress = true;
+        pauseMenu.ButtonPress();
     }
     public void OnAudioPress()
     {

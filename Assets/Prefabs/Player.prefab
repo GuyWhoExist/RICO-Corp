@@ -403,7 +403,6 @@ GameObject:
   - component: {fileID: 5263830152627946770}
   - component: {fileID: 3675693052588370084}
   - component: {fileID: 8209871906734494312}
-  - component: {fileID: 384045620701325308}
   - component: {fileID: 2575806727729919433}
   - component: {fileID: 8523289442659343576}
   - component: {fileID: 1106544071619831820}
@@ -542,6 +541,8 @@ MonoBehaviour:
   timerController: {fileID: 8523289442659343576}
   killstreakCounter: {fileID: 0}
   speedBoost: {fileID: 0}
+  SFXPlayer: {fileID: 0}
+  shotSFX: {fileID: 0}
   impactDecals: 0
   reflectDecals: 0
   impactDecal: {fileID: 0}
@@ -712,24 +713,6 @@ MonoBehaviour:
   slideForce: 300
   slideYScale: 0.5
   slideKey: 306
---- !u!114 &384045620701325308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2527319957930866390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e28880e39c1664bbf2ea7b5af3f7ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 8185319642670670063}
-  playerObj: {fileID: 8018648740792765137}
-  maxSlideTime: 0
-  slideForce: 0
-  slideYScale: 0
-  slideKey: 306
 --- !u!54 &2575806727729919433
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -814,7 +797,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paused: 0
-  completionCheck: 0
   PlanningModeToggle: {fileID: 0}
   pauseController: {fileID: 0}
   pauseHud: {fileID: 0}
@@ -825,7 +807,6 @@ MonoBehaviour:
   sensitivitySlider: {fileID: 0}
   sensitivityDisplay: {fileID: 0}
   configObject: {fileID: 1795694791808849849, guid: c6af83ab734a9f0479df47b348165373, type: 3}
-  buttonPress: 0
 --- !u!114 &7492448302430238168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +868,8 @@ MonoBehaviour:
   boostDuration: 2.5
   playerMovement: {fileID: 3675693052588370084}
   shooting: {fileID: 7301727407463837847}
+  SFXPlayer: {fileID: 0}
+  boostSFX: {fileID: 0}
 --- !u!82 &3595649237641412914
 AudioSource:
   m_ObjectHideFlags: 0

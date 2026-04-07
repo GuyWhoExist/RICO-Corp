@@ -99,7 +99,7 @@ public class LevelEndUI : MonoBehaviour
         if (timerController.end == false)
         {
             SceneManager.LoadScene(lE.GetNextIndex());
-            levelProgressTracker.levelLoaded = true;
+            levelProgressTracker.LevelLoaded();
         }
     }
     public void OnRestartPress(LevelEnder lE) // player restarts -sawyer
