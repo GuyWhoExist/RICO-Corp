@@ -27,11 +27,9 @@ public class LevelEndUI : MonoBehaviour
 
     private void Awake()
     {
-        if (quickRestart  == FindAnyObjectByType<QuickRestart>())
-        {
-            quickRestart = FindAnyObjectByType<QuickRestart>();
-        }
+        quickRestart = FindAnyObjectByType<QuickRestart>();
         levelEnder = FindAnyObjectByType<LevelEnder>();
+       
         if (levelEnder == null)
             Debug.Log("Level End is missing");
         else
@@ -91,21 +89,19 @@ public class LevelEndUI : MonoBehaviour
         }
 
     }
-    public void OnNextPress(LevelEnder lE) // player presses next after successfully completing level -sawyer
+    public void OnNextPress() // player presses next after successfully completing level -sawyer
     {
         timerController.end = false;
-        lE = levelEnder;
         Time.timeScale = 1;
         if (timerController.end == false)
         {
-            SceneManager.LoadScene(lE.GetNextIndex());
+            SceneManager.LoadScene(levelEnder.GetNextIndex());
             levelProgressTracker.levelLoaded = true;
         }
     }
-    public void OnRestartPress(LevelEnder lE) // player restarts -sawyer
+    public void OnRestartPress() // player restarts -sawyer
     {
         Time.timeScale = 1;
-        lE = levelEnder;
         if (levelEnder.nextLevelIndex == 0)
         {
             timerController.end = false;
@@ -120,11 +116,11 @@ public class LevelEndUI : MonoBehaviour
             if (timerController.end == false)
             {
                 
-                SceneManager.LoadScene(lE.GetNextIndex() - 1);
+                SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
             }
         }
     }
-    public void OnPlanningPress(LevelEnder lE) // player plans -sawyer
+    public void OnPlanningPress() // player plans -sawyer
     {
         Time.timeScale = 1;
             Instantiate(planningController);
@@ -142,7 +138,7 @@ public class LevelEndUI : MonoBehaviour
             if (timerController.end == false)
             {
 
-                SceneManager.LoadScene(lE.GetNextIndex() - 1);
+                SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
             }
         }
     }

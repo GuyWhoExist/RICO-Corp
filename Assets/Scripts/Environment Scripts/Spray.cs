@@ -22,7 +22,7 @@ public class Spray : MonoBehaviour, ICleanable
         }
        
         //Debug.Log("checking for spraycontroller...");
-        if (sprayController != null)
+        //if (sprayController != null)
             //Debug.Log("spraycontroller found!");
         if (sprayController.hit.transform.GetComponent<Destroyable>() != null)
         {
