@@ -47,19 +47,10 @@ public class QuickRestart : MonoBehaviour
          {
             if (levelEnder !=  null)
             {
-                if (levelEnder.nextLevelIndex == 0)
-                {
-                    //Debug.Log("Git gud");
-                    timerController.end = false;
-                    SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
-                }
-                else
-                {
-                    //Debug.Log("Git gud");
-                    timerController.end = false;
-                    SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
-                    //Debug.Log("this is fine actually");
-                }
+             //Debug.Log("Git gud");
+             timerController.end = false;
+             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);//simply reloads the active scene. 
+             //Debug.Log("this is fine actually");
             }
          else
             {

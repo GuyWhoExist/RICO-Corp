@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class LevelProgressTracker : MonoBehaviour
 {
     [HideInInspector] public bool levelCompleted;
-    [HideInInspector] public bool levelLoaded;
     private bool checkComplete;
     private float valueCheckDelay;
     private LevelEnder levelEnder;
@@ -22,8 +21,7 @@ public class LevelProgressTracker : MonoBehaviour
     private void OnEnable()
     {
         checkComplete = true;
-        if (FindAnyObjectByType<Cheats>())
-        {
+      
             cheats = FindAnyObjectByType<Cheats>();
             if (cheats.enemyCounter == true)
             {
@@ -35,7 +33,7 @@ public class LevelProgressTracker : MonoBehaviour
             {
                 cheatsHitStopStatus = true;
             }
-        }    
+         
         
     }
 
@@ -76,7 +74,7 @@ public class LevelProgressTracker : MonoBehaviour
                     Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex + 1} besttime is : {levels[levelEnder.nextLevelIndex + 1].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
-                    pauseMenu.completionCheck = false;
+                    pauseMenu.CompletionCheck();
                     timerController.statusCheck = false;
                     bestTimeStored = -1;
                 }
@@ -86,7 +84,7 @@ public class LevelProgressTracker : MonoBehaviour
                     Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex + 1} besttime is : {levels[levelEnder.nextLevelIndex + 1].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
-                    pauseMenu.completionCheck = false;
+                    pauseMenu.CompletionCheck();
                     timerController.statusCheck = false;
                     initialComplete = false;
                     bestTimeStored = levels[levelEnder.nextLevelIndex + 1].bestTime;
@@ -102,7 +100,7 @@ public class LevelProgressTracker : MonoBehaviour
                     Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
-                    pauseMenu.completionCheck = false;
+                    pauseMenu.CompletionCheck();
                     timerController.statusCheck = false;
                     bestTimeStored = -1;
                 }
@@ -112,7 +110,7 @@ public class LevelProgressTracker : MonoBehaviour
                     Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
-                    pauseMenu.completionCheck = false;
+                    pauseMenu.CompletionCheck();
                     timerController.statusCheck = false;
                     initialComplete = false;
                     bestTimeStored = levels[levelEnder.nextLevelIndex - 3].bestTime;
@@ -123,38 +121,27 @@ public class LevelProgressTracker : MonoBehaviour
         }
             Debug.Log(levelCompleted);
     }
-    private void Update()
+
+
+    public void LevelLoaded()
     {
         //checks for loading of new level and prevents it from checking more then once per level - sawyer
-        if (levelLoaded == true)
         {
             levelEnder = null;
             Debug.Log("firing check");
             if (FindFirstObjectByType(typeof(LevelEnder)) != null)
             {
-                if (FindAnyObjectByType<PauseMenu>())
                     pauseMenu = FindAnyObjectByType<PauseMenu>();
-                if (FindAnyObjectByType<TimerController>())
                     timerController = FindAnyObjectByType<TimerController>();
                 levelEnder = FindFirstObjectByType<LevelEnder>();
-                levelLoaded = false;
                 checkComplete = false;
-                Debug.Log("LevelEnder found");
                 initialComplete = true;
             }
-            else
+
+            if (checkComplete == false)
             {
-                if (FindAnyObjectByType<PauseMenu>())
-                    pauseMenu = FindAnyObjectByType<PauseMenu>();
-                if (FindAnyObjectByType<TimerController>())
-                    timerController = FindAnyObjectByType<TimerController>();
-                Debug.Log("LevelEnder not found");
-                levelLoaded = false;
+                LevelStatusCheck();
             }
-        }
-        if (checkComplete == false)
-        {
-            LevelStatusCheck();
         }
         // end
         testingTime = levels[0].bestTime;

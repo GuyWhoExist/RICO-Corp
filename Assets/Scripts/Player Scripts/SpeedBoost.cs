@@ -46,7 +46,7 @@ public class SpeedBoost : MonoBehaviour
         if (fuel >= 1)
         {
             //Debug.Log("Boost Succesful");
-            SFXPlayer.PlayOneShot(boostSFX);
+            //SFXPlayer.PlayOneShot(boostSFX);
             boostRemaining += boostDuration;
             fuel--;
         }

@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlanningModeController : MonoBehaviour
 {
     public bool planning;
-    private bool planState;
 
     private void Awake()
     {
