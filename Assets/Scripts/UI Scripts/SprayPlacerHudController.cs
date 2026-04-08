@@ -1,58 +1,52 @@
-
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class SprayPlacerHudController : MonoBehaviour
 {
     //coded by sawyer
-    private Controls controls;
-    [SerializeField] GameObject plannerUI;
-    [SerializeField] GameObject CameraPosition;
-    [SerializeField] Shooting shootingDisabler;
-    [HideInInspector] public bool selector;
-    [SerializeField] private UnityEngine.UI.RawImage rotationDisplay;
-    private float rotationValue;
-    private float invertedRotationValue;
-    private float cameraAngle;
-    [HideInInspector] public bool planningModeToggle;
-    LayerMask sprayDetection;
-    [Header("Markers")]
-    [SerializeField] GameObject shootMarker;
-    [SerializeField] GameObject goMarker;
-    [SerializeField] GameObject stopMarker;
-    private GameObject placedMarker;
-    [HideInInspector] public GameObject collectedHit;
+    private Controls controls;//used to store themain controls
+    [SerializeField] GameObject plannerUI;//used to store the UI foor the planner
+    [SerializeField] GameObject CameraPosition;//used to store the cameras facing direction for raycasting
+    [SerializeField] Shooting shootingDisabler;//used to disable shooting when firing a spray
+    [HideInInspector] public bool selector;//used for detecting the UI status
+    [SerializeField] private UnityEngine.UI.RawImage rotationDisplay;//used to store the rotation display
+    private float rotationValue;//the internal value for rotating the sprays by a set amount
+    private float invertedRotationValue;//the internal value for rotating the sprays in the opposite direction
+    private float cameraAngle;//the angle of the players camera
+    [HideInInspector] public bool planningModeToggle;//used for when planning mode is enabled
+    LayerMask sprayDetection;//used to avoid stacking sprays
+    [Header("Markers")]//the below are simply the actual decals the player can place
+    [SerializeField] GameObject shootMarker;//the target marker
+    [SerializeField] GameObject goMarker;//the arrow markere
+    [SerializeField] GameObject stopMarker;//the stop sign marker
+    private GameObject placedMarker;//the marker the player hasjust placed
+    [HideInInspector] public GameObject collectedHit;//the stored gameobject the spray placement raycast has hit
 
 
 
-    private int markerSelect;
-    [HideInInspector]public RaycastHit hit;
-    private void Awake()
+    private int markerSelect;//the selected marker (used for save systems)
+    [HideInInspector]public RaycastHit hit;//the position the raycast collided at
+    private void Awake()//used to get controls and layermasks
     {
-        controls = new Controls();
-        sprayDetection = LayerMask.GetMask("spray");
-        collectedHit = gameObject;
+        controls = new Controls();//the controls
+        sprayDetection = LayerMask.GetMask("spray");//the spray layermask
     }
     public void OnEnable()
     {
-        plannerUI.SetActive(false);
-        if (FindAnyObjectByType<PlanningModeController>())
+        plannerUI.SetActive(false);//disables the planner UI object
+        if (FindAnyObjectByType<PlanningModeController>())//checks if the planning mode controller exists (if it does planning mode is enabled)
         {
-            controls.Melee.Swing.Enable();
-            controls.Melee.Swing.performed += Planner_Opened;
-            controls.Melee.Swing.canceled += Planner_Closed;
-            controls.Planning.Rotate.performed += Rotation_Performed;
-            controls.Planning.Rotate.canceled += Rotation_Ceased;
-            markerSelect = 0;
+            controls.Melee.Swing.Enable();//if planning mode is on, hijack the melee input for placing decals
+            controls.Melee.Swing.performed += Planner_Opened;//sets the initial melee swing to open the planner
+            controls.Melee.Swing.canceled += Planner_Closed;//sets the utton release to closing the planner
+            controls.Planning.Rotate.performed += Rotation_Performed;//used to detect the player scrolling to rotate the spray placement
+            controls.Planning.Rotate.canceled += Rotation_Ceased;//exists to appease the unity codebase, disregard
+            markerSelect = 0;//used to save sprays.value is initially cleared to avoid false positives
         }
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
     }
 
-    private void Rotation_Ceased(InputAction.CallbackContext context)
+    private void Rotation_Ceased(InputAction.CallbackContext context)/
     {
       // this exists to appease the unity codebase. disregard at is the player not scrolling anymore is irrelevant.
     }

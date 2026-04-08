@@ -60,6 +60,8 @@ public class PauseMenu : MonoBehaviour
                 config.fieldOfView = cameraSetting.storedFOV;
                 FOVSlider.value = cameraSetting.storedFOV;
             }
+
+        FOVSlider.value = float.Parse(FOVDisplay.text);
         
     }
     private void OnEnable()
