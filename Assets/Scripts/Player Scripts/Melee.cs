@@ -89,6 +89,7 @@ public class Melee : MonoBehaviour
                             {
                                if(levelProgressTracker.cheatsHitStopStatus)
                                 {
+                                    HitStop();
                                     hitStopFire = true;
                                     hitStopDuration = hitStopDurationStored;
                                     Debug.Log("hitstop Triggered");
@@ -147,24 +148,26 @@ public class Melee : MonoBehaviour
     {
         swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
 
-        if (hitStopFire)
-        {
-            Debug.Log("hitstop");
-            hitStopLight.SetActive(true);           
-                Time.timeScale = 0;
-                hitStopDuration -= Time.unscaledDeltaTime;
-                if (hitStopDuration < 0)
-                {
+    }
 
-                    hitStopLight.SetActive(false);
-                    Time.timeScale = 1;
+    private void HitStop()
+    {
+            Debug.Log("hitstop");
+            hitStopLight.SetActive(true);
+            Time.timeScale = 0;
+            hitStopDuration -= Time.unscaledDeltaTime;
+            if (hitStopDuration < 0)
+            {
+
+                hitStopLight.SetActive(false);
+                Time.timeScale = 1;
                 hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
                 hitStopFire = false;
                 sightTracker.seen = false;
-                    Destroy(storedEnemyHitStop);
-                    storedEnemyHitStop = null;
+                Destroy(storedEnemyHitStop);
+                storedEnemyHitStop = null;
                 Debug.Log("hitstop end");
-                }
+            
         }
     }
     private void LateUpdate()

@@ -40,15 +40,10 @@ public class SprayPlacerHudController : MonoBehaviour
             controls.Melee.Swing.performed += Planner_Opened;//sets the initial melee swing to open the planner
             controls.Melee.Swing.canceled += Planner_Closed;//sets the utton release to closing the planner
             controls.Planning.Rotate.performed += Rotation_Performed;//used to detect the player scrolling to rotate the spray placement
-            controls.Planning.Rotate.canceled += Rotation_Ceased;//exists to appease the unity codebase, disregard
+
             markerSelect = 0;//used to save sprays.value is initially cleared to avoid false positives
         }
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
-    }
-
-    private void Rotation_Ceased(InputAction.CallbackContext context)
-    {
-      // this exists to appease the unity codebase. disregard at is the player not scrolling anymore is irrelevant.
     }
 
     private void Rotation_Performed(InputAction.CallbackContext context)
@@ -92,7 +87,7 @@ public class SprayPlacerHudController : MonoBehaviour
         controls.Melee.Swing.performed += Planner_Opened;//disables the planner opening feature
         controls.Melee.Swing.canceled += Planner_Closed;//disables the closing planner feature
         controls.Planning.Rotate.performed += Rotation_Performed;//disables the scrollwheel input
-        controls.Planning.Rotate.canceled += Rotation_Ceased;//disables this thing
+
     }
     public void OnShootPress()
     {
