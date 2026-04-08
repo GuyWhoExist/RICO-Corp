@@ -46,7 +46,7 @@ public class SprayPlacerHudController : MonoBehaviour
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
     }
 
-    private void Rotation_Ceased(InputAction.CallbackContext context)/
+    private void Rotation_Ceased(InputAction.CallbackContext context)
     {
       // this exists to appease the unity codebase. disregard at is the player not scrolling anymore is irrelevant.
     }
