@@ -27,11 +27,9 @@ public class LevelEndUI : MonoBehaviour
 
     private void Awake()
     {
-        if (quickRestart  == FindAnyObjectByType<QuickRestart>())
-        {
-            quickRestart = FindAnyObjectByType<QuickRestart>();
-        }
+        quickRestart = FindAnyObjectByType<QuickRestart>();
         levelEnder = FindAnyObjectByType<LevelEnder>();
+       
         if (levelEnder == null)
             Debug.Log("Level End is missing");
         else
@@ -98,7 +96,6 @@ public class LevelEndUI : MonoBehaviour
         if (timerController.end == false)
         {
             SceneManager.LoadScene(levelEnder.GetNextIndex());
-            levelProgressTracker.LevelLoaded();
         }
     }
     public void OnRestartPress() // player restarts -sawyer
