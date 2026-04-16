@@ -26,7 +26,6 @@ public class Melee : MonoBehaviour
     [HideInInspector] public bool meleeJump;
     private float quickFallOff;
     public float maxModifiedFOV;
-    private SightTracker trackerOfSight;
     private LevelProgressTracker levelProgressTracker;
     RaycastHit hit;
     private SightTracker sightTracker;
@@ -52,7 +51,6 @@ public class Melee : MonoBehaviour
         swingCoolDownStored = 0;
         jumpHelper = this.transform.GetComponent<PlayerMovementTutorial>();
         quickFallOff = quickFallOffStored;
-        trackerOfSight = FindAnyObjectByType<SightTracker>();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         hitStopLight.SetActive(false);
         sightTracker = FindAnyObjectByType<SightTracker>();
@@ -94,7 +92,8 @@ public class Melee : MonoBehaviour
                                     hitStopDuration = hitStopDurationStored;
                                     Debug.Log("hitstop Triggered");
                                 }
-                             this.transform.position = positionDetection.gameObject.transform.position;
+
+                            this.transform.position = positionDetection.gameObject.transform.position;
                             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
                             rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
                              meleeJump = true;
@@ -112,12 +111,9 @@ public class Melee : MonoBehaviour
                     if (hit.transform.GetComponent<Enemy>() != null)
                     {
                         speedBoost.fuel += 0.5f;
+                        shooting.EnemyKill();
                         //Debug.Log($"Fuel is at: {speedBoost.fuel}");
                         shooting.killStreak = shooting.killStreak + 1;
-                        if (trackerOfSight.seen == true)
-                        {
-                            trackerOfSight.seen = false;
-                        }
                     }
                     if (hitStopFire == true)
                     {
@@ -125,7 +121,6 @@ public class Melee : MonoBehaviour
                     }
                     else
                     {
-                        sightTracker.seen = false;
                         Destroy(shootable.GetGameObject());
                     }
 
@@ -163,7 +158,6 @@ public class Melee : MonoBehaviour
                 Time.timeScale = 1;
                 hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
                 hitStopFire = false;
-                sightTracker.seen = false;
                 Destroy(storedEnemyHitStop);
                 storedEnemyHitStop = null;
                 Debug.Log("hitstop end");

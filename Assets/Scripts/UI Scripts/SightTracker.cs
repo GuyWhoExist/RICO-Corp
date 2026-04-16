@@ -10,33 +10,23 @@ public class SightTracker : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] Material pointerMat;
     [SerializeField] Camera playerCam;
-    [SerializeField] Melee melee;
     [HideInInspector] public Vector3 currentThreat;
-    private bool UIVisible;
-    public bool seen;
     public bool kill;
     public bool danger;
-    private Color Purple = new Color32(115, 15, 240, 255);
+    private Color Purple = new Color32(115, 15, 240, 255); 
 
     private void Start()
     {
         display.SetActive(false);
-        UIVisible = false;
-        melee = FindFirstObjectByType<Melee>();
-        UIVisible = false;
+        UnSpotted();
+
+
     }
 
     private void Update()
-    {
-        
-        this.transform.position = player.transform.position;
-        if (seen)
-        {
-            if (UIVisible == false)
-            {
-                display.SetActive(true);
-                UIVisible = true;
-            }
+    {  
+        gameObject.transform.position = player.transform.position;
+
             tracker.transform.LookAt(currentThreat);
             display.transform.rotation = tracker.transform.localRotation;
             if (danger == true)
@@ -46,19 +36,16 @@ public class SightTracker : MonoBehaviour
             else
             {
                 pointerMat.color = Purple;
-            }
-            
-        }
-        else
-        {
-            this.transform.rotation = playerCam.transform.rotation;
-            display.transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (UIVisible == true)
-            {
-                display.SetActive(false);
-                UIVisible = false;
-            }
-        }
+            }   
+    }
 
+
+    public void Spotted()
+    {
+            display.SetActive(true);
+    }
+    public void UnSpotted()
+    {
+        display.SetActive(false);
     }
 }

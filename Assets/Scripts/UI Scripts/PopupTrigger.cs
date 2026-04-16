@@ -15,6 +15,7 @@ public class PopupTrigger : MonoBehaviour
             if (popup.GetComponent<PlayerMovementTutorial>() != null)
             {
                 popUp.SetActive(true);
+                Destroy(gameObject);
             }
         }
        else
@@ -22,6 +23,7 @@ public class PopupTrigger : MonoBehaviour
             if (popup.GetComponent<PlayerMovementTutorial>() != null)
             {
                 popUp.SetActive(false);
+                Destroy(gameObject);
             }
         }
     }

@@ -1,12 +1,10 @@
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Speedometer : MonoBehaviour
 {
     //Controls the fuel meter on the speedometer - Nova
-    //Coded by Sawyer
+    //Coded by Sawyer with assistance from nova
 
     [SerializeField] Rigidbody playerRigidBody;
     [SerializeField] RawImage speedometerBacker;
@@ -27,16 +25,8 @@ public class Speedometer : MonoBehaviour
 
     private void Awake()
     {
-
-        if (FindFirstObjectByType<SpeedBoost>())
-        {
-            speedBoostValue = FindFirstObjectByType<SpeedBoost>();
-        }
-        else
-        {
-            //Debug.Log("oh no.");
-        }
-            
+        speedBoostValue = FindFirstObjectByType<SpeedBoost>();
+        InvokeRepeating(nameof(SpeedometerColor), 0.1f, 0.1f);
     }
 
     //This method was coded by Nova
@@ -74,6 +64,29 @@ public class Speedometer : MonoBehaviour
         }
     }
 
+
+    private void SpeedometerColor()//seperated from update for optimization purposes
+    {
+
+        if (averageSpeed * -1 > 30)
+        {
+            speedometerBacker.color = Color.yellow;
+            if (averageSpeed * -1 > 60)
+            {
+                speedometerBacker.color = orange;
+                if (averageSpeed * -1 > 90)
+                {
+                    speedometerBacker.color = Color.red;
+                    if (averageSpeed * -1 > 120)
+                    {
+                        speedometerBacker.color = Purple;
+                    }
+                }
+            }
+        }
+        else
+            speedometerBacker.color = Color.white;
+    }
     private void Update()
     {
         //speed = playerRigidBody.linearVelocity;
@@ -94,25 +107,7 @@ public class Speedometer : MonoBehaviour
         }
         this.transform.rotation = Quaternion.Euler(this.transform.rotation.x, this.transform.rotation.y, averageSpeed);
 
-           
-        if (averageSpeed * -1 > 30)
-        {
-            speedometerBacker.color = Color.yellow;
-            if (averageSpeed * -1 > 60)
-            {
-                speedometerBacker.color = orange;
-                if (averageSpeed * -1 > 90)
-                {
-                    speedometerBacker.color = Color.red;
-                    if (averageSpeed * -1 > 120)
-                    {
-                        speedometerBacker.color = Purple;
-                    }
-                }
-            }
-        }
-        else
-            speedometerBacker.color = Color.white;
+      
 
 
         /*

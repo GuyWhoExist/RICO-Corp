@@ -92,23 +92,25 @@ public class TimerController : MonoBehaviour
         }
         end = false;
     }
+
+    private void Start()
+    {
+
+        if (levelProgressTracker.levelCompleted == false)
+        {
+        timerText.enabled = false;
+        Debug.Log("disabled timer");
+        statusCheck = true;
+        }
+        else
+        {
+        timerText.enabled = true;
+        Debug.Log("enabled Timer");
+        }
+    }
     void Update()
     {
-        if (statusCheck == false)
-        {
-            if (levelProgressTracker.levelCompleted == false)
-            {
-                timerText.enabled = false;
-                Debug.Log("disabled timer");
-                statusCheck = true;
-            }
-            else
-            {
-                timerText.enabled = true;
-                Debug.Log("enabled Timer");
-                statusCheck = true;
-            }
-        }
+       
         if (timeTicking)
         {
             curTime += Time.deltaTime;
