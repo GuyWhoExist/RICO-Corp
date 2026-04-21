@@ -1,15 +1,14 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
 using TMPro;
 using System.Collections.Generic;
-using NUnit.Framework;
 
 public class Shooting : MonoBehaviour
 {
     //Controls how the gun fires and ricochets. The selling point.
     //Coded by Nova
-
+    //also has code to assist functions of the enemy tracker arrow.
+    //these additions were added by sawyer
     RaycastHit hit;
     [SerializeField] private float maxDistance;
     [SerializeField] private LineRenderer lineRenderer; //displays the shot of the player - Nova
@@ -431,7 +430,7 @@ public class Shooting : MonoBehaviour
     }
 
 
-    public void EnemyKill()//fires on the death of an enemy toa void repeated code in several places.  this segment was made and commented by sawyer.
+    public void EnemyKill()//fires on the death of an enemy to avoid repeated code in several places.  this segment was made and commented by sawyer.
     {
         listOfActiveEnemies.Remove(storedEnemy);//removes the stored enemy from the list of all rifle enemies
         if (listOfTargetingEnemies.Contains(storedEnemy))

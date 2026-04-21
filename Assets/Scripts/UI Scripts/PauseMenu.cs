@@ -1,11 +1,7 @@
 using System;
-using NUnit.Framework.Internal;
-using Palmmedia.ReportGenerator.Core;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Android;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour

@@ -12,7 +12,6 @@ public class SightTracker : MonoBehaviour
     [SerializeField] Camera playerCam;
     [HideInInspector] public Vector3 currentThreat;
     public bool kill;
-    public bool danger;
     private Color Purple = new Color32(115, 15, 240, 255); 
 
     private void Start()
@@ -29,16 +28,16 @@ public class SightTracker : MonoBehaviour
 
             tracker.transform.LookAt(currentThreat);
             display.transform.rotation = tracker.transform.localRotation;
-            if (danger == true)
-            {
-               pointerMat.color = Color.red;
-            }
-            else
-            {
-                pointerMat.color = Purple;
-            }   
     }
 
+    public void InDanger()
+    {
+        pointerMat.color = Color.red;
+    }
+    public void InSafe()
+    {
+        pointerMat.color = Purple;
+    }
 
     public void Spotted()
     {

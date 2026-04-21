@@ -135,21 +135,21 @@ public class RifleEnemy : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 trackerOfSight.Spotted();
-                trackerOfSight.danger = false;
+                trackerOfSight.InSafe();
                 break;
             case EnemyState.WIND_UP: //The player is in attack range, being winding up to kill - Nova
                 activeState = 2;
                 searching = false;
                 windupTimer += Time.deltaTime;
                 trackerOfSight.Spotted();
-                trackerOfSight.danger = true;
+                trackerOfSight.InDanger();
                 break;
             case EnemyState.ATTACK: //KILL - Nova
                 activeState = 3;
                 lR.useWorldSpace = true;
                 lR.SetPosition(0, transform.position);
                 lR.SetPosition(1, player.position);
-                player.GetComponent<QuickRestart>().playerDie = true;
+                player.GetComponent<QuickRestart>().PlayerDie();
                 //Debug.Log("Bang bang bang, pull my devil trigger");
                 windupTimer = 0;
                 state = EnemyState.WIND_UP;

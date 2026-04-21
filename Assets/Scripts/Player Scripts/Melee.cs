@@ -142,7 +142,6 @@ public class Melee : MonoBehaviour
     private void Update()
     {
         swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
-
     }
 
     private void HitStop()
