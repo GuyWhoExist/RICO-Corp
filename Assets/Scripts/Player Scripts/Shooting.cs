@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
@@ -45,7 +46,9 @@ public class Shooting : MonoBehaviour
     private SightTracker trackerOfSight;
     [SerializeField] private AudioSource SFXPlayer;
     [SerializeField] private AudioClip shotSFX;
-    private RifleEnemy storedEnemy;
+    [SerializeField] private RawImage hitMarker;
+    [SerializeField] private float hitMarkerTime;
+    public RifleEnemy storedEnemy;
     
     
 
@@ -59,6 +62,7 @@ public class Shooting : MonoBehaviour
         Collideable = LayerMask.GetMask("Default", "whatIsGround", "Ending");
         trackerOfSight = FindAnyObjectByType<SightTracker>();
         controls = new Controls();
+        hitMarker.enabled = false;
         lineRenderer = GetComponent<LineRenderer>();
         //effectPlayer = GetComponent<AudioSource>();
         shotOrigin = transform.position;
@@ -432,6 +436,7 @@ public class Shooting : MonoBehaviour
 
     public void EnemyKill()//fires on the death of an enemy to avoid repeated code in several places.  this segment was made and commented by sawyer.
     {
+        hitMarker.enabled = true;
         listOfActiveEnemies.Remove(storedEnemy);//removes the stored enemy from the list of all rifle enemies
         if (listOfTargetingEnemies.Contains(storedEnemy))
         {
@@ -461,7 +466,12 @@ public class Shooting : MonoBehaviour
         }
         storedEnemy = null;//clears the stored enemy field
 
+        Invoke(nameof(HitMarkEnd), hitMarkerTime);
     }
 
+    private void HitMarkEnd()
+    {
+        hitMarker.enabled = false;
+    }
 }
 

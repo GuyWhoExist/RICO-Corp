@@ -105,7 +105,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         if (FOVReference.teleportIncrement != true)
         {
             Camera.main.fieldOfView = storedPlayerCamera.storedFOV + FOVValue;
-            if (Camera.main.fieldOfView < (storedPlayerCamera.storedFOV))
+            if (Camera.main.fieldOfView < storedPlayerCamera.storedFOV)
             {
                 Camera.main.fieldOfView = storedPlayerCamera.storedFOV;
                 //Debug.Log("FOV is somehow lower then it is supposed to be, fixing...");

@@ -339,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlockAll: 1
   enemyCounter: 1
-  hitStops: 0
+  hitStops: 1
 --- !u!4 &76860819
 Transform:
   m_ObjectHideFlags: 0
