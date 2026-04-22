@@ -30,10 +30,10 @@ public class LevelEndUI : MonoBehaviour
         quickRestart = FindAnyObjectByType<QuickRestart>();
         levelEnder = FindAnyObjectByType<LevelEnder>();
        
-        if (levelEnder == null)
-            Debug.Log("Level End is missing");
-        else
-            Debug.Log("Level End found");
+        //if (levelEnder == null)
+        //    Debug.Log("Level End is missing");
+        //else
+        //    Debug.Log("Level End found");
 
         endGUI.SetActive(false);
         //timerController = GetComponent<TimerController>();

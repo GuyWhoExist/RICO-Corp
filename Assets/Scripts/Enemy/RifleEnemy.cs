@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 //I know this is called RIFLE Enemy, but this can be used for any of the enemies. - Nova
 
 public class RifleEnemy : MonoBehaviour
 {
+    public int activeState;//0 is idle, 1 is follow, 2 is wind up, 3 is attack, 4 is searching.
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float maxSightDistance;
     [SerializeField] private float sightAngle;
@@ -17,6 +15,8 @@ public class RifleEnemy : MonoBehaviour
     [SerializeField] private float proximityDetection;
     [SerializeField] private float memoryLength;
     [SerializeField] private GameObject wahooTrigger;
+    [HideInInspector] public int listIndex;
+    [HideInInspector] public int targetListIndex;
     private SightTracker trackerOfSight;
     private float remembering;
     private Vector3 directionToPlayer;
@@ -24,8 +24,8 @@ public class RifleEnemy : MonoBehaviour
     private float windupPrepTimer;
     private EnemyState state = EnemyState.IDLE;
     private LineRenderer lR;
-    private Vector3 localHit;
     private bool searching;
+
 
     private void Awake()
     {
@@ -42,11 +42,10 @@ public class RifleEnemy : MonoBehaviour
 
     private void Update()
     {
-        if (FindAnyObjectByType<PlanningModeController>() == null)
-        {
+
             UpdateState();
             RespondToState(state);
-        }
+        
         wahooTrigger.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x * -1, 0f, gameObject.transform.rotation.z * -1f);
     }
 
@@ -76,11 +75,8 @@ public class RifleEnemy : MonoBehaviour
         else if (hit.transform == player && angleToPlayer < sightAngle || Vector3.Distance(player.position, transform.position) <= proximityDetection) //If player is in sight but not directly in front of the enemy - Nova
         {
             state = EnemyState.FOLLOW;
-             if (trackerOfSight.seen == false)
-            {
-                trackerOfSight.currentThreat = this.transform.position;
-                trackerOfSight.seen = true;
-            }
+            trackerOfSight.Spotted();
+            trackerOfSight.currentThreat = gameObject.transform.position;
             //these modify the tracking cube on the UI - Nova
             //sightTracker.kill = false;
             //sightTracker.tracker.transform.LookAt(transform.position);
@@ -112,6 +108,7 @@ public class RifleEnemy : MonoBehaviour
         {
             case EnemyState.IDLE: //default state - Nova
                 //Debug.Log("whistling");
+                activeState = 0;
                 searching = false;
                 if (windupTimer != 0)
                     windupPrepTimer = windupPrepTime;
@@ -119,10 +116,14 @@ public class RifleEnemy : MonoBehaviour
                     windupPrepTimer -= Time.deltaTime;
                 else
                     windupTimer = 0;
-                trackerOfSight.seen = false;
+                if (trackerOfSight.currentThreat == gameObject.transform.position)
+                {
+                    trackerOfSight.UnSpotted();
+                }
                 break;
             case EnemyState.FOLLOW: //track the player - Nova
                 //Debug.Log("Found em!");
+                activeState = 1;
                 searching = false;
                 // rotate toward player
                 if (windupTimer != 0)
@@ -133,25 +134,28 @@ public class RifleEnemy : MonoBehaviour
                     windupTimer = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-                trackerOfSight.seen = true;
-                trackerOfSight.danger = false;
+                trackerOfSight.Spotted();
+                trackerOfSight.InSafe();
                 break;
             case EnemyState.WIND_UP: //The player is in attack range, being winding up to kill - Nova
+                activeState = 2;
                 searching = false;
                 windupTimer += Time.deltaTime;
-                trackerOfSight.seen = true;
-                trackerOfSight.danger = true;
+                trackerOfSight.Spotted();
+                trackerOfSight.InDanger();
                 break;
             case EnemyState.ATTACK: //KILL - Nova
+                activeState = 3;
                 lR.useWorldSpace = true;
                 lR.SetPosition(0, transform.position);
                 lR.SetPosition(1, player.position);
-                player.GetComponent<QuickRestart>().playerDie = true;
+                player.GetComponent<QuickRestart>().PlayerDie();
                 //Debug.Log("Bang bang bang, pull my devil trigger");
                 windupTimer = 0;
                 state = EnemyState.WIND_UP;
                 break;
             case EnemyState.SEARCHING: //The enemy saw the player but they have left their sight. Keeps tracking the player but slower and for a limited time - Nova
+                activeState = 4;
                 //Debug.Log(remembering);
                 remembering += Time.deltaTime;
                 targetRotation = Quaternion.LookRotation(directionToPlayer);

@@ -65,7 +65,7 @@ public class TImeHazard : MonoBehaviour
             }
             if (timeDeath < 0)
             {
-                quickRestart.playerDie = true;
+                quickRestart.PlayerDie();
             }
         }
 

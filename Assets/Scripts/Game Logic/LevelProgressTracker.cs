@@ -14,7 +14,6 @@ public class LevelProgressTracker : MonoBehaviour
     public float bestTimeStored;
     private Cheats cheats;
     public bool cheatsEnemyCountStatus;
-    public bool cheatsHitStopStatus;
     //Contains all level data
     //written by Nova
 
@@ -28,12 +27,6 @@ public class LevelProgressTracker : MonoBehaviour
                 cheatsEnemyCountStatus = true;
 
             }
-
-            if (cheats.hitStops)
-            {
-                cheatsHitStopStatus = true;
-            }
-         
         
     }
 

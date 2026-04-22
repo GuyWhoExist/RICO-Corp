@@ -26,10 +26,8 @@ public class Melee : MonoBehaviour
     [HideInInspector] public bool meleeJump;
     private float quickFallOff;
     public float maxModifiedFOV;
-    private SightTracker trackerOfSight;
     private LevelProgressTracker levelProgressTracker;
     RaycastHit hit;
-    private SightTracker sightTracker;
 
     //coded by sawyer
     //functions include: the melee, melee bouncing, the melee boost, and hitstops.
@@ -52,10 +50,8 @@ public class Melee : MonoBehaviour
         swingCoolDownStored = 0;
         jumpHelper = this.transform.GetComponent<PlayerMovementTutorial>();
         quickFallOff = quickFallOffStored;
-        trackerOfSight = FindAnyObjectByType<SightTracker>();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         hitStopLight.SetActive(false);
-        sightTracker = FindAnyObjectByType<SightTracker>();
     }
     private void OnEnable()
     {
@@ -83,41 +79,35 @@ public class Melee : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent(out IShootable shootable))
                 {
-                     if (hit.transform.GetComponent<Enemy>() != null)
-                     {
-                        if (positionDetection != null)
-                            {
-                               if(levelProgressTracker.cheatsHitStopStatus)
-                                {
-                                    HitStop();
-                                    hitStopFire = true;
-                                    hitStopDuration = hitStopDurationStored;
-                                    Debug.Log("hitstop Triggered");
-                                }
-                             this.transform.position = positionDetection.gameObject.transform.position;
-                            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-                            rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
-                             meleeJump = true;
-                            }
-                        else
-                            {
-                             this.transform.position = shootable.GetGameObject().transform.position;
-                             swingCoolDownStored = swingCoolDown;
-                            Camera.main.fieldOfView += FOVShift * 2;
-                            teleportIncrement = true;
-                        }
-                     }
-
-
                     if (hit.transform.GetComponent<Enemy>() != null)
                     {
                         speedBoost.fuel += 0.5f;
+                        shooting.storedEnemy = hit.transform.GetComponent<RifleEnemy>();
+                        shooting.EnemyKill();
                         //Debug.Log($"Fuel is at: {speedBoost.fuel}");
                         shooting.killStreak = shooting.killStreak + 1;
-                        if (trackerOfSight.seen == true)
+
+                        if (positionDetection != null)
                         {
-                            trackerOfSight.seen = false;
+
+                            HitStop();
+                            hitStopFire = true;
+                            hitStopDuration = hitStopDurationStored;
+                            //Debug.Log("hitstop Triggered");
+
+                            this.transform.position = positionDetection.gameObject.transform.position;
+                            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                            rb.AddForce(transform.up * jumpHelper.jumpForce, ForceMode.Impulse);
+                            meleeJump = true;
                         }
+                        else
+                        {
+                            this.transform.position = shootable.GetGameObject().transform.position;
+                            swingCoolDownStored = swingCoolDown;
+                            Camera.main.fieldOfView += FOVShift * 2;
+                            teleportIncrement = true;
+                        }
+
                     }
                     if (hitStopFire == true)
                     {
@@ -125,7 +115,6 @@ public class Melee : MonoBehaviour
                     }
                     else
                     {
-                        sightTracker.seen = false;
                         Destroy(shootable.GetGameObject());
                     }
 
@@ -147,7 +136,11 @@ public class Melee : MonoBehaviour
     private void Update()
     {
         swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
-
+        hitStopDuration -= Time.unscaledDeltaTime;
+        if (hitStopDuration < 0 && storedEnemyHitStop != null)
+        {
+            HitStopEnd();
+        }
     }
 
     private void HitStop()
@@ -155,21 +148,20 @@ public class Melee : MonoBehaviour
             Debug.Log("hitstop");
             hitStopLight.SetActive(true);
             Time.timeScale = 0;
-            hitStopDuration -= Time.unscaledDeltaTime;
-            if (hitStopDuration < 0)
-            {
+    }
 
+    private void HitStopEnd()
+    {
                 hitStopLight.SetActive(false);
                 Time.timeScale = 1;
                 hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
                 hitStopFire = false;
-                sightTracker.seen = false;
+                shooting.EnemyKill();
                 Destroy(storedEnemyHitStop);
                 storedEnemyHitStop = null;
-                Debug.Log("hitstop end");
-            
-        }
     }
+
+   
     private void LateUpdate()
     {
         if (teleportIncrement)
@@ -184,6 +176,6 @@ public class Melee : MonoBehaviour
             }
                 
         }
-            
+
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,7 +14,6 @@ public class QuickRestart : MonoBehaviour
     [SerializeField] PlayerCamera killCancel;
     [SerializeField] TimerController timerController;
     private LevelProgressTracker levelProgressTracker;
-    [HideInInspector] public bool playerDie;
 
     private bool anotherOverflowBlock; // stops the kill input from being generated every frame - Sawyer
 
@@ -22,7 +22,6 @@ public class QuickRestart : MonoBehaviour
         controls = new Controls();
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         levelEnder = FindAnyObjectByType<LevelEnder>();
-        playerDie = false;
     }
     private void OnEnable()
     {
@@ -37,29 +36,26 @@ public class QuickRestart : MonoBehaviour
     }
     private void Restart_Performed(InputAction.CallbackContext context)
     {
-       playerDie = true;
+        PlayerDie();
     }
 
-    private void Update()
+    
+    public void PlayerDie()
     {
-        
-         if (playerDie == true)
-         {
-            if (levelEnder !=  null)
-            {
-             //Debug.Log("Git gud");
-             timerController.end = false;
-             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);//simply reloads the active scene. 
-             //Debug.Log("this is fine actually");
-            }
-         else
-            {
-                //Debug.Log("Currently In Invalid Scene. Sending to Menu");
-                SceneManager.LoadScene(0);
-            }
+        if (levelEnder != null)
+        {
+            //Debug.Log("Git gud");
+            timerController.end = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);//simply reloads the active scene. 
+                                                                             //Debug.Log("this is fine actually");
+        }
+        else
+        {
+            //Debug.Log("Currently In Invalid Scene. Sending to Menu");
+            SceneManager.LoadScene(0);
+        }
 
-         playerDie = false;
-         }
+
 
         if (killCancel.overflowBlock == false)
         {
@@ -71,8 +67,8 @@ public class QuickRestart : MonoBehaviour
             controls.QuickRestart.Restart.Enable();
             anotherOverflowBlock = true;
         }
-
     }
-    
-
 }
+
+       
+

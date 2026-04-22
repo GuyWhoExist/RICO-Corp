@@ -92,6 +92,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         FOVReference = FindFirstObjectByType<Melee>();
         //storedPlayerCamera = FindAnyObjectByType<PlayerCamera>();
         storedPlayerCamera = Camera.main.GetComponent<PlayerCamera>();
+        InvokeRepeating(nameof(PositionCheck), 0.2f, 0.2f);
     }
 
 
@@ -104,7 +105,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         if (FOVReference.teleportIncrement != true)
         {
             Camera.main.fieldOfView = storedPlayerCamera.storedFOV + FOVValue;
-            if (Camera.main.fieldOfView < (storedPlayerCamera.storedFOV))
+            if (Camera.main.fieldOfView < storedPlayerCamera.storedFOV)
             {
                 Camera.main.fieldOfView = storedPlayerCamera.storedFOV;
                 //Debug.Log("FOV is somehow lower then it is supposed to be, fixing...");
@@ -146,11 +147,6 @@ public class PlayerMovementTutorial : MonoBehaviour
             coyoteTrigger = true;
         }
 
-        if (transform.position.y < -20f)
-        {
-            transform.position = spawn.transform.position;
-            rb.angularVelocity = new Vector3(0f, 0f, 0f);
-        }
 
         if (coyoteTrigger)
             coyoteTimeInternal -= Time.deltaTime;
@@ -161,6 +157,14 @@ public class PlayerMovementTutorial : MonoBehaviour
         
     }
 
+    private void PositionCheck()
+    {
+        if (transform.position.y < -20f)
+        {
+            transform.position = spawn.transform.position;
+            rb.angularVelocity = new Vector3(0f, 0f, 0f);
+        }
+    }
     private void FixedUpdate()
     {
         MovePlayer();

@@ -1,14 +1,15 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
     //Controls how the gun fires and ricochets. The selling point.
     //Coded by Nova
-
+    //also has code to assist functions of the enemy tracker arrow.
+    //these additions were added by sawyer
     RaycastHit hit;
     [SerializeField] private float maxDistance;
     [SerializeField] private LineRenderer lineRenderer; //displays the shot of the player - Nova
@@ -17,7 +18,8 @@ public class Shooting : MonoBehaviour
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
-
+    public List <RifleEnemy> listOfActiveEnemies;
+    public List<RifleEnemy> listOfTargetingEnemies;
     private LayerMask Collideable;
     private Vector3 shotOrigin;
     private Vector3 shotDirection;
@@ -44,6 +46,9 @@ public class Shooting : MonoBehaviour
     private SightTracker trackerOfSight;
     [SerializeField] private AudioSource SFXPlayer;
     [SerializeField] private AudioClip shotSFX;
+    [SerializeField] private RawImage hitMarker;
+    [SerializeField] private float hitMarkerTime;
+    public RifleEnemy storedEnemy;
     
     
 
@@ -57,6 +62,7 @@ public class Shooting : MonoBehaviour
         Collideable = LayerMask.GetMask("Default", "whatIsGround", "Ending");
         trackerOfSight = FindAnyObjectByType<SightTracker>();
         controls = new Controls();
+        hitMarker.enabled = false;
         lineRenderer = GetComponent<LineRenderer>();
         //effectPlayer = GetComponent<AudioSource>();
         shotOrigin = transform.position;
@@ -68,7 +74,6 @@ public class Shooting : MonoBehaviour
         colors[3] = Color.cyan;
         colors[4] = Color.blue;
         colors[5] = Color.magenta;
-        enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         if (FindAnyObjectByType<PlanningModeController>() != null)
         {
             lineRenderer.material = planningMaterial;
@@ -76,6 +81,9 @@ public class Shooting : MonoBehaviour
             impactDecals = false;
             reflectDecals = false;
         }
+      
+        listOfActiveEnemies = new List<RifleEnemy>(FindObjectsByType<RifleEnemy>(FindObjectsSortMode.None));
+        InvokeRepeating(nameof(EnemyStateTracker), 0.1f, 0.1f);
     }
 
     private void OnEnable()
@@ -90,9 +98,37 @@ public class Shooting : MonoBehaviour
         controls.Guns.Shoot.Disable();
         controls.Guns.Shoot.performed -= Shoot_performed;
     }
-    private void Update() //everything in this is used for the PREDICTION LASER. Will probably go unused. - Nova         // there is now functions here aside from that - Sawyer
+
+    private void EnemyStateTracker()//used to track states of tracked enemies. checked 10 times per second. this segment was made and commented by sawyer.
     {
-        shotDelay -= Time.deltaTime;
+        for (int i = 0; i < listOfActiveEnemies.Count; i++)//checks through the stored enemies that can attack
+        {
+            listOfActiveEnemies[i].listIndex = i;//sets the list indexes of the enemies to make storing them easier
+            //Debug.Log(i);
+            if (listOfActiveEnemies[i].activeState != 0)//checks if the enemy is tracking the player
+            {
+                listOfTargetingEnemies.Add(listOfActiveEnemies[i]);//if it is, adds it to the secondary list for attacking enemies
+            }
+            else if (listOfActiveEnemies[i] == null)//else if the enemy exists, and removes it if it doesnt (for killed enemies)
+            {
+                    listOfActiveEnemies.Remove(listOfActiveEnemies[i]);
+            }
+        }
+        for (int i = 0; i < listOfTargetingEnemies.Count; i++)//chekcs through the targetting enemy list
+        {
+            listOfTargetingEnemies[i].targetListIndex = i;//sets the target list index just to help wit storage
+            if (listOfTargetingEnemies[i].activeState == 0)//checks if the enemy in the list is still targeting
+            {
+                listOfTargetingEnemies.Remove(listOfTargetingEnemies[i]);//if its not removes it from the list.
+            }
+
+        }
+    }
+    private void Update() //everything in this is used for the PREDICTION LASER. Will probably go unused. - Nova        
+        // there is now functions here aside from that - Sawyer
+    {
+
+
         // allows to disable shooting when using any user interface, uis must be manually added
         if (pauseMenu.paused == true || timerController.end == true || spraying == true)
         {
@@ -105,7 +141,7 @@ public class Shooting : MonoBehaviour
             overflowBlock = true;
         }
         //end
-
+        shotDelay -= Time.deltaTime;
         shakeInputRandom = Random.Range((0.2f * killStreak) * -1, 0.2f * killStreak);
         CoinFlip = Random.Range(0, 2);
         
@@ -298,14 +334,15 @@ public class Shooting : MonoBehaviour
                     }
                     else //enemies ONLY have shootable - Nova
                     {
-                        shotOrigin = hit.point + shotDirection * 0.01f;
+                            storedEnemy = hit.transform.GetComponent<RifleEnemy>();
+                            EnemyKill();
+                            shotOrigin = hit.point + shotDirection * 0.01f;
                         Debug.Log("Enemy Hit");
-                        if (trackerOfSight.seen == true)
-                        {
-                            trackerOfSight.seen = false;
-                        }
-                        if (total < hits)
-                        {
+                        
+                            
+
+                    if (total < hits)
+                    {
                             Debug.Log(killStreak);
                             //playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
                             speedBoost.fuel += 1f;
@@ -394,6 +431,47 @@ public class Shooting : MonoBehaviour
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, shotOrigin);
         
+    }
+
+
+    public void EnemyKill()//fires on the death of an enemy to avoid repeated code in several places.  this segment was made and commented by sawyer.
+    {
+        hitMarker.enabled = true;
+        listOfActiveEnemies.Remove(storedEnemy);//removes the stored enemy from the list of all rifle enemies
+        if (listOfTargetingEnemies.Contains(storedEnemy))
+        {
+            listOfTargetingEnemies.Remove(storedEnemy);//if it was targeting, remove it from that list as well
+        }
+
+        if (listOfTargetingEnemies.Count != 0)//makes certain there are still cached enemies
+        {
+
+            for (int i = 0; i < listOfTargetingEnemies.Count; i++)//if there are, runs through them. should select the first that appears.
+            {
+                if (listOfTargetingEnemies[i].activeState != 0 && listOfTargetingEnemies[i] != null)//verifies the enemy is actually tacking the player and not idle
+                {
+                    trackerOfSight.currentThreat = listOfTargetingEnemies[i].transform.position;//marks them as the new focus for the tracker
+                }
+                else
+                {
+                    trackerOfSight.UnSpotted();//disables the sight trackers visibility within its own scripts
+                }
+
+            }
+            if (trackerOfSight.currentThreat != null)
+            {
+                trackerOfSight.UnSpotted();//disables the sight trackers visibility within its own scripts
+            }
+
+        }
+        storedEnemy = null;//clears the stored enemy field
+
+        Invoke(nameof(HitMarkEnd), hitMarkerTime);
+    }
+
+    private void HitMarkEnd()
+    {
+        hitMarker.enabled = false;
     }
 }
 

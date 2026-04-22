@@ -40,7 +40,7 @@ public class PauseMenuController : MonoBehaviour
         if (restartController != null)
         {
             pauseMenu.ButtonPress();
-            restartController.playerDie = true;
+            restartController.PlayerDie();
         }
     }
     public void OnFullQuit()
@@ -66,13 +66,13 @@ public class PauseMenuController : MonoBehaviour
         {
             Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
             restartController = FindFirstObjectByType<QuickRestart>();
-            restartController.playerDie = true;
+            restartController.PlayerDie();
         }
         else
         {
             Instantiate(planningController);
             restartController = FindFirstObjectByType<QuickRestart>();
-            restartController.playerDie = true;
+            restartController.PlayerDie();
         }
 
     }

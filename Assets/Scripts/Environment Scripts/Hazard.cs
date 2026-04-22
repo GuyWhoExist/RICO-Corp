@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hazard : MonoBehaviour
@@ -17,7 +16,7 @@ public class Hazard : MonoBehaviour
     {
         if (collision.transform.GetComponent<PlayerMovementTutorial>() != null)
         {
-            quickRestart.playerDie = true;
+            quickRestart.PlayerDie();
         }
     }
 }
