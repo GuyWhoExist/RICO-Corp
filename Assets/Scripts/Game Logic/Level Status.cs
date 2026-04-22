@@ -68,8 +68,8 @@ public class LevelStatus : MonoBehaviour
             {
                 //Debug.Log("Level " + levelNumber + " Locked");
                 gameObject.GetComponent<Image>().color = Color.grey;
-            }
         }
+            }
     }
 
     public int GetLevelIndex()
