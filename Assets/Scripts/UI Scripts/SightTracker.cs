@@ -12,6 +12,7 @@ public class SightTracker : MonoBehaviour
     [SerializeField] GameObject player;
     public Material pointerMat;
     [SerializeField] Camera playerCam;
+    private Shooting rifleEnemyChecker;
     [HideInInspector] public Vector3 currentThreatPosition;
     [HideInInspector] public RifleEnemy currentThreatObject;
     public bool kill;
@@ -23,11 +24,16 @@ public class SightTracker : MonoBehaviour
     {
         display.SetActive(false);
         UnSpotted();
+        rifleEnemyChecker = FindFirstObjectByType<Shooting>();
         sightCheck = FindFirstObjectByType<RifleEnemy>();
-        enemySightRange = sightCheck.maxSightDistance;
+        if (sightCheck != null)
+        {
+            enemySightRange = sightCheck.maxSightDistance;
+            InvokeRepeating(nameof(EnemyTrackingCheck), 0.5f, 0.5f);
+        }
         sightCheck = null;
-        InvokeRepeating(nameof(EnemyTrackingCheck), 0.5f, 0.5f);
 
+        
     }
 
     private void Update()
@@ -46,6 +52,7 @@ public class SightTracker : MonoBehaviour
     {
             display.SetActive(true);
             EnemyTrackingCheck();
+
             
     }
     public void UnSpotted()
@@ -56,15 +63,23 @@ public class SightTracker : MonoBehaviour
 
     private void EnemyTrackingCheck()
     {
-        Physics.Raycast(transform.position, transform.forward, out RaycastHit enemy, enemySightRange);
-        if (!enemy.transform.GetComponent<RifleEnemy>())
+        
+        
+            Physics.Raycast(transform.position, transform.forward, out RaycastHit enemy, enemySightRange);
+            if (Physics.Raycast(transform.position, transform.forward, enemySightRange) && !enemy.transform.GetComponent<RifleEnemy>())
+            {
+                UnSpotted();
+                currentThreatObject = null;
+            }
+            else if (rifleEnemyChecker.listOfTargetingEnemies.Count > 0)
+            {
+                currentThreatObject = enemy.transform.GetComponent<RifleEnemy>();
+            }
+            else
         {
-            UnSpotted();
-            currentThreatObject = null;
+            Debug.Log("enemies Cleared");
         }
-        else
-        {
-            currentThreatObject = enemy.transform.GetComponent<RifleEnemy>();
-        }
+        
+     
     }
 }
