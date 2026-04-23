@@ -11,9 +11,9 @@ public class SpeedBoost : MonoBehaviour
     [HideInInspector] public float fuel; //stores how much boost we have - Nova
     [SerializeField] private float fuelLimit; //how much boost we can hold at once - Nova
     private float startSpeed; //tracks the player's starting movement speed - Nova
-    private float boostRemaining; //used to track how much time we have left on the boost - Nova
+    [HideInInspector] public float boostRemaining; //used to track how much time we have left on the boost - Nova
     [SerializeField] private float boost; //how big the boost is - Nova
-    [SerializeField] private float boostDuration; //how long the boost lasts - Nova
+    public float boostDuration; //how long the boost lasts - Nova
     [SerializeField] private PlayerMovementTutorial playerMovement;
     [SerializeField] private Shooting shooting;
     [SerializeField] private AudioSource SFXPlayer;
