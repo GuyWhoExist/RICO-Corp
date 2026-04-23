@@ -13,8 +13,11 @@ public class Screenshake : MonoBehaviour
     [Header("References")]
     [SerializeField] Camera cam;
     [SerializeField] SpeedBoost speedBoost;
-
-    private void Update()
+    private void Awake()
+    {
+        InvokeRepeating(nameof(ScreenShaker), 0.05f, 0.05f);
+    }
+    private void ScreenShaker()
     {
         float intensity = 0;
 
