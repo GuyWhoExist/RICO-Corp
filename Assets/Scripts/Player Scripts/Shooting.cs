@@ -114,7 +114,7 @@ public class Shooting : MonoBehaviour
                     listOfActiveEnemies.Remove(listOfActiveEnemies[i]);
             }
         }
-        for (int i = 0; i < listOfTargetingEnemies.Count; i++)//chekcs through the targetting enemy list
+        for (int i = 0; i < listOfTargetingEnemies.Count; i++)//checks through the targeting enemy list
         {
             listOfTargetingEnemies[i].targetListIndex = i;//sets the target list index just to help wit storage
             if (listOfTargetingEnemies[i].activeState == 0)//checks if the enemy in the list is still targeting
@@ -142,7 +142,7 @@ public class Shooting : MonoBehaviour
         }
         //end
         shotDelay -= Time.deltaTime;
-        shakeInputRandom = Random.Range((0.2f * killStreak) * -1, 0.2f * killStreak);
+        shakeInputRandom = Random.Range((0.5f * killStreak) * -1, 0.5f * killStreak);
         CoinFlip = Random.Range(0, 2);
         
         if (killStreak == 0)
@@ -436,7 +436,7 @@ public class Shooting : MonoBehaviour
 
     public void EnemyKill()//fires on the death of an enemy to avoid repeated code in several places.  this segment was made and commented by sawyer.
     {
-        hitMarker.enabled = true;
+        hitMarker.enabled = true;//activates the hitmarker in the HUD. really self explanatory I can't lie
         listOfActiveEnemies.Remove(storedEnemy);//removes the stored enemy from the list of all rifle enemies
         if (listOfTargetingEnemies.Contains(storedEnemy))
         {
@@ -450,7 +450,7 @@ public class Shooting : MonoBehaviour
             {
                 if (listOfTargetingEnemies[i].activeState != 0 && listOfTargetingEnemies[i] != null)//verifies the enemy is actually tacking the player and not idle
                 {
-                    trackerOfSight.currentThreat = listOfTargetingEnemies[i].transform.position;//marks them as the new focus for the tracker
+                    trackerOfSight.currentThreatPosition = listOfTargetingEnemies[i].transform.position;//marks them as the new focus for the tracker
                 }
                 else
                 {
@@ -458,7 +458,7 @@ public class Shooting : MonoBehaviour
                 }
 
             }
-            if (trackerOfSight.currentThreat != null)
+            if (trackerOfSight.currentThreatPosition != null)
             {
                 trackerOfSight.UnSpotted();//disables the sight trackers visibility within its own scripts
             }
@@ -473,5 +473,6 @@ public class Shooting : MonoBehaviour
     {
         hitMarker.enabled = false;
     }
+
 }
 

@@ -83,13 +83,13 @@ public class Melee : MonoBehaviour
                     {
                         speedBoost.fuel += 0.5f;
                         shooting.storedEnemy = hit.transform.GetComponent<RifleEnemy>();
-                        shooting.EnemyKill();
+                       
+
                         //Debug.Log($"Fuel is at: {speedBoost.fuel}");
                         shooting.killStreak = shooting.killStreak + 1;
 
                         if (positionDetection != null)
                         {
-
                             HitStop();
                             hitStopFire = true;
                             hitStopDuration = hitStopDurationStored;
@@ -107,8 +107,9 @@ public class Melee : MonoBehaviour
                             Camera.main.fieldOfView += FOVShift * 2;
                             teleportIncrement = true;
                         }
-
+                        shooting.EnemyKill();
                     }
+
                     if (hitStopFire == true)
                     {
                         storedEnemyHitStop = shootable.GetGameObject();
