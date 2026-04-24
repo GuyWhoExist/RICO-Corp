@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 //I know this is called RIFLE Enemy, but this can be used for any of the enemies. - Nova
@@ -6,7 +7,7 @@ public class RifleEnemy : MonoBehaviour
 {
     public int activeState;//0 is idle, 1 is follow, 2 is wind up, 3 is attack, 4 is searching.
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float maxSightDistance;
+     public float maxSightDistance;
     [SerializeField] private float sightAngle;
     [SerializeField] private float attackAngle;
     [SerializeField] private float windupTime;
@@ -20,7 +21,7 @@ public class RifleEnemy : MonoBehaviour
     private SightTracker trackerOfSight;
     private float remembering;
     private Vector3 directionToPlayer;
-    private float windupTimer;
+    [HideInInspector] public float windupTimer;
     private float windupPrepTimer;
     private EnemyState state = EnemyState.IDLE;
     private LineRenderer lR;
@@ -76,7 +77,7 @@ public class RifleEnemy : MonoBehaviour
         {
             state = EnemyState.FOLLOW;
             trackerOfSight.Spotted();
-            trackerOfSight.currentThreat = gameObject.transform.position;
+            trackerOfSight.currentThreatPosition = gameObject.transform.position;
             //these modify the tracking cube on the UI - Nova
             //sightTracker.kill = false;
             //sightTracker.tracker.transform.LookAt(transform.position);
@@ -116,7 +117,7 @@ public class RifleEnemy : MonoBehaviour
                     windupPrepTimer -= Time.deltaTime;
                 else
                     windupTimer = 0;
-                if (trackerOfSight.currentThreat == gameObject.transform.position)
+                if (trackerOfSight.currentThreatPosition == gameObject.transform.position)
                 {
                     trackerOfSight.UnSpotted();
                 }
@@ -135,18 +136,18 @@ public class RifleEnemy : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 trackerOfSight.Spotted();
-                trackerOfSight.InSafe();
                 break;
             case EnemyState.WIND_UP: //The player is in attack range, being winding up to kill - Nova
                 activeState = 2;
                 searching = false;
                 windupTimer += Time.deltaTime;
                 trackerOfSight.Spotted();
-                trackerOfSight.InDanger();
                 break;
             case EnemyState.ATTACK: //KILL - Nova
                 activeState = 3;
                 lR.useWorldSpace = true;
+                trackerOfSight.pointerMat.color = Color.Lerp(Color.yellow, Color.red, 0.5f);
+                trackerOfSight.amIDead = true;
                 lR.SetPosition(0, transform.position);
                 lR.SetPosition(1, player.position);
                 player.GetComponent<QuickRestart>().PlayerDie();
