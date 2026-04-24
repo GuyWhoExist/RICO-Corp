@@ -7532,7 +7532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17cf435a13a75a8438b555202b3d026b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseIntensity: 0.025
+  baseIntensity: 0.02
   decreaseFactor: 1
   increaseFactor: 2
   cam: {fileID: 1759774277851702975}

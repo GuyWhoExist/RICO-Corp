@@ -2927,7 +2927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontSize
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontAsset
@@ -2935,7 +2935,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontSizeBase
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_sharedMaterial
@@ -4243,12 +4243,20 @@ PrefabInstance:
         Can be stacked'
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontStyle
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_sharedMaterial
@@ -4833,6 +4841,18 @@ PrefabInstance:
 
 
         Ricochets give 2 bars of boost'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
+    - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -6927943047715841813, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
+    - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7019301954364014473, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_LocalScale.x
