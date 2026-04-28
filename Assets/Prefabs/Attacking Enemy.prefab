@@ -71,7 +71,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c8c4a92cf72a2345a8b0dd06e8ee68a, type: 2}
+  - {fileID: 2100000, guid: b576d6dcb441d1e4e97123d2516bc6bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28353ff072a0114d889e210e0204533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeState: 0
   rotationSpeed: 5.5
   maxSightDistance: 30
   sightAngle: 35
@@ -150,6 +151,9 @@ MonoBehaviour:
   proximityDetection: 2
   memoryLength: 3
   wahooTrigger: {fileID: 1073725283210634750}
+  listIndex: 0
+  targetListIndex: 0
+  windupTimer: 0
 --- !u!120 &3742541761018155347
 LineRenderer:
   serializedVersion: 2
