@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,10 +16,11 @@ public class SightTracker : MonoBehaviour
     private Shooting rifleEnemyChecker;
     [HideInInspector] public Vector3 currentThreatPosition;
     [HideInInspector] public RifleEnemy currentThreatObject;
-    public bool kill;
+    private bool spotted;
     private RifleEnemy sightCheck;
     private float enemySightRange;
     private Color Purple = new Color32(115, 15, 240, 255);
+    private RaycastHit hit;
 
     private void Start()
     {
@@ -37,8 +39,8 @@ public class SightTracker : MonoBehaviour
     }
 
     private void Update()
-    {  
-        gameObject.transform.position = player.transform.position;
+    {
+        gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 0.5f, player.transform.position.z);
 
             tracker.transform.LookAt(currentThreatPosition);
             display.transform.rotation = tracker.transform.localRotation;
@@ -50,36 +52,44 @@ public class SightTracker : MonoBehaviour
 
     public void Spotted()
     {
-            display.SetActive(true);
-            EnemyTrackingCheck();
+       display.SetActive(true);
+       spotted = true;
+       StartCoroutine(EnemyTrackingCheck());
 
-            
+        
     }
     public void UnSpotted()
     {
         display.SetActive(false);
+        spotted = false;
+        StopCoroutine(EnemyTrackingCheck());
     }
 
 
-    private void EnemyTrackingCheck()
+    IEnumerator EnemyTrackingCheck()
     {
-        
-        
-            Physics.Raycast(transform.position, transform.forward, out RaycastHit enemy, enemySightRange);
-            if (Physics.Raycast(transform.position, transform.forward, enemySightRange) && !enemy.transform.GetComponent<RifleEnemy>())
+        while (spotted == true)
+        {
+            Physics.Raycast(transform.position, transform.forward, out hit, enemySightRange);
+            if (hit.collider == null)
+            {
+                UnSpotted();
+                StopCoroutine(EnemyTrackingCheck());
+
+            }
+            else if (!hit.transform.gameObject.GetComponent<RifleEnemy>())
             {
                 UnSpotted();
                 currentThreatObject = null;
-            }
-            else if (rifleEnemyChecker.listOfTargetingEnemies.Count > 0)
-            {
-                currentThreatObject = enemy.transform.GetComponent<RifleEnemy>();
+                Debug.Log("there is not an enemy");
+                StopCoroutine(EnemyTrackingCheck());
             }
             else
-        {
-            Debug.Log("enemies Cleared");
+            {
+                currentThreatObject = hit.transform.gameObject.GetComponent<RifleEnemy>();
+                Debug.Log("there is an enemy");
+            }
+            yield return new WaitForSeconds(0.1f);
         }
-        
-     
     }
 }
