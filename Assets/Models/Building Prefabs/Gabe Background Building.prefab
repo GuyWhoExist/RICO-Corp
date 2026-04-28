@@ -10,27 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_LocalScale.x
-      value: 120.00001
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_LocalScale.y
-      value: 120.00001
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_LocalScale.z
-      value: 120.00001
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.1
+      value: -11.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.000019073486
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.4
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_LocalRotation.w
@@ -67,11 +67,19 @@ PrefabInstance:
     - target: {fileID: -7731748271137348228, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 609d26f9dbc86af459f822fd1adf704b, type: 2}
+      objectReference: {fileID: 2100000, guid: 48876bfdf07e1954082c24ef5e96a236, type: 2}
+    - target: {fileID: -425565630206218756, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 48876bfdf07e1954082c24ef5e96a236, type: 2}
     - target: {fileID: 919132149155446097, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: m_Name
       value: Gabe Background Building
       objectReference: {fileID: 0}
+    - target: {fileID: 3566390031902043909, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 48876bfdf07e1954082c24ef5e96a236, type: 2}
     - target: {fileID: 6889800039409901121, guid: a24dac6fdbd9b904790b1d93bf029f03, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

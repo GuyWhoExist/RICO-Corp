@@ -37,9 +37,9 @@ public class LevelStatus : MonoBehaviour
         }
 
 
-        //Debug.Log(levelNumber);
-        //Debug.Log(levelProgressTracker.levels[levelNumber - 1].bestTime);
-        //Debug.Log(levelProgressTracker.levels[levelNumber - 1].milestone1);
+        Debug.Log(levelNumber);
+        Debug.Log(levelProgressTracker.levels[levelNumber - 1].bestTime);
+        Debug.Log(levelProgressTracker.levels[levelNumber - 1].milestone1);
 
         if (gameObject.GetComponent<Image>() != null)
         {
