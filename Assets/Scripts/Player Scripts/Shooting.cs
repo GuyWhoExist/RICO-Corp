@@ -15,6 +15,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer; //displays the shot of the player - Nova
     [SerializeField] private LineRenderer lineRenderer2; //The same, but for the prediction instead - Nova
     [SerializeField] private Material planningMaterial;
+    [SerializeField] private GameObject crosshair;
     //private AudioSource effectPlayer;
     //[SerializeField] private AudioClip shot;
     private bool hitting = true;
@@ -142,6 +143,7 @@ public class Shooting : MonoBehaviour
         }
         //end
         shotDelay -= Time.deltaTime;
+      
         shakeInputRandom = Random.Range((0.5f * killStreak) * -1, 0.5f * killStreak);
         CoinFlip = Random.Range(0, 2);
         
@@ -393,6 +395,9 @@ public class Shooting : MonoBehaviour
             StartCoroutine(PlacePoints(points, 2, trueOrigin, true, lineRenderer.positionCount));
         }
             shotDelay = 0.7f;
+            crosshair.transform.localScale = new Vector3 (crosshair.transform.localScale.x - 0.1f, crosshair.transform.localScale.y - 0.1f, crosshair.transform.localScale.z - 0.1f);
+            crosshair.transform.eulerAngles = new Vector3(crosshair.transform.rotation.x, crosshair.transform.rotation.y, crosshair.transform.eulerAngles.z - 90);
+            StartCoroutine(CrosshairReset());
         }
     }
 
@@ -472,6 +477,22 @@ public class Shooting : MonoBehaviour
     private void HitMarkEnd()
     {
         hitMarker.enabled = false;
+    }
+
+    IEnumerator CrosshairReset()
+    {
+        while (shotDelay > 0)
+        {
+            crosshair.transform.eulerAngles = new Vector3(crosshair.transform.rotation.x, crosshair.transform.rotation.y, crosshair.transform.eulerAngles.z + 2.5f);
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (shotDelay <=0)
+        {
+            crosshair.transform.eulerAngles = new Vector3(crosshair.transform.rotation.x, crosshair.transform.rotation.y, 0);
+            crosshair.transform.localScale = new Vector3(crosshair.transform.localScale.x + 0.1f, crosshair.transform.localScale.y + 0.1f, crosshair.transform.localScale.z + 0.1f);
+            StopCoroutine(CrosshairReset());
+        }
     }
 
 }
