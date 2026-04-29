@@ -102,6 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savedSpray: 2
+  destructible: 0
+  Position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!65 &106608588580405266
 BoxCollider:
   m_ObjectHideFlags: 0

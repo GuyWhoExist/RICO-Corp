@@ -102,6 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savedSpray: 3
+  destructible: 0
+  Position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!65 &5925412673189814706
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -187,7 +190,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 284e12f0ecd3a5045848bee79909c03a, type: 2}
+  - {fileID: 2100000, guid: f1eeee0804c5c7941847f94622fb85a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
