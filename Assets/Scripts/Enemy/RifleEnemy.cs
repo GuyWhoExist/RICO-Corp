@@ -19,6 +19,7 @@ public class RifleEnemy : MonoBehaviour
     [HideInInspector] public int listIndex;
     [HideInInspector] public int targetListIndex;
     private SightTracker trackerOfSight;
+    private PlanningModeController planningmode;
     private float remembering;
     private Vector3 directionToPlayer;
     [HideInInspector] public float windupTimer;
@@ -32,6 +33,11 @@ public class RifleEnemy : MonoBehaviour
     {
         Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance);
         player = FindAnyObjectByType<PlayerMovementTutorial>().transform;
+        planningmode = FindAnyObjectByType<PlanningModeController>();
+        if (planningmode != null )
+        {
+            Destroy(this);
+        }
         trackerOfSight = FindAnyObjectByType<SightTracker>();
         //sightTracker = player.GetComponent<SightTracker>();
         lR = GetComponent<LineRenderer>();
