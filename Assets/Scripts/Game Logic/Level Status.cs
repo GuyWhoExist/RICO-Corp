@@ -35,6 +35,10 @@ public class LevelStatus : MonoBehaviour
         {
             unlocked = true;
         }
+        else
+        {
+            Debug.Log((levelProgressTracker.levels[levelNumber - 2].bestTime));
+        }
 
 
         Debug.Log(levelNumber);

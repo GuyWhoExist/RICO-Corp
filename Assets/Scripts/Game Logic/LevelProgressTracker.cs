@@ -17,17 +17,17 @@ public class LevelProgressTracker : MonoBehaviour
     //Contains all level data
     //written by Nova
 
+    
+
     private void OnEnable()
     {
         checkComplete = true;
-      
+
             cheats = FindAnyObjectByType<Cheats>();
             if (cheats.enemyCounter == true)
             {
                 cheatsEnemyCountStatus = true;
-
             }
-        
     }
 
     public struct LevelInfo
@@ -137,9 +137,13 @@ public class LevelProgressTracker : MonoBehaviour
             }
         }
         // end
+    }
+
+    private void DuplicateRemoval()
+    {
         testingTime = levels[0].bestTime;
         LevelProgressTracker[] duplicates = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
-        if (duplicates.Length > 1 && used != false) //checks for duplicates and destroys them. - Nova
+        if (duplicates.Length > 1) //checks for duplicates and destroys them. - Nova
         {
             foreach (LevelProgressTracker l in duplicates)
             {
@@ -157,6 +161,7 @@ public class LevelProgressTracker : MonoBehaviour
     {
         used = false;
         DontDestroyOnLoad(transform.gameObject); //allows this object to stay between levels - Nova
+        DuplicateRemoval(); //>:( - Nova
     }
 
     public LevelInfo[] levels = new LevelInfo[9] { //the array of levels. - Nova
