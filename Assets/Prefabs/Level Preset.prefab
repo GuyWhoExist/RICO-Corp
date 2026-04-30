@@ -7305,7 +7305,7 @@ PrefabInstance:
     - target: {fileID: -7635826562936255635, guid: 0eac6cef9224a1a42a1e1ca90226ffc0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 72265fe59f39ca2478bf8848f7831669, type: 2}
+      objectReference: {fileID: 2100000, guid: 0e3372e874c2b9d4ba25c406818d6ab2, type: 2}
     - target: {fileID: 919132149155446097, guid: 0eac6cef9224a1a42a1e1ca90226ffc0, type: 3}
       propertyPath: m_Name
       value: Enemy_Tracker
@@ -7433,6 +7433,10 @@ PrefabInstance:
       propertyPath: display
       value: 
       objectReference: {fileID: 1658885826940140938}
+    - target: {fileID: 2865888338468870693, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: pointerMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e3372e874c2b9d4ba25c406818d6ab2, type: 2}
     - target: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: FOVShift
       value: 25
