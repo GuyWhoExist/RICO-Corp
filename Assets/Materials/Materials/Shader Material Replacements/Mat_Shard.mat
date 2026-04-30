@@ -111,7 +111,7 @@ Material:
     - _Shard_Contrast: 0.346
     - _Shard_Density: 6.5
     - _Shard_Emission: 0.1
-    - _Shard_Smoothness: 20
+    - _Shard_Smoothness: 2.9
     - _Shard_Variant: 4.64
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
