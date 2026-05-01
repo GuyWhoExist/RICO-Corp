@@ -5,6 +5,7 @@ public class Sludge : MonoBehaviour
     //coded by sawyer
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collided with");
        if (collision.transform.GetComponent<PlayerMovementTutorial>() != null)
        {
             Debug.Log("Entered sludge");

@@ -12,6 +12,7 @@ public class SightTracker : MonoBehaviour
     [SerializeField] GameObject display;
     [SerializeField] GameObject player;
     public Material pointerMat;
+    public Shader pointerShader;
     [SerializeField] Camera playerCam;
     private Shooting rifleEnemyChecker;
     [HideInInspector] public Vector3 currentThreatPosition;
@@ -47,6 +48,7 @@ public class SightTracker : MonoBehaviour
         if (currentThreatObject != null && !amIDead)
         {
             pointerMat.color = Color.Lerp(Purple, Color.red, currentThreatObject.windupTimer);
+            
         }
     }
 

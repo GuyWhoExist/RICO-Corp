@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ending_Outline
+  m_Name: Mat_Ending_Outline
   m_Shader: {fileID: -6465566751694194690, guid: 25e25169d77f1e94ca7d8daa7d216fd3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
