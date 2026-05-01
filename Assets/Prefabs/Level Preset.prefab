@@ -7437,6 +7437,10 @@ PrefabInstance:
       propertyPath: pointerMat
       value: 
       objectReference: {fileID: 2100000, guid: 0e3372e874c2b9d4ba25c406818d6ab2, type: 2}
+    - target: {fileID: 2865888338468870693, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: pointerShader
+      value: 
+      objectReference: {fileID: -6465566751694194690, guid: 0eab817b531d61d4baa14ed113360362, type: 3}
     - target: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: FOVShift
       value: 25

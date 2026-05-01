@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63b168d8e88aca4582db43cc5b3beea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeDeathTime: 0
-  avoidTime: 0
+  timeDeathTime: 3
+  avoidTime: 3
