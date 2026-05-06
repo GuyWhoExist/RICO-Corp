@@ -7,19 +7,17 @@ public class Sludge : MonoBehaviour
     {
         Debug.Log("collided with");
        if (collision.transform.GetComponent<PlayerMovementTutorial>() != null)
-        {
+       {
+            Debug.Log("Entered sludge");
             collision.transform.GetComponent<PlayerMovementTutorial>().moveSpeed /= 2;
-            Debug.Log(collision.transform.GetComponent<PlayerMovementTutorial>().moveSpeed);
-
-        }
+       }
     }
     private void OnCollisionExit(Collision collision)
     {
-        Debug.Log("uncollided with");
-        if (collision.transform.GetComponent<PlayerMovementTutorial>() != null)
-        {
+       if(collision.transform.GetComponent<PlayerMovementTutorial>() != null)
+       {
+            Debug.Log("Exited sludge");
             collision.transform.GetComponent<PlayerMovementTutorial>().moveSpeed *= 2;
-            Debug.Log(collision.transform.GetComponent<PlayerMovementTutorial>().moveSpeed);
-        }
+       }
     }
 }
