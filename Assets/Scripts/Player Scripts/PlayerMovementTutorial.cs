@@ -98,7 +98,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"Move speed: {moveSpeed}");
+        //Debug.Log($"Move speed: {moveSpeed}");
         averageLinearSpeed = rb.linearVelocity.magnitude;
         //angularSpeed = rb.angularVelocity;
         //averageRotationalSpeed = 

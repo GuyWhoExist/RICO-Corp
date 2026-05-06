@@ -336,9 +336,23 @@ public class Shooting : MonoBehaviour
                     }
                     else //enemies ONLY have shootable - Nova
                     {
-                            storedEnemy = hit.transform.GetComponent<RifleEnemy>();
-                            EnemyKill();
-                            shotOrigin = hit.point + shotDirection * 0.01f;
+                            Debug.Log($"Shot immune status: {shootable.GetGameObject().GetComponent<Enemy>().shotImmune}");
+                            if (shootable.GetGameObject().GetComponent<Enemy>().shotImmune != true && FindAnyObjectByType<PlanningModeController>() == null)
+                            {
+                                Debug.Log("non tut enemy (shot check)");
+                                shootable.OnGettingShot();
+                                storedEnemy = hit.transform.GetComponent<RifleEnemy>();
+                                EnemyKill();
+                                shotOrigin = hit.point + shotDirection * 0.01f;
+                                Destroy(shootable.GetGameObject()); // this kills the enemy? ig? - Sawyer
+                            }
+                            else
+                            {
+                                Debug.Log("tut enemy (shot check)");
+                                total = 0;
+                                points.Add(hit.point);
+                            }
+                            
                         Debug.Log("Enemy Hit");
                         
                             
@@ -354,11 +368,7 @@ public class Shooting : MonoBehaviour
                             killStreak = killStreak + 1; */
 
                         }
-                        if (FindAnyObjectByType<PlanningModeController>() == null)
-                        {
-                            shootable.OnGettingShot();
-                            Destroy(shootable.GetGameObject()); // this kills the enemy? ig? - Sawyer
-                        }
+                        
                         enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //reduces the enemy count - Nova
                     }
                 }

@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IShootable
 {
+
+    public bool shotImmune;
+    public bool meleeImmune;
+    public bool bounceImmune;
+
     GameObject IShootable.GetGameObject()
     {
         return gameObject;
