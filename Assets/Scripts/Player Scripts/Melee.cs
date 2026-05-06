@@ -114,6 +114,14 @@ public class Melee : MonoBehaviour
                         }
                         shooting.EnemyKill();
                     }
+                    else if (hit.transform.GetComponent<Absorb>())
+                    {
+                        hit.transform.GetComponent<Absorb>().MeleedB();
+                    }
+                    else if (hit.transform.GetComponent<Destroyable>())
+                    {
+                        hit.transform.GetComponent<Destroyable>().MeleedA();
+                    }
 
                     if (hitStopFire == true)
                     {
