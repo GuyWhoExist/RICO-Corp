@@ -18,6 +18,7 @@ public class TimerController : MonoBehaviour
     private LevelProgressTracker levelProgressTracker;
     private MusicClass musicClass;
     private LevelProgressTrackerDTO levelProgressTrackerDTO;
+    private PlayerCamera pCamera;
     [HideInInspector] public bool statusCheck;
     [SerializeField] Button planningModeToggle;
     [SerializeField] TextMeshProUGUI popUp;
@@ -30,19 +31,11 @@ public class TimerController : MonoBehaviour
 
     private void Awake()
     {
-        if (FindAnyObjectByType<LevelEndUI>())
-        {
-            levelEndUI = FindAnyObjectByType<LevelEndUI>();
-        }
+
+        levelEndUI = FindAnyObjectByType<LevelEndUI>();
         saveSystem = FindAnyObjectByType<SaveSystem>();
-        if (saveSystem != null)
-        {
-            //Debug.Log("we good in the time controller");
-        }
-        else
-        {
-            //Debug.Log("things have gone horribly wrong in the time controller");
-        }
+        pCamera = FindAnyObjectByType<PlayerCamera>();
+
        // besttimeconversion();
     
             timeTicking = true;
@@ -152,6 +145,8 @@ public class TimerController : MonoBehaviour
         if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() == null)
         {
             timerText.enabled = false;
+            pCamera.Freeze();
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
             if (levelProgressTracker.bestTimeStored > -1)
             {
                 

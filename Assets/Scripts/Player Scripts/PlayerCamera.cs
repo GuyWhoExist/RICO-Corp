@@ -19,6 +19,7 @@ public class PlayerCamera : MonoBehaviour
     public float storedFOV;
     public bool overflowBlock; //- allows to prevent the game enabling camera every single frame, alongside routing gamestops outside the script to stop related issues
     private Rigidbody rb;
+    private bool frozen = false;
 
     private float xRotation = 0f;
     private float yRotation = 0f;
@@ -57,24 +58,25 @@ public class PlayerCamera : MonoBehaviour
     private void Update()
     {
         Look(lookInput);
-
-        // code to allow pause/levelend/spraymenu disabling cam movement - sawyer
-        if (pauseMenu.paused == true || endTracker.end == true ||  sprayPlacerHudController.selector == true)
+    }
+    public void Freeze()// code to allow pause/levelend/spraymenu disabling cam movement - sawyer
+    {
+        if (!frozen)
         {
             inputActions.Camera.Disable();
             overflowBlock = false;
-            Cursor.lockState = CursorLockMode.None;
+            frozen = true;
         }
-        else if (pauseMenu.paused == false && overflowBlock == false || endTracker.end == false && overflowBlock == false || sprayPlacerHudController == false && overflowBlock == false)
+        else
         {
             inputActions.Camera.Enable();
             overflowBlock = true;
-            Cursor.lockState = CursorLockMode.Locked;
 
             if (FOV != playerCamera.fieldOfView)
             {
                 FOV = playerCamera.fieldOfView;
             }
+            frozen = false;
         }
         //end
     }
