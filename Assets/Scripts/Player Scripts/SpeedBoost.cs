@@ -58,6 +58,24 @@ public class SpeedBoost : MonoBehaviour
         {
             //Debug.Log("Not Enough Fuel");
         }
+        if (boostRemaining > boostDuration * 2) //allows the player to boost in the air
+        {
+            //Debug.Log("Boost at x3");
+            playerMovement.moveSpeed = startSpeed + (boost * 3);
+            shooting.killStreak = 3;
+        }
+        else if (boostRemaining > boostDuration)
+        {
+            //Debug.Log("Boost at x2");
+            playerMovement.moveSpeed = startSpeed + (boost * 2);
+            shooting.killStreak = 2;
+        }
+        else if (boostRemaining > 0)
+        {
+            //Debug.Log("Boost at x1");
+            playerMovement.moveSpeed = startSpeed + boost;
+            shooting.killStreak = 1;
+        }
     }
 
     private void Update()

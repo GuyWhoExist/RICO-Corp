@@ -51,8 +51,8 @@ public class Screenshake : MonoBehaviour
         else
         {
             cam.transform.localPosition = new Vector3(0f, 0.5f, 0f);
-            Debug.Log("Shake stopped");
-            Debug.Log(speedBoost.boostRemaining);
+            //Debug.Log("Shake stopped");
+            //Debug.Log(speedBoost.boostRemaining);
         }
     }
 }

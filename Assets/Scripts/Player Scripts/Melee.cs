@@ -121,7 +121,15 @@ public class Melee : MonoBehaviour
                     }
                     else
                     {
-                        Destroy(shootable.GetGameObject());
+                        if (shootable.GetGameObject().GetComponent<Enemy>() != null && shootable.GetGameObject().GetComponent<Enemy>().meleeImmune != true)
+                        {
+                            Debug.Log("Not a tutorial enemy (melee check)");
+                            Destroy(shootable.GetGameObject());
+                        }
+                        else
+                        {
+                            Debug.Log("tutorial enemy (melee check)");
+                        }
                     }
 
                  // Debug.Log("enemy SHOULD be bludgoned to death");
@@ -153,14 +161,22 @@ public class Melee : MonoBehaviour
 
     private void HitStopEnd()
     {
-                hitStopLight.SetActive(false);
-                Time.timeScale = 1;
-                controls.Melee.Swing.Enable();
-                hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
-                hitStopFire = false;
-                shooting.EnemyKill();
-                Destroy(storedEnemyHitStop);
-                storedEnemyHitStop = null;
+        hitStopLight.SetActive(false);
+        Time.timeScale = 1;
+        hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
+        hitStopFire = false;
+        if (storedEnemyHitStop.GetComponent<Enemy>() != null && storedEnemyHitStop.GetComponent<Enemy>().bounceImmune != true)
+        {
+            Debug.Log("Not a tutorial enemy (bounce check)");
+            shooting.EnemyKill();
+            Destroy(storedEnemyHitStop);
+        }
+        else
+        {
+            Debug.Log("tutorial enemy (bounce check)");
+        }
+        
+        storedEnemyHitStop = null;
     }
 
    
