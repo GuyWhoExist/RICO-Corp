@@ -55,8 +55,13 @@ public class Melee : MonoBehaviour
     }
     private void OnEnable()
     {
-     controls.Melee.Swing.Enable();
-     controls.Melee.Swing.performed += Swing_performed;
+        controls.Melee.Swing.Enable();
+        controls.Melee.Swing.performed += Swing_performed;
+    }
+    private void OnDisable()
+    {
+        controls.Melee.Swing.Disable();
+        controls.Melee.Swing.performed -= Swing_performed;
     }
     private void OnTriggerEnter(Collider above)
     {
@@ -136,12 +141,6 @@ public class Melee : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        controls.Melee.Swing.Disable();
-        controls.Melee.Swing.performed -= Swing_performed;
-    }
-
     private void Update()
     {
         swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
@@ -156,6 +155,7 @@ public class Melee : MonoBehaviour
     {
             Debug.Log("hitstop");
             hitStopLight.SetActive(true);
+            controls.Melee.Swing.Disable();
             Time.timeScale = 0;
     }
 

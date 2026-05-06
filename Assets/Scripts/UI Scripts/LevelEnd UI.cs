@@ -13,6 +13,7 @@ public class LevelEndUI : MonoBehaviour
     private PauseMenu pauseMenu;
     private LevelEnder levelEnder;
     private QuickRestart quickRestart;
+    private PlayerCamera pCamera;
 
     [SerializeField] private TextMeshProUGUI resultsDisplay;
     [SerializeField] private GameObject endGUI;
@@ -29,7 +30,7 @@ public class LevelEndUI : MonoBehaviour
     {
         quickRestart = FindAnyObjectByType<QuickRestart>();
         levelEnder = FindAnyObjectByType<LevelEnder>();
-       
+        pCamera = FindAnyObjectByType<PlayerCamera>();
         //if (levelEnder == null)
         //    Debug.Log("Level End is missing");
         //else
@@ -93,6 +94,8 @@ public class LevelEndUI : MonoBehaviour
     {
         timerController.end = false;
         Time.timeScale = 1;
+        pCamera.Freeze();
+        Cursor.lockState = CursorLockMode.None;
         if (timerController.end == false)
         {
             SceneManager.LoadScene(levelEnder.GetNextIndex());
@@ -101,6 +104,8 @@ public class LevelEndUI : MonoBehaviour
     public void OnRestartPress() // player restarts -sawyer
     {
         Time.timeScale = 1;
+        pCamera.Freeze();
+        Cursor.lockState = CursorLockMode.None;
         if (levelEnder.nextLevelIndex == 0)
         {
             timerController.end = false;
@@ -122,7 +127,9 @@ public class LevelEndUI : MonoBehaviour
     public void OnPlanningPress() // player plans -sawyer
     {
         Time.timeScale = 1;
-            Instantiate(planningController);
+        pCamera.Freeze();
+        Cursor.lockState = CursorLockMode.None;
+        Instantiate(planningController);
         if (levelEnder.nextLevelIndex == 0)
         {
             timerController.end = false;
@@ -144,6 +151,8 @@ public class LevelEndUI : MonoBehaviour
     public void OnQuitPress() // player likely ragequit, shame on them -sawyer
     {
         Time.timeScale = 1;
+        pCamera.Freeze();
+        Cursor.lockState = CursorLockMode.None;
         musicClass.StopMusic();
         SceneManager.LoadScene(0);
     }

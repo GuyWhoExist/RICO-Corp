@@ -115,25 +115,26 @@ public class PauseMenu : MonoBehaviour
         }
         Debug.Log("completionCheck Fired");
     }
-
-
     public void ButtonPress()
     {
         if (paused == false)
         {
             Time.timeScale = 0;
+            cameraSetting.Freeze();
             paused = true;
             gameHud.SetActive(false);
             pauseHud.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
             if (FindAnyObjectByType<PlanningModeController>())
                 planningGUI.SetActive(false);
         }
         else if (paused == true)
         {
             Time.timeScale = 1;
+            cameraSetting.Freeze();
             paused = false;
             pauseHud.SetActive(false);
-
+            Cursor.lockState = CursorLockMode.Locked;
             if (FindAnyObjectByType<PlanningModeController>() == false)
                 gameHud.SetActive(true);
             else
