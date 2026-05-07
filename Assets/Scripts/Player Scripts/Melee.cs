@@ -41,6 +41,7 @@ public class Melee : MonoBehaviour
     private GameObject storedEnemyHitStop;
     [SerializeField] AudioSource hitStopSFX;
     [SerializeField] AudioClip hitStopSFXAudio;
+    private PlanningModeController planningModeController;
 
 
 
@@ -53,12 +54,17 @@ public class Melee : MonoBehaviour
         quickFallOff = quickFallOffStored;
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         hitStopControllInfo = FindAnyObjectByType<PlayerCamera>();
+        planningModeController = FindAnyObjectByType<PlanningModeController>();
         hitStopLight.SetActive(false);
     }
     private void OnEnable()
     {
-        controls.Melee.Swing.Enable();
-        controls.Melee.Swing.performed += Swing_performed;
+        if (planningModeController == null)
+        {
+            controls.Melee.Swing.Enable();
+            controls.Melee.Swing.performed += Swing_performed;
+        }
+     
     }
     private void OnDisable()
     {
