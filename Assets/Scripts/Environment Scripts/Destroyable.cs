@@ -14,6 +14,11 @@ public class Destroyable : MonoBehaviour, IShootable
         shot = true;
         Destroy(gameObject);
     }
+    public void MeleedA()
+    {
+        shot = true;
+        Destroy(gameObject);
+    }
     private void OnEnable()
     {
         if (FindAnyObjectByType<PlanningModeController>())

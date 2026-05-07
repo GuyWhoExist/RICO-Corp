@@ -15,6 +15,11 @@ public class Absorb : MonoBehaviour, IShootable
         blasted = true;
         Destroy(gameObject);
     }
+    public void MeleedB()
+    {
+        blasted = true;
+        Destroy(gameObject);
+    }
 
     private void OnEnable()
     {

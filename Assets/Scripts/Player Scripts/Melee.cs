@@ -23,6 +23,7 @@ public class Melee : MonoBehaviour
     private float swingCoolDownStored;
     private AboveEnemy positionDetection;
     private PlayerMovementTutorial jumpHelper;
+    private PlayerCamera hitStopControllInfo;
     [HideInInspector] public bool teleportIncrement;
     [HideInInspector] public bool meleeJump;
     private float quickFallOff;
@@ -52,6 +53,7 @@ public class Melee : MonoBehaviour
         jumpHelper = this.transform.GetComponent<PlayerMovementTutorial>();
         quickFallOff = quickFallOffStored;
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        hitStopControllInfo = FindAnyObjectByType<PlayerCamera>();
         hitStopLight.SetActive(false);
     }
     private void OnEnable()
@@ -115,6 +117,14 @@ public class Melee : MonoBehaviour
                         }
                         shooting.EnemyKill();
                     }
+                    else if (hit.transform.GetComponent<Absorb>())
+                    {
+                        hit.transform.GetComponent<Absorb>().MeleedB();
+                    }
+                    else if (hit.transform.GetComponent<Destroyable>())
+                    {
+                        hit.transform.GetComponent<Destroyable>().MeleedA();
+                    }
 
                     if (hitStopFire == true)
                     {
@@ -156,6 +166,7 @@ public class Melee : MonoBehaviour
     {
         cAEffect.Activate();
             Debug.Log("hitstop");
+        hitStopControllInfo.Freeze();
             hitStopLight.SetActive(true);
             controls.Melee.Swing.Disable();
             Time.timeScale = 0;
@@ -164,6 +175,7 @@ public class Melee : MonoBehaviour
     private void HitStopEnd()
     {
         hitStopLight.SetActive(false);
+        hitStopControllInfo.Freeze();
         Time.timeScale = 1;
         hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
         hitStopFire = false;
