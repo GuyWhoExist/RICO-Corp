@@ -18,6 +18,7 @@ public class Melee : MonoBehaviour
     [SerializeField] private GameObject playerCamera;
     [SerializeField] float FOVShift;
     [SerializeField] float quickFallOffStored;
+    [SerializeField] private ChromaticAberrationEffect cAEffect;
     private Vector3 swingDirection;
     private float swingCoolDownStored;
     private AboveEnemy positionDetection;
@@ -153,6 +154,7 @@ public class Melee : MonoBehaviour
 
     private void HitStop()
     {
+        cAEffect.Activate();
             Debug.Log("hitstop");
             hitStopLight.SetActive(true);
             controls.Melee.Swing.Disable();
