@@ -5,6 +5,7 @@ public class SprayPlacerHudController : MonoBehaviour
 {
     //coded by sawyer
     private Controls controls;//used to store themain controls
+    private PlayerCamera camInfo;
     [SerializeField] GameObject plannerUI;//used to store the UI foor the planner
     [SerializeField] GameObject CameraPosition;//used to store the cameras facing direction for raycasting
     [SerializeField] Shooting shootingDisabler;//used to disable shooting when firing a spray
@@ -21,6 +22,7 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject stopMarker;//the stop sign marker
     private GameObject placedMarker;//the marker the player hasjust placed
     [HideInInspector] public GameObject collectedHit;//the stored gameobject the spray placement raycast has hit
+    public bool firing;
 
 
 
@@ -40,7 +42,7 @@ public class SprayPlacerHudController : MonoBehaviour
             controls.Melee.Swing.performed += Planner_Opened;//sets the initial melee swing to open the planner
             controls.Melee.Swing.canceled += Planner_Closed;//sets the utton release to closing the planner
             controls.Planning.Rotate.performed += Rotation_Performed;//used to detect the player scrolling to rotate the spray placement
-
+            camInfo = FindFirstObjectByType<PlayerCamera>();
             markerSelect = 0;//used to save sprays.value is initially cleared to avoid false positives
         }
         //0 is default, 1 is attack, 2 is stop and 3 is follow.
@@ -66,6 +68,7 @@ public class SprayPlacerHudController : MonoBehaviour
         invertedRotationValue = 0;//clears the inverted rotation value 
         rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, 0);//resets the rotation of the visual display
         plannerUI.SetActive(false);//disables the planner UI
+        camInfo.Freeze();
         Cursor.lockState = CursorLockMode.Locked;//locks the cursor
         selector = false;//disables the selector bool
         controls.Planning.Rotate.Disable();//disables the rotation input
@@ -76,6 +79,7 @@ public class SprayPlacerHudController : MonoBehaviour
     {
         cameraAngle = CameraPosition.transform.rotation.eulerAngles.y + 180;//gets the cameras rotation
         plannerUI.SetActive(true);//enables the planner UI
+        camInfo.Freeze();
        Cursor.lockState = CursorLockMode.None;//unlocks the cursor
         selector = true;//marks the selector as enabled
         controls.Planning.Rotate.Enable();//enables the rotation functions
@@ -107,12 +111,13 @@ public class SprayPlacerHudController : MonoBehaviour
 
     private void PlaceSpray()
     {
+
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))//fires a raycast to locate the position the player is firing the spray at.
         {
             collectedHit = hit.transform.gameObject;//stores the object the raycast hit
             if (hit.transform.GetComponent<Spray>() == null && hit.transform.GetComponent<Hazard>() == null && hit.transform.GetComponent<Enemy>() == null)//verifies the player is not attempting to spray on an instakill plane, enemy, or another spray.
             {
-
+                firing = true;
                 if (markerSelect == 1)//checks if the player is trying to place a target marker
                 {
                     placedMarker = Instantiate(shootMarker, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));//places the target marker where the raycast hit and rotates it to fit to the face of the object
@@ -140,6 +145,7 @@ public class SprayPlacerHudController : MonoBehaviour
                 markerSelect = 0;//clears the marker selection
             }
         }
+
         plannerUI.SetActive(false);//disables the planner hud
     }
     public void OnDeletePress()  
