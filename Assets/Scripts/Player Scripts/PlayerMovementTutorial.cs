@@ -324,6 +324,7 @@ public class PlayerMovementTutorial : MonoBehaviour
         //exitingSlope = false;
     }
 
+
     /*public bool OnSlope() //this shit took too long to implement and it STILL doesn't work fully - Nova
     {
 
@@ -345,5 +346,5 @@ public class PlayerMovementTutorial : MonoBehaviour
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
     */
-   
+
 }
