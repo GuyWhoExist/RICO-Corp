@@ -139,10 +139,17 @@ public class TimerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
+        Debug.Log("collisiony");
         if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() == null)
         {
+            
+            if (pauseMenu.paused)
+            {
+                pauseMenu.ButtonPress();
+                Debug.Log("pausemenu issues with the end screen ");
+            }
             timerText.enabled = false;
-            pCamera.Freeze();
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             if (levelProgressTracker.bestTimeStored > -1)
             {
@@ -173,6 +180,7 @@ public class TimerController : MonoBehaviour
             levelProgressTracker.used = true;
             musicClass.used = true;
             LevelEnder lE = collision.transform.GetComponent<LevelEnder>();
+            levelEndUI.enabled = true;
             if (timeTicking)
             {
                 Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
@@ -249,6 +257,7 @@ public class TimerController : MonoBehaviour
         {
 
             endGUI.SetActive(true);
+            pCamera.Freeze();
             if (levelProgressTracker.initialComplete == true)
             {
                 popUp.enabled = true;
