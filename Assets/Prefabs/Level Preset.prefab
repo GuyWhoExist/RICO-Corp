@@ -7653,6 +7653,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2670894933923969595, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2865888338468870693, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: melee
       value: 
@@ -7712,6 +7716,10 @@ PrefabInstance:
     - target: {fileID: 3096779666775988733, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: hitStopDurationStored
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396026005721194738, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3396026005721194738, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_Material
@@ -7953,7 +7961,8 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3396026005721194738, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
     m_RemovedGameObjects:
     - {fileID: 198442139289283480, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
     m_AddedGameObjects: []
@@ -7964,6 +7973,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 299607790371317333}
+    - targetCorrespondingSourceObject: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8843651735269755785}
     - targetCorrespondingSourceObject: {fileID: 8250651678292595689, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6783014365453778313}
@@ -8067,6 +8079,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: {fileID: 7774992892719987243}
   lensDistortionAmount: 0.8
+--- !u!64 &8843651735269755785
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657006923412778464}
+  m_Material: {fileID: 13400000, guid: 261865115522c054483dfdfc3d09b6be, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 9
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 125331be65ffeb54da34198e8d4f008a, type: 3}
 --- !u!20 &1759774277851702975 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3280870652669640073, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
