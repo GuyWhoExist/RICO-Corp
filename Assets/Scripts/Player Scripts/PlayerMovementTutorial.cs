@@ -73,6 +73,11 @@ public class PlayerMovementTutorial : MonoBehaviour
     private PlayerCamera storedPlayerCamera;
     [SerializeField] private float FOVTolerance;
     private float averageLinearSpeed;
+
+    [Header("timer starting info")]
+    private TimerController timerStarter;
+    private Vector3 initialPosition;
+    private Shooting hasPlayerShot;
     public enum MovementState
     {
         walking,
@@ -92,9 +97,27 @@ public class PlayerMovementTutorial : MonoBehaviour
         FOVReference = FindFirstObjectByType<Melee>();
         //storedPlayerCamera = FindAnyObjectByType<PlayerCamera>();
         storedPlayerCamera = Camera.main.GetComponent<PlayerCamera>();
+        timerStarter = FindAnyObjectByType<TimerController>();
+        hasPlayerShot = gameObject.transform.GetComponent<Shooting>();
         InvokeRepeating(nameof(PositionCheck), 0.2f, 0.2f);
+        initialPosition = gameObject.transform.position;
+        Invoke(nameof(startChecker), 0.01f);
     }
 
+
+    private void startChecker()
+    {
+        Debug.Log("checking if player has done anything");
+        if (gameObject.transform.position == initialPosition && hasPlayerShot.shotDelay < 0)
+        {
+            Invoke(nameof(startChecker), 0.01f);
+            Debug.Log("player has not moved yet, looping...");
+        }
+        else
+        {
+            timerStarter.timeTicking = true;
+        }
+    }
 
     private void Update()
     {
@@ -157,7 +180,6 @@ public class PlayerMovementTutorial : MonoBehaviour
 
         
     }
-
     private void PositionCheck()
     {
         if (transform.position.y < -20f)

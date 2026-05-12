@@ -43,7 +43,7 @@ public class Shooting : MonoBehaviour
     private float shakeInputRandom;
     private int CoinFlip;
     [SerializeField] private SpeedBoost speedBoost;
-    private float shotDelay;
+    public float shotDelay;
     private SightTracker trackerOfSight;
     [SerializeField] private AudioSource SFXPlayer;
     [SerializeField] private AudioClip shotSFX;

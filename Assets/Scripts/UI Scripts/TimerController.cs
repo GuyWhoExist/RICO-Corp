@@ -25,6 +25,7 @@ public class TimerController : MonoBehaviour
 
     public float curTime;
     public bool timeTicking;
+    public bool planState = false;
     public bool end;
     private SaveSystem saveSystem;
     private LevelEndUI levelEndUI;  
@@ -38,16 +39,13 @@ public class TimerController : MonoBehaviour
 
        // besttimeconversion();
     
-            timeTicking = true;
+         
         popUp.enabled = false;
-        if (FindAnyObjectByType<PlanningModeController>() == null)
+        if (FindAnyObjectByType<PlanningModeController>() != null)
         {
-            timeTicking = true;
+            planState = true;
         }
-        else
-        {
-            timeTicking = false;
-        }
+
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         musicClass = FindAnyObjectByType<MusicClass>();
         musicClass.PlayMusic();
@@ -102,8 +100,8 @@ public class TimerController : MonoBehaviour
     }
     void Update()
     {
-       
-        if (timeTicking)
+
+        if (timeTicking && !planState)
         {
             curTime += Time.deltaTime;
             timerText.text = curTime.ToString("0:00.00");
