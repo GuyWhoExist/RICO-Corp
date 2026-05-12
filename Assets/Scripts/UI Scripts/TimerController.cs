@@ -129,13 +129,12 @@ public class TimerController : MonoBehaviour
             enemyCountText.enabled = false;
             enemyCountText2.enabled = false;
         }
-      
+
 
         //for (int i = 0; i < levelProgressTracker.levels.Length; i++)
         //{
         //    testArray[i] = levelProgressTracker.levels[i].bestTime;
         //}
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -254,7 +253,6 @@ public class TimerController : MonoBehaviour
             {
                 popUp.enabled = true;
             }
-            Time.timeScale = 0;
             for (int i = 0; i < gameHUD.transform.childCount; i++) //disables everything in gameHUD except the timer when the level ends - Nova
             {
                 if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")

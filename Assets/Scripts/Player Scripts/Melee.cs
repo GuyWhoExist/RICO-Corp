@@ -175,14 +175,12 @@ public class Melee : MonoBehaviour
         hitStopControllInfo.Freeze();
             hitStopLight.SetActive(true);
             controls.Melee.Swing.Disable();
-            Time.timeScale = 0;
     }
 
     private void HitStopEnd()
     {
         hitStopLight.SetActive(false);
-        hitStopControllInfo.Freeze();
-        Time.timeScale = 1;
+        hitStopControllInfo.Unfreeze();
         hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
         hitStopFire = false;
         controls.Melee.Swing.Enable();
