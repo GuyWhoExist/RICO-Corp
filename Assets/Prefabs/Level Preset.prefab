@@ -4728,6 +4728,7 @@ MonoBehaviour:
   goMarker: {fileID: 1760135108255169005, guid: 3bba094239fc0a34aa05a9aaf37fb390, type: 3}
   stopMarker: {fileID: 5357528134599919699, guid: ba6b78b625dc179429ab5a3cc7d6cb87, type: 3}
   collectedHit: {fileID: 0}
+  firing: 0
 --- !u!1 &5675099949879882802
 GameObject:
   m_ObjectHideFlags: 0

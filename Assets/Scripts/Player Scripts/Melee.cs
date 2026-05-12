@@ -184,6 +184,7 @@ public class Melee : MonoBehaviour
         hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
         hitStopFire = false;
         controls.Melee.Swing.Enable();
+        swingCoolDownStored = swingCoolDown;
         if (storedEnemyHitStop.GetComponent<Enemy>() != null && storedEnemyHitStop.GetComponent<Enemy>().bounceImmune != true)
         {
             Debug.Log("Not a tutorial enemy (bounce check)");

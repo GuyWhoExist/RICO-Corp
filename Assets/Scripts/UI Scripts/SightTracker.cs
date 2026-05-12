@@ -44,7 +44,7 @@ public class SightTracker : MonoBehaviour
         gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 0.5f, player.transform.position.z);
 
             tracker.transform.LookAt(currentThreatPosition);
-            display.transform.rotation = tracker.transform.localRotation;
+        display.transform.rotation = tracker.transform.localRotation;
         if (currentThreatObject != null && !amIDead)
         {
             pointerMat.color = Color.Lerp(Purple, Color.red, currentThreatObject.windupTimer);
