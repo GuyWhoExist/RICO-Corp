@@ -45,6 +45,15 @@ public class ChromaticAberrationEffect : MonoBehaviour
         {
             lD.intensity.value -= Time.deltaTime *1.5f;
         }
+
+        if (cA.intensity.value < 0)
+        {
+            cA.intensity.value = 0;
+        }
+        if (lD.intensity.value < 0)
+        {
+            lD.intensity.value = 0;
+        }
     }
 
     public void Activate()

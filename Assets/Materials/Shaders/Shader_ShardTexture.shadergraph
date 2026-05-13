@@ -33,6 +33,12 @@
     "m_CategoryData": [
         {
             "m_Id": "6e3bffaf432441ebb21c61527ea5caec"
+        },
+        {
+            "m_Id": "db95661b59f0406d82c5dd88e3e3d16d"
+        },
+        {
+            "m_Id": "43f6e466e02f492d91813ca35e46e2bb"
         }
     ],
     "m_Nodes": [
@@ -1162,6 +1168,33 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "43f6e466e02f492d91813ca35e46e2bb",
+    "m_Name": "Shard",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "5c4e1a69bdd944cf8f92c57a76a507a4"
+        },
+        {
+            "m_Id": "0901d9e338be4850a2329d1eb83d32ac"
+        },
+        {
+            "m_Id": "188ccda3dccf40aba822497803f63426"
+        },
+        {
+            "m_Id": "e782b4a00e9649a693b70af9387db487"
+        },
+        {
+            "m_Id": "d57361ef1f27476c8a5ee2738c2ce0f3"
+        },
+        {
+            "m_Id": "313d1ee8a4fd466ca8fb185e710101f3"
+        }
+    ]
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "496fd80378eb438f992c7a036da3a846",
     "m_Group": {
@@ -1521,32 +1554,7 @@
     "m_Type": "UnityEditor.ShaderGraph.CategoryData",
     "m_ObjectId": "6e3bffaf432441ebb21c61527ea5caec",
     "m_Name": "",
-    "m_ChildObjectList": [
-        {
-            "m_Id": "0901d9e338be4850a2329d1eb83d32ac"
-        },
-        {
-            "m_Id": "a0f3f76919494a37bfa95caea9018bc9"
-        },
-        {
-            "m_Id": "4a1d634604c741dab207f96f241f9664"
-        },
-        {
-            "m_Id": "5c4e1a69bdd944cf8f92c57a76a507a4"
-        },
-        {
-            "m_Id": "d57361ef1f27476c8a5ee2738c2ce0f3"
-        },
-        {
-            "m_Id": "313d1ee8a4fd466ca8fb185e710101f3"
-        },
-        {
-            "m_Id": "188ccda3dccf40aba822497803f63426"
-        },
-        {
-            "m_Id": "e782b4a00e9649a693b70af9387db487"
-        }
-    ]
+    "m_ChildObjectList": []
 }
 
 {
@@ -2661,6 +2669,21 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "db95661b59f0406d82c5dd88e3e3d16d",
+    "m_Name": "Base",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "4a1d634604c741dab207f96f241f9664"
+        },
+        {
+            "m_Id": "a0f3f76919494a37bfa95caea9018bc9"
+        }
+    ]
 }
 
 {

@@ -116,7 +116,10 @@ public class Melee : MonoBehaviour
                         }
                         else
                         {
-                            this.transform.position = shootable.GetGameObject().transform.position;
+                            if (hit.transform.GetComponent<Enemy>().meleeImmune == false)
+                            {
+                                this.transform.position = shootable.GetGameObject().transform.position;
+                            }
                             swingCoolDownStored = swingCoolDown;
                             Camera.main.fieldOfView += FOVShift * 2;
                             teleportIncrement = true;
