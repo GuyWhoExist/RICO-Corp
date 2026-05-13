@@ -65,9 +65,13 @@ public class PlayerCamera : MonoBehaviour
         {
             inputActions.Camera.Disable();
             overflowBlock = false;
+            Time.timeScale = 0;
             frozen = true;
         }
-        else
+    }
+    public void Unfreeze()
+    {
+        if (frozen)
         {
             inputActions.Camera.Enable();
             overflowBlock = true;
@@ -76,9 +80,9 @@ public class PlayerCamera : MonoBehaviour
             {
                 FOV = playerCamera.fieldOfView;
             }
+            Time.timeScale = 1;
             frozen = false;
         }
-        //end
     }
 
     private void Look(Vector2 mouseInput)

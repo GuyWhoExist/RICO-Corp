@@ -117,9 +117,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void ButtonPress()
     {
-        if (paused == false)
+        if (paused == false && Time.timeScale != 0)
         {
-            Time.timeScale = 0;
             cameraSetting.Freeze();
             paused = true;
             gameHud.SetActive(false);
@@ -130,8 +129,7 @@ public class PauseMenu : MonoBehaviour
         }
         else if (paused == true)
         {
-            Time.timeScale = 1;
-            cameraSetting.Freeze();
+            cameraSetting.Unfreeze();
             paused = false;
             pauseHud.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
