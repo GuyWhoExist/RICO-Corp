@@ -95,7 +95,7 @@ public class Melee : MonoBehaviour
                 {
                     if (hit.transform.GetComponent<Enemy>() != null)
                     {
-                        speedBoost.fuel += 0.5f;
+                        
                         shooting.storedEnemy = hit.transform.GetComponent<RifleEnemy>();
                        
 
@@ -118,6 +118,7 @@ public class Melee : MonoBehaviour
                         {
                             if (hit.transform.GetComponent<Enemy>().meleeImmune == false)
                             {
+                                speedBoost.fuel += 0.5f;
                                 this.transform.position = shootable.GetGameObject().transform.position;
                             }
                             swingCoolDownStored = swingCoolDown;
@@ -193,6 +194,7 @@ public class Melee : MonoBehaviour
             Debug.Log("Not a tutorial enemy (bounce check)");
             shooting.EnemyKill();
             Destroy(storedEnemyHitStop);
+            speedBoost.fuel += 0.5f;
         }
         else
         {

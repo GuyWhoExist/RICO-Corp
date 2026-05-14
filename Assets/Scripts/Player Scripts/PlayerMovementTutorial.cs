@@ -209,19 +209,19 @@ public class PlayerMovementTutorial : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (Input.GetKeyDown(slideKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, slideYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-            moveSpeed = 0f;
-            moveDirection = gameObject.transform.forward * verticalInput + gameObject.transform.right * horizontalInput;
-        }
+        //if (Input.GetKeyDown(slideKey))
+        //{
+        //    transform.localScale = new Vector3(transform.localScale.x, slideYScale, transform.localScale.z);
+        //    rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        //    moveSpeed = 0f;
+        //    moveDirection = gameObject.transform.forward * verticalInput + gameObject.transform.right * horizontalInput;
+        //}
 
-        if (Input.GetKeyUp(slideKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            moveSpeed = storedSpeed;
-        }
+        //if (Input.GetKeyUp(slideKey))
+        //{
+        //    transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        //    moveSpeed = storedSpeed;
+        //}
     }
 
     private void StateHandler() //pretty self explanitory, changes the players state accordingly. mainly a debugging thing - Nova
@@ -229,17 +229,18 @@ public class PlayerMovementTutorial : MonoBehaviour
         
         if (Input.GetKey(slideKey))
         {
-            if (Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround))
-            {
-                state = MovementState.sliding;
-            }
-            else
-            {
-                state = MovementState.diving;
-            }
-            state = MovementState.sliding;
-            sliding = true;
+            //if (Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround))
+            //{
+            //    state = MovementState.sliding;
+            //}
+            //else
+            //{
+            //    state = MovementState.diving;
+            //}
+            //state = MovementState.sliding;
+            //sliding = true;
             //moveDirection = gameObject.transform.forward * verticalInput + gameObject.transform.right * horizontalInput;
+            state = MovementState.walking;
         }
         else if (grounded && !Input.GetKey(slideKey)) //|| OnSlope())
         {

@@ -361,8 +361,12 @@ public class Shooting : MonoBehaviour
                     {
                             Debug.Log(killStreak);
                             //playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
-                            speedBoost.fuel += 1f;
-                            Debug.Log($"Fuel is at: {speedBoost.fuel}");
+                            if (shootable.GetGameObject().GetComponent<Enemy>().shotImmune != true)
+                                {
+                                    speedBoost.fuel += 1f;
+                                    Debug.Log($"Fuel is at: {speedBoost.fuel}");
+                                }
+                            
                             /*boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                             Debug.Log($"{boostCoolDownStored}");
                             killStreak = killStreak + 1; */
