@@ -8,6 +8,7 @@ public class SightTracker : MonoBehaviour
     //coded by sawyer
     [SerializeField] bool ui;
     public bool amIDead;
+    private bool coroutineOverflowCheck;
     public GameObject tracker;
     [SerializeField] GameObject display;
     [SerializeField] GameObject player;
@@ -17,6 +18,7 @@ public class SightTracker : MonoBehaviour
     private Shooting rifleEnemyChecker;
     [HideInInspector] public Vector3 currentThreatPosition;
     [HideInInspector] public RifleEnemy currentThreatObject;
+    [HideInInspector] public RifleEnemy currentThreatObjectStored;
     private bool spotted;
     private RifleEnemy sightCheck;
     private float enemySightRange;
@@ -36,7 +38,7 @@ public class SightTracker : MonoBehaviour
         }
         sightCheck = null;
 
-        
+        InvokeRepeating(nameof(overflowBlocker), 0.1f, 0.1f);
     }
 
     private void Update()
@@ -51,9 +53,21 @@ public class SightTracker : MonoBehaviour
             
         }
     }
+    private void overflowBlocker()
+    {
+        if (currentThreatObjectStored != currentThreatObject)
+        {
+            StopCoroutine(EnemyTrackingCheck());
+        }
+        currentThreatObjectStored = currentThreatObject;
+    }
 
     public void Spotted()
     {
+        if (coroutineOverflowCheck)
+        {
+            StopCoroutine(EnemyTrackingCheck());
+        }
        display.SetActive(true);
        spotted = true;
        StartCoroutine(EnemyTrackingCheck());
@@ -65,11 +79,13 @@ public class SightTracker : MonoBehaviour
         display.SetActive(false);
         spotted = false;
         StopCoroutine(EnemyTrackingCheck());
+        coroutineOverflowCheck = false;
     }
 
 
     IEnumerator EnemyTrackingCheck()
     {
+        coroutineOverflowCheck = true;
         while (spotted == true)
         {
             Physics.Raycast(transform.position, transform.forward, out hit, enemySightRange);
