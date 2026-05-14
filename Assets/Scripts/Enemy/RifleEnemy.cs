@@ -27,6 +27,7 @@ public class RifleEnemy : MonoBehaviour
     private EnemyState state = EnemyState.IDLE;
     private LineRenderer lR;
     private bool searching;
+    private bool seen;
 
 
     private void Awake()
@@ -126,6 +127,7 @@ public class RifleEnemy : MonoBehaviour
                 if (trackerOfSight.currentThreatPosition == gameObject.transform.position)
                 {
                     trackerOfSight.UnSpotted();
+                    seen = false;
                 }
                 break;
             case EnemyState.FOLLOW: //track the player - Nova
@@ -141,7 +143,12 @@ public class RifleEnemy : MonoBehaviour
                     windupTimer = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-                trackerOfSight.Spotted();
+
+                if (!seen)
+                    {
+                    trackerOfSight.Spotted();
+                    seen = true;
+                    }
                 break;
             case EnemyState.WIND_UP: //The player is in attack range, being winding up to kill - Nova
                 activeState = 2;

@@ -107,7 +107,7 @@ public class SightTracker : MonoBehaviour
                 currentThreatObject = hit.transform.gameObject.GetComponent<RifleEnemy>();
                 Debug.Log("there is an enemy");
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
