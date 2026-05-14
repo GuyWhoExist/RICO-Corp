@@ -84,7 +84,7 @@ public class Shooting : MonoBehaviour
         }
       
         listOfActiveEnemies = new List<RifleEnemy>(FindObjectsByType<RifleEnemy>(FindObjectsSortMode.None));
-        InvokeRepeating(nameof(EnemyStateTracker), 0.1f, 0.1f);
+        InvokeRepeating(nameof(EnemyStateTracker), 0.5f, 0.5f);
     }
 
     private void OnEnable()
@@ -100,7 +100,7 @@ public class Shooting : MonoBehaviour
         controls.Guns.Shoot.performed -= Shoot_performed;
     }
 
-    private void EnemyStateTracker()//used to track states of tracked enemies. checked 10 times per second. this segment was made and commented by sawyer.
+    private void EnemyStateTracker()//used to track states of tracked enemies. checked twice per second. this segment was made and commented by sawyer.
     {
         for (int i = 0; i < listOfActiveEnemies.Count; i++)//checks through the stored enemies that can attack
         {

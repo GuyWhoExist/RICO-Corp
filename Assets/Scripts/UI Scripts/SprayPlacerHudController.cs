@@ -68,7 +68,7 @@ public class SprayPlacerHudController : MonoBehaviour
         invertedRotationValue = 0;//clears the inverted rotation value 
         rotationDisplay.transform.rotation = Quaternion.Euler(rotationDisplay.transform.rotation.eulerAngles.x, rotationDisplay.transform.rotation.eulerAngles.y, 0);//resets the rotation of the visual display
         plannerUI.SetActive(false);//disables the planner UI
-        camInfo.Freeze();
+        camInfo.Unfreeze();
         Cursor.lockState = CursorLockMode.Locked;//locks the cursor
         selector = false;//disables the selector bool
         controls.Planning.Rotate.Disable();//disables the rotation input
