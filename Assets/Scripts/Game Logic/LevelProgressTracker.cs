@@ -166,7 +166,7 @@ public class LevelProgressTracker : MonoBehaviour
 
     public LevelInfo[] levels = new LevelInfo[10] { //the array of levels. - Nova
         //star 1, star 2, star 3, scene index
-        new (20f, 15f, 10f, 2 ), //tutorial 1
+        new (20f, 15f, 10.5f, 2 ), //tutorial 1
         new (18f, 13f, 8f, 3 ), //tutorial 2
         new (20f, 15f, 10f, 4 ), //level 1
         new (12f, 8f, 5f, 5 ), //level 1.1 (2)
