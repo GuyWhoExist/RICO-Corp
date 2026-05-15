@@ -16,6 +16,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private SprayPlacerHudController sprayPlacerHudController;
     [SerializeField] private TimerController endTracker;
     [SerializeField] public float FOV;
+    private Shooting shootInfo;
     public float storedFOV;
     public bool overflowBlock; //- allows to prevent the game enabling camera every single frame, alongside routing gamestops outside the script to stop related issues
     private Rigidbody rb;
@@ -32,6 +33,7 @@ public class PlayerCamera : MonoBehaviour
         inputActions = new Controls();
         Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponentInParent<Rigidbody>();
+        shootInfo = GetComponentInParent<Shooting>();
         storedFOV = FOV;
     }
 
@@ -64,6 +66,7 @@ public class PlayerCamera : MonoBehaviour
         if (!frozen)
         {
             inputActions.Camera.Disable();
+            shootInfo.ControlBlock();
             overflowBlock = false;
             Time.timeScale = 0;
             frozen = true;
@@ -74,6 +77,7 @@ public class PlayerCamera : MonoBehaviour
         if (frozen)
         {
             inputActions.Camera.Enable();
+            shootInfo.ControlBlockEnd();
             overflowBlock = true;
 
             if (FOV != playerCamera.fieldOfView)

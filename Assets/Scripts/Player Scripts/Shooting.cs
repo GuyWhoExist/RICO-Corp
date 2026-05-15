@@ -37,7 +37,6 @@ public class Shooting : MonoBehaviour
     [SerializeField] private PauseMenu pauseMenu;
     public bool spraying;
     [SerializeField] private TimerController timerController;
-    private bool overflowBlock;
     [SerializeField] private TextMeshProUGUI killstreakCounter;
     private Vector3 trackerPositionOrig;
     private float shakeInputRandom;
@@ -86,7 +85,6 @@ public class Shooting : MonoBehaviour
         listOfActiveEnemies = new List<RifleEnemy>(FindObjectsByType<RifleEnemy>(FindObjectsSortMode.None));
         InvokeRepeating(nameof(EnemyStateTracker), 0.5f, 0.5f);
     }
-
     private void OnEnable()
     {
         controls.Guns.Shoot.Enable();
@@ -122,49 +120,45 @@ public class Shooting : MonoBehaviour
             {
                 listOfTargetingEnemies.Remove(listOfTargetingEnemies[i]);//if its not removes it from the list.
             }
-
         }
     }
+
+    public void ControlBlock()
+    {
+        controls.Guns.Shoot.Disable();
+    }
+
+    public void ControlBlockEnd()
+    {
+        controls.Guns.Shoot.Enable();
+    }
+
     private void Update() //everything in this is used for the PREDICTION LASER. Will probably go unused. - Nova        
         // there is now functions here aside from that - Sawyer
     {
-
-
-        // allows to disable shooting when using any user interface, uis must be manually added
-        if (pauseMenu.paused == true || timerController.end == true || spraying == true)
-        {
-            controls.Guns.Shoot.Disable();
-            overflowBlock = false;
-        }
-        else if (pauseMenu.paused == false && overflowBlock == false || timerController.end && overflowBlock == false || spraying == false && overflowBlock == false)
-        {
-            controls.Guns.Shoot.Enable();
-            overflowBlock = true;
-        }
-        //end
         shotDelay -= Time.deltaTime;
       
-        shakeInputRandom = Random.Range((0.5f * killStreak) * -1, 0.5f * killStreak);
-        CoinFlip = Random.Range(0, 2);
+        //shakeInputRandom = Random.Range((0.5f * killStreak) * -1, 0.5f * killStreak);
+        //CoinFlip = Random.Range(0, 2);
         
-        if (killStreak == 0)
-        {
-            killstreakCounter.text = "       ";
-            killstreakCounter.transform.position = trackerPositionOrig;
-        }
-        else
-        {
-            killstreakCounter.text = $"{killStreak}x";
-            if (CoinFlip == 0)
-            {
-                killstreakCounter.transform.position = new Vector3(trackerPositionOrig.x + shakeInputRandom, trackerPositionOrig.y, trackerPositionOrig.z);
-                //killStreakPositionLocker = true;
-            }
-            else if (CoinFlip == 1)
-            {
-                killstreakCounter.transform.position = new Vector3(trackerPositionOrig.x, trackerPositionOrig.y + shakeInputRandom, trackerPositionOrig.z);
-            }
-        }
+        //if (killStreak == 0)
+        //{
+        //    killstreakCounter.text = "       ";
+        //    killstreakCounter.transform.position = trackerPositionOrig;
+        //}
+        //else
+        //{
+        //    killstreakCounter.text = $"{killStreak}x";
+        //    if (CoinFlip == 0)
+        //    {
+        //        killstreakCounter.transform.position = new Vector3(trackerPositionOrig.x + shakeInputRandom, trackerPositionOrig.y, trackerPositionOrig.z);
+        //        //killStreakPositionLocker = true;
+        //    }
+        //    else if (CoinFlip == 1)
+        //    {
+        //        killstreakCounter.transform.position = new Vector3(trackerPositionOrig.x, trackerPositionOrig.y + shakeInputRandom, trackerPositionOrig.z);
+        //    }
+        //}
 
             shotOrigin = cam.transform.position;
         shotOrigin.y -= 0.5f;
@@ -254,8 +248,6 @@ public class Shooting : MonoBehaviour
     {
         if (shotDelay < 0)
         {
-
-        
         Debug.Log("shoot");
         StopAllCoroutines();
         Vector3 trueOrigin = cam.transform.position;
