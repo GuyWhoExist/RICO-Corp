@@ -257,4 +257,22 @@ public class MainMenuController : MonoBehaviour
         levelProgressTracker.used = true;
         SceneManager.LoadScene(0);
     }
+    public void ClearSprays()
+    {
+        for (int i = 0; i < levelProgressTracker.sprays.Length; i++)
+        {
+            levelProgressTracker.sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
+        }
+        levelProgressTracker.used = true;
+        SceneManager.LoadScene(0);
+    }
+    public void ClearTimes()
+    {
+        for (int i = 0; i < levelProgressTracker.levels.Length; i++)
+        {
+            levelProgressTracker.levels[i].bestTime = -1f;
+        }
+        levelProgressTracker.used = true;
+        SceneManager.LoadScene(0);
+    }
 }

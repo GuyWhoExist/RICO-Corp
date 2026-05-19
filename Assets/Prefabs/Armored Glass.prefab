@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blasted: 0
+  shardParticles: {fileID: 4137662355643431027, guid: e50958e1061e7904c9a1c5b59f375fc0, type: 3}
 --- !u!114 &8870389171777569074
 MonoBehaviour:
   m_ObjectHideFlags: 0

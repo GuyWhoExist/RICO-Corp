@@ -41,6 +41,8 @@ public class QuickRestart : MonoBehaviour
     
     public void PlayerDie()
     {
+        timerController.SaveSprays();
+
         if (levelEnder != null)
         {
             //Debug.Log("Git gud");
