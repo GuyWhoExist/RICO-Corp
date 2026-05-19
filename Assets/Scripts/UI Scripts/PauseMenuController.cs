@@ -16,6 +16,7 @@ public class PauseMenuController : MonoBehaviour
     public bool quit;
     private QuickRestart restartController;
     private MusicClass musicClass;
+    [SerializeField] private TimerController tC;
 
     //coded by sawyer
     private void Awake()
@@ -39,18 +40,21 @@ public class PauseMenuController : MonoBehaviour
     {
         if (restartController != null)
         {
+            tC.SaveSprays();
             pauseMenu.ButtonPress();
             restartController.PlayerDie();
         }
     }
     public void OnFullQuit()
     {
+        tC.SaveSprays();
         Application.Quit();
         //Debug.Log("You closed it");
     }
     public void OnPauseQuit() 
     {
         //Debug.Log("You pressed it");
+        tC.SaveSprays();
         pauseMenu.ButtonPress();
         quit = true;
         musicClass.StopMusic();
@@ -64,6 +68,7 @@ public class PauseMenuController : MonoBehaviour
     {
       if (FindAnyObjectByType <PlanningModeController>() != null)
         {
+            tC.SaveSprays();
             Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
             restartController = FindFirstObjectByType<QuickRestart>();
             restartController.PlayerDie();

@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using static LevelProgressTrackerDTO;
 
 public class LevelProgressTracker : MonoBehaviour
 {
@@ -14,6 +16,9 @@ public class LevelProgressTracker : MonoBehaviour
     public float bestTimeStored;
     private Cheats cheats;
     public bool cheatsEnemyCountStatus;
+    [SerializeField] private GameObject shootMarker; // type 1
+    [SerializeField] private GameObject stopMarker; // type 2
+    [SerializeField] private GameObject goMarker; // type 3
     //Contains all level data
     //written by Nova
 
@@ -28,6 +33,7 @@ public class LevelProgressTracker : MonoBehaviour
             {
                 cheatsEnemyCountStatus = true;
             }
+        
     }
 
     public struct LevelInfo
@@ -52,6 +58,9 @@ public class LevelProgressTracker : MonoBehaviour
         public float bestTime; //the "?" after float allows "bestTime" to store a null value - Nova
         
     }
+
+
+
     //LevelStatusCheck coded by sawyer
     public void LevelStatusCheck()
     {
@@ -141,6 +150,7 @@ public class LevelProgressTracker : MonoBehaviour
 
     private void DuplicateRemoval()
     {
+        Debug.Log(used);
         testingTime = levels[0].bestTime;
         LevelProgressTracker[] duplicates = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
         if (duplicates.Length > 1) //checks for duplicates and destroys them. - Nova
@@ -159,9 +169,12 @@ public class LevelProgressTracker : MonoBehaviour
 
     private void Awake()
     {
-        used = false;
         DontDestroyOnLoad(transform.gameObject); //allows this object to stay between levels - Nova
         DuplicateRemoval(); //>:( - Nova
+        //for (int i = 0; i < sprays.Length; i++)
+        //{
+        //    sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
+        //}
     }
 
     public LevelInfo[] levels = new LevelInfo[10] { //the array of levels. - Nova
@@ -181,7 +194,25 @@ public class LevelProgressTracker : MonoBehaviour
        //new (200f, 115f, 45f, 9),
     };
 
-    
+    public List<SprayInfo>[] sprays = new List<SprayInfo>[10] //first [] = Level -- second [] = spray number - Nova
+    {
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>()
+    };
+
+
+
+
+
+
 
     public bool used; //used to to track if this is the MAIN tracker and prevents it from being deleted - Nova
     public float testingTime; //debugging field. used to check if this LPT has valid data - Nova
@@ -203,6 +234,41 @@ public class LevelProgressTracker : MonoBehaviour
         return -1;
     }
 
+    public void LoadSprays(int location)
+    {
+        int count = 0;
+        Debug.Log(testingTime);
+        Debug.Log($"Load started for location {location}");
+        Debug.Log($"Number of sprays saved in {location}: {sprays[location].Count}");
+        for (int i = 0; i < sprays[location].Count; i++)
+        {
+            if (sprays[location][i].type == 1)
+            {
+                Instantiate(shootMarker, sprays[location][i].position, sprays[location][i].rotation);
+                Debug.Log($"Loaded spray {i} of type Shoot");
+            }
+            else if (sprays[location][i].type == 2)
+            {
+                Instantiate(stopMarker, sprays[location][i].position, sprays[location][i].rotation);
+                Debug.Log($"Loaded spray {i} of type Stop");
+            }
+            else if (sprays[location][i].type == 3)
+            {
+                Instantiate(goMarker, sprays[location][i].position, sprays[location][i].rotation);
+                Debug.Log($"Loaded spray {i} of type Go");
+            }
+            count++;
+        }
+        Debug.Log($"List checked contents:");
+        for (int i = 0; i < sprays[location].Count; i++)
+        {
+            Debug.Log("the loop is happening at least");
+            Debug.Log($"Number: {i}  Position: {sprays[location][i].position}  Rotation: {sprays[location][i].rotation}  Type:  {sprays[location][i].type}");
+        }
+        Debug.Log($"Loaded {count} sprays");
+    }
+
+
 
     public LevelProgressTrackerDTO GetDTO()
    
@@ -218,11 +284,30 @@ public class LevelProgressTracker : MonoBehaviour
             //Debug.Log($"Trackers Time: {levels[i].bestTime}");
             //Debug.Log($"Saved Time: {testArray[i]}");
         }
+
+        
+        Vector3 savingPosition = Vector3.zero;
+        Vector3 savingRotation = Vector3.zero;
+
         LevelProgressTrackerDTO newlevelProgTrockDTO = new LevelProgressTrackerDTO();
         newlevelProgTrockDTO.testArray = testArray;
+        
+        for (int x = 0; x < newlevelProgTrockDTO.sprayArray.Length; x++)
+        {
+            for (int y = 0; y < sprays[x].Count; y ++)
+            {
+                savingPosition = sprays[x][y].position;
+                savingRotation.x = sprays[x][y].rotation.x;
+                savingRotation.y = sprays[x][y].rotation.y;
+                savingRotation.z = sprays[x][y].rotation.z;
 
+                newlevelProgTrockDTO.sprayArray[x].Add(sprays[x][y]);
+            }
+        }
         return newlevelProgTrockDTO;
     }
+
+    
 
     public void LoadMethod(float[] revertArray)
     {
@@ -235,8 +320,21 @@ public class LevelProgressTracker : MonoBehaviour
         Debug.Log("Save Sucessfully Loaded");
         used = true;
         SceneManager.LoadScene(0);
+    }
 
+    public void ClearData()
+    {
+        for (int i = 0; i < levels.Length; i++)
+        {
+            levels[i].bestTime = -1f;
+        }
 
+        for (int i = 0; i < sprays.Length; i++)
+        {
+            sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
+        }
+        used = true;
+        SceneManager.LoadScene(0);
     }
 
 }

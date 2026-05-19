@@ -6,6 +6,7 @@ using System;
 using Newtonsoft.Json.Linq;
 using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
+using static LevelProgressTrackerDTO;
 
 public class SaveSystem : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class SaveSystem : MonoBehaviour
     // private LevelProgressTrackerDTO levelProgressTrackerDTO;
     [SerializeField] private LevelProgressTracker levelProgressTracker;
     private float[] revertArrayArray = new float[20];
+    public List<Spray>[] importedSprays = new List<Spray>[10];
+    private SaveSystem[] test;
+    [SerializeField] private PersistentObject pO;
 
 
 
@@ -29,11 +33,26 @@ public class SaveSystem : MonoBehaviour
         //    Debug.Log("Things have gone HORRIBLY wrong in the SaveSystem");
         //}
 
-
+        test = FindObjectsByType<SaveSystem>(FindObjectsSortMode.None);
         filePath = Application.persistentDataPath + "/save.json";
+        if (test.Length == 1)
+        {
+            Debug.Log("one pO found, setting lpt to used and reloading scene");
+            levelProgressTracker.used = true;
+            Debug.Log(levelProgressTracker.used);
+            pO.used = true;
+            DTOload();
+            Debug.Log(levelProgressTracker.sprays[0].Count);
+        }
+       
+        
 
+        
+        
 
     }
+
+    
 
     //public void bestTimeConversion()
     //{
@@ -56,10 +75,20 @@ public class SaveSystem : MonoBehaviour
     public void DTOsave()
     {
         LevelProgressTrackerDTO levelProgressTrackerDTO = levelProgressTracker.GetDTO();
+
         // DTO -> string (ser
-        string savedJson = JsonConvert.SerializeObject(levelProgressTrackerDTO); //I took settings out
+        string savedJson = JsonConvert.SerializeObject
+        (
+            levelProgressTrackerDTO,
+            new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Formatting = Formatting.Indented,
+            }
+        ); //I took settings out
 
         // string -> file
+
         File.WriteAllText(filePath, savedJson);
 
         Debug.Log("Sucessfully Saved");
@@ -81,12 +110,39 @@ public class SaveSystem : MonoBehaviour
 
         // string ->  DTO
         LevelProgressTrackerDTO DTO = JsonConvert.DeserializeObject<LevelProgressTrackerDTO>(loadedJson);
+        if (DTO.sprayArray == null)
+        {
+            for (int i = 0; i < DTO.sprayArray.Length; i++)
+            {
+                DTO.sprayArray[i] = new List<SprayInfo>();
+            }
+        }
 
         //tell level progress tracker to run it's load method and take this dto as an argumemnt so it can use it's array
         revertArrayArray = DTO.testArray;
-        
+        levelProgressTracker.sprays = DTO.sprayArray;
+        Debug.Log("Updated sprays");
+        //if (DTO.sprayArray != null)
+        //{
+        //    for (int x = 0; x < DTO.sprayArray.Length; x++)
+        //    {
+        //        if (DTO.sprayArray[x] != null)
+        //        {
+        //            for (int y = 0; y < DTO.sprayArray[x].Count; y++)
+        //            {
+        //                levelProgressTracker.sprays[x][y] = DTO.sprayArray[x][y];
+        //            }
+        //        }
 
+        //        //for (int y = 0; y < DTO.sprayArray[x].Count; y++)
+        //        //{
+        //           // levelProgressTracker.sprays[x][y] = DTO.sprayArray[x][y];
+        //       // }
+        //    }
+        //}
+        levelProgressTracker.used = true;
         levelProgressTracker.LoadMethod(revertArrayArray);
+        
 
         Debug.Log("Sucessful Load");
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
@@ -10,7 +11,36 @@ public class LevelProgressTrackerDTO
     //private LevelProgressTracker levelProgressTracker;
     //private SaveSystem saveSystem;
 
+    public struct SprayInfo
+    {
+        public Vector3 position;
+        public Quaternion rotation;
+        public int type;
+
+        public SprayInfo(Vector3 pos, Quaternion rot, int var)
+        {
+            position = pos;
+            rotation = rot;
+            type = var;
+        }
+    }
+
     public float[] testArray = new float[20];
+
+    public List<SprayInfo>[] sprayArray = new List<SprayInfo>[10] //first [] = Level -- second [] = spray number - Nova
+    {
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>()
+    }; 
+
 
     //public void ReferenceCarry(LevelProgressTracker levelProgressTracker)
     //{
@@ -40,18 +70,18 @@ public class LevelProgressTrackerDTO
     //    bestTimeConversion();
     //}
 
-//public void bestTimeConversion()
-//    {
-//        Debug.Log(levelProgressTracker);
-//        Debug.Log(levelProgressTracker.levels);
-//        for  (int i = 0; i < levelProgressTracker.levels.Length; i++)
-//        {
-//            testArray [i] = levelProgressTracker.levels[i].bestTime;
-//            Debug.Log($"Trackers Time: {levelProgressTracker.levels[i].bestTime}");
-//            Debug.Log($"Saved Time: {testArray[i]}");
-//        }
-//        saveSystem.DTOsave();
-//    }
+    //public void bestTimeConversion()
+    //    {
+    //        Debug.Log(levelProgressTracker);
+    //        Debug.Log(levelProgressTracker.levels);
+    //        for  (int i = 0; i < levelProgressTracker.levels.Length; i++)
+    //        {
+    //            testArray [i] = levelProgressTracker.levels[i].bestTime;
+    //            Debug.Log($"Trackers Time: {levelProgressTracker.levels[i].bestTime}");
+    //            Debug.Log($"Saved Time: {testArray[i]}");
+    //        }
+    //        saveSystem.DTOsave();
+    //    }
 
 
     //public void bestTimeConversionReverted()
@@ -64,8 +94,8 @@ public class LevelProgressTrackerDTO
     //    }
     //    Debug.Log("Save Sucessfully Loaded");
     //}
-    
-   
+
+
 
 
 
