@@ -286,7 +286,8 @@ public class Shooting : MonoBehaviour
                         Debug.Log("Armored Glass Hit"); //the only reflectable and shootable thing is armored glass - Nova
                         if (FindAnyObjectByType<PlanningModeController>() == null)
                         {
-                            shoot.OnGettingShot(); //then we run the shootable target's OnGettingShot function - Nova
+                                hit.transform.GetComponent<Absorb>().hit = hit;
+                                shoot.OnGettingShot(); //then we run the shootable target's OnGettingShot function - Nova
                         }
                         total--; //then decrease the total # of bounces left - Nova
                     }
@@ -321,6 +322,7 @@ public class Shooting : MonoBehaviour
                         Debug.Log("Glass Hit");
                         if (FindAnyObjectByType<PlanningModeController>() == null)
                         {
+                            hit.transform.GetComponent<Destroyable>().hit = hit;
                             shootable.OnGettingShot();
                         }
                         //we add a node to the line renderer, but we DONT decrease the total, as this isnt a bounce - Nova

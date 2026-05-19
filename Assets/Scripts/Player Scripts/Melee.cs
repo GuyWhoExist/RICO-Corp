@@ -77,7 +77,7 @@ public class Melee : MonoBehaviour
     }//end of OnTriggerExit
     private void Swing_performed(InputAction.CallbackContext obj)//the start of the swing performed input
     {
-        if (swingCoolDownStored < 0)///chekcs if the swing cooldown has ended
+        if (swingCoolDownStored < 0)//checks if the swing cooldown has ended
         {
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, meleeRange))//fires a raycast at the length of the melee range
             {
@@ -118,10 +118,12 @@ public class Melee : MonoBehaviour
                     }
                     else if (hit.transform.GetComponent<Absorb>())
                     {
+                        hit.transform.GetComponent<Absorb>().hit = hit;
                         hit.transform.GetComponent<Absorb>().MeleedB();
                     }
                     else if (hit.transform.GetComponent<Destroyable>())
                     {
+                        hit.transform.GetComponent<Destroyable>().hit = hit;
                         hit.transform.GetComponent<Destroyable>().MeleedA();
                     }
 
