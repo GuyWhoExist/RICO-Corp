@@ -71,13 +71,13 @@ public class PauseMenuController : MonoBehaviour
             tC.SaveSprays();
             Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
             restartController = FindFirstObjectByType<QuickRestart>();
-            restartController.PlayerDie();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
             Instantiate(planningController);
             restartController = FindFirstObjectByType<QuickRestart>();
-            restartController.PlayerDie();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
     }

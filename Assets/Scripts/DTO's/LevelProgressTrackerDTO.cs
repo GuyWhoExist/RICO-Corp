@@ -25,7 +25,7 @@ public class LevelProgressTrackerDTO
         }
     }
 
-    public float[] testArray = new float[20];
+    public float[] timeArray = new float[20];
 
     public List<SprayInfo>[] sprayArray = new List<SprayInfo>[10] //first [] = Level -- second [] = spray number - Nova
     {

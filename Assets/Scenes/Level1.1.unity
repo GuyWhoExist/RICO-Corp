@@ -1803,6 +1803,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 289869540740538941, guid: a58e0ecb3e619e042b01a3a8d45dcea5, type: 3}
+      propertyPath: spawned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5357528134599919699, guid: a58e0ecb3e619e042b01a3a8d45dcea5, type: 3}
       propertyPath: m_Name
       value: Marker Shoot

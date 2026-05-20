@@ -119,7 +119,7 @@ public class SaveSystem : MonoBehaviour
         }
 
         //tell level progress tracker to run it's load method and take this dto as an argumemnt so it can use it's array
-        revertArrayArray = DTO.testArray;
+        revertArrayArray = DTO.timeArray;
         levelProgressTracker.sprays = DTO.sprayArray;
         Debug.Log("Updated sprays");
         //if (DTO.sprayArray != null)

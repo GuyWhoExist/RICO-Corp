@@ -70,10 +70,10 @@ public class LevelProgressTracker : MonoBehaviour
 
             if (levelEnder.nextLevelIndex == 0)
             {
-                if (levels[levelEnder.nextLevelIndex + 1].bestTime == -1f)
+                if (levels[levels.Length-1].bestTime == -1f)
                 {
                     levelCompleted = false;
-                    Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex + 1} besttime is : {levels[levelEnder.nextLevelIndex + 1].bestTime}");
+                    Debug.Log($"disabling locked features, because level {levels.Length - 1} besttime is : {levels[levels.Length - 1].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
                     pauseMenu.CompletionCheck();
@@ -83,13 +83,13 @@ public class LevelProgressTracker : MonoBehaviour
                 else
                 {
                     levelCompleted = true;
-                    Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex + 1} besttime is : {levels[levelEnder.nextLevelIndex + 1].bestTime}");
+                    Debug.Log($"Enabling locked features, because  level {levels.Length - 1} besttime is : {levels[levels.Length - 1].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
                     pauseMenu.CompletionCheck();
                     timerController.statusCheck = false;
                     initialComplete = false;
-                    bestTimeStored = levels[levelEnder.nextLevelIndex + 1].bestTime;
+                    bestTimeStored = levels[levels.Length - 1].bestTime;
 
 
                 }
@@ -290,7 +290,7 @@ public class LevelProgressTracker : MonoBehaviour
         Vector3 savingRotation = Vector3.zero;
 
         LevelProgressTrackerDTO newlevelProgTrockDTO = new LevelProgressTrackerDTO();
-        newlevelProgTrockDTO.testArray = testArray;
+        newlevelProgTrockDTO.timeArray = testArray;
         
         for (int x = 0; x < newlevelProgTrockDTO.sprayArray.Length; x++)
         {
