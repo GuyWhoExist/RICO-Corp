@@ -223,13 +223,13 @@ public class TimerController : MonoBehaviour
         }
     }
   
-    public void SaveSprays() //saving sprays
+    public void SaveSprays() //saving sprays - Nova
     {
         LevelEnder lE = FindAnyObjectByType<LevelEnder>();
 
         for (int i = 0; i < FindObjectsByType<Spray>(FindObjectsSortMode.None).Length; i++) 
         {
-            int location = 0;
+            int location = 0; //the location/index of where we are storing the current sprays - Nova
             Spray[] foundSprays = FindObjectsByType<Spray>(FindObjectsSortMode.None);
             if (lE.GetNextIndex() == 0)
             {
@@ -246,12 +246,12 @@ public class TimerController : MonoBehaviour
                 }
             }
 
-            if (foundSprays[i].spawned == false)
+            if (foundSprays[i].spawned == false) //checks only for sprays not spawned from loading - Nova
             {
                 Vector3 savingRotation = Vector3.zero;
                 savingRotation.x = foundSprays[i].rotation.x;
                 savingRotation.y = foundSprays[i].rotation.y;
-                savingRotation.z = foundSprays[i].rotation.z;
+                savingRotation.z = foundSprays[i].rotation.z; //these are redundant - Nova
                 levelProgressTracker.sprays[location].Add(new LevelProgressTrackerDTO.SprayInfo(foundSprays[i].Position, foundSprays[i].rotation, foundSprays[i].savedSpray));
                 Debug.Log($"Spray {i} saved in {location}");
             }

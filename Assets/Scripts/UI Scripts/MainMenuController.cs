@@ -243,7 +243,7 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    public void ClearData()
+    public void ClearData() //Clears ALL data - Nova
     {
         for (int i = 0; i < levelProgressTracker.levels.Length; i++)
         {
@@ -257,7 +257,8 @@ public class MainMenuController : MonoBehaviour
         levelProgressTracker.used = true;
         SceneManager.LoadScene(0);
     }
-    public void ClearSprays()
+
+    public void ClearSprays() //clears all Spray data - Nova
     {
         for (int i = 0; i < levelProgressTracker.sprays.Length; i++)
         {
@@ -266,7 +267,8 @@ public class MainMenuController : MonoBehaviour
         levelProgressTracker.used = true;
         SceneManager.LoadScene(0);
     }
-    public void ClearTimes()
+
+    public void ClearTimes() //clears all time data - Nova
     {
         for (int i = 0; i < levelProgressTracker.levels.Length; i++)
         {

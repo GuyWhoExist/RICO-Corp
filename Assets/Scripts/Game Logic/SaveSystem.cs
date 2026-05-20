@@ -10,6 +10,9 @@ using static LevelProgressTrackerDTO;
 
 public class SaveSystem : MonoBehaviour
 {
+    //Save system for the game - Nova
+    //Written by Colby and Nova
+
     private string filePath;
     // private LevelProgressTrackerDTO levelProgressTrackerDTO;
     [SerializeField] private LevelProgressTracker levelProgressTracker;
@@ -37,12 +40,12 @@ public class SaveSystem : MonoBehaviour
         filePath = Application.persistentDataPath + "/save.json";
         if (test.Length == 1)
         {
-            Debug.Log("one pO found, setting lpt to used and reloading scene");
+            //Debug.Log("one pO found, setting lpt to used and reloading scene");
             levelProgressTracker.used = true;
-            Debug.Log(levelProgressTracker.used);
+            //Debug.Log(levelProgressTracker.used);
             pO.used = true;
             DTOload();
-            Debug.Log(levelProgressTracker.sprays[0].Count);
+            //Debug.Log(levelProgressTracker.sprays[0].Count);
         }
        
         
@@ -72,20 +75,20 @@ public class SaveSystem : MonoBehaviour
     //}
 
 
-    public void DTOsave()
+    public void DTOsave() //saves all data into a JSON to be used in future runtimes - Nova
     {
         LevelProgressTrackerDTO levelProgressTrackerDTO = levelProgressTracker.GetDTO();
 
-        // DTO -> string (ser
+        // DTO -> string
         string savedJson = JsonConvert.SerializeObject
         (
             levelProgressTrackerDTO,
             new JsonSerializerSettings
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore, //prevents an error caused by a recursive normalization loop - Nova 
+                Formatting = Formatting.Indented, //makes the JSON more readable - Nova
             }
-        ); //I took settings out
+        ); 
 
         // string -> file
 
@@ -97,7 +100,7 @@ public class SaveSystem : MonoBehaviour
     }
 
 
-    public void DTOload()
+    public void DTOload() //loads data from the JSON file - Nova
     {
         if (levelProgressTracker != null)
         {
@@ -110,7 +113,8 @@ public class SaveSystem : MonoBehaviour
 
         // string ->  DTO
         LevelProgressTrackerDTO DTO = JsonConvert.DeserializeObject<LevelProgressTrackerDTO>(loadedJson);
-        if (DTO.sprayArray == null)
+
+        if (DTO.sprayArray == null) //puts the DTO sprayArray data into the LPT spray data - Nova
         {
             for (int i = 0; i < DTO.sprayArray.Length; i++)
             {

@@ -8,10 +8,14 @@ using UnityEngine;
 
 public class LevelProgressTrackerDTO
 {
+    //DTO used to store and serialize data - Nova
+    //Written by Colby and Nova
+
+
     //private LevelProgressTracker levelProgressTracker;
     //private SaveSystem saveSystem;
 
-    public struct SprayInfo
+    public struct SprayInfo //struct used to store info on Sprays. Gets serialized. - Nova
     {
         public Vector3 position;
         public Quaternion rotation;
@@ -27,7 +31,7 @@ public class LevelProgressTrackerDTO
 
     public float[] timeArray = new float[20];
 
-    public List<SprayInfo>[] sprayArray = new List<SprayInfo>[10] //first [] = Level -- second [] = spray number - Nova
+    public List<SprayInfo>[] sprayArray = new List<SprayInfo>[10] //first [] = Level | second [] = spray number, ex sprayArray[1][2] would be level 2, spray 3 - Nova
     {
     new List<SprayInfo>(),
     new List<SprayInfo>(),

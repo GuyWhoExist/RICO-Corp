@@ -150,7 +150,7 @@ public class LevelProgressTracker : MonoBehaviour
 
     private void DuplicateRemoval()
     {
-        Debug.Log(used);
+        //Debug.Log(used);
         testingTime = levels[0].bestTime;
         LevelProgressTracker[] duplicates = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
         if (duplicates.Length > 1) //checks for duplicates and destroys them. - Nova
@@ -160,7 +160,7 @@ public class LevelProgressTracker : MonoBehaviour
                 if (l.used == false && duplicates.Length - 1 != 0)
                 {
                     Debug.Log("More than 1 tracker found, killing the unused ones");
-                    Debug.Log(l.levels[0].bestTime); //data wasnt being loaded. checking if we are deleting 
+                    //Debug.Log(l.levels[0].bestTime); //data wasnt being loaded. checking if we are deleting 
                     Destroy(l.gameObject);
                 }
             }
@@ -179,16 +179,16 @@ public class LevelProgressTracker : MonoBehaviour
 
     public LevelInfo[] levels = new LevelInfo[10] { //the array of levels. - Nova
         //star 1, star 2, star 3, scene index
-        new (20f, 15f, 10.5f, 2 ), //tutorial 1
-        new (18f, 13f, 8f, 3 ), //tutorial 2
-        new (20f, 15f, 10f, 4 ), //level 1
-        new (12f, 8f, 5f, 5 ), //level 1.1 (2)
-        new (15f, 10f, 5f, 6 ), //level 2.1 (3)
-        new (25f, 20f, 15f, 7 ), //level 4
-        new (30f, 20f, 15f, 8 ), //level 5
-        new (25f, 20f, 15f, 9 ), //level 6
-        new (21f, 14f, 7f, 10 ), //level 7
-        new (200f, 115f, 45f, 11), //alleyway (Does not have a button at the moment)
+        new (20f, 15f, 11f, 2 ), //tutorial 1 (1)
+        new (18f, 13f, 8f, 3 ), //tutorial 2 (2)
+        new (20f, 15f, 10f, 4 ), //level 1 (3)
+        new (12f, 8f, 5f, 5 ), //level 1.1 (4)
+        new (15f, 10f, 5f, 6 ), //level 2.1 (5)
+        new (25f, 20f, 15f, 7 ), //level 4 (6)
+        new (30f, 20f, 15f, 8 ), //level 5 (7)
+        new (25f, 20f, 15f, 9 ), //level 6 (8)
+        new (21f, 14f, 7.5f, 10 ), //level 7 (9) 
+        new (200f, 115f, 40f, 11), //alleyway (10)
         
        // new (120f, 75f, 45f, 10), //Level 1 v2 - Blockout Colby, Archetect tbd
        //new (200f, 115f, 45f, 9),
@@ -234,10 +234,10 @@ public class LevelProgressTracker : MonoBehaviour
         return -1;
     }
 
-    public void LoadSprays(int location)
+    public void LoadSprays(int location) //loads/spawns sprays - Nova
     {
         int count = 0;
-        Debug.Log(testingTime);
+        //Debug.Log(testingTime);
         Debug.Log($"Load started for location {location}");
         Debug.Log($"Number of sprays saved in {location}: {sprays[location].Count}");
         for (int i = 0; i < sprays[location].Count; i++)
@@ -259,7 +259,7 @@ public class LevelProgressTracker : MonoBehaviour
             }
             count++;
         }
-        Debug.Log($"List checked contents:");
+        Debug.Log($"List checked contents:"); //this section is used for debugging what we spawned - Nova
         for (int i = 0; i < sprays[location].Count; i++)
         {
             Debug.Log("the loop is happening at least");
@@ -292,7 +292,7 @@ public class LevelProgressTracker : MonoBehaviour
         LevelProgressTrackerDTO newlevelProgTrockDTO = new LevelProgressTrackerDTO();
         newlevelProgTrockDTO.timeArray = testArray;
         
-        for (int x = 0; x < newlevelProgTrockDTO.sprayArray.Length; x++)
+        for (int x = 0; x < newlevelProgTrockDTO.sprayArray.Length; x++) //puts the current sprays into the DTO - Nova
         {
             for (int y = 0; y < sprays[x].Count; y ++)
             {
@@ -309,7 +309,7 @@ public class LevelProgressTracker : MonoBehaviour
 
     
 
-    public void LoadMethod(float[] revertArray)
+    public void LoadMethod(float[] revertArray) //loads the times - Nova
     {
         for (int i = 0; i < levels.Length; i++)
         {
@@ -318,21 +318,6 @@ public class LevelProgressTracker : MonoBehaviour
             //Debug.Log($"Saved Time: {testArray[i]}");
         }
         Debug.Log("Save Sucessfully Loaded");
-        used = true;
-        SceneManager.LoadScene(0);
-    }
-
-    public void ClearData()
-    {
-        for (int i = 0; i < levels.Length; i++)
-        {
-            levels[i].bestTime = -1f;
-        }
-
-        for (int i = 0; i < sprays.Length; i++)
-        {
-            sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
-        }
         used = true;
         SceneManager.LoadScene(0);
     }
