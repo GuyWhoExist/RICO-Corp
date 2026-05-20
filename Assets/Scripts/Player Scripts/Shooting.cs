@@ -38,9 +38,9 @@ public class Shooting : MonoBehaviour
     public bool spraying;
     [SerializeField] private TimerController timerController;
     [SerializeField] private TextMeshProUGUI killstreakCounter;
-    private Vector3 trackerPositionOrig;
-    private float shakeInputRandom;
-    private int CoinFlip;
+    //private Vector3 trackerPositionOrig;
+    //private float shakeInputRandom;
+    //private int CoinFlip;
     [SerializeField] private SpeedBoost speedBoost;
     public float shotDelay;
     private SightTracker trackerOfSight;
@@ -49,6 +49,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private RawImage hitMarker;
     [SerializeField] private float hitMarkerTime;
     public RifleEnemy storedEnemy;
+    private bool planning;
     
     
 
@@ -76,10 +77,12 @@ public class Shooting : MonoBehaviour
         colors[5] = Color.magenta;
         if (FindAnyObjectByType<PlanningModeController>() != null)
         {
+            
             lineRenderer.material = planningMaterial;
             lineRenderer.material.renderQueue = 4000;
             impactDecals = false;
             reflectDecals = false;
+            planning = true;
         }
       
         listOfActiveEnemies = new List<RifleEnemy>(FindObjectsByType<RifleEnemy>(FindObjectsSortMode.None));
@@ -89,7 +92,7 @@ public class Shooting : MonoBehaviour
     {
         controls.Guns.Shoot.Enable();
         controls.Guns.Shoot.performed += Shoot_performed;
-        trackerPositionOrig = killstreakCounter.transform.position;
+        //trackerPositionOrig = killstreakCounter.transform.position;
         shotDelay = -1;
     }
     private void OnDisable()
@@ -284,7 +287,7 @@ public class Shooting : MonoBehaviour
                         shotOrigin = hit.point + shotDirection * 0.01f;//change the origin to where we hit + a tiny bit out to prevent the origin from being in a wall. - Nova
                         shotDirection = Vector3.Reflect(shotDirection, hit.normal); //and change its direction based on the angle of the surface - Nova
                         Debug.Log("Armored Glass Hit"); //the only reflectable and shootable thing is armored glass - Nova
-                        if (FindAnyObjectByType<PlanningModeController>() == null)
+                        if (!planning)
                         {
                                 hit.transform.GetComponent<Absorb>().hit = hit;
                                 shoot.OnGettingShot(); //then we run the shootable target's OnGettingShot function - Nova
@@ -292,17 +295,17 @@ public class Shooting : MonoBehaviour
                         total--; //then decrease the total # of bounces left - Nova
                     }
                     else //if the surface is only reflectable... - Nova
-                    {
-                        lineRenderer.positionCount++;
-                        if (reflectDecals) // allows toggling reflect toggling
-                            if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null) // verifies hit object is not player or rigidbody to avoid floating bulletholes - Sawyer
-                                Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole - Sawyer
-                        points.Add(hit.point);
-                        shotOrigin = hit.point + shotDirection * 0.01f;
-                        shotDirection = Vector3.Reflect(shotDirection, hit.normal);
-                        total--;
-                        //we simply reflect the shot, add to the line renderer and decrease total - Nova
-                    }
+                        {
+                            lineRenderer.positionCount++;
+                            if (reflectDecals) // allows toggling reflect toggling
+                                if (hit.transform.GetComponent<PlayerMovementTutorial>() == null && hit.transform.GetComponent<Rigidbody>() == null && hit.transform.GetComponent<BulletImpactPreventer>() == null) // verifies hit object is not player or rigidbody to avoid floating bulletholes - Sawyer
+                                    Instantiate(reflectDecal, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));// places the reflect based bullet hole - Sawyer
+                            points.Add(hit.point);
+                            shotOrigin = hit.point + shotDirection * 0.01f;
+                            shotDirection = Vector3.Reflect(shotDirection, hit.normal);
+                            total--;
+                            //we simply reflect the shot, add to the line renderer and decrease total - Nova
+                        }
                     if (total == 0) //if we hit a reflectable surface but are out of bounces... - Nova
                     {
                         Debug.Log("Hit bouce max");
@@ -320,8 +323,8 @@ public class Shooting : MonoBehaviour
                         points.Add(hit.point);
                         shotOrigin = hit.point + shotDirection * 0.01f;
                         Debug.Log("Glass Hit");
-                        if (FindAnyObjectByType<PlanningModeController>() == null)
-                        {
+                            if (!planning)
+                            {
                             hit.transform.GetComponent<Destroyable>().hit = hit;
                             shootable.OnGettingShot();
                         }
@@ -331,7 +334,7 @@ public class Shooting : MonoBehaviour
                     else //enemies ONLY have shootable - Nova
                     {
                             Debug.Log($"Shot immune status: {shootable.GetGameObject().GetComponent<Enemy>().shotImmune}");
-                            if (shootable.GetGameObject().GetComponent<Enemy>().shotImmune != true && FindAnyObjectByType<PlanningModeController>() == null)
+                            if (shootable.GetGameObject().GetComponent<Enemy>().shotImmune != true && !planning)
                             {
                                 Debug.Log("non tut enemy (shot check)");
                                 shootable.OnGettingShot();
@@ -370,7 +373,18 @@ public class Shooting : MonoBehaviour
                         enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //reduces the enemy count - Nova
                     }
                 }
+                else if (hit.transform.TryGetComponent(out ShootToggle toggle))
+                {
+                        hitting = false;
+                        lineRenderer.positionCount++;
+                        if (hits > 0 && !planning)
+                        {
+                            toggle.RicochetHit();
+                            Debug.Log("shot toggle");
+                        }
+                        points.Add(hit.point);
 
+                }
                 else //if we hit something that isnt a destroyable or reflectable surface we end the shot;
                 {
                     Debug.Log("Non reflect/enemy hit");
@@ -430,7 +444,7 @@ public class Shooting : MonoBehaviour
         }
         else //Begins the reset timer once we have used up all the points - Nova
         {
-            if (FindAnyObjectByType<PlanningModeController>() == null)
+            if (!planning)
             {
                 Debug.Log("Begin Reset Timer");
                 StartCoroutine(ResetShot());
