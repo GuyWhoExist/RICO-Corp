@@ -377,7 +377,7 @@ public class Shooting : MonoBehaviour
                 {
                         hitting = false;
                         lineRenderer.positionCount++;
-                        if (hits > 0 && !planning)
+                        if (total < hits && !planning)
                         {
                             toggle.RicochetHit();
                             Debug.Log("shot toggle");
