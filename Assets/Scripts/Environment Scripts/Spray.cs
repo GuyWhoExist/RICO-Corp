@@ -6,7 +6,8 @@ public class Spray : MonoBehaviour, ICleanable
     private RaycastHit hit;//stores the object hit by a raycast
     private Destroyable destroyableObject;//the object the spray inherits the destroyable trait from if placed on glass
     private Absorb armoredGlass;///the same as above but for armoured glass as it has a different component
-    public float savedSpray;//the spray that this object is. used for save syste,
+    public int savedSpray;//the spray that this object is. used for save syste,
+    public bool spawned; //if this is true, the save sytem ignores it. this prevents an exponential amount of sprays being saved - Nova
 
                       public bool destructible;//used to save the destructible state of the decal if it was intiially placed on glass
     [HideInInspector] public Vector3 Position;//the stored position of the decal. useed for save system

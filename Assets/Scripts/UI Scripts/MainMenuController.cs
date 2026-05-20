@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -240,4 +243,36 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    public void ClearData()
+    {
+        for (int i = 0; i < levelProgressTracker.levels.Length; i++)
+        {
+            levelProgressTracker.levels[i].bestTime = -1f;
+        }
+
+        for (int i = 0; i < levelProgressTracker.sprays.Length; i++)
+        {
+            levelProgressTracker.sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
+        }
+        levelProgressTracker.used = true;
+        SceneManager.LoadScene(0);
+    }
+    public void ClearSprays()
+    {
+        for (int i = 0; i < levelProgressTracker.sprays.Length; i++)
+        {
+            levelProgressTracker.sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
+        }
+        levelProgressTracker.used = true;
+        SceneManager.LoadScene(0);
+    }
+    public void ClearTimes()
+    {
+        for (int i = 0; i < levelProgressTracker.levels.Length; i++)
+        {
+            levelProgressTracker.levels[i].bestTime = -1f;
+        }
+        levelProgressTracker.used = true;
+        SceneManager.LoadScene(0);
+    }
 }

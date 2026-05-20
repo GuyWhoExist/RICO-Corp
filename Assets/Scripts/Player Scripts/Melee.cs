@@ -84,11 +84,8 @@ public class Melee : MonoBehaviour
                 if (hit.transform.TryGetComponent(out IShootable shootable))//checks if the hit object is destroyable
                 {
                     if (hit.transform.GetComponent<Enemy>() != null)//if it is an enemy
-                    {
-                        speedBoost.fuel += 0.5f;//increase the speed boost charges by half a charge
-                        shooting.storedEnemy = hit.transform.GetComponent<RifleEnemy>();//stores the enemy in shooting if the enemy could attack the player
-                       
-
+                    {  
+                        shooting.storedEnemy = hit.transform.GetComponent<RifleEnemy>();
                         //Debug.Log($"Fuel is at: {speedBoost.fuel}");
                         shooting.killStreak = shooting.killStreak + 1;//increases killstreak by 1
 
@@ -108,7 +105,8 @@ public class Melee : MonoBehaviour
                         {
                             if (hit.transform.GetComponent<Enemy>().meleeImmune == false)//checks if the enemy is immune to melee
                             {
-                                this.transform.position = shootable.GetGameObject().transform.position;//if they are, do not destroy the enemy, only apply the movement effects
+                                speedBoost.fuel += 0.5f;
+                                this.transform.position = shootable.GetGameObject().transform.position;
                             }
                             swingCoolDownStored = swingCoolDown;
                             Camera.main.fieldOfView += FOVShift * 2;
@@ -184,6 +182,7 @@ public class Melee : MonoBehaviour
             Debug.Log("Not a tutorial enemy (bounce check)");
             shooting.EnemyKill();
             Destroy(storedEnemyHitStop);
+            speedBoost.fuel += 0.5f;
         }
         else
         {

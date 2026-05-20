@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -80,6 +81,7 @@ public class TimerController : MonoBehaviour
                 gameHUD.transform.GetChild(i).gameObject.SetActive(true);
             }
         }
+        
         end = false;
     }
 
@@ -97,6 +99,7 @@ public class TimerController : MonoBehaviour
         timerText.enabled = true;
         Debug.Log("enabled Timer");
         }
+        levelProgressTracker.LoadSprays(SceneManager.GetActiveScene().buildIndex-2);
     }
     void Update()
     {
@@ -140,7 +143,7 @@ public class TimerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        Debug.Log("collisiony");
+        //Debug.Log("collisiony");
         if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() == null)
         {
             
@@ -204,6 +207,9 @@ public class TimerController : MonoBehaviour
                         levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime = curTime;
                     }
                 }
+
+
+               
                 //level ends, save best times
                 Debug.Log("best time updated (hopefully)");
                 StartCoroutine(WaitABit(lE));
@@ -211,9 +217,49 @@ public class TimerController : MonoBehaviour
                 //saveSystem.bestTimeConversion();
                 saveSystem.DTOsave();
             }
+
+            
+
         }
     }
   
+    public void SaveSprays() //saving sprays
+    {
+        LevelEnder lE = FindAnyObjectByType<LevelEnder>();
+
+        for (int i = 0; i < FindObjectsByType<Spray>(FindObjectsSortMode.None).Length; i++) 
+        {
+            int location = 0;
+            Spray[] foundSprays = FindObjectsByType<Spray>(FindObjectsSortMode.None);
+            if (lE.GetNextIndex() == 0)
+            {
+                if (curTime < levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime || levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime == -1f)
+                {
+                    location = levelProgressTracker.levels.Length - 1;
+                }
+            }
+            else
+            {
+                if (curTime < levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime || levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime == -1f)
+                {
+                    location = lE.GetNextIndex() - 3;
+                }
+            }
+
+            if (foundSprays[i].spawned == false)
+            {
+                Vector3 savingRotation = Vector3.zero;
+                savingRotation.x = foundSprays[i].rotation.x;
+                savingRotation.y = foundSprays[i].rotation.y;
+                savingRotation.z = foundSprays[i].rotation.z;
+                levelProgressTracker.sprays[location].Add(new LevelProgressTrackerDTO.SprayInfo(foundSprays[i].Position, foundSprays[i].rotation, foundSprays[i].savedSpray));
+                Debug.Log($"Spray {i} saved in {location}");
+            }
+            
+        }
+        saveSystem.DTOsave();
+    }
+
 
     private IEnumerator WaitABit(LevelEnder lE)
     {

@@ -126,7 +126,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shard_Amount: 7.2
-    - _Shard_Contrast: 0.4
+    - _Shard_Contrast: 0.172
     - _Shard_Emission: 0.5
     - _Shard_Smoothness: 1
     - _Shard_Variant: 6.17

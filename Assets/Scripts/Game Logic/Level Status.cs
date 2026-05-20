@@ -25,6 +25,7 @@ public class LevelStatus : MonoBehaviour
         {
             Debug.Log("Level progress tracker missing");
         }
+        Debug.Log($"Sprays in level: {levelProgressTracker.sprays[levelNumber - 1].Count}");
         //Debug.Log(levelNumber - 2);
 
         if (levelNumber == 1) //unlocks levels
