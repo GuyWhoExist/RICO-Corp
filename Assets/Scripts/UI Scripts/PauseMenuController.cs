@@ -79,7 +79,6 @@ public class PauseMenuController : MonoBehaviour
             restartController = FindFirstObjectByType<QuickRestart>();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
     }
 
     public void OnSettingsOpen()
