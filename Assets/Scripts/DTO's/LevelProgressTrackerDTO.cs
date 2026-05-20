@@ -20,12 +20,14 @@ public class LevelProgressTrackerDTO
         public Vector3 position;
         public Quaternion rotation;
         public int type;
+        public bool destroy;
 
-        public SprayInfo(Vector3 pos, Quaternion rot, int var)
+        public SprayInfo(Vector3 pos, Quaternion rot, int var, bool des)
         {
             position = pos;
             rotation = rot;
             type = var;
+            destroy = des;
         }
     }
 

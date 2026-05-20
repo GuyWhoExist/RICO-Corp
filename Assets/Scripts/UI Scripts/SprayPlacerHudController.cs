@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class SprayPlacerHudController : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class SprayPlacerHudController : MonoBehaviour
     private GameObject placedMarker;//the marker the player hasjust placed
     [HideInInspector] public GameObject collectedHit;//the stored gameobject the spray placement raycast has hit
     public bool firing;
+    private LevelProgressTracker lPT;
+    private TimerController tC;
 
 
 
@@ -32,6 +36,8 @@ public class SprayPlacerHudController : MonoBehaviour
     {
         controls = new Controls();//the controls
         sprayDetection = LayerMask.GetMask("spray");//the spray layermask
+        lPT = FindAnyObjectByType<LevelProgressTracker>();
+        tC = FindAnyObjectByType<TimerController>();
     }
     public void OnEnable()
     {
@@ -152,8 +158,13 @@ public class SprayPlacerHudController : MonoBehaviour
     {
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))//fires out a raycast
         {
-            if (hit.transform.TryGetComponent(out ICleanable Spray))//checks if the shot object is a spray
+            if (hit.transform.TryGetComponent(out ICleanable Spray))
+            {
                 Destroy(Spray.GetGameObject());//if it is a spray, deletes the object from the scene
+                tC.delete = true;
+                Debug.Log("tC delete set to true");
+            }//checks if the shot object is a spray
+            
         }
     }
 }

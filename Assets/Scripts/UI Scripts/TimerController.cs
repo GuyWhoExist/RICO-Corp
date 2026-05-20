@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -29,7 +30,8 @@ public class TimerController : MonoBehaviour
     public bool planState = false;
     public bool end;
     private SaveSystem saveSystem;
-    private LevelEndUI levelEndUI;  
+    private LevelEndUI levelEndUI;
+    public bool delete = true;
 
     private void Awake()
     {
@@ -226,38 +228,43 @@ public class TimerController : MonoBehaviour
     public void SaveSprays() //saving sprays - Nova
     {
         LevelEnder lE = FindAnyObjectByType<LevelEnder>();
+        int location = 0; //the location/index of where we are storing the current sprays - Nova
+        Spray[] foundSprays = FindObjectsByType<Spray>(FindObjectsSortMode.None);
+        
+        if (lE.GetNextIndex() == 0)
+        {
+            if (curTime < levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime || levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime == -1f)
+            {
+                location = levelProgressTracker.levels.Length - 1;
+            }
+        }
+        else
+        {
+            if (curTime < levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime || levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime == -1f)
+            {
+                location = lE.GetNextIndex() - 3;
+            }
+        }
+
+        levelProgressTracker.sprays[location] = new List<LevelProgressTrackerDTO.SprayInfo>();
 
         for (int i = 0; i < FindObjectsByType<Spray>(FindObjectsSortMode.None).Length; i++) 
         {
-            int location = 0; //the location/index of where we are storing the current sprays - Nova
-            Spray[] foundSprays = FindObjectsByType<Spray>(FindObjectsSortMode.None);
-            if (lE.GetNextIndex() == 0)
-            {
-                if (curTime < levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime || levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime == -1f)
-                {
-                    location = levelProgressTracker.levels.Length - 1;
-                }
-            }
-            else
-            {
-                if (curTime < levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime || levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime == -1f)
-                {
-                    location = lE.GetNextIndex() - 3;
-                }
-            }
-
-            if (foundSprays[i].spawned == false) //checks only for sprays not spawned from loading - Nova
+            if (foundSprays[i].spawned == false || delete == true) //checks only for sprays not spawned from loading - Nova
             {
                 Vector3 savingRotation = Vector3.zero;
                 savingRotation.x = foundSprays[i].rotation.x;
                 savingRotation.y = foundSprays[i].rotation.y;
                 savingRotation.z = foundSprays[i].rotation.z; //these are redundant - Nova
-                levelProgressTracker.sprays[location].Add(new LevelProgressTrackerDTO.SprayInfo(foundSprays[i].Position, foundSprays[i].rotation, foundSprays[i].savedSpray));
+                levelProgressTracker.sprays[location].Add(new LevelProgressTrackerDTO.SprayInfo(foundSprays[i].Position, foundSprays[i].rotation, foundSprays[i].savedSpray, foundSprays[i].destructible));
                 Debug.Log($"Spray {i} saved in {location}");
             }
             
         }
+        
         saveSystem.DTOsave();
+        delete = false;
+
     }
 
 

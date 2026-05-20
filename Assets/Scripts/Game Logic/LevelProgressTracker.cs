@@ -244,17 +244,20 @@ public class LevelProgressTracker : MonoBehaviour
         {
             if (sprays[location][i].type == 1)
             {
-                Instantiate(shootMarker, sprays[location][i].position, sprays[location][i].rotation);
+                GameObject sprayInstance = GameObject.Instantiate(shootMarker, sprays[location][i].position, sprays[location][i].rotation) as GameObject;
+                sprayInstance.GetComponent<Spray>().destructible = sprays[location][i].destroy;
                 Debug.Log($"Loaded spray {i} of type Shoot");
             }
             else if (sprays[location][i].type == 2)
             {
-                Instantiate(stopMarker, sprays[location][i].position, sprays[location][i].rotation);
+                GameObject sprayInstance = GameObject.Instantiate(stopMarker, sprays[location][i].position, sprays[location][i].rotation) as GameObject;
+                sprayInstance.GetComponent<Spray>().destructible = sprays[location][i].destroy;
                 Debug.Log($"Loaded spray {i} of type Stop");
             }
             else if (sprays[location][i].type == 3)
             {
-                Instantiate(goMarker, sprays[location][i].position, sprays[location][i].rotation);
+                GameObject sprayInstance = GameObject.Instantiate(goMarker, sprays[location][i].position, sprays[location][i].rotation) as GameObject;
+                sprayInstance.GetComponent<Spray>().destructible = sprays[location][i].destroy;
                 Debug.Log($"Loaded spray {i} of type Go");
             }
             count++;
