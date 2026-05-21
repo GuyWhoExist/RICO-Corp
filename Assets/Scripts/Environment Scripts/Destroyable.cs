@@ -10,6 +10,7 @@ public class Destroyable : MonoBehaviour, IShootable
     [SerializeField] GameObject shardParticles;
     private GameObject particle;
     //this is destroyed on getting shot - Nova
+
     GameObject IShootable.GetGameObject()
     {
         return gameObject;

@@ -1,13 +1,18 @@
+using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Spray : MonoBehaviour, ICleanable
 {
     private SprayPlacerHudController sprayController;//holds the spray controller
-    private RaycastHit hit;//stores the object hit by a raycast
-    private Destroyable destroyableObject;//the object the spray inherits the destroyable trait from if placed on glass
-    private Absorb armoredGlass;///the same as above but for armoured glass as it has a different component
+    private Shooting shotDetector;
+    public Destroyable destroyableObject;//the object the spray inherits the destroyable trait from if placed on glass
+    public Absorb reflectingDestroyableObject;//the same as above but for armoured glass as it has a different component
     public int savedSpray;//the spray that this object is. used for save syste,
     public bool spawned; //if this is true, the save sytem ignores it. this prevents an exponential amount of sprays being saved - Nova
+    private int listCycler = 0;
+    private Collider[] destructibles;
 
                       public bool destructible;//used to save the destructible state of the decal if it was intiially placed on glass
     [HideInInspector] public Vector3 Position;//the stored position of the decal. useed for save system
@@ -17,79 +22,82 @@ public class Spray : MonoBehaviour, ICleanable
     {
         Invoke(nameof(SaveSprayPosition), 0.02f);//fires the function to save the decal position, on a delay to avoid loss of of information
         sprayController = FindFirstObjectByType<SprayPlacerHudController>();//gets the spray controller
+        shotDetector = FindFirstObjectByType<Shooting>();
 
-        if (destructible == true)//checks if the saved decal had the destructible trait
-        {
-            if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward * -1, out hit, 1f))//if it did, fire a raycast backward to get the object it was laced ons destructible component
-            {
-                if (hit.transform.GetComponent<Destroyable>() != null)//checks if the hit object contains the destroyable component
-                {
-                    destroyableObject = hit.transform.GetComponent<Destroyable>();//store the destroyable component if it exists
-                    InvokeRepeating(nameof(GlassCheck), .1f, .1f);//fires the glass checker function
-                }
-
-                if (hit.transform.GetComponent<Absorb>() != null)//also checks if the hit object has the absorb component
-                {
-                    armoredGlass = hit.transform.GetComponent<Absorb>();//store the absorb component if it exists
-                    InvokeRepeating(nameof(ArmoredGlassCheck), .1f, .1f);//fires the armored glass checker function
-                }
-               
-            }
-            else if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 1f))//if nothing is found in the back, check the front just to be sure
-            {
-                if (hit.transform.GetComponent<Destroyable>() != null)//checks if the hit object contains the destroyable component
-                {
-                    destroyableObject = hit.transform.GetComponent<Destroyable>();//store the destroyable component if it exists
-                    InvokeRepeating(nameof(GlassCheck), .1f, .1f);//fires the glass checker function
-                }
-
-                if (hit.transform.GetComponent<Absorb>() != null)//also checks if the hit object has the absorb component
-                {
-                    armoredGlass = hit.transform.GetComponent<Absorb>();//store the absorb component if it exists
-                    InvokeRepeating(nameof(ArmoredGlassCheck), .1f, .1f);//fires the armored glass checker function
-                }
-            }
-            else//if both are false
-            {
-                destructible = false;//code may have been a false positive, disregard
-            }
-        }
+      
            if (sprayController.firing)
             if (sprayController.hit.transform.GetComponent<Destroyable>() != null)//checks if the original hit object had a destroyable component
             {
                 destroyableObject = sprayController.hit.transform.GetComponent<Destroyable>();//if it did, store the component
-                InvokeRepeating(nameof(GlassCheck), .1f, .1f);//fires the glass checker function
                 destructible = true;//and save the destructible state
                 sprayController.firing = false;
             }
             else if (sprayController.hit.transform.GetComponent<Absorb>() != null)//checks if it has the armoured glass component 
             {
-                armoredGlass = sprayController.hit.transform.GetComponent<Absorb>();//if it does, stores that component
-                InvokeRepeating(nameof(ArmoredGlassCheck), .1f, .1f);//fires the glass checker function
+                reflectingDestroyableObject = sprayController.hit.transform.GetComponent<Absorb>();//if it does, stores that component
                 destructible = true;//and saves the destructible state
                 sprayController.firing = false;
             }
+        Invoke(nameof(destructionCheck), 0.02f);
 
+    }
+
+    private void destructionCheck()
+    {
+        if (destructible == true)//checks if the saved decal had the destructible trait
+        {
+            destructibles = Physics.OverlapSphere(gameObject.transform.position, 1);
+            Sorter();
+          
+        }
+    }
+
+    private void Sorter()
+    {
+        if (destructibles[listCycler].GetComponent<Destroyable>())
+        {
+            destroyableObject = destructibles[listCycler].GetComponent<Destroyable>();//store the destroyable component if it exists
+        }
+
+        if (destructibles[listCycler].GetComponent<Absorb>())
+        {
+            reflectingDestroyableObject = destructibles[listCycler].GetComponent<Absorb>();//store the absorb component if it exists
+        }
+        listCycler += 1;
+
+        if (listCycler < destructibles.Length)
+        {
+            Invoke(nameof(Sorter), 0.01f);
+        }
     }
     public GameObject GetGameObject()
     {
         return gameObject;//allows save system to get the spray object
     }
 
-    private void GlassCheck()//used to avoid sprays entering update
+    public void GlassCheck()//used to avoid sprays entering update
     {
-
-            if (destroyableObject.shot == true || destroyableObject.transform.gameObject == null)//checks if the glass has been destroyed
+        if (destructible)
+        {
+            if (destroyableObject == null)//checks if the glass has been destroyed
             {
-                Destroy(gameObject);//if it has destroy it
+                Destroy(gameObject.GetComponentInChildren<MeshRenderer>());
             }
+        }
+     
     }
-    private void ArmoredGlassCheck()
-    {  
-       if (armoredGlass.blasted == true || armoredGlass == null)//checks if the armoured glass has been destroyed
-       {
-                Destroy(gameObject);//if so destroys this
-       }
+    public void ArmoredGlassCheck()
+    {
+        if (destructible)
+        {
+
+            if (reflectingDestroyableObject == null)//checks if the armoured glass has been destroyed
+            {
+                Destroy(gameObject.GetComponentInChildren<MeshRenderer>());
+            }
+
+        }
+     
     }
 
     private void SaveSprayPosition()//used for save system
