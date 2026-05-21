@@ -38,7 +38,6 @@ public class SprayController : MonoBehaviour
 
     public void ArmoredGlassImpact()
     {
-        Debug.LogError("it still runs.");
         if (allSprays.Count > 0 && allSprays.Count > listRoller)
         {
             allSprays[listRoller].ArmoredGlassCheck();

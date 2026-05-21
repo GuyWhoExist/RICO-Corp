@@ -79,7 +79,7 @@ public class Spray : MonoBehaviour, ICleanable
     {
         if (destructible)
         {
-            if (destroyableObject == null)//checks if the glass has been destroyed
+            if (destroyableObject.shot || destroyableObject == null)//checks if the glass has been destroyed
             {
                 Destroy(gameObject.GetComponentInChildren<MeshRenderer>());
             }
@@ -90,12 +90,10 @@ public class Spray : MonoBehaviour, ICleanable
     {
         if (destructible)
         {
-
-            if (reflectingDestroyableObject == null)//checks if the armoured glass has been destroyed
+            if (reflectingDestroyableObject.blasted || reflectingDestroyableObject == null)//checks if the armoured glass has been destroyed
             {
                 Destroy(gameObject.GetComponentInChildren<MeshRenderer>());
             }
-
         }
      
     }
