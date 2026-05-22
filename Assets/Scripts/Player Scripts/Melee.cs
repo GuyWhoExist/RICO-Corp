@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,7 @@ public class Melee : MonoBehaviour
     [SerializeField] float FOVShift;//the fov alteration value
     [SerializeField] float quickFallOffStored;//used to avoid issues with jarring fov shifting
     [SerializeField] private ChromaticAberrationEffect cAEffect;//the chromatic aberration effect script
+    [SerializeField] GameObject cooldownVisual;
     private Vector3 swingDirection;//the direction the player will swing the melee in
     private float swingCoolDownStored;//the stored value of the swing cooldown
     private AboveEnemy positionDetection;//the scripted object used for detecting jumping off an enemies head
@@ -40,6 +42,7 @@ public class Melee : MonoBehaviour
 
     private void Awake()//start of awake
     {
+        cooldownVisual.SetActive(false);
         controls = new Controls();//sets the controls value
         swingDirection = this.transform.forward;//sets the swing direction
         swingCoolDownStored = 0;//clears the cooldown vale
@@ -108,7 +111,7 @@ public class Melee : MonoBehaviour
                                 speedBoost.fuel += 0.5f;
                                 this.transform.position = shootable.GetGameObject().transform.position;
                             }
-                            swingCoolDownStored = swingCoolDown;
+                            initCooldown();
                             Camera.main.fieldOfView += FOVShift * 2;
                             teleportIncrement = true;
                         }
@@ -153,7 +156,7 @@ public class Melee : MonoBehaviour
 
     private void Update()// start of update
     {
-        swingCoolDownStored = swingCoolDownStored - Time.deltaTime;
+        swingCoolDownStored -= Time.deltaTime;
         hitStopDuration -= Time.unscaledDeltaTime;
         if (hitStopDuration < 0 && storedEnemyHitStop != null)
         {
@@ -161,6 +164,14 @@ public class Melee : MonoBehaviour
         }
     }//end of update
 
+
+    private void initCooldown()
+    {
+        swingCoolDownStored = swingCoolDown;
+        cooldownVisual.transform.eulerAngles = new Vector3(cooldownVisual.transform.rotation.x, cooldownVisual.transform.rotation.y, cooldownVisual.transform.eulerAngles.z - 90);
+        cooldownVisual.SetActive(true);
+        StartCoroutine(SwingCoolDownVisuals());
+    }
     private void HitStop()//start of the hitstop function
     {
         cAEffect.Activate();//effects the chromatic aberration effect
@@ -176,7 +187,7 @@ public class Melee : MonoBehaviour
         hitStopSFX.PlayOneShot(hitStopSFXAudio, 0.7f);
         hitStopFire = false;
         controls.Melee.Swing.Enable();
-        swingCoolDownStored = swingCoolDown;
+        initCooldown();
         if (storedEnemyHitStop.GetComponent<Enemy>() != null && storedEnemyHitStop.GetComponent<Enemy>().bounceImmune != true)
         {
             Debug.Log("Not a tutorial enemy (bounce check)");
@@ -210,4 +221,20 @@ public class Melee : MonoBehaviour
         }
 
     }//end of lateupdate
+
+    IEnumerator SwingCoolDownVisuals()
+    {
+        while (swingCoolDownStored > 0)
+        {
+            cooldownVisual.transform.eulerAngles = new Vector3(cooldownVisual.transform.rotation.x, cooldownVisual.transform.rotation.y, cooldownVisual.transform.eulerAngles.z - 3.6f);
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (swingCoolDownStored <= 0)
+        {
+            cooldownVisual.SetActive(false);
+            cooldownVisual.transform.eulerAngles = new Vector3(cooldownVisual.transform.rotation.x, cooldownVisual.transform.rotation.y, 0);
+            StopCoroutine(SwingCoolDownVisuals());
+        }
+    }
 }

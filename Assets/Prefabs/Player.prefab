@@ -554,6 +554,7 @@ MonoBehaviour:
   reflectDecals: 0
   impactDecal: {fileID: 0}
   reflectDecal: {fileID: 0}
+  sprayController: {fileID: 0}
 --- !u!120 &5263830152627946770
 LineRenderer:
   serializedVersion: 2
@@ -772,6 +773,7 @@ MonoBehaviour:
   timeTicking: 0
   planState: 0
   end: 0
+  delete: 1
 --- !u!114 &1106544071619831820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,21 +846,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2575806727729919433}
-  meleeRange: 5
+  meleeRange: 3
   shooting: {fileID: 7301727407463837847}
-  swingCoolDown: 2
-  speedBoost: {fileID: 0}
+  swingCoolDown: 0.5
+  speedBoost: {fileID: 7659304657795828909}
   playerCamera: {fileID: 2322980758753661442}
   FOVShift: 25
-  quickFallOffStored: 0
+  quickFallOffStored: 0.03
   cAEffect: {fileID: 0}
+  cooldownVisual: {fileID: 0}
   teleportIncrement: 0
   meleeJump: 0
   maxModifiedFOV: 0
-  hitStopDurationStored: 0
+  hitStopDurationStored: 0.2
   hitStopLight: {fileID: 0}
   hitStopSFX: {fileID: 0}
-  hitStopSFXAudio: {fileID: 0}
+  hitStopSFXAudio: {fileID: 8300000, guid: 41a9c18e9568b294d837b8907cdca93f, type: 3}
 --- !u!114 &7659304657795828909
 MonoBehaviour:
   m_ObjectHideFlags: 0
