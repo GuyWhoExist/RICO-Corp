@@ -407,10 +407,7 @@ public class Shooting : MonoBehaviour
                 Debug.Log("Miss");
                 //Debug.DrawRay(shotOrigin, shotDirection, colors[color], 1000);
                 hitting = false;
-                if (total == hits)
-                {
-                    dontDraw = true;
-                }
+                points.Add(cam.transform.position + shotDirection * maxDistance);
             }
         }
         Debug.Log("Finished Shooting");

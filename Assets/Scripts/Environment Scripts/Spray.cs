@@ -10,11 +10,12 @@ public class Spray : MonoBehaviour, ICleanable
     public Destroyable destroyableObject;//the object the spray inherits the destroyable trait from if placed on glass
     public Absorb reflectingDestroyableObject;//the same as above but for armoured glass as it has a different component
     public int savedSpray;//the spray that this object is. used for save syste,
-    public bool spawned; //if this is true, the save sytem ignores it. this prevents an exponential amount of sprays being saved - Nova
+    public bool prePlaced; //if this is true, it will ALWAYS be ignored by the save system.
+    public bool spawned; //if this is true, the save system ignores it unless we deleted a spray. this prevents an exponential amount of sprays being saved - Nova
     private int listCycler = 0;
     private Collider[] destructibles;
-
-                      public bool destructible;//used to save the destructible state of the decal if it was intiially placed on glass
+    
+public bool destructible;//used to save the destructible state of the decal if it was intiially placed on glass
     [HideInInspector] public Vector3 Position;//the stored position of the decal. useed for save system
     [HideInInspector] public Quaternion rotation;//the stored rotation of the decal, used for save system
     //coded by sawyer

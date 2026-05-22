@@ -13,6 +13,7 @@ public class MainMenuController : MonoBehaviour
     private LevelProgressTracker levelProgressTracker;
     private int selectedLevelIndex;
     private Cheats cheat;
+    private SaveSystem saveSystem;
 
     private void Awake()
     {
@@ -32,7 +33,23 @@ public class MainMenuController : MonoBehaviour
         {
             levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         }
-        
+
+        LevelProgressTracker[] systems = FindObjectsByType<LevelProgressTracker>(FindObjectsSortMode.None);
+        if (trackers.Length != 1) //extra failsafe just incase we encounter multiple trackers - Nova
+        {
+            foreach (LevelProgressTracker tracker in trackers)
+            {
+                if (tracker.used == true)
+                {
+                    levelProgressTracker = tracker;
+                }
+            }
+        }
+        else
+        {
+            levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
+        }
+
         if (levelProgressTracker != null)
         {
             //Debug.Log("We good in Main Menu Controller");
