@@ -35,15 +35,14 @@ public class TimerController : MonoBehaviour
 
     private void Awake()
     {
-
         levelEndUI = FindAnyObjectByType<LevelEndUI>();
         saveSystem = FindAnyObjectByType<SaveSystem>();
         pCamera = FindAnyObjectByType<PlayerCamera>();
 
        // besttimeconversion();
-    
-         
+
         popUp.enabled = false;
+
         if (FindAnyObjectByType<PlanningModeController>() != null)
         {
             planState = true;
@@ -52,8 +51,6 @@ public class TimerController : MonoBehaviour
         levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         musicClass = FindAnyObjectByType<MusicClass>();
         musicClass.PlayMusic();
-
-       
 
         if (levelProgressTracker != null )
         {
@@ -74,8 +71,8 @@ public class TimerController : MonoBehaviour
        //     Debug.Log("Things have gone HORRIBLY wrong in the time controller");
        // }
 
-
         levelProgressTracker.used = true;
+
         for (int i = 0; i < gameHUD.transform.childCount; i++) //Enables everything in gameHUD except the timer when the level starts - Nova
         {
             if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")
@@ -89,28 +86,28 @@ public class TimerController : MonoBehaviour
 
     private void Start()
     {
-
         if (levelProgressTracker.levelCompleted == false)
         {
-        timerText.enabled = false;
-        Debug.Log("disabled timer");
-        statusCheck = true;
+            timerText.enabled = false;
+            Debug.Log("disabled timer");
+            statusCheck = true;
         }
         else
         {
-        timerText.enabled = true;
-        Debug.Log("enabled Timer");
+            timerText.enabled = true;
+            Debug.Log("enabled Timer");
         }
+
         levelProgressTracker.LoadSprays(SceneManager.GetActiveScene().buildIndex-2);
     }
     void Update()
     {
-
         if (timeTicking && !planState)
         {
             curTime += Time.deltaTime;
             timerText.text = curTime.ToString("0:00.00");
         }
+
         if (curTime >= 60f) //this changes the value of curTime to follow the 0:00.00 format - Nova
         {
             float tempTime = curTime;
@@ -123,6 +120,7 @@ public class TimerController : MonoBehaviour
                 curTime = 100f + (curTime - 60);
             }
         }
+
         if (levelProgressTracker.cheatsEnemyCountStatus)
         {
             Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //we always check the amount of enemies in the scene - Nova
@@ -134,8 +132,6 @@ public class TimerController : MonoBehaviour
             enemyCountText.enabled = false;
             enemyCountText2.enabled = false;
         }
-
-
         //for (int i = 0; i < levelProgressTracker.levels.Length; i++)
         //{
         //    testArray[i] = levelProgressTracker.levels[i].bestTime;
@@ -144,21 +140,20 @@ public class TimerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
         //Debug.Log("collisiony");
         if (collision.transform.GetComponent<LevelEnder>() != null && FindAnyObjectByType<PlanningModeController>() == null)
         {
-            
             if (pauseMenu.paused)
             {
                 pauseMenu.ButtonPress();
                 Debug.Log("pausemenu issues with the end screen ");
             }
+
             timerText.enabled = false;
             UnityEngine.Cursor.lockState = CursorLockMode.None;
+
             if (levelProgressTracker.bestTimeStored > -1)
             {
-                
                 levelEndUI.bestTime.text = levelProgressTracker.bestTimeStored.ToString("0:00.00");
                 if (levelProgressTracker.bestTimeStored > curTime)
                 {
@@ -181,11 +176,11 @@ public class TimerController : MonoBehaviour
             }
 
             levelEndUI.thisTime.text = timerText.text;
-
             levelProgressTracker.used = true;
             musicClass.used = true;
             LevelEnder lE = collision.transform.GetComponent<LevelEnder>();
             levelEndUI.enabled = true;
+
             if (timeTicking)
             {
                 Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
@@ -209,8 +204,6 @@ public class TimerController : MonoBehaviour
                         levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime = curTime;
                     }
                 }
-
-
                
                 //level ends, save best times
                 Debug.Log("best time updated (hopefully)");
@@ -219,9 +212,6 @@ public class TimerController : MonoBehaviour
                 //saveSystem.bestTimeConversion();
                 saveSystem.DTOsave();
             }
-
-            
-
         }
     }
   
@@ -250,7 +240,7 @@ public class TimerController : MonoBehaviour
 
         for (int i = 0; i < FindObjectsByType<Spray>(FindObjectsSortMode.None).Length; i++) 
         {
-            if (foundSprays[i].spawned == false || delete == true) //checks only for sprays not spawned from loading - Nova
+            if (foundSprays[i].spawned == false && foundSprays[i].prePlaced == false|| delete == true) //checks only for sprays not spawned from loading - Nova
             {
                 Vector3 savingRotation = Vector3.zero;
                 savingRotation.x = foundSprays[i].rotation.x;
@@ -259,12 +249,10 @@ public class TimerController : MonoBehaviour
                 levelProgressTracker.sprays[location].Add(new LevelProgressTrackerDTO.SprayInfo(foundSprays[i].Position, foundSprays[i].rotation, foundSprays[i].savedSpray, foundSprays[i].destructible));
                 Debug.Log($"Spray {i} saved in {location}");
             }
-            
         }
         
         saveSystem.DTOsave();
         delete = false;
-
     }
 
 
@@ -295,10 +283,12 @@ public class TimerController : MonoBehaviour
 
         endGUI.SetActive(true);
         pCamera.Freeze();
+
         if (levelProgressTracker.initialComplete == true)
         {
             popUp.enabled = true;
         }
+
         for (int i = 0; i < gameHUD.transform.childCount; i++) //disables everything in gameHUD except the timer when the level ends - Nova
         {
             if (gameHUD.transform.GetChild(i).gameObject.name != "Timer")
@@ -308,6 +298,7 @@ public class TimerController : MonoBehaviour
                 pauseMenu.controls.Pause.Pause.Disable();
             }
         }
+
         end = true;
 
         if (lE.nextLevelIndex == 0 || curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 3].milestone1)
@@ -318,6 +309,7 @@ public class TimerController : MonoBehaviour
         {
             next.SetActive(false);
         }
+
         levelProgressTracker.used = true;
         musicClass.used = true;
     }
