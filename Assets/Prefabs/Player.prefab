@@ -357,7 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
+  m_RequiresOpaqueTextureOption: 1
   m_CameraType: 0
   m_Cameras: []
   m_RendererIndex: -1
@@ -528,6 +528,9 @@ MonoBehaviour:
   lineRenderer: {fileID: 5263830152627946770}
   lineRenderer2: {fileID: 0}
   planningMaterial: {fileID: 0}
+  crosshair: {fileID: 0}
+  listOfActiveEnemies: []
+  listOfTargetingEnemies: []
   hits: 5
   travelTime: 0
   cam: {fileID: 3280870652669640073}
@@ -541,8 +544,12 @@ MonoBehaviour:
   timerController: {fileID: 8523289442659343576}
   killstreakCounter: {fileID: 0}
   speedBoost: {fileID: 0}
+  shotDelay: 0
   SFXPlayer: {fileID: 0}
   shotSFX: {fileID: 0}
+  hitMarker: {fileID: 0}
+  hitMarkerTime: 0
+  storedEnemy: {fileID: 0}
   impactDecals: 0
   reflectDecals: 0
   impactDecal: {fileID: 0}
@@ -763,6 +770,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   curTime: 0
   timeTicking: 0
+  planState: 0
   end: 0
 --- !u!114 &1106544071619831820
 MonoBehaviour:
@@ -784,6 +792,7 @@ MonoBehaviour:
   pauseUI: {fileID: 0}
   planningController: {fileID: 0}
   quit: 0
+  tC: {fileID: 0}
 --- !u!114 &914728449244245791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -807,6 +816,7 @@ MonoBehaviour:
   sensitivitySlider: {fileID: 0}
   sensitivityDisplay: {fileID: 0}
   configObject: {fileID: 1795694791808849849, guid: c6af83ab734a9f0479df47b348165373, type: 3}
+  timeToSettingsCheck: 0
 --- !u!114 &7492448302430238168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -821,7 +831,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killCancel: {fileID: 575393813364354144}
   timerController: {fileID: 8523289442659343576}
-  playerDie: 0
 --- !u!114 &3096779666775988733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,11 +847,11 @@ MonoBehaviour:
   meleeRange: 5
   shooting: {fileID: 7301727407463837847}
   swingCoolDown: 2
-  playerMovementTutorial: {fileID: 3675693052588370084}
   speedBoost: {fileID: 0}
   playerCamera: {fileID: 2322980758753661442}
   FOVShift: 25
   quickFallOffStored: 0
+  cAEffect: {fileID: 0}
   teleportIncrement: 0
   meleeJump: 0
   maxModifiedFOV: 0
@@ -864,6 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuel: 0
   fuelLimit: 3
+  boostRemaining: 0
   boost: 3
   boostDuration: 2.5
   playerMovement: {fileID: 3675693052588370084}
@@ -1067,13 +1077,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: 0
+  amIDead: 0
   tracker: {fileID: 8250651678292595689}
   display: {fileID: 0}
   player: {fileID: 2527319957930866390}
   pointerMat: {fileID: 2100000, guid: 72265fe59f39ca2478bf8848f7831669, type: 2}
+  pointerShader: {fileID: 0}
   playerCam: {fileID: 3280870652669640073}
-  melee: {fileID: 0}
-  currentThreat: {x: 0, y: 0, z: 0}
-  seen: 0
-  kill: 0
-  danger: 0
+  currentThreatPosition: {x: 0, y: 0, z: 0}
+  currentThreatObject: {fileID: 0}
+  currentThreatObjectStored: {fileID: 0}
