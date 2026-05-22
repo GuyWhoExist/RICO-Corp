@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 //I know this is called RIFLE Enemy, but this can be used for any of the enemies. - Nova
 
@@ -32,7 +33,7 @@ public class RifleEnemy : MonoBehaviour
 
     private void Awake()
     {
-        Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance);
+        
         player = FindAnyObjectByType<PlayerMovementTutorial>().transform;
         planningmode = FindAnyObjectByType<PlanningModeController>();
         if (planningmode != null )
@@ -42,16 +43,33 @@ public class RifleEnemy : MonoBehaviour
         trackerOfSight = FindAnyObjectByType<SightTracker>();
         //sightTracker = player.GetComponent<SightTracker>();
         lR = GetComponent<LineRenderer>();
-        lR.SetPosition(0, Vector3.zero);
-        lR.SetPosition(1, new Vector3(0,0,maxSightDistance));
+        lR.SetPosition(0,transform.position);
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance))
+        {
+            lR.SetPosition(1, sightHit.point);
+        }
+        else
+        {
+            lR.SetPosition(1, transform.position + transform.forward * maxSightDistance);
+        }
+
         lR.startColor = lR.materials[0].color;
     }
     //[SerializeField] SightTracker sightTracker;
 
     private void Update()
     {
-
-            UpdateState();
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance) && sightHit.transform.GetComponent<PlayerMovementTutorial>() == null)
+        {
+            Debug.Log($"Hit wall, position: {sightHit.point}");
+            lR.SetPosition(1, sightHit.point);
+        }
+        else
+        {
+            Debug.Log($"Miss, position: {sightHit.point}");
+            lR.SetPosition(1, transform.position + transform.forward * maxSightDistance);
+        }
+        UpdateState();
             RespondToState(state);
         
         wahooTrigger.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.x * -1, 0f, gameObject.transform.rotation.z * -1f);
