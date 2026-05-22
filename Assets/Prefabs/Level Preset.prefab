@@ -466,7 +466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Silver: 0:20.00'
+  m_text: 'Silver: 0:18.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
   m_sharedMaterial: {fileID: 9135756079089362671, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
@@ -1929,7 +1929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bronze: 0:25.00'
+  m_text: 'Bronze: 0:30.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
   m_sharedMaterial: {fileID: 9135756079089362671, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
@@ -4789,7 +4789,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gold: 0:15.00'
+  m_text: 'Gold: 0:08.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
   m_sharedMaterial: {fileID: 9135756079089362671, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
@@ -7755,6 +7755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hit Stop Light
       objectReference: {fileID: 0}
+    - target: {fileID: 238681729571032010, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: m_Name
+      value: SettingsAudioSource
+      objectReference: {fileID: 0}
     - target: {fileID: 575393813364354144, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: FOVSlider
       value: 
@@ -7820,9 +7824,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9094756203844871988}
     - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
-      propertyPath: pauseMenu
+      propertyPath: buttonPress
       value: 
-      objectReference: {fileID: 4133675217727616041}
+      objectReference: {fileID: 8300000, guid: 475336ecd7286ef49a1e42e87bc3ebd8, type: 3}
     - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: settings_Audio
       value: 
@@ -7835,10 +7839,6 @@ PrefabInstance:
       propertyPath: settings_Gameplay
       value: 
       objectReference: {fileID: 7560025477368984451}
-    - target: {fileID: 1106544071619831820, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
-      propertyPath: planningController
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2527319957930866390, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -7947,6 +7947,10 @@ PrefabInstance:
       propertyPath: gravityMultiplier
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4552105934603308490, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c6640bc61a09514d81e6a17c83c1074, type: 3}
     - target: {fileID: 5263830152627946770, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

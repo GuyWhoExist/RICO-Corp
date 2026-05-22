@@ -85,7 +85,7 @@ public class PauseMenu : MonoBehaviour
     private void Pause_Performed(InputAction.CallbackContext context)
     {
         ButtonPress();
-
+       // pauseController.ButtonSFX();
         if (paused == true)
         {
             pauseController.pauseUI.SetActive(true);
