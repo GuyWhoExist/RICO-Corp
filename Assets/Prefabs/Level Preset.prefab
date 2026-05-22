@@ -8052,6 +8052,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1050799611526462005}
     - target: {fileID: 8523289442659343576, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: delete
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523289442659343576, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: endGUI
       value: 
       objectReference: {fileID: 2748715816714961869}

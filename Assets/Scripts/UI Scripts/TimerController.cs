@@ -31,7 +31,7 @@ public class TimerController : MonoBehaviour
     public bool end;
     private SaveSystem saveSystem;
     private LevelEndUI levelEndUI;
-    public bool delete = true;
+    public bool delete;
 
     private void Awake()
     {
@@ -136,6 +136,10 @@ public class TimerController : MonoBehaviour
         //{
         //    testArray[i] = levelProgressTracker.levels[i].bestTime;
         //}
+        if (delete)
+        {
+            Debug.Log("Delete is true!!!1 WHY????");
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -240,15 +244,14 @@ public class TimerController : MonoBehaviour
 
         for (int i = 0; i < FindObjectsByType<Spray>(FindObjectsSortMode.None).Length; i++) 
         {
-            if (foundSprays[i].spawned == false && foundSprays[i].prePlaced == false|| delete == true) //checks only for sprays not spawned from loading - Nova
+            if (foundSprays[i].prePlaced == false) //checks only for sprays not spawned from loading - Nova
             {
-                Vector3 savingRotation = Vector3.zero;
-                savingRotation.x = foundSprays[i].rotation.x;
-                savingRotation.y = foundSprays[i].rotation.y;
-                savingRotation.z = foundSprays[i].rotation.z; //these are redundant - Nova
                 levelProgressTracker.sprays[location].Add(new LevelProgressTrackerDTO.SprayInfo(foundSprays[i].Position, foundSprays[i].rotation, foundSprays[i].savedSpray, foundSprays[i].destructible));
                 Debug.Log($"Spray {i} saved in {location}");
             }
+            Debug.Log($"Spray spawned status: {foundSprays[i].spawned}");
+            Debug.Log($"Spray prePlaced status: {foundSprays[i].prePlaced}");
+            Debug.Log($"Delete status: {delete}");
         }
         
         saveSystem.DTOsave();
