@@ -80,7 +80,7 @@ public bool destructible;//used to save the destructible state of the decal if i
     {
         if (destructible)
         {
-            if (destroyableObject.shot || destroyableObject == null)//checks if the glass has been destroyed
+            if (destroyableObject == null || destroyableObject.shot)//checks if the glass has been destroyed
             {
                 Destroy(gameObject.GetComponentInChildren<MeshRenderer>());
             }
@@ -91,7 +91,7 @@ public bool destructible;//used to save the destructible state of the decal if i
     {
         if (destructible)
         {
-            if (reflectingDestroyableObject.blasted || reflectingDestroyableObject == null)//checks if the armoured glass has been destroyed
+            if (reflectingDestroyableObject == null || reflectingDestroyableObject.blasted)//checks if the armoured glass has been destroyed
             {
                 Destroy(gameObject.GetComponentInChildren<MeshRenderer>());
             }
