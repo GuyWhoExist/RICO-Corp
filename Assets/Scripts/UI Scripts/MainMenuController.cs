@@ -14,6 +14,8 @@ public class MainMenuController : MonoBehaviour
     private int selectedLevelIndex;
     private Cheats cheat;
     private SaveSystem saveSystem;
+    [SerializeField] AudioClip buttonPress;
+    [SerializeField] AudioSource menuAudio;
 
     private void Awake()
     {
@@ -63,6 +65,11 @@ public class MainMenuController : MonoBehaviour
 
     public void OnStartButtonClicked()
     {
+        menuAudio.PlayOneShot(buttonPress);
+        Invoke(nameof(OnStartRun), 0.1f);
+    }
+    private void OnStartRun()
+    {
         bool continued = false;
         //Debug.Log("It worked ^q^");
         //Debug.Log("Music should be playing (start button)");
@@ -70,11 +77,11 @@ public class MainMenuController : MonoBehaviour
         //musicPlayer.GetComponent<MusicClass>().PlayMusic();
         for (int i = levelProgressTracker.levels.Length - 1; i > 0; i--)
         {
-            if (levelProgressTracker.levels[i-1].bestTime != -1f && levelProgressTracker.levels[i-1].bestTime <= levelProgressTracker.levels[i-1].milestone1 && !continued)
+            if (levelProgressTracker.levels[i - 1].bestTime != -1f && levelProgressTracker.levels[i - 1].bestTime <= levelProgressTracker.levels[i - 1].milestone1 && !continued)
             {
-               // Debug.Log($"Valid Level Found At {i+1}");
+                // Debug.Log($"Valid Level Found At {i+1}");
                 continued = true;
-                SceneManager.LoadScene(i+2);
+                SceneManager.LoadScene(i + 2);
             }
             else
             {
@@ -83,12 +90,17 @@ public class MainMenuController : MonoBehaviour
         }
         if (!continued)
         {
-           // Debug.Log("No Valid Levels Found. Going To Level 1");
+            // Debug.Log("No Valid Levels Found. Going To Level 1");
             SceneManager.LoadScene(2);
         }
     }
 
     public void OnQuitButtonClicked()
+    {
+        menuAudio.PlayOneShot(buttonPress);
+        Invoke(nameof(OnQuitRun), 0.1f);
+    }
+    private void OnQuitRun()
     {
         Application.Quit();
     }
@@ -97,6 +109,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnLevelButtonClicked(LevelStatus levelStatus) //loads times associated with a level - Nova
     {
+        menuAudio.PlayOneShot(buttonPress);
         if (levelStatus.unlocked || cheat.unlockAll)
         {
             selectedLevelIndex = levelStatus.GetLevelIndex();
@@ -202,11 +215,17 @@ public class MainMenuController : MonoBehaviour
 
     public void OnStartMissionButtonClicked() //starts the designated level - Nova
     {
+        menuAudio.PlayOneShot(buttonPress);
+        Invoke(nameof(OnStartMissionRun), 0.1f);
+    }
+    private void OnStartMissionRun()
+    {
         SceneManager.LoadScene(selectedLevelIndex);
     }
 
     public void OnLevelMenuButtonClicked() //the level select menu button, if it wasnt clear - Nova
     {
+        menuAudio.PlayOneShot(buttonPress);
         GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         foreach (GameObject obj in allObjects)
         {
@@ -232,6 +251,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnBackButtonClicked() //the back button for the level select - Nova
     {
+        menuAudio.PlayOneShot(buttonPress);
         GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         foreach (GameObject obj in allObjects)
         {
@@ -262,6 +282,11 @@ public class MainMenuController : MonoBehaviour
 
     public void ClearData() //Clears ALL data - Nova
     {
+        menuAudio.PlayOneShot(buttonPress);
+        Invoke(nameof(ClearDataRun), 0.1f);
+    }
+    private void ClearDataRun()
+    {
         for (int i = 0; i < levelProgressTracker.levels.Length; i++)
         {
             levelProgressTracker.levels[i].bestTime = -1f;
@@ -277,6 +302,11 @@ public class MainMenuController : MonoBehaviour
 
     public void ClearSprays() //clears all Spray data - Nova
     {
+        menuAudio.PlayOneShot(buttonPress);
+       Invoke(nameof(ClearSpraysRun), 0.1f);
+    }
+    private void ClearSpraysRun()
+    {
         for (int i = 0; i < levelProgressTracker.sprays.Length; i++)
         {
             levelProgressTracker.sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
@@ -286,6 +316,11 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void ClearTimes() //clears all time data - Nova
+    {
+        menuAudio.PlayOneShot(buttonPress);
+        Invoke(nameof(ClearTimesRun), 0.1f);
+    }
+    private void ClearTimesRun()
     {
         for (int i = 0; i < levelProgressTracker.levels.Length; i++)
         {

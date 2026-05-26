@@ -24,6 +24,7 @@ public class SprayPlacerHudController : MonoBehaviour
     [SerializeField] GameObject stopMarker;//the stop sign marker
     private GameObject placedMarker;//the marker the player hasjust placed
     [HideInInspector] public GameObject collectedHit;//the stored gameobject the spray placement raycast has hit
+    private PauseMenuController pauseSFX;
     public bool firing;
     private LevelProgressTracker lPT;
     private TimerController tC;
@@ -101,16 +102,19 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     public void OnShootPress()
     {
+       // pauseSFX.ButtonSFX();
         markerSelect = 1;//tells the system the player is placing marker 1
         PlaceSpray();//fires the function to place the decal
     }
     public void OnStopPress()
     {
+        //pauseSFX.ButtonSFX();
         markerSelect = 2;//tells the system the player is placing marker 2
         PlaceSpray();//fires the function to place the decal
     }
     public void OnFollowPress()
     {
+       // pauseSFX.ButtonSFX();
         markerSelect = 3;//tells the system the player is placing marker 3
         PlaceSpray();//fires the function to place the decal
     }
@@ -156,6 +160,7 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     public void OnDeletePress()  
     {
+        //pauseSFX.ButtonSFX();
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))//fires out a raycast
         {
             if (hit.transform.TryGetComponent(out ICleanable Spray))
