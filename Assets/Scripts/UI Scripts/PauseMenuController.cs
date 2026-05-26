@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private TimerController tC;
     public AudioClip buttonPress;
     [SerializeField] AudioSource settingsAudio;
+    private float inputDelay;
 
     //coded by sawyer
     private void Awake()
@@ -35,15 +37,11 @@ public class PauseMenuController : MonoBehaviour
             restartController = FindFirstObjectByType<QuickRestart>();
         }
         quit = false;
-       
+
     }
     public void OnRestartPress()
     {
-       // settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnRestartPressRun), 0.1f);
-    }
-    private void OnRestartPressRun()
-    {
+        settingsAudio.PlayOneShot(buttonPress, 0.01f);
         if (restartController != null)
         {
             tC.SaveSprays();
@@ -51,25 +49,18 @@ public class PauseMenuController : MonoBehaviour
             restartController.PlayerDie();
         }
     }
+   
     public void OnFullQuit()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnFullQuitRun), 0.1f);
-    }
-    private void OnFullQuitRun()
-    {
+        ButtonSFX();
         tC.SaveSprays();
         Application.Quit();
-        //Debug.Log("You closed it");
+
     }
+ 
     public void OnPauseQuit() 
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        //Debug.Log("You pressed it");
-        Invoke(nameof(OnPauseQuitRun), 0.1f);  
-    }
-    private void OnPauseQuitRun()
-    {
+        ButtonSFX();
         tC.SaveSprays();
         pauseMenu.ButtonPress();
         quit = true;
@@ -77,15 +68,12 @@ public class PauseMenuController : MonoBehaviour
         if (FindAnyObjectByType<PlanningModeController>())
             Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
         SceneManager.LoadScene(0);
+        //Debug.Log("You pressed it");
     }
-
+  
     public void OnPlanningEnable()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnPlanningEnableRun), 0.1f);
-    }
-    private void OnPlanningEnableRun()
-    {
+        ButtonSFX();
         if (FindAnyObjectByType<PlanningModeController>() != null)
         {
             tC.SaveSprays();
@@ -100,72 +88,52 @@ public class PauseMenuController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
-
+   
     public void OnSettingsOpen()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnSettingsOpenRun), 0.1f);
-    }
-    private void OnSettingsOpenRun()
-    {
+        ButtonSFX();
         settings_Audio.SetActive(true);
         pauseUI.SetActive(false);
     }
-
+  
     public void OnTheQuintessentialResumeButtonTrigger()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnResumeRun), 0.1f);
-    }
-    private void OnResumeRun()
-    {
+        ButtonSFX();
         pauseMenu.ButtonPress();
     }
     public void OnAudioPress()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnAudioRun), 0.1f);
-    }
-    private void OnAudioRun()
-    {
+        ButtonSFX();
         settings_Audio.SetActive(true);
         settings_Video.SetActive(false);
         settings_Gameplay.SetActive(false);
     }
+ 
     public void OnVideoPress()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnVideoRun), 0.1f);
-    }
-    private void OnVideoRun()
-    {
+        ButtonSFX();
         settings_Audio.SetActive(false);
         settings_Video.SetActive(true);
         settings_Gameplay.SetActive(false);
     }
     public void OnGameplayPress()
     {
-       // settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnGameplayRun), 0.1f);
-    }
-    private void OnGameplayRun()
-    {
+        ButtonSFX();
         settings_Audio.SetActive(false);
         settings_Video.SetActive(false);
         settings_Gameplay.SetActive(true);
     }
-
+ 
     public void OnBackPress()
     {
-       // settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnBackRun), 0.1f);
-    }
-    private void OnBackRun()
-    {
+        ButtonSFX();
         settings_Audio.SetActive(false);
         settings_Video.SetActive(false);
         settings_Gameplay.SetActive(false);
         pauseUI.SetActive(true);
     }
-
+    public void ButtonSFX()
+    {
+        settingsAudio.PlayOneShot(buttonPress);
+    }
 }
