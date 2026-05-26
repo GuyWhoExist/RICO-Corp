@@ -37,6 +37,7 @@ public class SprayPlacerHudController : MonoBehaviour
     {
         controls = new Controls();//the controls
         sprayDetection = LayerMask.GetMask("spray");//the spray layermask
+        pauseSFX = FindAnyObjectByType<PauseMenuController>();
         lPT = FindAnyObjectByType<LevelProgressTracker>();
         tC = FindAnyObjectByType<TimerController>();
     }

@@ -6,7 +6,8 @@ public class SprayController : MonoBehaviour
 {
     private bool sprays;
     private List<Spray> allSprays;
-    private List<Spray> destroyableSprays = new();
+    private List<Spray> glassSprays = new();
+    private List<Spray> armouredGlassSprays = new();
     private int listRoller = 0;
     private void OnEnable()
     {
@@ -30,11 +31,15 @@ public class SprayController : MonoBehaviour
     private void SpraySorter()
     {
         Debug.Log(allSprays[listRoller]);
-        if (allSprays[listRoller].destructible && allSprays[listRoller] != null)
+        if (allSprays[listRoller].destroyableObject != null && allSprays[listRoller] != null)
         {
-            destroyableSprays.Add(allSprays[listRoller]);
+            glassSprays.Add(allSprays[listRoller]);
         }
-        listRoller++;
+        else if (allSprays[listRoller].reflectingDestroyableObject != null && allSprays[listRoller] != null)
+        {
+            armouredGlassSprays.Add(allSprays[listRoller]);
+        }
+            listRoller++;
         if(listRoller < allSprays.Count)
         {
             SpraySorter();
@@ -48,10 +53,10 @@ public class SprayController : MonoBehaviour
     {
         if (sprays)
         {
-            if (destroyableSprays.Count > listRoller)
+            if (glassSprays.Count > listRoller)
             {
-                destroyableSprays[listRoller].GlassCheck();
-                if (destroyableSprays.Count > listRoller)
+                glassSprays[listRoller].GlassCheck();
+                if (glassSprays.Count > listRoller)
                 {
                     listRoller++;
                     GlassImpact();
@@ -68,11 +73,11 @@ public class SprayController : MonoBehaviour
     {
         if (sprays)
         {
-            if (destroyableSprays.Count > listRoller)
+            if (armouredGlassSprays.Count > listRoller)
             {
 
-                destroyableSprays[listRoller].ArmoredGlassCheck();
-                if (destroyableSprays.Count > listRoller)
+                armouredGlassSprays[listRoller].ArmoredGlassCheck();
+                if (armouredGlassSprays.Count > listRoller)
                 {
                     listRoller++;
                     ArmoredGlassImpact();

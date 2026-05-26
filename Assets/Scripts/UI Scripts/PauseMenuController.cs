@@ -68,9 +68,10 @@ public class PauseMenuController : MonoBehaviour
         if (FindAnyObjectByType<PlanningModeController>())
             Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
         SceneManager.LoadScene(0);
+
         //Debug.Log("You pressed it");
     }
-  
+
     public void OnPlanningEnable()
     {
         ButtonSFX();
