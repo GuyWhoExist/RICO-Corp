@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private TimerController tC;
     public AudioClip buttonPress;
     [SerializeField] AudioSource settingsAudio;
+    private float inputDelay;
 
     //coded by sawyer
     private void Awake()
@@ -35,137 +37,214 @@ public class PauseMenuController : MonoBehaviour
             restartController = FindFirstObjectByType<QuickRestart>();
         }
         quit = false;
-       
+
     }
     public void OnRestartPress()
     {
-       // settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnRestartPressRun), 0.1f);
+        settingsAudio.PlayOneShot(buttonPress, 0.01f);
+        StartCoroutine(OnResumeRun());
     }
-    private void OnRestartPressRun()
+    private IEnumerator OnRestartPressRun()
     {
-        if (restartController != null)
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
         {
-            tC.SaveSprays();
-            pauseMenu.ButtonPress();
-            restartController.PlayerDie();
+            if (restartController != null)
+            {
+                tC.SaveSprays();
+                pauseMenu.ButtonPress();
+                restartController.PlayerDie();
+            }
+            StopCoroutine(OnRestartPressRun());
+            inputDelay = 0;
+            yield return null;
         }
+      
     }
     public void OnFullQuit()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnFullQuitRun), 0.1f);
+        ButtonSFX();
+        StartCoroutine(OnFullQuitRun());
     }
-    private void OnFullQuitRun()
+    private IEnumerator OnFullQuitRun()
     {
-        tC.SaveSprays();
-        Application.Quit();
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            tC.SaveSprays();
+            Application.Quit();
+            yield return null;
+        }
+       
         //Debug.Log("You closed it");
     }
     public void OnPauseQuit() 
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
+        ButtonSFX();
         //Debug.Log("You pressed it");
-        Invoke(nameof(OnPauseQuitRun), 0.1f);  
+       StartCoroutine(OnPauseQuitRun());
     }
-    private void OnPauseQuitRun()
+    private IEnumerator OnPauseQuitRun()
     {
-        tC.SaveSprays();
-        pauseMenu.ButtonPress();
-        quit = true;
-        musicClass.StopMusic();
-        if (FindAnyObjectByType<PlanningModeController>())
-            Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
-        SceneManager.LoadScene(0);
-    }
-
-    public void OnPlanningEnable()
-    {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnPlanningEnableRun), 0.1f);
-    }
-    private void OnPlanningEnableRun()
-    {
-        if (FindAnyObjectByType<PlanningModeController>() != null)
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
         {
             tC.SaveSprays();
-            Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
-            restartController = FindFirstObjectByType<QuickRestart>();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            pauseMenu.ButtonPress();
+            quit = true;
+            musicClass.StopMusic();
+            if (FindAnyObjectByType<PlanningModeController>())
+                Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
+            SceneManager.LoadScene(0);
+            StopCoroutine (OnPauseQuitRun());
+            inputDelay = 0;
+            yield return null;
         }
-        else
-        {
-            Instantiate(planningController);
-            restartController = FindFirstObjectByType<QuickRestart>();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+      
     }
-
+    public void OnPlanningEnable()
+    {
+        ButtonSFX();
+        StartCoroutine(OnPlanningEnableRun());
+    }
+    private IEnumerator OnPlanningEnableRun()
+    {
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            if (FindAnyObjectByType<PlanningModeController>() != null)
+            {
+                tC.SaveSprays();
+                Destroy(FindAnyObjectByType<PlanningModeController>().gameObject);
+                restartController = FindFirstObjectByType<QuickRestart>();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+                Instantiate(planningController);
+                restartController = FindFirstObjectByType<QuickRestart>();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            StopCoroutine(OnPlanningEnableRun());
+            inputDelay = 0;
+            yield return null;
+        }
+       
+    }
     public void OnSettingsOpen()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnSettingsOpenRun), 0.1f);
+        ButtonSFX();
+        StartCoroutine(OnSettingsOpenRun());
     }
-    private void OnSettingsOpenRun()
+    private IEnumerator OnSettingsOpenRun()
     {
-        settings_Audio.SetActive(true);
-        pauseUI.SetActive(false);
+        
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            settings_Audio.SetActive(true);
+            pauseUI.SetActive(false);
+            StopCoroutine(OnSettingsOpenRun());
+            inputDelay = 0;
+            yield return null;
+        }
+      
     }
-
     public void OnTheQuintessentialResumeButtonTrigger()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnResumeRun), 0.1f);
+        ButtonSFX();
+        StartCoroutine(OnResumeRun());
     }
-    private void OnResumeRun()
+    private IEnumerator OnResumeRun()
     {
-        pauseMenu.ButtonPress();
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            pauseMenu.ButtonPress();
+            StopCoroutine(OnResumeRun());
+            inputDelay = 0;
+            yield return null;
+        }
+        
     }
     public void OnAudioPress()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnAudioRun), 0.1f);
+        ButtonSFX();
+        StartCoroutine(OnAudioRun());
     }
-    private void OnAudioRun()
+    private IEnumerator OnAudioRun()
     {
-        settings_Audio.SetActive(true);
-        settings_Video.SetActive(false);
-        settings_Gameplay.SetActive(false);
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            settings_Audio.SetActive(true);
+            settings_Video.SetActive(false);
+            settings_Gameplay.SetActive(false);
+            StopCoroutine (OnAudioRun());
+            inputDelay = 0;
+            yield return null;
+        }
+       
     }
     public void OnVideoPress()
     {
-      //  settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnVideoRun), 0.1f);
+        ButtonSFX();
+        StartCoroutine(OnVideoRun());
     }
-    private void OnVideoRun()
+    private IEnumerator OnVideoRun()
     {
-        settings_Audio.SetActive(false);
-        settings_Video.SetActive(true);
-        settings_Gameplay.SetActive(false);
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            settings_Audio.SetActive(false);
+            settings_Video.SetActive(true);
+            settings_Gameplay.SetActive(false);
+            StopCoroutine (OnVideoRun());
+            inputDelay = 0;
+            yield return null;
+        }
+      
     }
     public void OnGameplayPress()
     {
-       // settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnGameplayRun), 0.1f);
+        ButtonSFX();
+       StartCoroutine(OnGameplayRun());
     }
-    private void OnGameplayRun()
+    private IEnumerator OnGameplayRun()
     {
-        settings_Audio.SetActive(false);
-        settings_Video.SetActive(false);
-        settings_Gameplay.SetActive(true);
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            settings_Audio.SetActive(false);
+            settings_Video.SetActive(false);
+            settings_Gameplay.SetActive(true);
+            StopCoroutine (OnGameplayRun());
+            inputDelay = 0;
+            yield return null;
+        }
+      
     }
-
     public void OnBackPress()
     {
-       // settingsAudio.PlayOneShot(buttonPress, 0.1f);
-        Invoke(nameof(OnBackRun), 0.1f);
+        ButtonSFX();
+        StartCoroutine(OnBackRun());
     }
-    private void OnBackRun()
+    private IEnumerator OnBackRun()
     {
-        settings_Audio.SetActive(false);
-        settings_Video.SetActive(false);
-        settings_Gameplay.SetActive(false);
-        pauseUI.SetActive(true);
+        inputDelay += Time.unscaledDeltaTime;
+        while (inputDelay >= 0.1f)
+        {
+            settings_Audio.SetActive(false);
+            settings_Video.SetActive(false);
+            settings_Gameplay.SetActive(false);
+            pauseUI.SetActive(true);
+            StopCoroutine(OnBackRun());
+            inputDelay = 0;
+            yield return null;
+        }
     }
-
+    public void ButtonSFX()
+    {
+        settingsAudio.PlayOneShot(buttonPress);
+    }
 }

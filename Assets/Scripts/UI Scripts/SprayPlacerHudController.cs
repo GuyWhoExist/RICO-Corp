@@ -102,19 +102,19 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     public void OnShootPress()
     {
-       // pauseSFX.ButtonSFX();
+        pauseSFX.ButtonSFX();
         markerSelect = 1;//tells the system the player is placing marker 1
         PlaceSpray();//fires the function to place the decal
     }
     public void OnStopPress()
     {
-        //pauseSFX.ButtonSFX();
+        pauseSFX.ButtonSFX();
         markerSelect = 2;//tells the system the player is placing marker 2
         PlaceSpray();//fires the function to place the decal
     }
     public void OnFollowPress()
     {
-       // pauseSFX.ButtonSFX();
+        pauseSFX.ButtonSFX();
         markerSelect = 3;//tells the system the player is placing marker 3
         PlaceSpray();//fires the function to place the decal
     }
@@ -160,7 +160,7 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     public void OnDeletePress()  
     {
-        //pauseSFX.ButtonSFX();
+        pauseSFX.ButtonSFX();
         if (Physics.Raycast(CameraPosition.transform.position, CameraPosition.transform.forward, out hit, 10f))//fires out a raycast
         {
             if (hit.transform.TryGetComponent(out ICleanable Spray))

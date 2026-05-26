@@ -8162,6 +8162,11 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 3595649237641412914, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
   m_PrefabInstance: {fileID: 3885488378213882678}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &774710544516159228 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4552105934603308490, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+  m_PrefabInstance: {fileID: 3885488378213882678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1572008785102014772 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2322980758753661442, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
@@ -9786,6 +9791,14 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 4133675217727616041}
+    - target: {fileID: 8697977268973879847, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
+      propertyPath: buttonPress
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c6640bc61a09514d81e6a17c83c1074, type: 3}
+    - target: {fileID: 8697977268973879847, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
+      propertyPath: settingsAudio
+      value: 
+      objectReference: {fileID: 774710544516159228}
     - target: {fileID: 8699713570274501153, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 120
