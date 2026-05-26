@@ -81,6 +81,8 @@ public class Shooting : MonoBehaviour
             
             lineRenderer.material = planningMaterial;
             lineRenderer.material.renderQueue = 4000;
+            lineRenderer.startWidth = 0.3f;
+            lineRenderer.endWidth = 0.3f;
             impactDecals = false;
             reflectDecals = false;
             planning = true;
@@ -358,20 +360,24 @@ public class Shooting : MonoBehaviour
                         
                             
 
-                    if (total < hits)
-                    {
+                        if (total < hits)
+                        {
                             Debug.Log(killStreak);
                             //playerMovementTutorial.moveSpeed = playerMovementTutorial.moveSpeed + playerMovementTutorial.killBoost;
-                            if (shootable.GetGameObject().GetComponent<Enemy>().shotImmune != true)
-                                {
-                                    speedBoost.fuel += 1f;
-                                    Debug.Log($"Fuel is at: {speedBoost.fuel}");
-                                }
+                            if (shootable.GetGameObject().GetComponent<Enemy>().shotImmune != true && !shootable.GetGameObject().GetComponent<Enemy>().shot)
+                            {
+                                speedBoost.fuel += 1f;
+                                Debug.Log($"Fuel is at: {speedBoost.fuel}");
+                            }
                             
                             /*boostCoolDownStored = playerMovementTutorial.boostCoolDown;
                             Debug.Log($"{boostCoolDownStored}");
                             killStreak = killStreak + 1; */
 
+                        }
+                        else
+                        {
+                                shootable.GetGameObject().GetComponent<Enemy>().shot = true; //prevents the enemy from giving boost despite being shot already - Nova
                         }
                         
                         enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None); //reduces the enemy count - Nova

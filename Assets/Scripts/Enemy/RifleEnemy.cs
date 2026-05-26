@@ -61,12 +61,12 @@ public class RifleEnemy : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit sightHit, maxSightDistance) && sightHit.transform.GetComponent<PlayerMovementTutorial>() == null)
         {
-            Debug.Log($"Hit wall, position: {sightHit.point}");
+            //Debug.Log($"Hit wall, position: {sightHit.point}");
             lR.SetPosition(1, sightHit.point);
         }
         else
         {
-            Debug.Log($"Miss, position: {sightHit.point}");
+            //Debug.Log($"Miss, position: {sightHit.point}");
             lR.SetPosition(1, transform.position + transform.forward * maxSightDistance);
         }
         UpdateState();

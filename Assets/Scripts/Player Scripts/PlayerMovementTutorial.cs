@@ -108,13 +108,14 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void startChecker()
     {
         //Debug.Log("checking if player has done anything");
-        if (gameObject.transform.position == initialPosition && hasPlayerShot.shotDelay < 0)
+        if (gameObject.transform.position.x <= initialPosition.x+0.1 && gameObject.transform.position.x >= initialPosition.x - 0.1 && gameObject.transform.position.z <= initialPosition.z + 0.1 && gameObject.transform.position.z >= initialPosition.z - 0.1 && hasPlayerShot.shotDelay < 0)
         {
             Invoke(nameof(startChecker), 0.01f);
             //Debug.Log("player has not moved yet, looping...");
         }
         else
         {
+            Debug.Log($"Position: {gameObject.transform.position} | Stored start position: {initialPosition}");
             timerStarter.timeTicking = true;
         }
     }
