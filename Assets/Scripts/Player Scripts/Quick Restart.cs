@@ -12,14 +12,12 @@ public class QuickRestart : MonoBehaviour
     private LevelEnder levelEnder;
     [SerializeField] PlayerCamera killCancel;
     [SerializeField] TimerController timerController;
-    private LevelProgressTracker levelProgressTracker;
 
     private bool anotherOverflowBlock; // stops the kill input from being generated every frame - Sawyer
 
     private void Awake()
     {
         controls = new Controls();
-        levelProgressTracker = FindAnyObjectByType<LevelProgressTracker>();
         levelEnder = FindAnyObjectByType<LevelEnder>();
     }
     private void OnEnable()

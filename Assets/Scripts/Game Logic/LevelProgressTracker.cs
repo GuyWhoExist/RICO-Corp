@@ -96,26 +96,26 @@ public class LevelProgressTracker : MonoBehaviour
             }
             else
             {
-                if (levels[levelEnder.nextLevelIndex - 3].bestTime <= 0)
+                if (levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime <= 0)
                 {
                     levelCompleted = false;
-                    Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
+                    Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex - 3} besttime is : {levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
                     pauseMenu.CompletionCheck();
                     timerController.statusCheck = false;
                     bestTimeStored = -1;
                 }
-                else if (levels[levelEnder.nextLevelIndex - 3].bestTime > 0)
+                else if (levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime > 0)
                 {
                     levelCompleted = true;
-                    Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
+                    Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex - 3} besttime is : {levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime}");
                     valueCheckDelay = 0f;
                     checkComplete = true;
                     pauseMenu.CompletionCheck();
                     timerController.statusCheck = false;
                     initialComplete = false;
-                    bestTimeStored = levels[levelEnder.nextLevelIndex - 3].bestTime;
+                    bestTimeStored = levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime;
 
 
                 }

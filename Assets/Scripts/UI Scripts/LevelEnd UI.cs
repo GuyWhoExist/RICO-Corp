@@ -106,23 +106,7 @@ public class LevelEndUI : MonoBehaviour
         Time.timeScale = 1;
         pCamera.Freeze();
         Cursor.lockState = CursorLockMode.None;
-        if (levelEnder.nextLevelIndex == 0)
-        {
-            timerController.end = false;
-            if (timerController.end == false)
-            {
-                SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
-            }
-        }
-        else
-        {
-            timerController.end = false;
-            if (timerController.end == false)
-            {
-                
-                SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
-            }
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void OnPlanningPress() // player plans -sawyer
     {
@@ -130,23 +114,7 @@ public class LevelEndUI : MonoBehaviour
         pCamera.Freeze();
         Cursor.lockState = CursorLockMode.None;
         Instantiate(planningController);
-        if (levelEnder.nextLevelIndex == 0)
-        {
-            timerController.end = false;
-            if (timerController.end == false)
-            {
-                SceneManager.LoadScene(levelProgressTracker.levels.Length + 1);
-            }
-        }
-        else
-        {
-            timerController.end = false;
-            if (timerController.end == false)
-            {
-
-                SceneManager.LoadScene(levelEnder.GetNextIndex() - 1);
-            }
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void OnQuitPress() // player likely ragequit, shame on them -sawyer
     {
