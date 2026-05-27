@@ -136,6 +136,9 @@ public class PauseMenu : MonoBehaviour
             cameraSetting.Unfreeze();
             paused = false;
             pauseHud.SetActive(false);
+            pauseController.settings_Audio.SetActive(false);
+            pauseController.settings_Gameplay.SetActive(false);
+            pauseController.settings_Video.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             if (FindAnyObjectByType<PlanningModeController>() == false)
                 gameHud.SetActive(true);
