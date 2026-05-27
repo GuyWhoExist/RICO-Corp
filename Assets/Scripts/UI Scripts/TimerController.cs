@@ -98,7 +98,7 @@ public class TimerController : MonoBehaviour
             Debug.Log("enabled Timer");
         }
 
-        levelProgressTracker.LoadSprays(SceneManager.GetActiveScene().buildIndex-2);
+        levelProgressTracker.LoadSprays(SceneManager.GetActiveScene().buildIndex - 1);
     }
     void Update()
     {
@@ -203,7 +203,7 @@ public class TimerController : MonoBehaviour
                 }
                 else
                 {
-                    if (curTime < levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime || levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime == -1f)
+                    if (curTime < levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime || levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime == -1f)
                     {
                         levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime = curTime;
                     }
@@ -234,7 +234,7 @@ public class TimerController : MonoBehaviour
         }
         else
         {
-            if (curTime < levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime || levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime == -1f)
+            if (curTime < levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime || levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime == -1f)
             {
                 location = lE.GetNextIndex() - 3;
             }
@@ -304,7 +304,7 @@ public class TimerController : MonoBehaviour
 
         end = true;
 
-        if (lE.nextLevelIndex == 0 || curTime <= levelProgressTracker.levels[lE.GetNextIndex() - 3].milestone1)
+        if (lE.nextLevelIndex == 0 || curTime <= levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].milestone1)
         {
             next.SetActive(true);
         }

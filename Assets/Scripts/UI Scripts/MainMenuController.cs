@@ -81,7 +81,7 @@ public class MainMenuController : MonoBehaviour
             {
                 // Debug.Log($"Valid Level Found At {i+1}");
                 continued = true;
-                SceneManager.LoadScene(i + 2);
+                SceneManager.LoadScene(i - 1);
             }
             else
             {
@@ -91,7 +91,7 @@ public class MainMenuController : MonoBehaviour
         if (!continued)
         {
             // Debug.Log("No Valid Levels Found. Going To Level 1");
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(1);
         }
     }
 
@@ -128,8 +128,8 @@ public class MainMenuController : MonoBehaviour
                 Debug.Log($"Best Time {l.bestTime}");
             }
             Debug.Log($"Testing Time {levelProgressTracker.testingTime}");
-            Debug.Log(levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].bestTime);
-            if (levelProgressTracker.levels[levelStatus.GetLevelIndex()-2].bestTime == -1f )
+            Debug.Log(levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].bestTime);
+            if (levelProgressTracker.levels[levelStatus.GetLevelIndex() -1].bestTime == -1f )
             {
                 foreach (GameObject obj in allObjects)
                 {
@@ -184,22 +184,22 @@ public class MainMenuController : MonoBehaviour
                         if (obj.name == "Gold Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone3.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].milestone3.ToString("0:00.00")}";
                         }
                         else if (obj.name == "Silver Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone2.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].milestone2.ToString("0:00.00")}";
                         }
                         else if (obj.name == "Bronze Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone1.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].milestone1.ToString("0:00.00")}";
                         }
                         else if (obj.name == "Best Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Best Time: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].bestTime.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Best Time: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].bestTime.ToString("0:00.00")}";
                         }
                     }
                 }

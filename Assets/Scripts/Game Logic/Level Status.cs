@@ -32,13 +32,13 @@ public class LevelStatus : MonoBehaviour
         {
             unlocked = true;
         }
-        else if (levelProgressTracker.levels[levelNumber - 2].bestTime <= levelProgressTracker.levels[levelNumber - 2].milestone1 && levelProgressTracker.levels[levelNumber - 2].bestTime != -1f)
+        else if (levelProgressTracker.levels[levelNumber - 1].bestTime <= levelProgressTracker.levels[levelNumber - 1].milestone1 && levelProgressTracker.levels[levelNumber - 1].bestTime != -1f)
         {
             unlocked = true;
         }
         else
         {
-            Debug.Log((levelProgressTracker.levels[levelNumber - 2].bestTime));
+            Debug.Log((levelProgressTracker.levels[levelNumber - 1].bestTime));
         }
 
 
@@ -79,7 +79,7 @@ public class LevelStatus : MonoBehaviour
 
     public int GetLevelIndex()
     {
-        return levelNumber+1;
+        return levelNumber;
     }
 
     /*public void UpdateStatus()
