@@ -193,22 +193,12 @@ public class TimerController : MonoBehaviour
                 {
                     timerText.text = curTime.ToString("0:00.00");
                 }
-                if (lE.GetNextIndex() == 0)
+                levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime = curTime;
+                if (SceneManager.GetActiveScene().buildIndex == levelProgressTracker.levels.Length)
                 {
-                    if (curTime < levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime || levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime == -1f)
-                    {
-                        levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime = curTime;
-                    }
                     musicClass.StopMusic();
                 }
-                else
-                {
-                    if (curTime < levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime || levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime == -1f)
-                    {
-                        levelProgressTracker.levels[lE.GetNextIndex() - 3].bestTime = curTime;
-                    }
-                }
-               
+
                 //level ends, save best times
                 Debug.Log("best time updated (hopefully)");
                 StartCoroutine(WaitABit(lE));
@@ -225,20 +215,7 @@ public class TimerController : MonoBehaviour
         int location = 0; //the location/index of where we are storing the current sprays - Nova
         Spray[] foundSprays = FindObjectsByType<Spray>(FindObjectsSortMode.None);
         
-        if (lE.GetNextIndex() == 0)
-        {
-            if (curTime < levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime || levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].bestTime == -1f)
-            {
-                location = levelProgressTracker.levels.Length - 1;
-            }
-        }
-        else
-        {
-            if (curTime < levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime || levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime == -1f)
-            {
-                location = lE.GetNextIndex() - 3;
-            }
-        }
+        location = SceneManager.GetActiveScene().buildIndex-1;
 
         levelProgressTracker.sprays[location] = new List<LevelProgressTrackerDTO.SprayInfo>();
 

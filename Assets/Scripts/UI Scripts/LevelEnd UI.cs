@@ -55,37 +55,15 @@ public class LevelEndUI : MonoBehaviour
         {
             if (endGUI.transform.GetChild(i).gameObject.name == "Gold Time Text")
             {
-                if (levelEnder.nextLevelIndex == 0)
-                {
-                    endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelProgressTracker.levels.Length-1].milestone3.ToString("0:00.00")}";
-                }
-                else
-                {
-                    endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone3.ToString("0:00.00")}";
-                    Debug.Log($"Index issue testing: {levelEnder.nextLevelIndex - 3}");
-                }
+                endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].milestone3.ToString("0:00.00")}";
             }
             else if (endGUI.transform.GetChild(i).gameObject.name == "Silver Time Text")
             {
-                if (levelEnder.nextLevelIndex == 0)
-                {
-                    endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone2.ToString("0:00.00")}";
-                }
-                else
-                {
-                    endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone2.ToString("0:00.00")}";
-                }
+                endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].milestone2.ToString("0:00.00")}";
             }
             else if (endGUI.transform.GetChild(i).gameObject.name == "Bronze Time Text")
             {
-                if (levelEnder.nextLevelIndex == 0)
-                {
-                    endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelProgressTracker.levels.Length - 1].milestone1.ToString("0:00.00")}";
-                }
-                else
-                {
-                    endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelEnder.nextLevelIndex - 3].milestone1.ToString("0:00.00")}";
-                }
+                endGUI.transform.GetChild(i).gameObject.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].milestone1.ToString("0:00.00")}";
             }
         }
 
@@ -98,7 +76,15 @@ public class LevelEndUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         if (timerController.end == false)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if (SceneManager.GetActiveScene().buildIndex + 1 > levelProgressTracker.levels.Length)
+            {
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+
         }
     }
     public void OnRestartPress() // player restarts -sawyer
