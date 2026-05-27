@@ -70,7 +70,7 @@ public class LevelProgressTracker : MonoBehaviour
 
             if (levelEnder.nextLevelIndex == 0)
             {
-                if (levels[levels.Length-1].bestTime == -1f)
+                if (levels[levels.Length-1].bestTime <= 0)
                 {
                     levelCompleted = false;
                     Debug.Log($"disabling locked features, because level {levels.Length - 1} besttime is : {levels[levels.Length - 1].bestTime}");
@@ -80,7 +80,7 @@ public class LevelProgressTracker : MonoBehaviour
                     timerController.statusCheck = false;
                     bestTimeStored = -1;
                 }
-                else
+                else if (levels[levels.Length - 1].bestTime > 0)
                 {
                     levelCompleted = true;
                     Debug.Log($"Enabling locked features, because  level {levels.Length - 1} besttime is : {levels[levels.Length - 1].bestTime}");
@@ -96,7 +96,7 @@ public class LevelProgressTracker : MonoBehaviour
             }
             else
             {
-                if (levels[levelEnder.nextLevelIndex - 3].bestTime == -1f)
+                if (levels[levelEnder.nextLevelIndex - 3].bestTime <= 0)
                 {
                     levelCompleted = false;
                     Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
@@ -106,7 +106,7 @@ public class LevelProgressTracker : MonoBehaviour
                     timerController.statusCheck = false;
                     bestTimeStored = -1;
                 }
-                else
+                else if (levels[levelEnder.nextLevelIndex - 3].bestTime > 0)
                 {
                     levelCompleted = true;
                     Debug.Log($"Enabling locked features, because  level {levelEnder.nextLevelIndex - 3} besttime is : {levels[levelEnder.nextLevelIndex - 3].bestTime}");
