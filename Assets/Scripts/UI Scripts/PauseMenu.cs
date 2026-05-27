@@ -58,25 +58,29 @@ public class PauseMenu : MonoBehaviour
             }
 
         FOVSlider.value = float.Parse(FOVDisplay.text);
-        
+        Invoke(nameof(StartControlsForPause), 0.6f);
     }
     private void OnEnable()
     {
         pauseHud.SetActive(false);
-        controls.Pause.Pause.Enable();
-        paused = false;
-        controls.Pause.Pause.performed += Pause_Performed;
+
         //controls.Pause.Pause.performed += (ctx) => Debug.Log("man");
-       
-       
+        paused = false;
+
         if (FindAnyObjectByType<PlanningModeController>())
         {
             gameHud.SetActive(false);
             planningGUI.SetActive(true);
         }
-            
 
     }
+
+    private void StartControlsForPause()
+    {
+        controls.Pause.Pause.Enable();
+        controls.Pause.Pause.performed += Pause_Performed;
+    }
+
     private void OnDisable()
     {
         controls.Pause.Pause.Disable();

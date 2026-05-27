@@ -20,7 +20,6 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private TimerController tC;
     public AudioClip buttonPress;
     [SerializeField] AudioSource settingsAudio;
-    private float inputDelay;
 
     //coded by sawyer
     private void Awake()
