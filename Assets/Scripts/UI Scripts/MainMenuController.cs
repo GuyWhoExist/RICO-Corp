@@ -155,22 +155,22 @@ public class MainMenuController : MonoBehaviour
                         if (obj.name == "Gold Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone3.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Gold: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].milestone3.ToString("0:00.00")}";
                         }
                         else if (obj.name == "Silver Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone2.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Silver: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].milestone2.ToString("0:00.00")}";
                         }
                         else if (obj.name == "Bronze Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].milestone1.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Bronze: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].milestone1.ToString("0:00.00")}";
                         }
                         else if (obj.name == "Best Time Text")
                         {
                             obj.SetActive(true);
-                            obj.GetComponent<TextMeshProUGUI>().text = $"Best Time: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 2].bestTime.ToString("0:00.00")}";
+                            obj.GetComponent<TextMeshProUGUI>().text = $"Best Time: {levelProgressTracker.levels[levelStatus.GetLevelIndex() - 1].bestTime.ToString("0:00.00")}";
                         }
                     }
                 }

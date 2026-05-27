@@ -12,6 +12,7 @@ public class LevelProgressTracker : MonoBehaviour
     private LevelEnder levelEnder;
     [HideInInspector] public PauseMenu pauseMenu;
     [HideInInspector] public TimerController timerController;
+    [HideInInspector] public PlanningModeController planningStatus;
     [HideInInspector] public bool initialComplete;
     public float bestTimeStored;
     private Cheats cheats;
@@ -70,7 +71,7 @@ public class LevelProgressTracker : MonoBehaviour
 
             if (levelEnder.nextLevelIndex == 0)
             {
-                if (levels[levels.Length-1].bestTime <= 0)
+                if (levels[levels.Length-1].bestTime <= 0 && planningStatus == null)
                 {
                     levelCompleted = false;
                     Debug.Log($"disabling locked features, because level {levels.Length - 1} besttime is : {levels[levels.Length - 1].bestTime}");
@@ -96,7 +97,7 @@ public class LevelProgressTracker : MonoBehaviour
             }
             else
             {
-                if (levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime <= 0)
+                if (levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime <= 0 && planningStatus == null)
                 {
                     levelCompleted = false;
                     Debug.Log($"disabling locked features, because level {levelEnder.nextLevelIndex - 3} besttime is : {levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime}");
@@ -136,6 +137,7 @@ public class LevelProgressTracker : MonoBehaviour
                     pauseMenu = FindAnyObjectByType<PauseMenu>();
                     timerController = FindAnyObjectByType<TimerController>();
                 levelEnder = FindFirstObjectByType<LevelEnder>();
+                planningStatus = FindFirstObjectByType<PlanningModeController>();
                 checkComplete = false;
                 initialComplete = true;
             }
