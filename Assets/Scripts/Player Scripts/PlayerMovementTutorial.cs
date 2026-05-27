@@ -92,7 +92,6 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         rb = this.transform.GetComponent<Rigidbody>();
         //exitingSlope = false;
-
         readyToJump = true;
         startYScale = transform.localScale.y;
         storedSpeed = moveSpeed;
@@ -111,6 +110,10 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         //Debug.Log("checking if player has done anything");
         if (gameObject.transform.position.x <= initialPosition.x+0.1 && gameObject.transform.position.x >= initialPosition.x - 0.1 && gameObject.transform.position.z <= initialPosition.z + 0.1 && gameObject.transform.position.z >= initialPosition.z - 0.1 && hasPlayerShot.shotDelay < 0)
+        /*
+         * this long "if" statement prevents the timer from starting if the player's y position changes, which caused the timer to start before the player pressed anything
+         * this comes with the side effect of the player being able to jump without starting the timer, but this rarely actually matters - Nova
+        */
         {
             Invoke(nameof(startChecker), 0.01f);
             //Debug.Log("player has not moved yet, looping...");

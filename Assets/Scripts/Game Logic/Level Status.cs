@@ -32,7 +32,7 @@ public class LevelStatus : MonoBehaviour
         {
             unlocked = true;
         }
-        else if (levelProgressTracker.levels[levelNumber - 1].bestTime <= levelProgressTracker.levels[levelNumber - 1].milestone1 && levelProgressTracker.levels[levelNumber - 1].bestTime != -1f)
+        else if (levelProgressTracker.levels[levelNumber - 2].bestTime <= levelProgressTracker.levels[levelNumber - 2].milestone1 && levelProgressTracker.levels[levelNumber - 2].bestTime != -1f)
         {
             unlocked = true;
         }

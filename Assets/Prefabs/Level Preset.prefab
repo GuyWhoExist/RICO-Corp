@@ -1014,15 +1014,15 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7752613409990898187}
+  - {fileID: 6800829382975348803}
   - {fileID: 2520546998503066612}
+  - {fileID: 6148726758371239575}
+  - {fileID: 4429044010547615803}
+  - {fileID: 110525771491957613}
   - {fileID: 5415935686686933609}
   - {fileID: 1654131490667169006}
-  - {fileID: 110525771491957613}
   - {fileID: 6533581300506218983}
-  - {fileID: 4429044010547615803}
   - {fileID: 7066346384212850086}
-  - {fileID: 6800829382975348803}
-  - {fileID: 6148726758371239575}
   - {fileID: 2983086104079176844}
   - {fileID: 5796966732992818225}
   m_Father: {fileID: 0}
@@ -1508,7 +1508,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3172374829404412842
 MonoBehaviour:
@@ -1822,7 +1822,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &731836144481683394
 MonoBehaviour:
@@ -2334,14 +2334,14 @@ RectTransform:
   - {fileID: 8156193517554909641}
   - {fileID: 736330014614381927}
   - {fileID: 3476025098334371372}
-  - {fileID: 1924297263936995342}
-  - {fileID: 8549467833298475779}
-  - {fileID: 6128019714930570601}
-  - {fileID: 598253163016423894}
   - {fileID: 7596062733699397102}
   - {fileID: 5293542198765663934}
   - {fileID: 9003147948472187929}
   - {fileID: 169516162430500890}
+  - {fileID: 1924297263936995342}
+  - {fileID: 8549467833298475779}
+  - {fileID: 6128019714930570601}
+  - {fileID: 598253163016423894}
   m_Father: {fileID: 2520546998503066612}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3116,8 +3116,8 @@ RectTransform:
   - {fileID: 5155402682273708586}
   - {fileID: 8054454321098626509}
   - {fileID: 2284368453531974154}
-  - {fileID: 7145227940025688400}
   - {fileID: 3942172594594404985}
+  - {fileID: 7145227940025688400}
   - {fileID: 7663050612493525083}
   - {fileID: 3638790168806408265}
   - {fileID: 619584127045547784}
@@ -3149,7 +3149,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &4145901565924632136
 MonoBehaviour:
@@ -4066,7 +4066,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 183.3}
+  m_AnchoredPosition: {x: 3.3, y: 183.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8384588206429407733
@@ -4131,7 +4131,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -4162,7 +4162,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -23.792519, w: 0}
+  m_margin: {x: 0, y: 0, z: -28.441772, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5670,7 +5670,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &7857239484570292562
 MonoBehaviour:
@@ -9650,6 +9650,10 @@ PrefabInstance:
     - target: {fileID: 7287853958726141265, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370527007414075675, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7423575502424994647, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
       propertyPath: m_fontAsset
