@@ -10,6 +10,7 @@ public class LevelLoadTracker : MonoBehaviour
         levelProgressTracker.pauseMenu = null;
         levelProgressTracker.timerController = null;
         levelProgressTracker.initialComplete = false;
+        levelProgressTracker.planningStatus = null;
         levelProgressTracker.LevelLoaded();
         Debug.Log("level is loaded");
         Destroy(this.gameObject);

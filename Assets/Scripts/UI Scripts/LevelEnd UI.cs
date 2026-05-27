@@ -98,7 +98,7 @@ public class LevelEndUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         if (timerController.end == false)
         {
-            SceneManager.LoadScene(levelEnder.GetNextIndex());
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
     public void OnRestartPress() // player restarts -sawyer
