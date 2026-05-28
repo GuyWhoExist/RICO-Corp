@@ -43,6 +43,8 @@ public class PlayerMovementTutorial : MonoBehaviour
     public float playerHeight;
     public LayerMask whatIsGround;
     [HideInInspector] public bool grounded;
+    private Collider[] grounds;
+    private int cycler;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -153,10 +155,12 @@ public class PlayerMovementTutorial : MonoBehaviour
             Debug.Log("full slowdown, resetting FOV");
         }*/
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounds = Physics.OverlapSphere(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.7f, gameObject.transform.position.z), 0.4f, whatIsGround);
+        
 
         MyInput();
         SpeedControl();
+        GroundChecker();
         StateHandler();
 
         // handle drag
@@ -228,6 +232,18 @@ public class PlayerMovementTutorial : MonoBehaviour
         //}
     }
 
+    private void GroundChecker()
+    {
+        if (grounds.Length > 0)
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+
+    }
     private void StateHandler() //pretty self explanitory, changes the players state accordingly. mainly a debugging thing - Nova
     {
         
