@@ -21,10 +21,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] float timeToSettingsCheck;
     private float timeForTimeToSettingsCheck;
     private LevelProgressTracker levelProgressTracker;
+    private SettingsTracker settingsTracker;
     private float sensitivityDisplayValue;
     private PlayerCamera cameraSetting;
     //public bool buttonPress;
-    private Config_Internal config;
     
     //allows to unpause via other means
  //coded by sawyer
@@ -34,28 +34,45 @@ public class PauseMenu : MonoBehaviour
         controls = new Controls();
         timeForTimeToSettingsCheck = timeToSettingsCheck;
         Time.timeScale = 1;
-       
-            planningGUI.SetActive(false);
+        planningGUI.SetActive(false);
+        cameraSetting = FindAnyObjectByType<PlayerCamera>();
+        levelProgressTracker = FindFirstObjectByType<LevelProgressTracker>();
+        settingsTracker = FindFirstObjectByType<SettingsTracker>();
 
-       
-            cameraSetting = FindAnyObjectByType<PlayerCamera>();
+        //settingsTracker.settings.sensitivity != cameraSetting.sensitivity || 
+        /*
+         * if (settingsTracker.settings.sensitivity < 0.1 || settingsTracker.settings.sensitivity > 5.3)
+        {
+            cameraSetting.sensitivity = settingsTracker.settings.sensitivity;
+            sensitivitySlider.value = settingsTracker.settings.sensitivity;
+        }
+        if (settingsTracker.settings.fieldOfView != cameraSetting.storedFOV || settingsTracker.settings.fieldOfView < 1 || settingsTracker.settings.fieldOfView > 140)
+        {
+            settingsTracker.settings.fieldOfView = cameraSetting.storedFOV;
+            FOVSlider.value = cameraSetting.storedFOV;
+        }
+         */
+        if (settingsTracker.settings.sensitivity < 0.1 || settingsTracker.settings.sensitivity > 5.3)
+        {
+            settingsTracker.settings.sensitivity = cameraSetting.sensitivity;
+        }
+        else
+        {
+            cameraSetting.sensitivity = settingsTracker.settings.sensitivity;
+        }
 
-       
-            levelProgressTracker = FindFirstObjectByType<LevelProgressTracker>();
-        
-        config = FindFirstObjectByType<Config_Internal>();
-      
+        sensitivitySlider.value = settingsTracker.settings.sensitivity;
 
-            if (config.sensitivity != cameraSetting.sensitivity || config.sensitivity < 0.1 || config.sensitivity > 5.3)
-            {
-                cameraSetting.sensitivity = config.sensitivity;
-                sensitivitySlider.value = config.sensitivity;
-            }
-            if (config.fieldOfView != cameraSetting.storedFOV || config.fieldOfView < 1 || config.fieldOfView > 140)
-            {
-                config.fieldOfView = cameraSetting.storedFOV;
-                FOVSlider.value = cameraSetting.storedFOV;
-            }
+        if (settingsTracker.settings.fieldOfView < 1 || settingsTracker.settings.fieldOfView > 140)
+        {
+            settingsTracker.settings.fieldOfView = cameraSetting.storedFOV;
+        }
+        else
+        {
+            cameraSetting.storedFOV = settingsTracker.settings.fieldOfView;
+        }
+
+        FOVSlider.value = cameraSetting.storedFOV;
 
         FOVSlider.value = float.Parse(FOVDisplay.text);
         Invoke(nameof(StartControlsForPause), 0.6f);
@@ -152,13 +169,13 @@ public class PauseMenu : MonoBehaviour
         {
             cameraSetting.storedFOV = FOVSlider.value;
             cameraSetting.FOV = cameraSetting.storedFOV;
-            config.fieldOfView = FOVSlider.value;
+            settingsTracker.settings.fieldOfView = FOVSlider.value;
         }
 
-        if (cameraSetting.sensitivity != sensitivitySlider.value + 0.3f)
+        if (cameraSetting.sensitivity != sensitivitySlider.value)
         {
-            cameraSetting.sensitivity = sensitivitySlider.value + 0.3f;
-            config.sensitivity = sensitivitySlider.value;
+            cameraSetting.sensitivity = sensitivitySlider.value;
+            settingsTracker.settings.sensitivity = sensitivitySlider.value;
         }
 
 
@@ -171,6 +188,9 @@ public class PauseMenu : MonoBehaviour
         {
             sensitivityDisplay.text = sensitivitySlider.maxValue.ToString();
         }
+
+        settingsTracker.settings.sensitivity = cameraSetting.sensitivity;
+        settingsTracker.settings.fieldOfView = cameraSetting.FOV;
     }
 
 

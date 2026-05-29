@@ -45,7 +45,9 @@ public class LevelProgressTrackerDTO
     new List<SprayInfo>(),
     new List<SprayInfo>(),
     new List<SprayInfo>()
-    }; 
+    };
+
+    public SettingsTracker.SettingsValues settingsValues;
 
 
     //public void ReferenceCarry(LevelProgressTracker levelProgressTracker)

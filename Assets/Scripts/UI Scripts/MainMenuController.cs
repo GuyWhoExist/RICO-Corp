@@ -75,13 +75,13 @@ public class MainMenuController : MonoBehaviour
         //Debug.Log("Music should be playing (start button)");
         //GameObject musicPlayer = GameObject.Find("Music Player");
         //musicPlayer.GetComponent<MusicClass>().PlayMusic();
-        for (int i = levelProgressTracker.levels.Length; i > 0; i--)
+        for (int i = levelProgressTracker.levels.Length-1; i > 0; i--)
         {
             if (levelProgressTracker.levels[i - 1].bestTime != -1f && levelProgressTracker.levels[i - 1].bestTime <= levelProgressTracker.levels[i - 1].milestone1 && !continued)
             {
                 // Debug.Log($"Valid Level Found At {i+1}");
                 continued = true;
-                SceneManager.LoadScene(i);
+                SceneManager.LoadScene(i+1);
             }
             else
             {

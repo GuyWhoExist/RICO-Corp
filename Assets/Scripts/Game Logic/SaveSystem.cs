@@ -20,6 +20,7 @@ public class SaveSystem : MonoBehaviour
     public List<Spray>[] importedSprays = new List<Spray>[10];
     private SaveSystem[] test;
     [SerializeField] private PersistentObject pO;
+    [SerializeField] private SettingsTracker sT;
 
 
 
@@ -78,6 +79,7 @@ public class SaveSystem : MonoBehaviour
     public void DTOsave() //saves all data into a JSON to be used in future runtimes - Nova
     {
         LevelProgressTrackerDTO levelProgressTrackerDTO = levelProgressTracker.GetDTO();
+        levelProgressTrackerDTO.settingsValues = sT.settings;
 
         // DTO -> string
         string savedJson = JsonConvert.SerializeObject
@@ -146,6 +148,9 @@ public class SaveSystem : MonoBehaviour
         //}
         levelProgressTracker.used = true;
         levelProgressTracker.LoadMethod(revertArrayArray);
+
+        sT.settings = DTO.settingsValues;
+        sT.used = true;
         
 
         Debug.Log("Sucessful Load");
