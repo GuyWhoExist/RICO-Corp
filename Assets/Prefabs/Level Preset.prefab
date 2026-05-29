@@ -466,7 +466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Silver: 0:20.00'
+  m_text: 'Silver: 0:35.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
   m_sharedMaterial: {fileID: 9135756079089362671, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
@@ -1929,7 +1929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bronze: 0:35.00'
+  m_text: 'Bronze: 0:45.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
   m_sharedMaterial: {fileID: 9135756079089362671, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
@@ -4789,7 +4789,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gold: 0:11.00'
+  m_text: 'Gold: 0:18.00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
   m_sharedMaterial: {fileID: 9135756079089362671, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
@@ -7910,6 +7910,10 @@ PrefabInstance:
     - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: jumpForce
       value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
+      propertyPath: bufferTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3675693052588370084, guid: 453ccaa567fc5964cbb75c4aa88e483e, type: 3}
       propertyPath: coyoteTime

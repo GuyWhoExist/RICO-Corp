@@ -17,11 +17,13 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     [Header("Jumping")]
     public float jumpForce;
+    private float jumpStackCooldown;
     public float coyoteJumpForce;
-    public float jumpCooldown; // Gee I wonder what these do :thinking: - Sawyer
     public float airMultiplier; //the modifier for when the player is in the air. (ex. 2 would double the players speed in the air. should be <= 1) - Nova
-    bool readyToJump;
+    public float bufferTime;
+    private float bufferTimeStored;
     private bool jumpeable;
+    private bool cachedJump = false;
     private bool coyoteTrigger;
     [SerializeField] float coyoteTime;
     private float coyoteTimeInternal;
@@ -44,7 +46,6 @@ public class PlayerMovementTutorial : MonoBehaviour
     public LayerMask whatIsGround;
     [HideInInspector] public bool grounded;
     private Collider[] grounds;
-    private int cycler;
 
     [Header("Slope Handling")]
     public float maxSlopeAngle;
@@ -90,9 +91,9 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Start()
     {
+        bufferTimeStored = bufferTime;
         rb = this.transform.GetComponent<Rigidbody>();
         //exitingSlope = false;
-        readyToJump = true;
         startYScale = transform.localScale.y;
         storedSpeed = moveSpeed;
         FOVReference = FindFirstObjectByType<Melee>();
@@ -179,14 +180,13 @@ public class PlayerMovementTutorial : MonoBehaviour
             coyoteTrigger = true;
         }
 
-
         if (coyoteTrigger)
             coyoteTimeInternal -= Time.deltaTime;
 
-        if (coyoteTimeInternal  < 0f || Input.GetKey(jumpKey) || hitLaunch.meleeJump == true )
+        if (hitLaunch.meleeJump == true || coyoteTimeInternal <= 0)
             jumpeable = false;
 
-        
+        jumpStackCooldown -= Time.deltaTime;
     }
     private void PositionCheck()
     {
@@ -208,13 +208,12 @@ public class PlayerMovementTutorial : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && jumpeable)
+        if (Input.GetKey(jumpKey) && cachedJump == false && jumpStackCooldown <= 0) 
         {
-            readyToJump = false;
-
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCooldown);
+            jumpStackCooldown = bufferTime;
+            bufferTimeStored = bufferTime;
+            cachedJump = true;
+            StartCoroutine(Jump());
         }
 
         //if (Input.GetKeyDown(slideKey))
@@ -346,27 +345,31 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     }
 
-    private void Jump()
+    private IEnumerator Jump()
     {
         //exitingSlope = true;
         // reset y velocity
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        if (grounded)
+        while (bufferTimeStored > -1f)
         {
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            bufferTimeStored -= Time.deltaTime;
+            if (jumpeable && bufferTimeStored > 0)
+            {
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+                rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+                bufferTimeStored = -2;
+                jumpStackCooldown = 0.5f;
+                StopCoroutine(Jump());
+                jumpeable = false;
+            }
+            else if (bufferTimeStored <= 0)
+            {
+                bufferTimeStored = -2;
+                StopCoroutine(Jump());
+                jumpStackCooldown = 0.5f;
+            }
+            yield return cachedJump = false;
         }
-        else 
-        {
-            rb.AddForce(transform.up * coyoteJumpForce, ForceMode.Impulse);
-        }
-
     }
-    private void ResetJump()
-    {
-        readyToJump = true;
-        //exitingSlope = false;
-    }
-
 
     /*public bool OnSlope() //this shit took too long to implement and it STILL doesn't work fully - Nova
     {
