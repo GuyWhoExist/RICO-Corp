@@ -80,10 +80,6 @@ public class PlayerCamera : MonoBehaviour
             shootInfo.ControlBlockEnd();
             overflowBlock = true;
 
-            if (FOV != playerCamera.fieldOfView)
-            {
-                FOV = playerCamera.fieldOfView;
-            }
             Time.timeScale = 1;
             frozen = false;
         }

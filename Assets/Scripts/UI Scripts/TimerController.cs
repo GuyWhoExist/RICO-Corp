@@ -189,11 +189,17 @@ public class TimerController : MonoBehaviour
             {
                 Enemy[] enemyNumber = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
                 timeTicking = false;
+
                 if (enemyNumber.Length == 0)
                 {
                     timerText.text = curTime.ToString("0:00.00");
                 }
-                levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime = curTime;
+
+                if (levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime > curTime || levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime == -1f)
+                {
+                    levelProgressTracker.levels[SceneManager.GetActiveScene().buildIndex - 1].bestTime = curTime;
+                }
+
                 if (SceneManager.GetActiveScene().buildIndex == levelProgressTracker.levels.Length)
                 {
                     musicClass.StopMusic();

@@ -131,6 +131,8 @@ public class PauseMenuController : MonoBehaviour
         settings_Video.SetActive(false);
         settings_Gameplay.SetActive(false);
         pauseUI.SetActive(true);
+        pauseMenu.SaveSettings();
+        
     }
     public void ButtonSFX()
     {
