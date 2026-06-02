@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.SceneView;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject configObject;
     [SerializeField] float timeToSettingsCheck;
     private float timeForTimeToSettingsCheck;
-    private LevelProgressTracker levelProgressTracker;
+    public LevelProgressTracker levelProgressTracker;
     private SettingsTracker settingsTracker;
     private float sensitivityDisplayValue;
     private PlayerCamera cameraSetting;
@@ -32,13 +33,41 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         controls = new Controls();
-        timeForTimeToSettingsCheck = timeToSettingsCheck;
+        //timeForTimeToSettingsCheck = timeToSettingsCheck;
+        
         Time.timeScale = 1;
         planningGUI.SetActive(false);
         cameraSetting = FindAnyObjectByType<PlayerCamera>();
-        levelProgressTracker = FindFirstObjectByType<LevelProgressTracker>();
-        settingsTracker = FindFirstObjectByType<SettingsTracker>();
+        if (cameraSetting != null )
+        {
+            Debug.Log("cam Set good in Pause Menu");
+        }
+        else
+        {
+            Debug.Log("cam Set missing in Pause Menu");
+        }
 
+        levelProgressTracker = FindFirstObjectByType<LevelProgressTracker>();
+        if (levelProgressTracker != null)
+        {
+            Debug.Log("LPT good in Pause Menu");
+        }
+        else
+        {
+            Debug.Log("LPT missing in Pause Menu");
+        }
+
+        settingsTracker = FindFirstObjectByType<SettingsTracker>();
+        if (settingsTracker != null)
+        {
+            Debug.Log("set Track good in Pause Menu");
+        }
+        else
+        {
+            Debug.Log("set Track missing in Pause Menu");
+        }
+        StartControlsForPause();
+        LoadSettings();
         //settingsTracker.settings.sensitivity != cameraSetting.sensitivity || 
         /*
          * if (settingsTracker.settings.sensitivity < 0.1 || settingsTracker.settings.sensitivity > 5.3)
@@ -51,7 +80,7 @@ public class PauseMenu : MonoBehaviour
             settingsTracker.settings.fieldOfView = cameraSetting.storedFOV;
             FOVSlider.value = cameraSetting.storedFOV;
         }
-         */
+         
         if (settingsTracker.settings.sensitivity < 0.1 || settingsTracker.settings.sensitivity > 5.3)
         {
             settingsTracker.settings.sensitivity = cameraSetting.sensitivity;
@@ -63,7 +92,7 @@ public class PauseMenu : MonoBehaviour
 
         sensitivitySlider.value = settingsTracker.settings.sensitivity;
 
-        if (settingsTracker.settings.fieldOfView < 1 || settingsTracker.settings.fieldOfView > 140)
+        if (settingsTracker.settings.fieldOfView < 1 || settingsTracker.settings.fieldOfView > 150)
         {
             settingsTracker.settings.fieldOfView = cameraSetting.storedFOV;
         }
@@ -74,9 +103,10 @@ public class PauseMenu : MonoBehaviour
 
         FOVSlider.value = cameraSetting.storedFOV;
 
-        FOVSlider.value = float.Parse(FOVDisplay.text);
         Invoke(nameof(StartControlsForPause), 0.6f);
+        */
     }
+
     private void OnEnable()
     {
         pauseHud.SetActive(false);
@@ -105,6 +135,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause_Performed(InputAction.CallbackContext context)
     {
+        Debug.Log($"Pause pressed, state on press: {paused}");
         ButtonPress();
         pauseController.ButtonSFX();
         if (paused == true)
@@ -150,6 +181,7 @@ public class PauseMenu : MonoBehaviour
         }
         else if (paused == true)
         {
+            SaveSettings();
             cameraSetting.Unfreeze();
             paused = false;
             pauseHud.SetActive(false);
@@ -196,28 +228,85 @@ public class PauseMenu : MonoBehaviour
 
     public void OnFOVSliderChange()
     {
+        cameraSetting.FOV = FOVSlider.value;
         FOVDisplay.text = FOVSlider.value.ToString();
+        UpdateFOV();
     }
 
     public void OnFOVInputChange()
     {
-        FOVSlider.value = float.Parse(FOVDisplay.text);
+        if (float.TryParse(FOVDisplay.text, out float result))
+        {
+            if (result < 10)
+            {
+                FOVSlider.value = 10f;
+                FOVDisplay.text = "10";
+            }
+            else if (result > 150f)
+            {
+                FOVSlider.value = 150f;
+                FOVDisplay.text = "150";
+            }
+            else
+            {
+                FOVSlider.value = result;
+                FOVDisplay.text = result.ToString();
+            }
+            UpdateFOV();
+        }
     }
 
     public void OnSensSliderChange()
     {
-        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value + 0.3f) * 10);
-
-
+        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value) * 10);
         sensitivityDisplay.text = $"{sensitivityDisplayValue}";
+        Debug.Log($"sens is now: {sensitivitySlider.value}");
+        cameraSetting.sensitivity = sensitivitySlider.value;
     }
 
     public void OnSensInputChange()
     {
-        sensitivityDisplayValue = MathF.Round(float.Parse(sensitivityDisplay.text + 0.3f) * 10);
+        if (float.TryParse(sensitivityDisplay.text, out float result))
+        {
+            sensitivityDisplayValue = result;
+            sensitivityDisplay.text = result.ToString();
+            sensitivitySlider.value = result / 10;
+            cameraSetting.sensitivity = sensitivitySlider.value;
+        } 
     }
 
+    private void LoadSettings()
+    {
+        Debug.Log($"Changing local sens ({cameraSetting.sensitivity}) to saved sens ({settingsTracker.settings.sensitivity})");
+        sensitivitySlider.value = settingsTracker.settings.sensitivity;
+        cameraSetting.sensitivity = sensitivitySlider.value;
+        Debug.Log($"Changing local FOV ({cameraSetting.FOV}) to saved FOV ({settingsTracker.settings.fieldOfView})");
+        cameraSetting.FOV = settingsTracker.settings.fieldOfView;
+        Debug.Log($"Changing local stored(?) FOV ({cameraSetting.storedFOV}) to saved FOV ({settingsTracker.settings.fieldOfView})");
+        cameraSetting.storedFOV = settingsTracker.settings.fieldOfView;
+        FOVSlider.value = settingsTracker.settings.fieldOfView;
+        FOVDisplay.text = FOVSlider.value.ToString();
+        Debug.Log($"Changing sens display ({sensitivityDisplayValue}) to saved sens ({settingsTracker.settings.sensitivity})");
+        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value) * 10);
+        sensitivityDisplay.text = sensitivityDisplayValue.ToString();
+    }
 
+    public void SaveSettings()
+    {
+        Debug.Log($"Changing saved sens ({settingsTracker.settings.sensitivity}) to local sens ({cameraSetting.sensitivity})");
+        settingsTracker.settings.sensitivity = cameraSetting.sensitivity;
+        Debug.Log($"Changing saved FOV ({settingsTracker.settings.fieldOfView}) to local FOV ({cameraSetting.FOV})");
+        settingsTracker.settings.fieldOfView = cameraSetting.FOV;
+    }
+
+    private void UpdateFOV()
+    {
+        Debug.Log($"Tried updating FOV from {cameraSetting.playerCamera.fieldOfView} to {cameraSetting.FOV}");
+        cameraSetting.playerCamera.fieldOfView = cameraSetting.FOV;
+        cameraSetting.storedFOV = cameraSetting.FOV;
+    }
+
+    /*
     private void Update()
     {
         timeToSettingsCheck -= Time.unscaledDeltaTime;
@@ -227,4 +316,5 @@ public class PauseMenu : MonoBehaviour
             timeToSettingsCheck = timeForTimeToSettingsCheck;
         }
     }
+    */
 }

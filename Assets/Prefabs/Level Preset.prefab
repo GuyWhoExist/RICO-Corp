@@ -9188,6 +9188,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4423008406854068238, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
+      propertyPath: m_Value
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423008406854068238, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423008406854068238, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
+      propertyPath: m_MinValue
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423008406854068238, guid: 1e2efa1bf5ef8bc46a78e1e9c545359e, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
