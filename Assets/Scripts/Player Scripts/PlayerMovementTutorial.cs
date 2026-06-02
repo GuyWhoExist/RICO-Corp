@@ -103,11 +103,11 @@ public class PlayerMovementTutorial : MonoBehaviour
         hasPlayerShot = gameObject.transform.GetComponent<Shooting>();
         InvokeRepeating(nameof(PositionCheck), 0.2f, 0.2f);
         initialPosition = gameObject.transform.position;
-        Invoke(nameof(StartChecker), 0.01f);
+        Invoke(nameof(startChecker), 0.01f);
     }
 
 
-    private void StartChecker()
+    private void startChecker()
     {
         //Debug.Log("checking if player has done anything");
         if (gameObject.transform.position.x <= initialPosition.x+0.1 && gameObject.transform.position.x >= initialPosition.x - 0.1 && gameObject.transform.position.z <= initialPosition.z + 0.1 && gameObject.transform.position.z >= initialPosition.z - 0.1 && hasPlayerShot.shotDelay < 0)
@@ -116,7 +116,7 @@ public class PlayerMovementTutorial : MonoBehaviour
          * this comes with the side effect of the player being able to jump without starting the timer, but this rarely actually matters - Nova
         */
         {
-            Invoke(nameof(StartChecker), 0.01f);
+            Invoke(nameof(startChecker), 0.01f);
             //Debug.Log("player has not moved yet, looping...");
         }
         else
@@ -363,6 +363,7 @@ public class PlayerMovementTutorial : MonoBehaviour
             }
             else if (bufferTimeStored <= 0)
             {
+                cachedJump = false;
                 bufferTimeStored = -2;
                 StopCoroutine(Jump());
                 jumpStackCooldown = 0.5f;
