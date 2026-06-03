@@ -68,6 +68,7 @@ public class LevelEndUI : MonoBehaviour
         }
 
     }
+
     public void OnNextPress() // player presses next after successfully completing level -sawyer
     {
         timerController.end = false;
@@ -87,6 +88,7 @@ public class LevelEndUI : MonoBehaviour
 
         }
     }
+
     public void OnRestartPress() // player restarts -sawyer
     {
         Time.timeScale = 1;

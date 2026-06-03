@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEditor.SceneView;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -195,7 +194,7 @@ public class PauseMenu : MonoBehaviour
                 planningGUI.SetActive(true);
         }
     }
-    private void SettingsCheck()
+    private void SettingsCheck() //scrapped/replaced for a more ideal method - Nova
     {
         if (cameraSetting.storedFOV != FOVSlider.value)
         {
@@ -258,7 +257,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnSensSliderChange()
     {
-        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value) * 10);
+        sensitivityDisplayValue = MathF.Round((sensitivitySlider.value) * 10,1);
         sensitivityDisplay.text = $"{sensitivityDisplayValue}";
         Debug.Log($"sens is now: {sensitivitySlider.value}");
         cameraSetting.sensitivity = sensitivitySlider.value;
@@ -278,17 +277,34 @@ public class PauseMenu : MonoBehaviour
     private void LoadSettings()
     {
         Debug.Log($"Changing local sens ({cameraSetting.sensitivity}) to saved sens ({settingsTracker.settings.sensitivity})");
-        sensitivitySlider.value = settingsTracker.settings.sensitivity;
-        cameraSetting.sensitivity = sensitivitySlider.value;
+        if (settingsTracker.settings.sensitivity < 0.1)
+        {
+            sensitivitySlider.value = 0.3f;
+            cameraSetting.sensitivity = sensitivitySlider.value;
+            sensitivityDisplayValue = MathF.Round((sensitivitySlider.value) * 10, 1);
+            sensitivityDisplay.text = sensitivityDisplayValue.ToString();
+        }
+        else
+        {
+            sensitivitySlider.value = settingsTracker.settings.sensitivity;
+            cameraSetting.sensitivity = sensitivitySlider.value;
+            sensitivityDisplayValue = MathF.Round((sensitivitySlider.value) * 10,1);
+            sensitivityDisplay.text = sensitivityDisplayValue.ToString();
+        }
         Debug.Log($"Changing local FOV ({cameraSetting.FOV}) to saved FOV ({settingsTracker.settings.fieldOfView})");
-        cameraSetting.FOV = settingsTracker.settings.fieldOfView;
-        Debug.Log($"Changing local stored(?) FOV ({cameraSetting.storedFOV}) to saved FOV ({settingsTracker.settings.fieldOfView})");
-        cameraSetting.storedFOV = settingsTracker.settings.fieldOfView;
-        FOVSlider.value = settingsTracker.settings.fieldOfView;
-        FOVDisplay.text = FOVSlider.value.ToString();
-        Debug.Log($"Changing sens display ({sensitivityDisplayValue}) to saved sens ({settingsTracker.settings.sensitivity})");
-        sensitivityDisplayValue = Mathf.Round((sensitivitySlider.value) * 10);
-        sensitivityDisplay.text = sensitivityDisplayValue.ToString();
+        if (settingsTracker.settings.fieldOfView < 10)
+        {
+            cameraSetting.FOV = 90;
+            FOVSlider.value = 90f;
+            FOVDisplay.text = "90";
+            Debug.Log("Saved FOV below minimum. Setting to default");
+        }
+        else
+        {
+            cameraSetting.storedFOV = settingsTracker.settings.fieldOfView;
+            FOVSlider.value = settingsTracker.settings.fieldOfView;
+            FOVDisplay.text = FOVSlider.value.ToString();
+        }
     }
 
     public void SaveSettings()

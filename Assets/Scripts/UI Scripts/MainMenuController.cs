@@ -14,6 +14,7 @@ public class MainMenuController : MonoBehaviour
     private int selectedLevelIndex;
     private Cheats cheat;
     private SaveSystem saveSystem;
+    [SerializeField] private TextMeshProUGUI fileText;
     [SerializeField] AudioClip buttonPress;
     [SerializeField] AudioSource menuAudio;
 
@@ -60,6 +61,9 @@ public class MainMenuController : MonoBehaviour
         {
             //Debug.Log("Main Menu Controller can't find a Level Progress Tracker. womp womp");
         }
+
+        saveSystem = FindAnyObjectByType<SaveSystem>();
+
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -221,6 +225,12 @@ public class MainMenuController : MonoBehaviour
     private void OnStartMissionRun()
     {
         SceneManager.LoadScene(selectedLevelIndex);
+    }
+
+    public void OnFileRevealClicked()
+    {
+        fileText.gameObject.SetActive(true);
+        fileText.text = saveSystem.filePath;
     }
 
     public void OnLevelMenuButtonClicked() //the level select menu button, if it wasnt clear - Nova

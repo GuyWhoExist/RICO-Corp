@@ -207,7 +207,7 @@ public class TimerController : MonoBehaviour
 
                 //level ends, save best times
                 Debug.Log("best time updated (hopefully)");
-                StartCoroutine(WaitABit(lE));
+                EndLevel(lE);
                 //run the bestTimeDTO
                 //saveSystem.bestTimeConversion();
                 saveSystem.DTOsave();
@@ -242,9 +242,8 @@ public class TimerController : MonoBehaviour
     }
 
 
-    private IEnumerator WaitABit(LevelEnder lE)
+    private void EndLevel(LevelEnder lE)
     {
-        yield return new WaitForSeconds(1f);
         /*MusicClass test = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicClass>();
         if (test != null)
         {

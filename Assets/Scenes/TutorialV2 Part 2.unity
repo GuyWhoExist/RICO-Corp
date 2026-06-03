@@ -1835,7 +1835,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_text
-      value: Direct shots give no boost
+      value: 'Direct shots give no boost
+
+
+        Shoot the enemy'
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontSize
@@ -1852,7 +1855,7 @@ PrefabInstance:
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -6927943047715841813, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
+      objectReference: {fileID: 9135756079089362671, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
@@ -2712,7 +2715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3792153752606989626, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_Name
-      value: No Boost Shot Popup (1)
+      value: Speed Boost Popup
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_text

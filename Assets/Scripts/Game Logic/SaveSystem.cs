@@ -13,11 +13,11 @@ public class SaveSystem : MonoBehaviour
     //Save system for the game - Nova
     //Written by Colby and Nova
 
-    private string filePath;
+    public string filePath;
     // private LevelProgressTrackerDTO levelProgressTrackerDTO;
     [SerializeField] private LevelProgressTracker levelProgressTracker;
     private float[] revertArrayArray = new float[20];
-    public List<Spray>[] importedSprays = new List<Spray>[10];
+    public List<Spray>[] importedSprays = new List<Spray>[20];
     private SaveSystem[] test;
     [SerializeField] private PersistentObject pO;
     [SerializeField] private SettingsTracker sT;
@@ -46,6 +46,7 @@ public class SaveSystem : MonoBehaviour
             //Debug.Log(levelProgressTracker.used);
             pO.used = true;
             DTOload();
+            DTOsave();
             //Debug.Log(levelProgressTracker.sprays[0].Count);
         }
        
@@ -78,7 +79,21 @@ public class SaveSystem : MonoBehaviour
 
     public void DTOsave() //saves all data into a JSON to be used in future runtimes - Nova
     {
-        LevelProgressTrackerDTO levelProgressTrackerDTO = levelProgressTracker.GetDTO();
+       
+        LevelProgressTrackerDTO levelProgressTrackerDTO;
+        bool failed = false;
+
+        try 
+        { 
+            levelProgressTrackerDTO = levelProgressTracker.GetDTO();
+            Debug.Log("First Save complete");
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            levelProgressTrackerDTO = new LevelProgressTrackerDTO();
+            failed = true;
+        }
+
         levelProgressTrackerDTO.settingsValues = sT.settings;
 
         // DTO -> string
@@ -99,6 +114,10 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("Sucessfully Saved");
 
         Debug.Log(filePath);
+        if (failed)
+        {
+            Debug.Log("Initial Save Failed. Tryig again");
+        }
     }
 
 

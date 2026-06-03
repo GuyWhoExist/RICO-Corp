@@ -33,8 +33,18 @@ public class LevelProgressTrackerDTO
 
     public float[] timeArray = new float[20];
 
-    public List<SprayInfo>[] sprayArray = new List<SprayInfo>[10] //first [] = Level | second [] = spray number, ex sprayArray[1][2] would be level 2, spray 3 - Nova
+    public List<SprayInfo>[] sprayArray = new List<SprayInfo>[20] //first [] = Level | second [] = spray number, ex sprayArray[1][2] would be level 2, spray 3 - Nova
     {
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
+    new List<SprayInfo>(),
     new List<SprayInfo>(),
     new List<SprayInfo>(),
     new List<SprayInfo>(),
@@ -47,7 +57,7 @@ public class LevelProgressTrackerDTO
     new List<SprayInfo>()
     };
 
-    public SettingsTracker.SettingsValues settingsValues;
+    public SettingsTracker.SettingsValues settingsValues = new SettingsTracker.SettingsValues(0.3f, 90f);
 
 
     //public void ReferenceCarry(LevelProgressTracker levelProgressTracker)

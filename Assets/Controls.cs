@@ -337,7 +337,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""14a901f8-d604-459c-a8b7-b28fe3bf937f"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
