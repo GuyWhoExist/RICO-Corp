@@ -363,6 +363,7 @@ public class PlayerMovementTutorial : MonoBehaviour
             }
             else if (bufferTimeStored <= 0)
             {
+                cachedJump = false;
                 bufferTimeStored = -2;
                 StopCoroutine(Jump());
                 jumpStackCooldown = 0.5f;

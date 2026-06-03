@@ -179,19 +179,20 @@ public class LevelProgressTracker : MonoBehaviour
         //}
     }
 
-    public LevelInfo[] levels = new LevelInfo[11] { //the array of levels. - Nova
+    public LevelInfo[] levels = new LevelInfo[12] { //the array of levels. - Nova
         //star 1, star 2, star 3, scene index
         new (45f, 35f, 18f, 2 ), //tutorial 1 (1)
         new (32f, 22f, 12f, 3 ), //tutorial 2 (2)
-        new (32f, 22f, 12f, 3 ), //tutorial 3 (3)
-        new (20f, 12f, 8f, 4 ), //level 1 (4)
-        new (12f, 8f, 5f, 5 ), //level 1.1 (5)
-        new (18f, 12f, 7f, 6 ), //level 2.1 (6)
-        new (24f, 18f, 12f, 7 ), //level 4 (7)
-        new (35f, 24f, 18f, 8 ), //level 5 (8)
-        new (25f, 20f, 15f, 9 ), //level 6 (9)
-        new (21f, 14f, 9f, 10 ), //level 7 (10) 
-        new (110f, 50f, 40f, 11), //alleyway (11)
+        new (25f, 12f, 7f, 4 ), //tutorial 3 (3)
+        new (20f, 12f, 8f, 5 ), //level 1 (4)
+        new (12f, 8f, 5f, 6 ), //level 1.1 (5)
+        new (18f, 12f, 7f, 7 ), //level 2.1 (6)
+        new (24f, 18f, 12f, 8 ), //level 4 (7)
+        new (35f, 24f, 18f, 9 ), //level 5 (8)
+        new (25f, 20f, 15f, 10 ), //level 6 (9)
+        new (21f, 14f, 9f, 11 ), //level 7 (10) 
+        new (21f, 14f, 9f, 12 ), //rooftop (11)
+        new (110f, 50f, 40f, 13), //alleyway (12)
         
        // new (120f, 75f, 45f, 10), //Level 1 v2 - Blockout Colby, Archetect tbd
        //new (200f, 115f, 45f, 9),
