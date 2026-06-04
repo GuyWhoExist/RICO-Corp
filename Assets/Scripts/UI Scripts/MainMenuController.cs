@@ -306,6 +306,7 @@ public class MainMenuController : MonoBehaviour
         {
             levelProgressTracker.sprays[i] = new List<LevelProgressTrackerDTO.SprayInfo>();
         }
+
         levelProgressTracker.used = true;
         SceneManager.LoadScene(0);
     }

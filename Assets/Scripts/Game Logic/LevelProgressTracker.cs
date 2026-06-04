@@ -191,7 +191,7 @@ public class LevelProgressTracker : MonoBehaviour
         new (35f, 24f, 18f, 9 ), //level 5 (8)
         new (25f, 20f, 15f, 10 ), //level 6 (9)
         new (21f, 14f, 9f, 11 ), //level 7 (10) 
-        new (21f, 14f, 9f, 12 ), //rooftop (11)
+        new (100f, 40f, 30f, 12 ), //rooftop (11)
         new (110f, 50f, 40f, 13), //alleyway (12)
         
        // new (120f, 75f, 45f, 10), //Level 1 v2 - Blockout Colby, Archetect tbd

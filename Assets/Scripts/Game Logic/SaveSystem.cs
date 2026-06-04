@@ -88,10 +88,17 @@ public class SaveSystem : MonoBehaviour
             levelProgressTrackerDTO = levelProgressTracker.GetDTO();
             Debug.Log("First Save complete");
         }
-        catch (IndexOutOfRangeException e)
+        catch (Exception e)
         {
-            levelProgressTrackerDTO = new LevelProgressTrackerDTO();
-            failed = true;
+            if (e is NullReferenceException || e is IndexOutOfRangeException)
+            {
+                levelProgressTrackerDTO = new LevelProgressTrackerDTO();
+                failed = true;
+            }
+            else
+            {
+                 throw;
+            }
         }
 
         levelProgressTrackerDTO.settingsValues = sT.settings;
@@ -113,7 +120,7 @@ public class SaveSystem : MonoBehaviour
 
         Debug.Log("Sucessfully Saved");
 
-        Debug.Log(filePath);
+        //Debug.Log(filePath);
         if (failed)
         {
             Debug.Log("Initial Save Failed. Tryig again");
@@ -130,7 +137,15 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("LOAD sTARTED");
 
         // file -> string
-        string loadedJson = File.ReadAllText(filePath);
+        string loadedJson = "";
+        if (File.Exists(filePath))
+        {
+           loadedJson = File.ReadAllText(filePath);
+        }
+        else
+        {
+            DTOsave();
+        }
 
         // string ->  DTO
         LevelProgressTrackerDTO DTO = JsonConvert.DeserializeObject<LevelProgressTrackerDTO>(loadedJson);

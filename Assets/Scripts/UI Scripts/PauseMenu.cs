@@ -281,15 +281,13 @@ public class PauseMenu : MonoBehaviour
         {
             sensitivitySlider.value = 0.3f;
             cameraSetting.sensitivity = sensitivitySlider.value;
-            sensitivityDisplayValue = MathF.Round((sensitivitySlider.value) * 10, 1);
-            sensitivityDisplay.text = sensitivityDisplayValue.ToString();
+            sensitivityDisplay.text = MathF.Round((sensitivitySlider.value) * 10, 1).ToString();
         }
         else
         {
             sensitivitySlider.value = settingsTracker.settings.sensitivity;
             cameraSetting.sensitivity = sensitivitySlider.value;
-            sensitivityDisplayValue = MathF.Round((sensitivitySlider.value) * 10,1);
-            sensitivityDisplay.text = sensitivityDisplayValue.ToString();
+            sensitivityDisplay.text = MathF.Round((sensitivitySlider.value) * 10, 1).ToString();
         }
         Debug.Log($"Changing local FOV ({cameraSetting.FOV}) to saved FOV ({settingsTracker.settings.fieldOfView})");
         if (settingsTracker.settings.fieldOfView < 10)
