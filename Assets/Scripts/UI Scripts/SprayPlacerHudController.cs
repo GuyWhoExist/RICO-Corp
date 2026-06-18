@@ -103,7 +103,7 @@ public class SprayPlacerHudController : MonoBehaviour
     }
     public void OnShootPress()
     {
-        //pauseSFX.ButtonSFX();
+        pauseSFX.ButtonSFX();
         markerSelect = 1;//tells the system the player is placing marker 1
         PlaceSpray();//fires the function to place the decal
     }

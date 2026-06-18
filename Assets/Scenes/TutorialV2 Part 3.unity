@@ -1162,16 +1162,19 @@ PrefabInstance:
 
         LMB - Place Decal
 
+        Scroll Wheel
+        - Rotate Decal
 
-        You have
-        infinite boost
+
+        You have infinite boost
 
 
-        Planning Mode is unlocked after beating the level'
+        Planning Mode
+        is unlocked after beating the level'
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontSize
-      value: 12.74
+      value: 12.1
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontAsset
@@ -1179,7 +1182,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 0ed643bc07b949e458805c018bb8cd34, type: 2}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_fontSizeBase
-      value: 12.74
+      value: 12.1
       objectReference: {fileID: 0}
     - target: {fileID: 3836705367023886125, guid: 71627281d2dbd2749aff24a91aa47e52, type: 3}
       propertyPath: m_sharedMaterial
